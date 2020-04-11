@@ -10,6 +10,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 from database.database import Database
+from window.tipDig import ActionWarnException
 
 
 class Ui_Form(QtCore.QObject):
@@ -164,7 +165,7 @@ class Ui_Form(QtCore.QObject):
         self.tableWidget = QtWidgets.QTableWidget(self.groupBox_3)
         self.tableWidget.setObjectName("tableWidget")
         self.tableWidget.setColumnCount(8)
-        self.tableWidget.setRowCount(6)
+        self.tableWidget.setRowCount(4)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setVerticalHeaderItem(0, item)
         item = QtWidgets.QTableWidgetItem()
@@ -212,6 +213,9 @@ class Ui_Form(QtCore.QObject):
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setItem(1, 0, item)
 
+        self.tableWidget.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)  # 允许右键产生子菜单
+        self.tableWidget.customContextMenuRequested.connect(self.generateMenu)  # 右键菜单
+
         # 表格表头设定
         self.tableHeadFormat()
         self.verticalLayout_6.addWidget(self.tableWidget)
@@ -248,21 +252,12 @@ class Ui_Form(QtCore.QObject):
         item = self.tableWidget.verticalHeaderItem(3)
         item.setText(_translate("Form", "４"))
         item = self.tableWidget.verticalHeaderItem(4)
-        item.setText(_translate("Form", "５"))
-        item = self.tableWidget.verticalHeaderItem(5)
-        item.setText(_translate("Form", "６"))
+        # item.setText(_translate("Form", "５"))
+        # item = self.tableWidget.verticalHeaderItem(5)
+        # item.setText(_translate("Form", "６"))
         for i in range(8):
             item = self.tableWidget.horizontalHeaderItem(i)
-            item.setText(_translate("Form", "GanAH-" + chr(65 + i)))
-        # __sortingEnabled = self.tableWidget.isSortingEnabled()
-        # self.tableWidget.setSortingEnabled(False)
-        # item = self.tableWidget.item(0, 0)
-        # item.setText(_translate("Form", "测站编号"))
-        # item = self.tableWidget.item(0, 1)
-        # item.setText(_translate("Form", "视距差d"))
-        # item = self.tableWidget.item(0, 4)
-        # item.setText(_translate("Form", "基本分划"))
-        # self.tableWidget.setSortingEnabled(__sortingEnabled)
+            item.setText(_translate("Form", "GanAHE-" + chr(65 + i)))
 
     def tableHeadFormat(self):
         """
@@ -332,6 +327,67 @@ class Ui_Form(QtCore.QObject):
         self.tableWidget.setSpan(0, 7, 4, 1)
         self.tableWidget.item(0, 7).setText("备  注")
         self.tableWidget.item(0, 7).setTextAlignment(QtCore.Qt.AlignCenter)
+
+        # 初始化一个记录组
+        self._addGround()
+
+    def generateMenu(self, pos):
+        menu = QtWidgets.QMenu()
+        item1 = menu.addAction(u"添加记录组")
+        item2 = menu.addAction(u"删除记录组")
+        item3 = menu.addAction(u"清空表格")
+        action = menu.exec_(self.tableWidget.mapToGlobal(pos))
+        try:
+            if action == item1:
+                self._addGround()
+            elif action == item2:
+                self._deleteGround()
+            elif action == item3:
+                self._clearTable()
+        except Exception as e:
+            print(e.args.__str__())
+
+    def _addGround(self):
+        """
+        添加单组记录区域
+        :return: None
+        """
+        # 当前表格长度
+        index = self.tableWidget.rowCount()
+        self.tableWidget.setRowCount(index + 4)
+        for i in range(4):
+            for col in range(8):
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget.setItem(index + i, col, item)
+
+        # 合并组
+        self.tableWidget.setSpan(index, 0, 4, 1)
+        self.tableWidget.setSpan(index, 7, 4, 1)
+        # 中间设定
+        text = ["后", "前", "后 - 前", "h | Σh"]
+        for i in range(4):
+            self.tableWidget.item(index + i, 5).setText(text[i])
+            self.tableWidget.item(index + i, 5).setTextAlignment(QtCore.Qt.AlignCenter)
+
+    def _deleteGround(self):
+        """
+        删除最后一组记录值
+        :return:
+        """
+        if self.tableWidget.rowCount() != 4:  # 仅剩表头不删除
+            for i in range(4):
+                self.tableWidget.removeRow(self.tableWidget.rowCount() - 1)
+
+    def _clearTable(self):
+        """
+        清空表格内容
+        :return:
+        """
+        for i in range(4, self.tableWidget.rowCount()):
+            for k in range(8):
+                if k != 5:
+                    self.tableWidget.item(i, k).setText("")
+                    self.tableWidget.item(i, k).setTextAlignment(QtCore.Qt.AlignCenter)
 
     def dataFillFormat(self):
         """
@@ -464,6 +520,16 @@ class Ui_Form(QtCore.QObject):
                                 self.tableWidget.item(i, k).setText(str(
                                     (round((float(self.tableWidget.item(i - 4, k).text()) + float(
                                         self.tableWidget.item(i, k - 1).text())), 2))))
+                                # 要求的清空效果
+                                self.tableWidget.item(i - 7, k).setText("")
+                                self.tableWidget.item(i - 7, k - 1).setText("")
+                                self.tableWidget.item(i - 6, k).setText("")
+                                self.tableWidget.item(i - 6, k - 1).setText("")
+
+                                self.tableWidget.item(i - 3, k).setText("")
+                                self.tableWidget.item(i - 3, k - 1).setText("")
+                                self.tableWidget.item(i - 2, k).setText("")
+                                self.tableWidget.item(i - 2, k - 1).setText("")
                         elif k == 3:  # 标示
                             self.tableWidget.item(i, k).setText("h | Σh")
                         elif k == 4:  # 观测尺高差
@@ -503,9 +569,9 @@ class Ui_Form(QtCore.QObject):
                                 if i == 8 * arithmeticProgressionCount_remark + 3:
                                     self.tableWidget.item(index, k).setText(
                                         "  [测段 " + str(arithmeticProgressionCount_remark) + " 信息]\n" +
-                                        "1.测段累积视距差：" + self.tableWidget.item(i, k - 5).text() + "m\n" +
-                                        "2.测段高差：" + self.tableWidget.item(i, k - 2).text() + "m\n" +
-                                        "3.测段视距和：" + self.tableWidget.item(i, k - 1).text() + "m"
+                                        "1.累积视距差：" + self.tableWidget.item(i, k - 5).text() + "m\n" +
+                                        "2.累积高差：" + self.tableWidget.item(i, k - 2).text() + "m\n" +
+                                        "3.视距和：" + self.tableWidget.item(i, k - 1).text() + "m"
                                     )
                                     arithmeticProgressionCount_remark += 1
                                 else:
@@ -541,5 +607,12 @@ class Ui_Form(QtCore.QObject):
                                  self.tableWidget.item(i, 4).text(), self.tableWidget.item(i, 5).text(),
                                  self.tableWidget.item(i, 6).text()])
 
-        # 测试
-        return stationID, stationRemark, dataItemCell
+        # 测区信息
+        measureAreaINFO = [self.lineEdit_mesureFrom.text().strip(), self.lineEdit_mesureTarget.text().strip(),
+                           self.dateEdit_from.text() + " " + self.timeEdit_from.text(),
+                           self.dateEdit_target.text() + " " + self.timeEdit_target.text(),
+                           self.lineEdit_temperature.text().strip(), self.lineEdit_cloud.text().strip(),
+                           self.lineEdit_wind.text().strip(), self.lineEdit_weather.text().strip(),
+                           self.lineEdit_soil.text().strip(), self.lineEdit_sun.text().strip()]
+
+        return measureAreaINFO, stationID, stationRemark, dataItemCell

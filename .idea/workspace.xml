@@ -35,6 +35,7 @@
     </option>
   </component>
   <component name="ProjectId" id="1XxnOUFsSSVEFaX8YjATlReH5gf" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -71,6 +72,9 @@
       <module name="EMACS" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/algorithm/common" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -134,6 +138,9 @@
       <module name="EMACS" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -153,9 +160,6 @@
       <module name="EMACS" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -302,6 +306,9 @@
       <workItem from="1586415101275" duration="7984000" />
       <workItem from="1586440825635" duration="2158000" />
       <workItem from="1586480479620" duration="9952000" />
+      <workItem from="1586567934130" duration="11039000" />
+      <workItem from="1586586369347" duration="8343000" />
+      <workItem from="1586608341281" duration="4756000" />
     </task>
     <servers />
   </component>
@@ -325,10 +332,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="216" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.864@0.0.1536.864" timestamp="1586415201964" />
-    <state x="499" y="179" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1583053510171">
+    <state x="499" y="179" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1586613420780">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="499" y="179" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.864@0.0.1536.864" timestamp="1583053510171" />
+    <state x="499" y="179" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.864@0.0.1536.864" timestamp="1586613420780" />
     <state width="825" height="466" key="DebuggerActiveHint" timestamp="1586060420636">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -337,38 +344,38 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="549" y="174" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1586361589190" />
-    <state width="724" height="262" key="GridCell.Tab.0.bottom" timestamp="1586493588296">
+    <state width="1492" height="204" key="GridCell.Tab.0.bottom" timestamp="1586613473652">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="724" height="262" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1586493588296" />
-    <state width="724" height="262" key="GridCell.Tab.0.center" timestamp="1586493588296">
+    <state width="1492" height="204" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1586613473652" />
+    <state width="1492" height="204" key="GridCell.Tab.0.center" timestamp="1586613473651">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="724" height="262" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1586493588296" />
-    <state width="724" height="262" key="GridCell.Tab.0.left" timestamp="1586493588296">
+    <state width="1492" height="204" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1586613473651" />
+    <state width="1492" height="204" key="GridCell.Tab.0.left" timestamp="1586613473651">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="724" height="262" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1586493588296" />
-    <state width="724" height="262" key="GridCell.Tab.0.right" timestamp="1586493588296">
+    <state width="1492" height="204" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1586613473651" />
+    <state width="1492" height="204" key="GridCell.Tab.0.right" timestamp="1586613473651">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="724" height="262" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1586493588296" />
-    <state width="724" height="262" key="GridCell.Tab.1.bottom" timestamp="1586493588296">
+    <state width="1492" height="204" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1586613473651" />
+    <state width="1492" height="204" key="GridCell.Tab.1.bottom" timestamp="1586613473558">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="724" height="262" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1586493588296" />
-    <state width="724" height="262" key="GridCell.Tab.1.center" timestamp="1586493588296">
+    <state width="1492" height="204" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1586613473558" />
+    <state width="1492" height="204" key="GridCell.Tab.1.center" timestamp="1586613473558">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="724" height="262" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1586493588296" />
-    <state width="724" height="262" key="GridCell.Tab.1.left" timestamp="1586493588296">
+    <state width="1492" height="204" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1586613473558" />
+    <state width="1492" height="204" key="GridCell.Tab.1.left" timestamp="1586613473558">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="724" height="262" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1586493588296" />
-    <state width="724" height="262" key="GridCell.Tab.1.right" timestamp="1586493588296">
+    <state width="1492" height="204" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1586613473558" />
+    <state width="1492" height="204" key="GridCell.Tab.1.right" timestamp="1586613473558">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="724" height="262" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1586493588296" />
+    <state width="1492" height="204" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1586613473558" />
     <state width="212" height="477" key="HiddenNamespacesPopup" timestamp="1584064679670">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -381,10 +388,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="1358" height="440" key="XDebugger.FullValuePopup/0.0.1536.864@0.0.1536.864" timestamp="1586012226964" />
-    <state x="467" y="257" key="com.intellij.ide.util.TipDialog" timestamp="1586480477204">
+    <state x="467" y="257" key="com.intellij.ide.util.TipDialog" timestamp="1586608354353">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="467" y="257" key="com.intellij.ide.util.TipDialog/0.0.1536.864@0.0.1536.864" timestamp="1586480477204" />
+    <state x="467" y="257" key="com.intellij.ide.util.TipDialog/0.0.1536.864@0.0.1536.864" timestamp="1586608354353" />
     <state x="298" y="181" width="940" height="678" key="search.everywhere.popup" timestamp="1586488242294">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -410,7 +417,7 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/EMACS$BasicMeasurementAlgorithm.coverage" NAME="BasicMeasurementAlgorithm Coverage Results" MODIFIED="1586418983854" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algorithm/common" />
-    <SUITE FILE_PATH="coverage/EMACS$EMACS.coverage" NAME="EMACS Coverage Results" MODIFIED="1586490989549" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/EMACS$EMACS.coverage" NAME="EMACS Coverage Results" MODIFIED="1586613473528" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/EMACS$coorAngle.coverage" NAME="coorAngle Coverage Results" MODIFIED="1583159957002" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algorithm/common" />
     <SUITE FILE_PATH="coverage/EMACS$test__1_.coverage" NAME="test (1) Coverage Results" MODIFIED="1585152525426" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/EMACS$BasicMeasurementAlgorithm__1_.coverage" NAME="BasicMeasurementAlgorithm (1) Coverage Results" MODIFIED="1586488935524" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algorithm/common" />

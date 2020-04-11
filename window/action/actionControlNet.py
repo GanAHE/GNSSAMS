@@ -15,7 +15,7 @@ from database.database import Database
 
 
 class ActionTwoDissControlNet(QThread):
-    infoEmit = pyqtSignal(str, str)
+    infoEmit = pyqtSignal(str)
     setParaEmit = pyqtSignal(int)
     overEmit = pyqtSignal()
 
@@ -35,9 +35,9 @@ class ActionTwoDissControlNet(QThread):
         # 解析
         kesaDataFormatAnalysis = COSADataFormat(sourceFileData)
         error_knownPoint, stationDict = kesaDataFormatAnalysis.AnalysisKesaFileData(self.knownPointCount)
-        print(error_knownPoint)
+        self._setText(" 1.固定误差与已知点坐标" + str(error_knownPoint))
         knownPointCoor = error_knownPoint[1:]
-        print(knownPointCoor)
+        # print(knownPointCoor)
         stationCount = 0
         for key in stationDict.keys():
             stationCount += 1
@@ -57,6 +57,7 @@ class ActionTwoDissControlNet(QThread):
                     # else:
                     #     pointMersure.append([stationList[i] + ["None", "0"]])
                 print("测站:" + key, "观测目标-值:", pointMersure)
+                self._setText(" 当前解算测站:" + key + "，观测目标信息:" + str(pointMersure))
                 if len(pointMersure) == 5:
                     """
                     # 计算近似坐标，算法需要改进到各种情况
@@ -64,15 +65,20 @@ class ActionTwoDissControlNet(QThread):
                     """
                     for station in range(len(knownPointCoor)):
                         if knownPointCoor[station][0] == key:
-                            print("Jinalile??")
                             basicCalc = BasicMeasurementAlgorithm()
                             angle = float(pointMersure[2]) + 0.000
-                            Xo,Yo = basicCalc.coorForwarkCaclulator(angle, float(pointMersure[4]),
-                                                                       float(knownPointCoor[station][1]),
-                                                                       float(knownPointCoor[station][2]))
-                            knownPointCoor.append([pointMersure[0],Xo,Yo])
-                            print("近似坐标", Xo,Yo,knownPointCoor)
+                            Xo, Yo = basicCalc.coorForwarkCaclulator(angle, float(pointMersure[4]),
+                                                                     float(knownPointCoor[station][1]),
+                                                                     float(knownPointCoor[station][2]))
+                            knownPointCoor.append([pointMersure[0], Xo, Yo])
+                            print("近似坐标", Xo, Yo, knownPointCoor)
                             print("-" * 10 + "\n")
+                            self._setText(
+                                " 当前点近似坐标" + pointMersure[0] + str(Xo) + str(Yo) + "\n 已知点列表更新：" + str(knownPointCoor))
+                            self._setText("-" * 10 + "\n")
+
+    def _setText(self, text):
+        self.infoEmit.emit(text)
 
     def killThead(self):
         self.terminate()

@@ -29,19 +29,10 @@ class Report(QThread):
         self.logger = Logger().get_logger("REPORT")
 
     def run(self) -> None:
-        if self.type == "C":
-            # 坐标转换报告
+        if self.type == "C":  # 坐标转换报告
             self._coorTranReport()
-
-        elif self.type == "L":
-
-            # 徕卡
-            if len(self.args) == 6:
-                self._leicaReport()
-
-            else:
-                print("走歪了")
-
+        elif self.type == "L":  # 徕卡
+            self._leicaReport()
         else:
             pass
 
@@ -91,29 +82,58 @@ class Report(QThread):
 
     def _leicaReport(self):
         filePath = self.args[1]
-        stationID = self.args[2]
-        stationRemark = self.args[3]
-        itemData = self.args[4]
-        statusText = self.args[5]
+        measureINFO = self.args[2]
+        stationID = self.args[3]
+        stationRemark = self.args[4]
+        itemData = self.args[5]
+        statusText = self.args[6]
         try:
             # 模板
             docx = Document("./source/template/leica.docx")
+            # 测区信息
             self.tables = docx.tables
-            rows = self.tables[0].rows
+            # 测区信息填充
+            rows_info = self.tables[0].rows
+
+            rows_info[0].cells[0].text = "测自：" + measureINFO[0]
+
+            rows_info[0].cells[1].text = " 至：" + measureINFO[1]
+            rows_info[0].cells[2].text = "日期：" + measureINFO[2][:4] + "年" + measureINFO[2][5:7] + "月" + measureINFO[2][
+                                                                                                        8:10] + "日"
+            rows_info[1].cells[0].text = "时间：" + measureINFO[2]
+            rows_info[1].cells[1].text = "至：" + measureINFO[3]
+
+            rows_info[2].cells[0].text = "温度：" + measureINFO[4] + "℃"
+            rows_info[2].cells[1].text = "云量：" + measureINFO[5]
+            rows_info[2].cells[2].text = "风向风速：" + measureINFO[6] + "km/h"
+
+            rows_info[3].cells[0].text = "天气：" + measureINFO[7]
+            rows_info[3].cells[1].text = "土质：" + measureINFO[8]
+            rows_info[3].cells[2].text = "太阳方向：" + measureINFO[9]
+
+            self.logger.info("测区信息填写完成...开始执行数据写入")
+            # 数据填充
+            rows = self.tables[1].rows
             allTableLen = len(rows) - 4
 
             # print("表长", allTableLen, len(rows))
             # 比较数据与表格长度
+            writeLen = len(rows)
             if allTableLen < len(itemData):
                 self.logger.info("模板表格不足，正在加长表格")
                 self._addGroundRow(int((len(itemData) - allTableLen) / 4))
                 self.logger.info("表格加长完成,加长范围：" + str(allTableLen) + "~" + str(len(rows)))
+                writeLen = len(rows)
+
+            elif allTableLen > len(itemData):
+                self.logger.info("表格数据少于模板长度，重定向写入范围")
+                writeLen = len(itemData) + 4
 
             stationIndex_ID = 0
             stationIndex_Remark = 0
-            stt = 1
+            stationCount = 1
 
-            for i in range(4, len(rows)):
+            for i in range(4, writeLen):
                 cols = rows[i].cells
                 itemIndex = i - 4
                 for k in range(10):
@@ -125,8 +145,8 @@ class Report(QThread):
                         elif k == 9:
                             cell = cols[k]
                             if stationIndex_Remark % 2 != 0:
-                                cell.text = "测段" + str(stt)
-                                stt += 1
+                                cell.text = "测段" + str(stationCount)
+                                stationCount += 1
                             stationIndex_Remark += 1
 
                     if k == 1:
@@ -198,12 +218,12 @@ class Report(QThread):
         """
         for i in range(groundCount):
             # 按组添加
-            row_1 = self.tables[0].add_row()
-            row_2 = self.tables[0].add_row()
-            row_3 = self.tables[0].add_row()
-            row_4 = self.tables[0].add_row()
+            row_1 = self.tables[1].add_row()
+            row_2 = self.tables[1].add_row()
+            row_3 = self.tables[1].add_row()
+            row_4 = self.tables[1].add_row()
             # 合并首尾项
-            row_1.cells[0].text = "走您观🐎"
+            row_1.cells[0].text = ""
             # 合并测站区域与备注
             row_1.cells[0].merge(row_4.cells[0])
             row_1.cells[9].merge(row_4.cells[9])

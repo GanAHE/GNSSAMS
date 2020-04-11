@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 from algorithm.engineerMesure.leicaGsiFormat import LeicaGSIFormat
 from database.database import Database
-from window import welcomeWight, coorTranOpenFileDiaog, coorTranWight, leicaDataFormatWight, controlNetAdjustment
+from window import welcomeWight, coorTranOpenFileDiaog, coorTranWight, leicaDataFormatWight, controlNetAdjustmentWight
 from window.action.actionLeicaGSI import ActionLeicaGSIThread
 from window.action.actionReport import Report
 from window.file.fileMsg import FileMsg
@@ -390,7 +390,7 @@ class Ui_mainWindow(object):
         self.widget.setObjectName("widget")
         self.verticalLayout_4.addWidget(self.widget)
 
-        self.controlNetAdjustment_ui = controlNetAdjustment.Ui_Form()
+        self.controlNetAdjustment_ui = controlNetAdjustmentWight.Ui_Form()
         self.controlNetAdjustment_ui.setupUi(self.widget)
 
     def welcomeWight(self):
@@ -509,7 +509,7 @@ class Ui_mainWindow(object):
                     """
                     # 徕卡数据
                     """
-                    stationId, stationRemark, dataItemCell = self.leicaDataFormat_ui.saveTable()
+                    measureINFO, stationId, stationRemark, dataItemCell = self.leicaDataFormat_ui.saveTable()
                     # 获取状态栏的输出的文本
                     statusText = self.textEdit_2.toPlainText()
                     index = 0
@@ -522,7 +522,8 @@ class Ui_mainWindow(object):
                     filePath = FileMsg(self.centralwidget).getWriteFilePath("docx")
 
                     if filePath != "":
-                        self.report = Report("L", filePath, stationId, stationRemark, dataItemCell, statusText)
+                        self.report = Report("L", filePath, measureINFO, stationId, stationRemark, dataItemCell,
+                                             statusText)
                         self.report.start()
                         # 结束弹窗
                         ActionWarnException(self.centralwidget).actionWarnException("A",
