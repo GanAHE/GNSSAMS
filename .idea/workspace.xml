@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="b4f42aad-ddc7-4fa8-9fe0-863e11b97aba" name="默认" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand>
+      <path>
+        <item name="数据库" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="MySQL - @localhost" type="feb32156:DbDataSourceImpl" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Setup Script" />
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1XxnOUFsSSVEFaX8YjATlReH5gf" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="python.debugger.dataview.coloredbydefault" value="false" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
+  </component>
+  <component name="PyConsoleOptionsProvider">
+    <option name="myPythonConsoleState">
+      <console-settings>
+        <option name="useSoftWraps" value="true" />
+      </console-settings>
+    </option>
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\CodePrograme\Python\EMACS\window" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.EMACS">
+    <configuration name="BasicMeasurementAlgorithm (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="EMACS" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/algorithm/common" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/algorithm/common/BasicMeasurementAlgorithm.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="BasicMeasurementAlgorithm" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="EMACS" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/algorithm/common" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="E:\CodePrograme\Python\EMACS\algorithm\common\BasicMeasurementAlgorithm.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="COSADataFormat" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="EMACS" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/algorithm/engineerMesure" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="E:\CodePrograme\Python\EMACS\algorithm\engineerMesure\COSADataFormat.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="EMACS (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="EMACS" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/EMACS.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="EMACS" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="EMACS" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="E:\CodePrograme\Python\EMACS\EMACS.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <module name="EMACS" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.BasicMeasurementAlgorithm" />
+      <item itemvalue="Python.COSADataFormat" />
+      <item itemvalue="Python.EMACS" />
+      <item itemvalue="Python.EMACS (1)" />
+      <item itemvalue="Python.BasicMeasurementAlgorithm (1)" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.EMACS" />
+        <item itemvalue="Python.BasicMeasurementAlgorithm (1)" />
+        <item itemvalue="Python.EMACS (1)" />
+        <item itemvalue="Python.BasicMeasurementAlgorithm" />
+        <item itemvalue="Python.COSADataFormat" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\浩宇殿主\AppData\Roaming\Subversion</configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b4f42aad-ddc7-4fa8-9fe0-863e11b97aba" name="默认" comment="" />
+      <created>1581996580484</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1581996580484</updated>
+      <workItem from="1581996582074" duration="2542000" />
+      <workItem from="1582024659881" duration="3232000" />
+      <workItem from="1582157311042" duration="5493000" />
+      <workItem from="1582285392546" duration="87000" />
+      <workItem from="1582600805455" duration="682000" />
+      <workItem from="1582633004654" duration="755000" />
+      <workItem from="1582686663253" duration="1059000" />
+      <workItem from="1582762462728" duration="4488000" />
+      <workItem from="1582809677888" duration="5236000" />
+      <workItem from="1582850152273" duration="6017000" />
+      <workItem from="1582893745196" duration="7292000" />
+      <workItem from="1583029396042" duration="31154000" />
+      <workItem from="1583106719216" duration="9699000" />
+      <workItem from="1583149039501" duration="11400000" />
+      <workItem from="1583163088873" duration="3853000" />
+      <workItem from="1583193649028" duration="9334000" />
+      <workItem from="1583236036792" duration="7848000" />
+      <workItem from="1583285570158" duration="3483000" />
+      <workItem from="1583307085948" duration="14479000" />
+      <workItem from="1583366327276" duration="6176000" />
+      <workItem from="1583385067698" duration="2551000" />
+      <workItem from="1583404806046" duration="6055000" />
+      <workItem from="1583420438260" duration="393000" />
+      <workItem from="1583459678289" duration="3673000" />
+      <workItem from="1583475981986" duration="12445000" />
+      <workItem from="1583548641766" duration="3120000" />
+      <workItem from="1583650805935" duration="1142000" />
+      <workItem from="1583652910592" duration="1468000" />
+      <workItem from="1583712536093" duration="14375000" />
+      <workItem from="1583748293028" duration="16773000" />
+      <workItem from="1583796011041" duration="8220000" />
+      <workItem from="1583821405975" duration="3586000" />
+      <workItem from="1583846332697" duration="503000" />
+      <workItem from="1583892122435" duration="3828000" />
+      <workItem from="1583971516090" duration="4429000" />
+      <workItem from="1584018119842" duration="4158000" />
+      <workItem from="1584064362696" duration="5834000" />
+      <workItem from="1584669228955" duration="5683000" />
+      <workItem from="1584712306777" duration="3628000" />
+      <workItem from="1584754088187" duration="5057000" />
+      <workItem from="1584947145999" duration="4072000" />
+      <workItem from="1584965607653" duration="10520000" />
+      <workItem from="1585008018124" duration="10332000" />
+      <workItem from="1585052443337" duration="8294000" />
+      <workItem from="1585094719028" duration="8108000" />
+      <workItem from="1585116204930" duration="11204000" />
+      <workItem from="1585132580917" duration="9735000" />
+      <workItem from="1585151370065" duration="3872000" />
+      <workItem from="1585179869766" duration="5841000" />
+      <workItem from="1585203143683" duration="15963000" />
+      <workItem from="1585485130771" duration="269000" />
+      <workItem from="1585787841059" duration="4958000" />
+      <workItem from="1585812068003" duration="2116000" />
+      <workItem from="1585918242764" duration="4154000" />
+      <workItem from="1585965583282" duration="5576000" />
+      <workItem from="1586001080246" duration="11192000" />
+      <workItem from="1586053474601" duration="5456000" />
+      <workItem from="1586074903887" duration="5838000" />
+      <workItem from="1586081121178" duration="506000" />
+      <workItem from="1586133166513" duration="7515000" />
+      <workItem from="1586153436420" duration="24575000" />
+      <workItem from="1586223754484" duration="3349000" />
+      <workItem from="1586240897642" duration="14364000" />
+      <workItem from="1586266881166" duration="1290000" />
+      <workItem from="1586310503127" duration="5649000" />
+      <workItem from="1586343992330" duration="1901000" />
+      <workItem from="1586361561783" duration="26000" />
+      <workItem from="1586415101275" duration="7984000" />
+      <workItem from="1586440825635" duration="2158000" />
+      <workItem from="1586480479620" duration="9952000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="722" y="101" key="#Notifications" timestamp="1584964197153">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="722" y="101" key="#Notifications/0.0.1536.864@0.0.1536.864" timestamp="1584964197153" />
+    <state x="361" y="91" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1586483535191">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="361" y="91" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.864@0.0.1536.864" timestamp="1586483535191" />
+    <state x="839" y="178" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1586346181456">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="839" y="178" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1536.864@0.0.1536.864" timestamp="1586346181456" />
+    <state x="216" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1586415201964">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="216" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.864@0.0.1536.864" timestamp="1586415201964" />
+    <state x="499" y="179" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1583053510171">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="499" y="179" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.864@0.0.1536.864" timestamp="1583053510171" />
+    <state width="825" height="466" key="DebuggerActiveHint" timestamp="1586060420636">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="825" height="466" key="DebuggerActiveHint/0.0.1536.864@0.0.1536.864" timestamp="1586060420636" />
+    <state x="549" y="174" key="FileChooserDialogImpl" timestamp="1586361589190">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="549" y="174" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1586361589190" />
+    <state width="724" height="262" key="GridCell.Tab.0.bottom" timestamp="1586493588296">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="724" height="262" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1586493588296" />
+    <state width="724" height="262" key="GridCell.Tab.0.center" timestamp="1586493588296">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="724" height="262" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1586493588296" />
+    <state width="724" height="262" key="GridCell.Tab.0.left" timestamp="1586493588296">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="724" height="262" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1586493588296" />
+    <state width="724" height="262" key="GridCell.Tab.0.right" timestamp="1586493588296">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="724" height="262" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1586493588296" />
+    <state width="724" height="262" key="GridCell.Tab.1.bottom" timestamp="1586493588296">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="724" height="262" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1586493588296" />
+    <state width="724" height="262" key="GridCell.Tab.1.center" timestamp="1586493588296">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="724" height="262" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1586493588296" />
+    <state width="724" height="262" key="GridCell.Tab.1.left" timestamp="1586493588296">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="724" height="262" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1586493588296" />
+    <state width="724" height="262" key="GridCell.Tab.1.right" timestamp="1586493588296">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="724" height="262" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1586493588296" />
+    <state width="212" height="477" key="HiddenNamespacesPopup" timestamp="1584064679670">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="212" height="477" key="HiddenNamespacesPopup/0.0.1536.864@0.0.1536.864" timestamp="1584064679670" />
+    <state x="698" y="174" key="IDE.errors.dialog" timestamp="1586174455455">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="698" y="174" key="IDE.errors.dialog/0.0.1536.864@0.0.1536.864" timestamp="1586174455455" />
+    <state width="1358" height="440" key="XDebugger.FullValuePopup" timestamp="1586012226964">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1358" height="440" key="XDebugger.FullValuePopup/0.0.1536.864@0.0.1536.864" timestamp="1586012226964" />
+    <state x="467" y="257" key="com.intellij.ide.util.TipDialog" timestamp="1586480477204">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="467" y="257" key="com.intellij.ide.util.TipDialog/0.0.1536.864@0.0.1536.864" timestamp="1586480477204" />
+    <state x="298" y="181" width="940" height="678" key="search.everywhere.popup" timestamp="1586488242294">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="298" y="181" width="940" height="678" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1586488242294" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="self.finishEmit" />
+        <watch expression="self.finishEmit" />
+        <watch expression="self" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/EMACS$BasicMeasurementAlgorithm.coverage" NAME="BasicMeasurementAlgorithm Coverage Results" MODIFIED="1586418983854" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algorithm/common" />
+    <SUITE FILE_PATH="coverage/EMACS$EMACS.coverage" NAME="EMACS Coverage Results" MODIFIED="1586490989549" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/EMACS$coorAngle.coverage" NAME="coorAngle Coverage Results" MODIFIED="1583159957002" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algorithm/common" />
+    <SUITE FILE_PATH="coverage/EMACS$test__1_.coverage" NAME="test (1) Coverage Results" MODIFIED="1585152525426" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/EMACS$BasicMeasurementAlgorithm__1_.coverage" NAME="BasicMeasurementAlgorithm (1) Coverage Results" MODIFIED="1586488935524" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algorithm/common" />
+    <SUITE FILE_PATH="coverage/EMACS$kesaDataFormat.coverage" NAME="kesaDataFormat Coverage Results" MODIFIED="1586251022580" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algorithm/engineerMesure" />
+    <SUITE FILE_PATH="coverage/EMACS$EMACS__1_.coverage" NAME="EMACS (1) Coverage Results" MODIFIED="1586483565833" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/EMACS$test.coverage" NAME="test Coverage Results" MODIFIED="1586162529468" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/EMACS$actionHTML.coverage" NAME="actionHTML Coverage Results" MODIFIED="1583893323418" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/window/action" />
+  </component>
+</project>

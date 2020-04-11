@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>mainWindow</class>
+ <widget class="QMainWindow" name="mainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1241</width>
+    <height>725</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>工程测量软件设计窗口初稿(*测试功能用)</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../source/icon/icon_资料.png</normaloff>../source/icon/icon_资料.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="tabShape">
+       <enum>QTabWidget::Triangular</enum>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab">
+       <attribute name="icon">
+        <iconset>
+         <normaloff>../source/icon/icon_流水线.png</normaloff>../source/icon/icon_流水线.png</iconset>
+       </attribute>
+       <attribute name="title">
+        <string>操作</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <widget class="QWidget" name="widget" native="true"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_3">
+       <attribute name="icon">
+        <iconset>
+         <normaloff>../source/icon/icon_网络教育.png</normaloff>../source/icon/icon_网络教育.png</iconset>
+       </attribute>
+       <attribute name="title">
+        <string>监控</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <widget class="QTableWidget" name="tableWidget">
+          <row>
+           <property name="text">
+            <string>New Row</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>New Row</string>
+           </property>
+          </row>
+          <column>
+           <property name="text">
+            <string>New Column</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>New Column</string>
+           </property>
+          </column>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTableWidget" name="tableWidget_2">
+          <row>
+           <property name="text">
+            <string>New Row</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>New Row</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>New Row</string>
+           </property>
+          </row>
+          <column>
+           <property name="text">
+            <string>New Column</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>New Column</string>
+           </property>
+          </column>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_4">
+       <attribute name="icon">
+        <iconset>
+         <normaloff>../source/icon/icon_混合式学习.png</normaloff>../source/icon/icon_混合式学习.png</iconset>
+       </attribute>
+       <attribute name="title">
+        <string>点位</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QProgressBar" name="progressBar">
+          <property name="value">
+           <number>40</number>
+          </property>
+          <property name="textDirection">
+           <enum>QProgressBar::TopToBottom</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="icon">
+        <iconset>
+         <normaloff>../source/icon/ethereum-mining.png</normaloff>../source/icon/ethereum-mining.png</iconset>
+       </attribute>
+       <attribute name="title">
+        <string>其他</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="pixmap">
+           <pixmap>../source/icon/icon_垃圾桶.png</pixmap>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1241</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_F">
+    <property name="title">
+     <string>文件(&amp;F)</string>
+    </property>
+    <addaction name="menuItem_new"/>
+    <addaction name="separator"/>
+    <addaction name="menuItem_openFile"/>
+    <addaction name="separator"/>
+    <addaction name="menuItem_saveFile"/>
+    <addaction name="separator"/>
+    <addaction name="menuItem_resultReport"/>
+    <addaction name="separator"/>
+    <addaction name="menuItem_quitSystem"/>
+   </widget>
+   <widget class="QMenu" name="menu_C">
+    <property name="title">
+     <string>功能选择(&amp;C)</string>
+    </property>
+    <addaction name="menuItem_coorTran"/>
+    <addaction name="separator"/>
+    <addaction name="actions_2"/>
+    <addaction name="separator"/>
+    <addaction name="actionsd"/>
+    <addaction name="separator"/>
+    <addaction name="actionsd_2"/>
+    <addaction name="separator"/>
+    <addaction name="actiond_2"/>
+    <addaction name="separator"/>
+    <addaction name="actionsd_3"/>
+    <addaction name="separator"/>
+   </widget>
+   <widget class="QMenu" name="menu_S">
+    <property name="title">
+     <string>设置(&amp;S)</string>
+    </property>
+    <addaction name="actiondf"/>
+    <addaction name="actiond_3"/>
+    <addaction name="actiond_4"/>
+    <addaction name="menuItem_backWelcome"/>
+   </widget>
+   <widget class="QMenu" name="menu_V">
+    <property name="title">
+     <string>版本(&amp;V)</string>
+    </property>
+    <addaction name="actionb"/>
+   </widget>
+   <widget class="QMenu" name="menu_H">
+    <property name="title">
+     <string>帮助(&amp;H)</string>
+    </property>
+    <addaction name="actiond_5"/>
+    <addaction name="actions_3"/>
+   </widget>
+   <addaction name="menu_F"/>
+   <addaction name="menu_C"/>
+   <addaction name="menu_S"/>
+   <addaction name="menu_H"/>
+   <addaction name="menu_V"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QDockWidget" name="dockWidget_2">
+   <property name="floating">
+    <bool>false</bool>
+   </property>
+   <property name="allowedAreas">
+    <set>Qt::AllDockWidgetAreas</set>
+   </property>
+   <property name="windowTitle">
+    <string>状态栏</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_2">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QGroupBox" name="groupBox">
+       <property name="title">
+        <string/>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>文件列表</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTreeView" name="treeView"/>
+        </item>
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>状态信息</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTextEdit" name="textEdit_2"/>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="menuItem_new"/>
+   <addaction name="separator"/>
+   <addaction name="separator"/>
+   <addaction name="actiond_4"/>
+   <addaction name="menuItem_openFile"/>
+   <addaction name="separator"/>
+   <addaction name="menuItem_saveFile"/>
+   <addaction name="separator"/>
+   <addaction name="menuItem_resultReport"/>
+   <addaction name="separator"/>
+  </widget>
+  <action name="menuItem_new">
+   <property name="icon">
+    <iconset>
+     <normaloff>../source/icon/folder.png</normaloff>../source/icon/folder.png</iconset>
+   </property>
+   <property name="text">
+    <string>新建(&amp;N)</string>
+   </property>
+  </action>
+  <action name="menuItem_openFile">
+   <property name="icon">
+    <iconset>
+     <normaloff>../source/icon/futuro_icons_547.png</normaloff>../source/icon/futuro_icons_547.png</iconset>
+   </property>
+   <property name="text">
+    <string>打开文件(&amp;O)</string>
+   </property>
+  </action>
+  <action name="menuItem_saveFile">
+   <property name="icon">
+    <iconset>
+     <normaloff>../source/icon/保存.png</normaloff>../source/icon/保存.png</iconset>
+   </property>
+   <property name="text">
+    <string>保存文件(&amp;S)</string>
+   </property>
+  </action>
+  <action name="menuItem_quitSystem">
+   <property name="text">
+    <string>退出系统(&amp;Q)</string>
+   </property>
+  </action>
+  <action name="menuItem_coorTran">
+   <property name="text">
+    <string>坐标变换(&amp;T)</string>
+   </property>
+  </action>
+  <action name="actions_2">
+   <property name="text">
+    <string>徕卡数字水准仪格式转换及输出(&amp;P)</string>
+   </property>
+  </action>
+  <action name="actionsd">
+   <property name="text">
+    <string>地面控制网平差(&amp;D)</string>
+   </property>
+  </action>
+  <action name="actionsd_2">
+   <property name="text">
+    <string>铁路曲线计算(&amp;T)</string>
+   </property>
+  </action>
+  <action name="actiond_2">
+   <property name="text">
+    <string>CPIII控制网平差(&amp;C)</string>
+   </property>
+  </action>
+  <action name="actionsd_3">
+   <property name="text">
+    <string>静态GNSS网平差(&amp;G)</string>
+   </property>
+  </action>
+  <action name="actiondf">
+   <property name="text">
+    <string>计算参数(&amp;S)</string>
+   </property>
+  </action>
+  <action name="actiond_3">
+   <property name="text">
+    <string>系统参数(&amp;S)</string>
+   </property>
+  </action>
+  <action name="actiond_4">
+   <property name="icon">
+    <iconset>
+     <normaloff>../source/icon/pc.png</normaloff>../source/icon/pc.png</iconset>
+   </property>
+   <property name="text">
+    <string>界面设置(&amp;W)</string>
+   </property>
+  </action>
+  <action name="actionf">
+   <property name="text">
+    <string>f</string>
+   </property>
+  </action>
+  <action name="actiond_5">
+   <property name="text">
+    <string>在线帮助(&amp;I)</string>
+   </property>
+  </action>
+  <action name="actions_3">
+   <property name="text">
+    <string>本地文档(&amp;)</string>
+   </property>
+  </action>
+  <action name="menuItem_resultReport">
+   <property name="icon">
+    <iconset>
+     <normaloff>../source/icon/报表统计.png</normaloff>../source/icon/报表统计.png</iconset>
+   </property>
+   <property name="text">
+    <string>导出结果报告(&amp;O)</string>
+   </property>
+  </action>
+  <action name="actionb">
+   <property name="text">
+    <string>版本信息(&amp;V)</string>
+   </property>
+  </action>
+  <action name="menuItem_backWelcome">
+   <property name="text">
+    <string>返回欢迎界面(&amp;B)</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

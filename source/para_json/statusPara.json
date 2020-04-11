@@ -1,0 +1,14 @@
+
+  {
+
+    // 电子手簿导出的docx模板
+    "template": "./source/template/leica2.docx"
+
+    //License
+    "License": "yourLicense"
+
+    //默认主题 blank | dark
+    "theme": "blank"
+    //
+
+  }
