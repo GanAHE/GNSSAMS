@@ -194,15 +194,13 @@ class TwoDissCoorTran():
                                   xi * xi * xi * xi - 6 * xi * xi * yi * yi + yi ** 4
                 ]
             ])
-
-            res = matrix_Bi * matrix_X
-
             result.append(np.transpose(matrix_Bi * matrix_X).tolist()[0])
 
-            # 降维并转换
-            paraList = matrix_X.tolist()
-            # 在第一位插入公共点个数
-            paraList.insert(0, [publicPointCount])
+        # 降维并转换
+        paraList = matrix_X.tolist()
+        # 在第一位插入公共点个数
+        paraList.insert(0, [sigma])
+        paraList.insert(0, [publicPointCount])
 
         # 转换数组维度
         return {"para": paraList,
@@ -303,9 +301,10 @@ class TwoDissCoorTran():
 
         print(result)
 
+        paraList.insert(0, [publicPointCount])
+
         # 转换数组维度
         return {
-            "sigma": sigma,
             "para": paraList,
             "correct": matrix_v.tolist(),
             "correctResult": (matrix_v + matrix_L).tolist(),

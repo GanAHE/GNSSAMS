@@ -110,6 +110,7 @@ class Ui_Form(object):
         self.actionTwoDissControlNet = ActionTwoDissControlNet()
         self.pushButton.clicked.connect(self.controlNetAdjustment)
         self.actionTwoDissControlNet.infoEmit.connect(self.textEdit.append)
+        self.actionTwoDissControlNet.overEmit.connect(self.actionTwoDissControlNet.killThead)
 
         self.pushButton_2.clicked.connect(self.textEdit.clear)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -149,4 +150,5 @@ class Ui_Form(object):
     def setSourceData(self):
         self.textEdit.append(Database.COSAControlNetMersureData)
 
-
+    def getTextEditText(self):
+        return self.textEdit.toPlainText()

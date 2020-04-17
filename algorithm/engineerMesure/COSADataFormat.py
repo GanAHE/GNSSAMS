@@ -11,10 +11,10 @@ from window.file.operationFile import OperationFile
 
 
 class COSADataFormat(object):
-    def __init__(self, kesaData):
-        self.fileData = kesaData
+    def __init__(self, COSAData):
+        self.fileData = COSAData
 
-    def AnalysisKesaFileData(self, knownPointCount):
+    def AnalysisKesaFileData(self):
         """
         科傻文件分析
         :param knownPointCount:
@@ -27,20 +27,21 @@ class COSADataFormat(object):
         pointIndex = []
         for i in range(len(self.fileData)):
             lineSplitData = ((self.fileData[i]).strip()).split(",")
-            if lineSplitData[0]!="":
-                listTemp.append(lineSplitData)
+            if lineSplitData[0] != "":
+                listTemp.append(lineSplitData[:3])  # 不取精度
 
-            if len(lineSplitData) == 1 and lineSplitData[0] != "":  # 测站号定位标
+            if len(lineSplitData) == 1:  # 测站号定位标
                 pointIndex.append(i)
                 measureDict[lineSplitData[0].strip()] = 0
 
+        print("定位标",pointIndex)
         for i in range(pointIndex[0]):  # 固定误差与已知点数据
             lineSplitData = ((self.fileData[i]).strip()).split(",")
             if len(lineSplitData) > 1:
                 known_Error_point.append(lineSplitData)
         count = 0
 
-        # print("listTemp", listTemp)
+        print("listTemp", listTemp)
         for key in measureDict.keys():  # 从获取的站点定位标循环获取站观测数据
             if count != len(pointIndex) - 1:
                 measureDict[key] = self.mersureStationAnalysis(listTemp[pointIndex[count] + 1:pointIndex[count + 1]])
@@ -52,7 +53,7 @@ class COSADataFormat(object):
         return known_Error_point, measureDict
 
     def mersureStationAnalysis(self, listLineData):
-        # print("laie",listLineData)
+        print("laie", listLineData)
         for i in range(len(listLineData)):
             if (listLineData[i][1]).upper() == "L" or "A":  # 观测类型为方向观测值/坐标方位角
                 angle_s = ((listLineData[i][2]).strip()).split(".")

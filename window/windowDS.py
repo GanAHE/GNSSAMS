@@ -12,7 +12,6 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from algorithm.engineerMesure.leicaGsiFormat import LeicaGSIFormat
 from database.database import Database
 from window import welcomeWight, coorTranOpenFileDiaog, coorTranWight, leicaDataFormatWight, controlNetAdjustmentWight
-from window.action.actionLeicaGSI import ActionLeicaGSIThread
 from window.action.actionReport import Report
 from window.file.fileMsg import FileMsg
 from window.tipDig import ActionWarnException
@@ -261,7 +260,7 @@ class Ui_mainWindow(object):
 
         # self.leicaDataFormat_ui = leicaDataFormatWight.Ui_Form()
 
-        # self.controlNetAdjustment_ui = controlNetAdjustment.Ui_Form()
+        self.controlNetAdjustment_ui = controlNetAdjustmentWight.Ui_Form()
 
         self.dialog = QtWidgets.QDialog()
         self.dialogUi = coorTranOpenFileDiaog.Ui_Dialog()
@@ -390,7 +389,6 @@ class Ui_mainWindow(object):
         self.widget.setObjectName("widget")
         self.verticalLayout_4.addWidget(self.widget)
 
-        self.controlNetAdjustment_ui = controlNetAdjustmentWight.Ui_Form()
         self.controlNetAdjustment_ui.setupUi(self.widget)
 
     def welcomeWight(self):
@@ -532,7 +530,9 @@ class Ui_mainWindow(object):
                     else:
                         ActionWarnException(self.centralwidget).actionWarnException("A", "已取消导出操作。")
                 elif tabLabel == "控制网":  # 平面控制网
-                    ActionWarnException(self.centralwidget).actionWarnException("A", "暂未开发该功能。")
+                    text = self.controlNetAdjustment_ui.getTextEditText()
+                    FileMsg(self.centralwidget).writeFile("txt", text)
+                    ActionWarnException(self.centralwidget).actionWarnException("A", "已导出计算数据。")
                 else:
                     self.displayInfo("A", "当前所进行的操作无需本功能的支持。")
 

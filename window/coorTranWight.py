@@ -240,7 +240,11 @@ class Ui_Form(QtCore.QObject):
             resultStr = []
             publicPointCount = paraData[0][0]  # 直接参数反正达不到，但是当点大于转换的直接参数第一个点坐标时就会无法显示结果
             for i in range(len(resultData)):
-                if i >= publicPointCount and len(paraData) != 4:  # 解决上面 bug
+                if i >= publicPointCount and len(paraData) != 4:  # 解决上面 bug，目标非计算公共点做差时标定为None
+                    resultStr.append(
+                        [sourceFileStrData[i][0], str(round(resultData[i][0], 4)), str(round(resultData[i][1])), "None",
+                         "None"])
+                elif i >= len(targetFileStrData):  # 目标已知点少于待转换点
                     resultStr.append(
                         [sourceFileStrData[i][0], str(round(resultData[i][0], 4)), str(round(resultData[i][1])), "None",
                          "None"])
@@ -262,6 +266,7 @@ class Ui_Form(QtCore.QObject):
                 self.setTableData(2, ["点名", "X /m", "Y /m", "坐标残差TETA_X/m", "坐标残差TETA_Y/m"], resultStr)
             else:
                 tableHead = ["转换参数" + str(i) for i in range(1, 11)]
+                tableHead.insert(0,"中误差/m")
                 tableHead.insert(0, "公共点数")
                 self.setTableData(1, tableHead, [paraStr])
                 self.setTableData(2, ["点名", "X /m", "Y /m", "坐标残差TETA_X/m", "坐标残差TETA_Y/m"], resultStr)

@@ -52,11 +52,11 @@ class Report(QThread):
 
             elif len(paraList) == 7:  # 最小二乘
                 outStrText.append("\t========【最小二乘转换法】========\n  *版本一测试暂定形式。\n\n  一. 坐标转换参数\n")
-                outStrText.append(" 偏移量 Dx/m  偏移量 Dy/m   旋转角度THETA/° 尺度因子 M/m    中误差 SIGMA/mm\n")
+                outStrText.append("公共点数 迭代次数 偏移量 Dx/m  偏移量 Dy/m   旋转角度THETA/° 尺度因子 M/m    中误差 SIGMA/mm\n")
                 outStrText.append(" " + str(paraList))
             else:
                 outStrText.append("\t========【正形变换法】========\n  *版本一测试暂定形式。\n\n  一. 坐标转换参数\n")
-                outStrText.append(" 公共点及十参数解算结果列表\n")
+                outStrText.append(" 公共点 平差中误差 十参数解算结果列表\n")
                 outStrText.append(" " + str(paraList))
             # 共性
             outStrText.append("\n\n  二. 坐标转换结果\n")
@@ -68,6 +68,8 @@ class Report(QThread):
             # 非直接参数转换详细过程
             if len(coorTranDict) > 2:
                 outStrText.append("\n\n  三. 详细解算参数(字典)\n")
+                outStrText.append(" * 字典键值说明：para-转换参数列表；correct：公共点平差改正数；\n * resultCorrect：改正后正确结果；"
+                                  "result:取得参数后批量转换的坐标列表。\n")
                 count = 1
                 for key in coorTranDict.keys():
                     outStrText.append("  3." + str(count) + " " + key + "\n")

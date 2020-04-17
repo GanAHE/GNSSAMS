@@ -37,23 +37,27 @@ class FileMsg(QtCore.QObject):
         else:
             return None
 
-    def writeFile(self, data):
+    def writeFile(self, type,data):
         """
         保存文件对话框
         :param data:需要写入的数据
         :return:
         """
-        filePath, ok = QtWidgets.QFileDialog.getSaveFileName(self.centerPanel, "打开", "./source/",
-                                                             "All Files (*);;Text Files (*.txt);;CSV Files(*.csv)")
+        if type == "txt":
+            fileFilter = "Text Files (*.txt)"
+        elif type == "csv":
+            fileFilter = "CSV Files (*.csv)"
+        elif type == "docx":
+            fileFilter = "Docx Files(*.docx)"
+        else:
+            fileFilter = "All Files (*);;Text Files (*.txt);;Docx Files(*.docx);;CSV Files (*.csv)"
 
-        OperationFile().writeTXTFile(data, filePath)
-        # if filePath.find() == "*.txt":
-        #     OperationFile().writeTXTFile(data, filePath)
-        # elif filePath.find() == "*.csv":
-        #     # OperationFile().writeCSVFile()
-        #     pass
-        # else:
-        #     print("位置文件类型错误！")
+        filePath, ok = QtWidgets.QFileDialog.getSaveFileName(self.centerPanel, "打开", "./source/",fileFilter)
+
+        if type == "txt":
+            OperationFile().writeTXTFile(data, filePath)
+        else:
+            pass
 
     def getWriteFilePath(self, type):
         """

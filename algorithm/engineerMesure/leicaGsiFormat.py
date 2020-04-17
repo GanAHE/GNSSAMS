@@ -49,7 +49,7 @@ class LeicaGSIFormat():
                     self.intermediateStation.append([
                         lineSplitData[0][-2:],
                         lineSplitData[1][8:13] + "." + lineSplitData[1][-2:], # 单位为 0.01 mm，转为1 mm
-                        lineSplitData[2][8:], # + "." + lineSplitData[2][-2:]
+                        lineSplitData[2][9:], # + "." + lineSplitData[2][-2:]
                         lineSplitData[3][-4:],
                         lineSplitData[4][-3:-2] + "."+lineSplitData[4][-2:]
                     ])
