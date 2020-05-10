@@ -112,28 +112,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="COSADataFormat" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="EMACS" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/algorithm/engineerMesure" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="E:\CodePrograme\Python\EMACS\algorithm\engineerMesure\COSADataFormat.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="EMACS (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="EMACS" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -200,20 +178,42 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="stablePointGroup" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="EMACS" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/algorithm/controlNetwork" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/algorithm/controlNetwork/stablePointGroup.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Python.BasicMeasurementAlgorithm" />
-      <item itemvalue="Python.COSADataFormat" />
       <item itemvalue="Python.EMACS" />
       <item itemvalue="Python.EMACS (1)" />
       <item itemvalue="Python.BasicMeasurementAlgorithm (1)" />
+      <item itemvalue="Python.stablePointGroup" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.EMACS" />
-        <item itemvalue="Python.BasicMeasurementAlgorithm (1)" />
+        <item itemvalue="Python.stablePointGroup" />
         <item itemvalue="Python.EMACS (1)" />
+        <item itemvalue="Python.BasicMeasurementAlgorithm (1)" />
         <item itemvalue="Python.BasicMeasurementAlgorithm" />
-        <item itemvalue="Python.COSADataFormat" />
       </list>
     </recent_temporary>
   </component>
@@ -317,7 +317,27 @@
       <workItem from="1586660560476" duration="685000" />
       <workItem from="1586697407641" duration="845000" />
       <workItem from="1586913002707" duration="1324000" />
-      <workItem from="1587105336892" duration="294000" />
+      <workItem from="1587105336892" duration="1495000" />
+      <workItem from="1587129385836" duration="2657000" />
+      <workItem from="1587171112055" duration="1127000" />
+      <workItem from="1587200508201" duration="504000" />
+      <workItem from="1587257844605" duration="5549000" />
+      <workItem from="1587518686983" duration="602000" />
+      <workItem from="1587565667430" duration="356000" />
+      <workItem from="1587709571518" duration="4512000" />
+      <workItem from="1588082495039" duration="211000" />
+      <workItem from="1588381119887" duration="7316000" />
+      <workItem from="1588401064473" duration="490000" />
+      <workItem from="1588578220631" duration="6721000" />
+      <workItem from="1588598606618" duration="3142000" />
+      <workItem from="1588637460644" duration="3652000" />
+      <workItem from="1588686128994" duration="4761000" />
+      <workItem from="1588751787696" duration="1287000" />
+      <workItem from="1588771316897" duration="3958000" />
+      <workItem from="1588946611793" duration="4189000" />
+      <workItem from="1589092128657" duration="323000" />
+      <workItem from="1589092467643" duration="460000" />
+      <workItem from="1589099275068" duration="1927000" />
     </task>
     <servers />
   </component>
@@ -329,14 +349,14 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="722" y="101" key="#Notifications/0.0.1536.864@0.0.1536.864" timestamp="1584964197153" />
-    <state x="361" y="91" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1586483535191">
+    <state x="361" y="91" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1589102274923">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="361" y="91" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.864@0.0.1536.864" timestamp="1586483535191" />
-    <state x="839" y="178" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1586346181456">
+    <state x="361" y="91" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.864@0.0.1536.864" timestamp="1589102274923" />
+    <state x="839" y="178" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1589092395677">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="839" y="178" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1536.864@0.0.1536.864" timestamp="1586346181456" />
+    <state x="839" y="178" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1536.864@0.0.1536.864" timestamp="1589092395677" />
     <state x="216" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1586415201964">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -345,46 +365,46 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="499" y="179" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.864@0.0.1536.864" timestamp="1586613420780" />
-    <state width="825" height="466" key="DebuggerActiveHint" timestamp="1586060420636">
+    <state width="825" height="466" key="DebuggerActiveHint" timestamp="1588777245747">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="825" height="466" key="DebuggerActiveHint/0.0.1536.864@0.0.1536.864" timestamp="1586060420636" />
-    <state x="549" y="174" key="FileChooserDialogImpl" timestamp="1586361589190">
+    <state width="825" height="466" key="DebuggerActiveHint/0.0.1536.864@0.0.1536.864" timestamp="1588777245747" />
+    <state x="549" y="174" key="FileChooserDialogImpl" timestamp="1587105901872">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="549" y="174" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1586361589190" />
-    <state width="882" height="277" key="GridCell.Tab.0.bottom" timestamp="1587105408937">
+    <state x="549" y="174" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1587105901872" />
+    <state width="1242" height="182" key="GridCell.Tab.0.bottom" timestamp="1589092929712">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="882" height="277" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1587105408937" />
-    <state width="882" height="277" key="GridCell.Tab.0.center" timestamp="1587105408937">
+    <state width="1242" height="182" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1589092929712" />
+    <state width="1242" height="182" key="GridCell.Tab.0.center" timestamp="1589092929712">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="882" height="277" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1587105408937" />
-    <state width="882" height="277" key="GridCell.Tab.0.left" timestamp="1587105408936">
+    <state width="1242" height="182" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1589092929712" />
+    <state width="1242" height="182" key="GridCell.Tab.0.left" timestamp="1589092929712">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="882" height="277" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1587105408936" />
-    <state width="882" height="277" key="GridCell.Tab.0.right" timestamp="1587105408937">
+    <state width="1242" height="182" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1589092929712" />
+    <state width="1242" height="182" key="GridCell.Tab.0.right" timestamp="1589092929712">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="882" height="277" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1587105408937" />
-    <state width="881" height="285" key="GridCell.Tab.1.bottom" timestamp="1586915162950">
+    <state width="1242" height="182" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1589092929712" />
+    <state width="1242" height="182" key="GridCell.Tab.1.bottom" timestamp="1589092929712">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="881" height="285" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1586915162950" />
-    <state width="881" height="285" key="GridCell.Tab.1.center" timestamp="1586915162950">
+    <state width="1242" height="182" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1589092929712" />
+    <state width="1242" height="182" key="GridCell.Tab.1.center" timestamp="1589092929712">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="881" height="285" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1586915162950" />
-    <state width="881" height="285" key="GridCell.Tab.1.left" timestamp="1586915162950">
+    <state width="1242" height="182" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1589092929712" />
+    <state width="1242" height="182" key="GridCell.Tab.1.left" timestamp="1589092929712">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="881" height="285" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1586915162950" />
-    <state width="881" height="285" key="GridCell.Tab.1.right" timestamp="1586915162950">
+    <state width="1242" height="182" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1589092929712" />
+    <state width="1242" height="182" key="GridCell.Tab.1.right" timestamp="1589092929712">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="881" height="285" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1586915162950" />
+    <state width="1242" height="182" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1589092929712" />
     <state width="212" height="477" key="HiddenNamespacesPopup" timestamp="1584064679670">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -393,14 +413,14 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="698" y="174" key="IDE.errors.dialog/0.0.1536.864@0.0.1536.864" timestamp="1586174455455" />
-    <state width="1358" height="440" key="XDebugger.FullValuePopup" timestamp="1586012226964">
+    <state width="1358" height="440" key="XDebugger.FullValuePopup" timestamp="1588774596087">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1358" height="440" key="XDebugger.FullValuePopup/0.0.1536.864@0.0.1536.864" timestamp="1586012226964" />
-    <state x="467" y="257" key="com.intellij.ide.util.TipDialog" timestamp="1587105336788">
+    <state width="1358" height="440" key="XDebugger.FullValuePopup/0.0.1536.864@0.0.1536.864" timestamp="1588774596087" />
+    <state x="467" y="257" key="com.intellij.ide.util.TipDialog" timestamp="1589099274923">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="467" y="257" key="com.intellij.ide.util.TipDialog/0.0.1536.864@0.0.1536.864" timestamp="1587105336788" />
+    <state x="467" y="257" key="com.intellij.ide.util.TipDialog/0.0.1536.864@0.0.1536.864" timestamp="1589099274923" />
     <state x="298" y="181" width="940" height="678" key="search.everywhere.popup" timestamp="1586654537437">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -426,12 +446,13 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/EMACS$BasicMeasurementAlgorithm.coverage" NAME="BasicMeasurementAlgorithm Coverage Results" MODIFIED="1586418983854" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algorithm/common" />
-    <SUITE FILE_PATH="coverage/EMACS$EMACS.coverage" NAME="EMACS Coverage Results" MODIFIED="1587105406334" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/EMACS$stablePointGroup.coverage" NAME="stablePointGroup Coverage Results" MODIFIED="1588949566670" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algorithm/controlNetwork" />
+    <SUITE FILE_PATH="coverage/EMACS$EMACS.coverage" NAME="EMACS Coverage Results" MODIFIED="1589092529828" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/EMACS$coorAngle.coverage" NAME="coorAngle Coverage Results" MODIFIED="1583159957002" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algorithm/common" />
     <SUITE FILE_PATH="coverage/EMACS$test__1_.coverage" NAME="test (1) Coverage Results" MODIFIED="1585152525426" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/EMACS$BasicMeasurementAlgorithm__1_.coverage" NAME="BasicMeasurementAlgorithm (1) Coverage Results" MODIFIED="1586488935524" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algorithm/common" />
     <SUITE FILE_PATH="coverage/EMACS$kesaDataFormat.coverage" NAME="kesaDataFormat Coverage Results" MODIFIED="1586251022580" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algorithm/engineerMesure" />
-    <SUITE FILE_PATH="coverage/EMACS$EMACS__1_.coverage" NAME="EMACS (1) Coverage Results" MODIFIED="1586483565833" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/EMACS$EMACS__1_.coverage" NAME="EMACS (1) Coverage Results" MODIFIED="1588947053220" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/EMACS$test.coverage" NAME="test Coverage Results" MODIFIED="1586162529468" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/EMACS$actionHTML.coverage" NAME="actionHTML Coverage Results" MODIFIED="1583893323418" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/window/action" />
   </component>
