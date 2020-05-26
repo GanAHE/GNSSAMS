@@ -11,7 +11,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 from algorithm.engineerMesure.leicaGsiFormat import LeicaGSIFormat
 from database.database import Database
-from window import leicaDataFormatWight, coorTranOpenFileDiaog, controlNetAdjustmentWight, welcomeWight, coorTranWight
+from window import coorTranOpenFileDiaog, controlNetAdjustmentWight, welcomeWight, coorTranWight
+from window.engineeringSurvey import leicaDataFormatWight
 from window.action.actionReport import Report
 from window.file.fileMsg import FileMsg
 from window.tipDig import ActionWarnException

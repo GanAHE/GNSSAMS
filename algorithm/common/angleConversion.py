@@ -7,6 +7,7 @@ comment:角度转换类
 @version 1.0.
 @contact: dinggan@whu.edu.cn
 """
+import math
 
 
 class Angle():
@@ -52,3 +53,5 @@ class Angle():
 
     def DMSToDegree(self):
         return self._degree + self._minute / 60 + self._second / 3600
+    def toRadian(self):
+        return self.DMSToDegree()*math.pi/180

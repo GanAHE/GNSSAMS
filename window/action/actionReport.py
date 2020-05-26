@@ -33,6 +33,8 @@ class Report(QThread):
             self._coorTranReport()
         elif self.type == "L":  # 徕卡
             self._leicaReport()
+        elif self.type == "P":
+            self.stablePointGroupReport()
         else:
             pass
 
@@ -235,6 +237,16 @@ class Report(QThread):
                 row_2.cells[i].merge(row_2.cells[i + 1])
                 row_3.cells[i].merge(row_3.cells[i + 1])
                 row_4.cells[i].merge(row_4.cells[i + 1])
+
+    def stablePointGroupReport(self):
+        try:
+            self.logger.info("导出稳定点组解算结果报告....")
+            filePath = self.args[1]
+            text = self.args[2]
+            OperationFile().writeTXTFile(text, filePath)
+            self.logger.info("导出稳定点组解算结果报告完成。")
+        except Exception as e:
+            self.logger.info("导出稳定点组解算结果报告异常:" + e.__str__())
 
     def killThread(self):
         self.terminate()

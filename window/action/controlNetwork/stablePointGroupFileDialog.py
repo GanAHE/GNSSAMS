@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'coorTranOpenFileDiaog.ui'
+# Form implementation generated from reading ui file 'stablePointGroupFileDiaog.ui'
 #
 # Created by: PyQt5 UI code generator 5.13.0
 #
@@ -14,15 +14,15 @@ from window.file.operationFile import OperationFile
 
 
 class Ui_Dialog(QtCore.QObject):
-
     fileReadEmit = QtCore.pyqtSignal(int, str)
     infoEmit = QtCore.pyqtSignal(str, str)
+    closeEventEmit = QtCore.pyqtSignal()
 
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(614, 421)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("./source/icon/icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("./source/icon/file.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         Dialog.setWindowIcon(icon)
         Dialog.setModal(False)
         self.verticalLayout_3 = QtWidgets.QVBoxLayout(Dialog)
@@ -35,11 +35,13 @@ class Ui_Dialog(QtCore.QObject):
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
         self.verticalLayout_3.addWidget(self.label)
+        self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.horizontalLayout_4 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
         self.label_5 = QtWidgets.QLabel(Dialog)
         self.label_5.setText("")
-        self.label_5.setPixmap(QtGui.QPixmap("./source/icon/icon.png"))
+        self.label_5.setPixmap(QtGui.QPixmap("./source/icon/file.png"))
         self.label_5.setObjectName("label_5")
         self.horizontalLayout_4.addWidget(self.label_5)
         self.groupBox = QtWidgets.QGroupBox(Dialog)
@@ -63,17 +65,18 @@ class Ui_Dialog(QtCore.QObject):
         self.lineEdit_otherSparate.setObjectName("lineEdit_otherSparate")
         self.verticalLayout_2.addWidget(self.lineEdit_otherSparate)
         self.horizontalLayout_4.addWidget(self.groupBox)
-        self.verticalLayout_3.addLayout(self.horizontalLayout_4)
+        self.horizontalLayout_3.addLayout(self.horizontalLayout_4)
+        self.verticalLayout_3.addLayout(self.horizontalLayout_3)
         self.groupBox_2 = QtWidgets.QGroupBox(Dialog)
         self.groupBox_2.setObjectName("groupBox_2")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.groupBox_2)
         self.verticalLayout.setObjectName("verticalLayout")
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.button_openSource = QtWidgets.QPushButton(self.groupBox_2)
-        self.button_openSource.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.button_openSource.setObjectName("button_openSource")
-        self.horizontalLayout.addWidget(self.button_openSource)
+        self.button_openMI = QtWidgets.QPushButton(self.groupBox_2)
+        self.button_openMI.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.button_openMI.setObjectName("button_openMI")
+        self.horizontalLayout.addWidget(self.button_openMI)
         self.label_2 = QtWidgets.QLabel(self.groupBox_2)
         self.label_2.setObjectName("label_2")
         self.horizontalLayout.addWidget(self.label_2)
@@ -85,10 +88,10 @@ class Ui_Dialog(QtCore.QObject):
         self.verticalLayout.addLayout(self.horizontalLayout)
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        self.button_openTarget = QtWidgets.QPushButton(self.groupBox_2)
-        self.button_openTarget.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.button_openTarget.setObjectName("button_openTarget")
-        self.horizontalLayout_2.addWidget(self.button_openTarget)
+        self.button_openMI_2 = QtWidgets.QPushButton(self.groupBox_2)
+        self.button_openMI_2.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.button_openMI_2.setObjectName("button_openMI_2")
+        self.horizontalLayout_2.addWidget(self.button_openMI_2)
         self.label_3 = QtWidgets.QLabel(self.groupBox_2)
         self.label_3.setObjectName("label_3")
         self.horizontalLayout_2.addWidget(self.label_3)
@@ -110,7 +113,7 @@ class Ui_Dialog(QtCore.QObject):
         self.verticalLayout_3.addWidget(self.label_4)
         self.buttonBox = QtWidgets.QDialogButtonBox(Dialog)
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
-        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
+        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel | QtWidgets.QDialogButtonBox.Ok)
         self.buttonBox.setObjectName("buttonBox")
         self.verticalLayout_3.addWidget(self.buttonBox)
 
@@ -118,47 +121,49 @@ class Ui_Dialog(QtCore.QObject):
         self.radioButton_commaSymbal.setChecked(True)
 
         self.retranslateUi(Dialog)
-        self.buttonBox.accepted.connect(Dialog.accept)
+        self.buttonBox.accepted.connect(self.closeEvents)
         self.buttonBox.rejected.connect(Dialog.reject)
+
+        self.button_openMI.clicked.connect(self.openFile_Measure_I)
+        self.button_openMI_2.clicked.connect(self.openFile_Measure_II)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
-        self.button_openSource.clicked.connect(self.opensourceFile)
-        self.button_openTarget.clicked.connect(self.openTargetFile)
+
+
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "坐标转换数据导入"))
-        self.label.setText(_translate("Dialog", "导入坐标转换数据"))
-        self.groupBox.setTitle(_translate("Dialog", "文本数据分隔方式"))
+        self.label.setText(_translate("Dialog", "导入形变观测数据"))
+        self.groupBox.setTitle(_translate("Dialog", "坐标数据分隔方式"))
         self.radioButton_commaSymbal.setText(_translate("Dialog", "英文逗号"))
         self.radioButton_blank.setText(_translate("Dialog", "空格"))
         self.radioButton_other.setText(_translate("Dialog", "其他分隔符"))
         self.groupBox_2.setTitle(_translate("Dialog", "文件导入"))
-        self.button_openSource.setText(_translate("Dialog", "导入原始坐标文件"))
+        self.button_openMI.setText(_translate("Dialog", "导入一期观测数据"))
         self.label_2.setText(_translate("Dialog", "文件路径："))
-        self.button_openTarget.setText(_translate("Dialog", "导入目标坐标文件"))
+        self.button_openMI_2.setText(_translate("Dialog", "导入二期观测数据"))
         self.label_3.setText(_translate("Dialog", "文件路径："))
-        self.label_4.setText(_translate("Dialog", "说明：转换后的坐标以原始坐标进行转换"))
+        self.label_4.setText(_translate("Dialog", "说明：点位坐标格式为[ID,X,Y,Z],分隔符可以自定义；目前仅支持文本文件。"))
 
-
-    def opensourceFile(self):
+    def openFile_Measure_I(self):
         try:
             filePath, dataList = self._openFileWight()
             self.lineEdit_source.setText(str(filePath))
-            Database.coorTranSourceData = self._getSparateData(dataList)
+            Database.stableDotGroupMeasure_I = self._getSparateData(dataList)
             # 发送信号
             dirPath = os.path.dirname(os.path.realpath(filePath))
-            self.fileReadEmit.emit(0,dirPath)
+            self.fileReadEmit.emit(0, dirPath)
 
         except Exception as e:
             self.infoEmit.emit("I", "取消或文件为空,其它信息：" + e.args.__str__())
 
-    def openTargetFile(self):
+    def openFile_Measure_II(self):
         try:
             filePath, dataList = self._openFileWight()
             self.lineEdit_target.setText(str(filePath))
-            Database.coorTranTargetData = self._getSparateData(dataList)
+            Database.stableDotGroupMeasure_II = self._getSparateData(dataList)
             # 发送信号
-            self.fileReadEmit.emit(1,None)
+            self.fileReadEmit.emit(1, None)
         except Exception as e:
             self.infoEmit.emit("I", "取消或文件为空,其它信息：" + e.args.__str__())
 
@@ -166,7 +171,7 @@ class Ui_Dialog(QtCore.QObject):
         self.infoEmit.emit(type, strInfo)
 
     def _openFileWight(self):
-        filePath, ok = QtWidgets.QFileDialog.getOpenFileName(self.parent(), "打开", "./source/",
+        filePath, ok = QtWidgets.QFileDialog.getOpenFileName(self.parent(), "打开", "./source/测试数据/稳定点组/",
                                                              "All Files (*);;Text Files (*.txt)")
         dataList = OperationFile().readlargeFile(filePath)
         return filePath, dataList
@@ -189,4 +194,11 @@ class Ui_Dialog(QtCore.QObject):
         for i in range(len(originFileData)):
             dataList.append(originFileData[i].split(sparateMethod))
         return dataList
+
+    def closeEvents(self):
+        # 清空文件路径
+        self.lineEdit_source.clear()
+        self.lineEdit_target.clear()
+        # 发射信号启动关闭事件
+        self.closeEventEmit.emit()
 

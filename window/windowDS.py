@@ -11,14 +11,16 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 from algorithm.engineerMesure.leicaGsiFormat import LeicaGSIFormat
 from database.database import Database
-from window import controlNetAdjustmentWight, coorTranOpenFileDiaog, coorTranWight, welcomeWight, leicaDataFormatWight, \
-    stablePointGroupWight
+from window import controlNetAdjustmentWight, coorTranOpenFileDiaog, coorTranWight, welcomeWight, stablePointGroupWight
+from window.action.controlNetwork import stablePointGroupFileDialog
+from window.engineeringSurvey import leicaDataFormatWight
 from window.action.actionReport import Report
 from window.file.fileMsg import FileMsg
 from window.tipDig import ActionWarnException
 
 
 class Ui_mainWindow(object):
+
     def setupUi(self, mainWindow):
         mainWindow.setObjectName("mainWindow")
         mainWindow.setWindowModality(QtCore.Qt.NonModal)
@@ -380,10 +382,15 @@ class Ui_mainWindow(object):
 
         self.controlNetAdjustment_ui = controlNetAdjustmentWight.Ui_Form()
 
-        self.dialog = QtWidgets.QDialog()
         self.dialogUi = coorTranOpenFileDiaog.Ui_Dialog()
         self.dialogUi.fileReadEmit.connect(self.setOpenFileInfo)
         self.dialogUi.infoEmit.connect(self.displayInfo)
+        # 稳定点组
+        self.stablePointGroupDialog = QtWidgets.QDialog()
+        self.stablePointGroupFileDialog_ui = stablePointGroupFileDialog.Ui_Dialog()
+        self.stablePointGroupFileDialog_ui.fileReadEmit.connect(self.setOpenFileInfo_stable)
+        self.stablePointGroupFileDialog_ui.infoEmit.connect(self.displayInfo)
+        self.stablePointGroupFileDialog_ui.closeEventEmit.connect(self.stableDotGroupTable)
 
         self.munuItem_coorTran.triggered.connect(self.coorTranQwight)
         self.munuItem_markbook.triggered.connect(self.leicaFormatWight)
@@ -548,6 +555,7 @@ class Ui_mainWindow(object):
         self.stablePointGroupWight_ui = stablePointGroupWight.Ui_Form()
         self.stablePointGroupWight_ui.setupUi(self.widget)
         self.verticalLayout_4.addWidget(self.widget)
+        self.stablePointGroupWight_ui.infoEmit.connect(self.displayInfo)
 
     def welcomeWight(self):
         """
@@ -574,7 +582,9 @@ class Ui_mainWindow(object):
             _translate = QtCore.QCoreApplication.translate
             if tabLable == "坐标转换":
                 # 界面重构存储区域
+                self.dialog = QtWidgets.QDialog()
                 self.dialogUi.setupUi(self.dialog)
+                self.dialog.setWindowModality(QtCore.Qt.ApplicationModal)
                 self.dialog.show()
 
             elif tabLable == "电子手簿":
@@ -622,7 +632,11 @@ class Ui_mainWindow(object):
                 self.textEditFormatAdd(measureNetData)
                 # 存入数据库
                 Database.COSAControlNetMersureData = measureNetData
-
+            elif tabLable == "稳定点组":
+                # 界面重构存储区域
+                self.stablePointGroupFileDialog_ui.setupUi(self.stablePointGroupDialog)
+                self.stablePointGroupDialog.setWindowModality(QtCore.Qt.ApplicationModal)
+                self.stablePointGroupDialog.show()
             else:
                 ActionWarnException(self.centralwidget).actionWarnException("W", "请先选择相应的功能！")
         except Exception as e:
@@ -643,6 +657,32 @@ class Ui_mainWindow(object):
         else:
             self.textEdit_status.append("---【目标坐标文件】---")
             self.textEdit_status.append(str(Database.coorTranTargetData))
+
+    def setOpenFileInfo_stable(self, typeInt, dirPath):
+        """
+        导入坐标文件信息监控
+        :param typeInt: 文件类型
+        :return:None
+        """
+        self.textEdit_status.append("导入文件....")
+        self.textEdit_status.append("数据如下：")
+        if typeInt == 0:
+            self.textEdit_status.append("---【一期观测坐标文件】---")
+            self.textEdit_status.append(str(Database.stableDotGroupMeasure_I))
+            self.showPan(dirPath)
+        else:
+            self.textEdit_status.append("---【二期观测坐标文件】---")
+            self.textEdit_status.append(str(Database.stableDotGroupMeasure_I))
+    def stableDotGroupTable(self):
+        """
+        稳定点组文件导入窗口关闭事件
+        :return:
+        """
+        print("已收到信号")
+        # 关闭窗体
+        self.stablePointGroupDialog.close()
+        # 设定表格数据
+        self.stablePointGroupWight_ui.setTableData()
 
     def saveReport(self):
         # 从选择判断当前执行的操作
@@ -691,6 +731,11 @@ class Ui_mainWindow(object):
                     text = self.controlNetAdjustment_ui.getTextEditText()
                     FileMsg(self.centralwidget).writeFile("txt", text)
                     ActionWarnException(self.centralwidget).actionWarnException("A", "已导出计算数据。")
+                elif tabLabel == "稳定点组":
+                    text = self.stablePointGroupWight_ui.getTextEdit()
+                    FileMsg(self.centralwidget).writeFile("txt", text)
+                    ActionWarnException(self.centralwidget).actionWarnException("I", "已导出稳定点组解算报告。")
+
                 else:
                     self.displayInfo("A", "当前所进行的操作无需本功能的支持。")
 

@@ -89,3 +89,26 @@ class Database():
     @COSAControlNetMersureData.setter
     def COSAControlNetMersureData(self, kesaSourceData):
         self._COSAControlNetMersureData = kesaSourceData
+
+    @property
+    def stableDotGroupMeasure_I(self):
+        return self.stableDotGroupMeasure_I
+
+    @stableDotGroupMeasure_I.setter
+    def stableDotGroupMeasure_I(self, measure_I):
+        self.stableDotGroupMeasure_I = measure_I
+
+    @property
+    def stableDotGroupMeasure_II(self):
+        return self.stableDotGroupMeasure_II
+
+    @stableDotGroupMeasure_II.setter
+    def stableDotGroupMeasure_II(self, measure_II):
+        self.stableDotGroupMeasure_II = measure_II
+
+    @property
+    def stablePointCoorGroup(self):
+        return self.stablePointCoorGroup
+    @stablePointCoorGroup.setter
+    def stablePointCoorGroup(self,coorGroup):
+        self.stablePointCoorGroup = coorGroup
