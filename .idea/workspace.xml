@@ -1,7 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="b4f42aad-ddc7-4fa8-9fe0-863e11b97aba" name="默认" comment="">
+      <change afterPath="$PROJECT_DIR$/window/action/actionSpeaker.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/database.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -57,7 +77,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="python.debugger.dataview.coloredbydefault" value="false" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="fileTemplates" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -71,7 +91,7 @@
       <recent name="E:\CodePrograme\Python\EMACS\window" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.EMACS">
+  <component name="RunManager" selected="Python.actionSpeaker">
     <configuration name="BasicMeasurementAlgorithm (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="EMACS" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -86,28 +106,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/algorithm/common/BasicMeasurementAlgorithm.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="BasicMeasurementAlgorithm" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="EMACS" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/algorithm/common" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="E:\CodePrograme\Python\EMACS\algorithm\common\BasicMeasurementAlgorithm.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -179,6 +177,28 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="actionSpeaker" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="EMACS" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/window/action" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/window/action/actionSpeaker.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="stablePointGroup" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="EMACS" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -202,19 +222,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.BasicMeasurementAlgorithm" />
       <item itemvalue="Python.EMACS" />
       <item itemvalue="Python.EMACS (1)" />
       <item itemvalue="Python.BasicMeasurementAlgorithm (1)" />
       <item itemvalue="Python.stablePointGroup" />
+      <item itemvalue="Python.actionSpeaker" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.actionSpeaker" />
         <item itemvalue="Python.EMACS" />
         <item itemvalue="Python.stablePointGroup" />
         <item itemvalue="Python.EMACS (1)" />
         <item itemvalue="Python.BasicMeasurementAlgorithm (1)" />
-        <item itemvalue="Python.BasicMeasurementAlgorithm" />
       </list>
     </recent_temporary>
   </component>
@@ -327,12 +347,23 @@
       <workItem from="1589092128657" duration="323000" />
       <workItem from="1589092467643" duration="460000" />
       <workItem from="1589099275068" duration="1927000" />
-      <workItem from="1592470259188" duration="2784000" />
+      <workItem from="1592470259188" duration="4479000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="WindowStateProjectService">
     <state x="722" y="101" key="#Notifications" timestamp="1584964197153">
@@ -369,45 +400,45 @@
     </state>
     <state x="549" y="166" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1592471293543" />
     <state x="549" y="174" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1587105901872" />
-    <state width="1493" height="242" key="GridCell.Tab.0.bottom" timestamp="1592471300754">
+    <state width="1493" height="242" key="GridCell.Tab.0.bottom" timestamp="1592475130401">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="242" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1592471300754" />
+    <state width="1493" height="242" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1592475130401" />
     <state width="1242" height="182" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1589092929712" />
-    <state width="1493" height="242" key="GridCell.Tab.0.center" timestamp="1592471300753">
+    <state width="1493" height="242" key="GridCell.Tab.0.center" timestamp="1592475130401">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="242" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1592471300753" />
+    <state width="1493" height="242" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1592475130401" />
     <state width="1242" height="182" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1589092929712" />
-    <state width="1493" height="242" key="GridCell.Tab.0.left" timestamp="1592471300753">
+    <state width="1493" height="242" key="GridCell.Tab.0.left" timestamp="1592475130401">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="242" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1592471300753" />
+    <state width="1493" height="242" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1592475130401" />
     <state width="1242" height="182" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1589092929712" />
-    <state width="1493" height="242" key="GridCell.Tab.0.right" timestamp="1592471300754">
+    <state width="1493" height="242" key="GridCell.Tab.0.right" timestamp="1592475130401">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="242" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1592471300754" />
+    <state width="1493" height="242" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1592475130401" />
     <state width="1242" height="182" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1589092929712" />
-    <state width="1493" height="242" key="GridCell.Tab.1.bottom" timestamp="1592471300588">
+    <state width="1493" height="242" key="GridCell.Tab.1.bottom" timestamp="1592475130229">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="242" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1592471300588" />
+    <state width="1493" height="242" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1592475130229" />
     <state width="1242" height="182" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1589092929712" />
-    <state width="1493" height="242" key="GridCell.Tab.1.center" timestamp="1592471300588">
+    <state width="1493" height="242" key="GridCell.Tab.1.center" timestamp="1592475130229">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="242" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1592471300588" />
+    <state width="1493" height="242" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1592475130229" />
     <state width="1242" height="182" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1589092929712" />
-    <state width="1493" height="242" key="GridCell.Tab.1.left" timestamp="1592471300588">
+    <state width="1493" height="242" key="GridCell.Tab.1.left" timestamp="1592475130229">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="242" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1592471300588" />
+    <state width="1493" height="242" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1592475130229" />
     <state width="1242" height="182" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1589092929712" />
-    <state width="1493" height="242" key="GridCell.Tab.1.right" timestamp="1592471300588">
+    <state width="1493" height="242" key="GridCell.Tab.1.right" timestamp="1592475130229">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="242" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1592471300588" />
+    <state width="1493" height="242" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1592475130229" />
     <state width="1242" height="182" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1589092929712" />
     <state width="212" height="477" key="HiddenNamespacesPopup" timestamp="1584064679670">
       <screen x="0" y="0" width="1536" height="864" />
@@ -417,10 +448,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="698" y="174" key="IDE.errors.dialog/0.0.1536.864@0.0.1536.864" timestamp="1586174455455" />
-    <state x="270" y="56" key="SettingsEditor" timestamp="1592470723494">
+    <state x="209" y="28" key="SettingsEditor" timestamp="1592474781860">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="270" y="56" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1592470723494" />
+    <state x="209" y="28" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1592474781860" />
     <state width="1358" height="440" key="XDebugger.FullValuePopup" timestamp="1588774596087">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -458,6 +489,7 @@
     <SUITE FILE_PATH="coverage/EMACS$coorAngle.coverage" NAME="coorAngle Coverage Results" MODIFIED="1583159957002" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algorithm/common" />
     <SUITE FILE_PATH="coverage/EMACS$kesaDataFormat.coverage" NAME="kesaDataFormat Coverage Results" MODIFIED="1586251022580" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algorithm/engineerMesure" />
     <SUITE FILE_PATH="coverage/EMACS$test.coverage" NAME="test Coverage Results" MODIFIED="1586162529468" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/EMACS$actionSpeaker.coverage" NAME="actionSpeaker Coverage Results" MODIFIED="1592475130178" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/window/action" />
     <SUITE FILE_PATH="coverage/EMACS$BasicMeasurementAlgorithm.coverage" NAME="BasicMeasurementAlgorithm Coverage Results" MODIFIED="1586418983854" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algorithm/common" />
     <SUITE FILE_PATH="coverage/EMACS$test__1_.coverage" NAME="test (1) Coverage Results" MODIFIED="1585152525426" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/EMACS$BasicMeasurementAlgorithm__1_.coverage" NAME="BasicMeasurementAlgorithm (1) Coverage Results" MODIFIED="1586488935524" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algorithm/common" />

@@ -113,13 +113,3 @@ class Database():
     @stablePointCoorGroup.setter
     def stablePointCoorGroup(self, coorGroup):
         self.stablePointCoorGroup = coorGroup
-
-    @property
-    def N_file(self):
-        return self._N_fileData
-
-    @N_file.setter
-    def N_file(self, coorNfile):
-        self._N_fileData = coorNfile
-
-    
