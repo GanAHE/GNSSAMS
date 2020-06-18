@@ -119,7 +119,7 @@ class Database():
         return self._N_fileData
 
     @N_file.setter
-    def N_file(self, coorNfile):
-        self._N_fileData = coorNfile
+    def N_file(self, _N_file):
+        self._N_fileData = _N_file
 
 

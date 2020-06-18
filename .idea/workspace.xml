@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b4f42aad-ddc7-4fa8-9fe0-863e11b97aba" name="默认" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/EMACS.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/EMACS.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/database.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/access.log.1" beforeDir="false" afterPath="$PROJECT_DIR$/log/access.log.1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/access.log.2" beforeDir="false" afterPath="$PROJECT_DIR$/log/access.log.2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/access.log.3" beforeDir="false" afterPath="$PROJECT_DIR$/log/access.log.3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/access.log.4" beforeDir="false" afterPath="$PROJECT_DIR$/log/access.log.4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/access.log.5" beforeDir="false" afterPath="$PROJECT_DIR$/log/access.log.5" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -336,7 +327,7 @@
       <workItem from="1589092128657" duration="323000" />
       <workItem from="1589092467643" duration="460000" />
       <workItem from="1589099275068" duration="1927000" />
-      <workItem from="1592470259188" duration="1991000" />
+      <workItem from="1592470259188" duration="2784000" />
     </task>
     <servers />
   </component>
