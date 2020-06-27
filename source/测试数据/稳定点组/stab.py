@@ -1,9 +1,8 @@
 
 import random
 print("开始转换...")
-# 稳定点组编号
+# 设定一个小形变基准点编号
 index = [2,16,39]
-print("稳定点组编号：",index)
 measure_I = []
 with open("I.xyz","r") as openF:
     for line in openF:
@@ -20,7 +19,7 @@ with open("II.xyz","w") as saveF:
             randomData = random.uniform(-0.0036,0.0036)
         else:
             # 大随机数
-            randomData = random.uniform(-0.00546,0.0569)
+            randomData = random.uniform(-2.546,2.569)
         lineData = [lineData[0],str(round(float(lineData[1])+randomData,4)),str(round(float(lineData[2])+randomData,4)),str(round(float(lineData[3])+randomData,4))]
         # 逐行写入
         for h in range(4):

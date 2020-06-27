@@ -10,6 +10,7 @@ comment:文件处理类
 import os
 import csv
 
+
 class OperationFile():
 
     def __init__(self):
@@ -75,3 +76,4 @@ class OperationFile():
 
             os.fsync(csvFile)
             csvFile.close()
+
