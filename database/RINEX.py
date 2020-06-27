@@ -7,9 +7,9 @@ comment:RINEX文件处理类
 @version 1.0.
 @contact: dinggan@whu.edu.cn
 """
+from GNSS.time.timeSystem import TimeSystemChange
 from window.file.operationFile import OperationFile
 from database.database import Database
-from algorithm.time.timeSystem import TimeSystemChange
 
 from myConfig.logger import Logger
 
