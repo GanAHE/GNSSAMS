@@ -1,2 +1,2 @@
 # EMACS
-## EMACS-测量软件
+## EMACS-GNSS综合处理软件
