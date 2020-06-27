@@ -34,6 +34,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1XxnOUFsSSVEFaX8YjATlReH5gf" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -366,7 +369,7 @@
       <workItem from="1591321058458" duration="8000" />
       <workItem from="1592464645816" duration="855000" />
       <workItem from="1592465813982" duration="3117000" />
-      <workItem from="1593263547338" duration="304000" />
+      <workItem from="1593263547338" duration="924000" />
     </task>
     <servers />
   </component>
@@ -406,22 +409,22 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="549" y="174" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1589248156095" />
-    <state width="1492" height="217" key="GridCell.Tab.0.bottom" timestamp="1592468974377">
+    <state width="1492" height="248" key="GridCell.Tab.0.bottom" timestamp="1593264680882">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1492" height="217" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1592468974377" />
-    <state width="1492" height="217" key="GridCell.Tab.0.center" timestamp="1592468974377">
+    <state width="1492" height="248" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1593264680882" />
+    <state width="1492" height="248" key="GridCell.Tab.0.center" timestamp="1593264680882">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1492" height="217" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1592468974377" />
-    <state width="1492" height="217" key="GridCell.Tab.0.left" timestamp="1592468974377">
+    <state width="1492" height="248" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1593264680882" />
+    <state width="1492" height="248" key="GridCell.Tab.0.left" timestamp="1593264680882">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1492" height="217" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1592468974377" />
-    <state width="1492" height="217" key="GridCell.Tab.0.right" timestamp="1592468974377">
+    <state width="1492" height="248" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1593264680882" />
+    <state width="1492" height="248" key="GridCell.Tab.0.right" timestamp="1593264680882">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1492" height="217" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1592468974377" />
+    <state width="1492" height="248" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1593264680882" />
     <state width="1492" height="248" key="GridCell.Tab.1.bottom" timestamp="1592468974351">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -438,10 +441,6 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="1492" height="248" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1592468974351" />
-    <state width="212" height="477" key="HiddenNamespacesPopup" timestamp="1584064679670">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state width="212" height="477" key="HiddenNamespacesPopup/0.0.1536.864@0.0.1536.864" timestamp="1584064679670" />
     <state x="698" y="174" key="IDE.errors.dialog" timestamp="1586174455455">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -490,8 +489,18 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+<<<<<<< HEAD
     <SUITE FILE_PATH="coverage/EMACS$EMACS.coverage" NAME="EMACS Coverage Results" MODIFIED="1592467709852" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/EMACS$CornerAccuracyMatch.coverage" NAME="CornerAccuracyMatch Coverage Results" MODIFIED="1589614309973" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algorithm/engineerMesure" />
+=======
+    <SUITE FILE_PATH="coverage/EMACS$BasicMeasurementAlgorithm.coverage" NAME="BasicMeasurementAlgorithm Coverage Results" MODIFIED="1586418983854" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algorithm/common" />
+    <SUITE FILE_PATH="coverage/EMACS$stablePointGroup.coverage" NAME="stablePointGroup Coverage Results" MODIFIED="1590455325655" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algorithm/controlNetwork" />
+    <SUITE FILE_PATH="coverage/EMACS$EMACS.coverage" NAME="EMACS Coverage Results" MODIFIED="1593264680574" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/EMACS$measureAngleAccurcy.coverage" NAME="measureAngleAccurcy Coverage Results" MODIFIED="1589769983616" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algorithm/engineerMesure" />
+    <SUITE FILE_PATH="coverage/EMACS$database.coverage" NAME="database Coverage Results" MODIFIED="1592467084656" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/database" />
+    <SUITE FILE_PATH="coverage/EMACS$BasicMeasurementAlgorithm__1_.coverage" NAME="BasicMeasurementAlgorithm (1) Coverage Results" MODIFIED="1586488935524" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algorithm/common" />
+    <SUITE FILE_PATH="coverage/EMACS$kesaDataFormat.coverage" NAME="kesaDataFormat Coverage Results" MODIFIED="1586251022580" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algorithm/engineerMesure" />
+>>>>>>> bce837bad6fa2a6afee195bbf6b4dc089ca74373
     <SUITE FILE_PATH="coverage/EMACS$cornerAccuracyMatch__1_.coverage" NAME="cornerAccuracyMatch (1) Coverage Results" MODIFIED="1589759839685" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algorithm/engineerMesure" />
     <SUITE FILE_PATH="coverage/EMACS$circularCurve.coverage" NAME="circularCurve Coverage Results" MODIFIED="1589770801247" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algorithm/engineerMesure" />
     <SUITE FILE_PATH="coverage/EMACS$coorAngle.coverage" NAME="coorAngle Coverage Results" MODIFIED="1583159957002" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algorithm/common" />
