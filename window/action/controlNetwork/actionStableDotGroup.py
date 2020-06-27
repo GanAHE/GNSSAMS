@@ -9,7 +9,7 @@ comment: 稳定点组计算
 """
 from PyQt5.QtCore import pyqtSignal, QThread
 
-from algorithm.controlNetwork.stablePointGroup import StablePointGroup
+from controlNetwork.stablePointGroup import StablePointGroup
 from database.database import Database
 
 

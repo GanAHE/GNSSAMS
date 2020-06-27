@@ -9,8 +9,8 @@ comment: 控制网
 """
 from PyQt5.QtCore import pyqtSignal, QThread
 
-from algorithm.common.BasicMeasurementAlgorithm import BasicMeasurementAlgorithm
-from algorithm.engineerMesure.COSADataFormat import COSADataFormat
+from common.BasicMeasurementAlgorithm import BasicMeasurementAlgorithm
+from engineerMesure.COSADataFormat import COSADataFormat
 from database.database import Database
 from myConfig.logger import Logger
 
