@@ -9,7 +9,7 @@ import os
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-from algorithm.engineerMesure.leicaGsiFormat import LeicaGSIFormat
+from engineerMesure.leicaGsiFormat import LeicaGSIFormat
 from database.database import Database
 from window import controlNetAdjustmentWight, coorTranOpenFileDiaog, coorTranWight, welcomeWight, stablePointGroupWight
 from window.action.controlNetwork import stablePointGroupFileDialog

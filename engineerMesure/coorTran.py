@@ -10,7 +10,7 @@ comment: 坐标系转换
 import math
 import numpy as np
 
-from algorithm.common.BasicMeasurementAlgorithm import BasicMeasurementAlgorithm
+from common.BasicMeasurementAlgorithm import BasicMeasurementAlgorithm
 
 
 class TwoDissCoorTran():

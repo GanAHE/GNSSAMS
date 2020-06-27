@@ -8,7 +8,7 @@ comment:
 @contact: dinggan@whu.edu.cn
 """
 from PyQt5 import QtCore
-from algorithm.engineerMesure.coorTran import TwoDissCoorTran
+from engineerMesure.coorTran import TwoDissCoorTran
 from database.database import Database
 from myConfig.logger import Logger
 from window.tipDig import ActionWarnException
