@@ -48,7 +48,7 @@ class TimeSystemChange:
             self._GPSTimeWN = args[0]
             self._GPSTimeSec = args[1]
         elif len(args) == 1:
-            self._JD = args
+            self._JD = args[0]
         else:
             # Database()已实例化，直接类名为静态存储！
             database.Database.warnExceptionText = "错误的参数数目！"
@@ -64,9 +64,8 @@ class TimeSystemChange:
         # print(julday)
         return julday
 
-    def JD2GL(self, JD):
-        self.julday = JD
-        a = int(self.julday + 0.5)
+    def JD2GL(self,JD):
+        a = int(JD + 0.5)
         #    print(a)
         b = a + 1537
         #    print(b)
@@ -77,14 +76,13 @@ class TimeSystemChange:
         Day = b - d - int(30.6001 * e)
         Month = e - 1 - 12 * int(e / 14)
         Year = c - 4715 - int((7 + Month) / 10)
-        Hour = int(24 * (self.julday + 0.5 - int(self.julday + 0.5)))
-        Minute = round(60 * (24 * (self.julday + 0.5 - int(self.julday + 0.5)) - Hour))
+        Hour = int(24 * (JD + 0.5 - int(JD + 0.5)))
+        Minute = round(60 * (24 * (JD + 0.5 - int(JD + 0.5)) - Hour))
         return [Year, Month, Day, Hour, Minute]
 
-    def JD2GPST(self, JD):
-        self.julday = JD
-        gps_week = int((self.julday - 2444244.5) / 7)
-        day_of_week = int((self.julday - 2444244.5) % 7)
+    def JD2GPST(self):
+        gps_week = int((self._JD - 2444244.5) / 7)
+        day_of_week = int((self._JD - 2444244.5) % 7)
         second_of_week = 24 * 60 * 60 * day_of_week + self._hour * 60 * 60 + self._minute * 60 + self._second
         # print(gps_week, day_of_week, second_of_week)
         return [gps_week, second_of_week]
@@ -98,6 +96,7 @@ if __name__ == "__main__":
     timeT = TimeSystemChange(2010, 10, 20, 10, 20, 20)
     print(timeT.GL2JD())
     print(timeT.JD2GL(timeT.GL2JD()))
-    print(timeT.JD2GPST(timeT.GL2JD()))
     timeT = TimeSystemChange(1606, 296420)
     print(timeT.GPSTimeToJD())
+    timeT = TimeSystemChange(2455489.930787037)
+    print(timeT.JD2GPST())
