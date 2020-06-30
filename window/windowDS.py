@@ -403,7 +403,10 @@ class Ui_mainWindow(object):
         self.menuItem_resultReport.triggered.connect(self.saveReport)
 
         self.menuItem_new.triggered.connect(self.moreWindow)
-
+        self.munuItem_fileStatusBar.triggered.connect(self.actionMenuItem_fileStatusBar)
+        self.munuItem_statusBar.triggered.connect(self.actionMenuItem_statusBar)
+        self.dockWidget_File.visibilityChanged['bool'].connect(self.dockWight_fileStatusCloseEvent)
+        self.dockWidget_status.visibilityChanged['bool'].connect(self.dockWight_statusCloseEvent)
         self.munuItem_onlineHelp.triggered.connect(self.onlineHelp)
 
         QtCore.QMetaObject.connectSlotsByName(mainWindow)
@@ -753,3 +756,23 @@ class Ui_mainWindow(object):
         else:
             for i in range(len(twoDissList)):
                 self.textEdit_status.append(str(twoDissList[i]))
+
+    def actionMenuItem_fileStatusBar(self):
+        stat = self.munuItem_fileStatusBar.isChecked()
+        if stat:  # 选中状态
+            self.dockWidget_File.show()
+        else:  # 取消选择状态
+            self.dockWidget_File.setVisible(False)
+
+    def actionMenuItem_statusBar(self):
+        stat = self.munuItem_statusBar.isChecked()
+        if stat:  # 选中状态
+            self.dockWidget_status.show()
+        else:  # 取消选择状态
+            self.dockWidget_status.setVisible(False)
+
+    def dockWight_fileStatusCloseEvent(self):
+        self.munuItem_fileStatusBar.setChecked(False)
+
+    def dockWight_statusCloseEvent(self):
+        self.munuItem_statusBar.setChecked(False)
