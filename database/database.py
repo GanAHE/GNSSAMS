@@ -7,12 +7,35 @@ comment: 临时中转数据库
 @version 1.0.
 @contact: dinggan@whu.edu.cn
 """
+import json
 
-class Database():
+
+class Database(object):
+    # 基本配置文件信息
+    configJsonPath = "./source/para_json/config.json"
+    LicensePath = None
+    workspace = None
+    default_workspace = "./workspace/"
+    elliDict = None
+
+    localHelpDocument = "./source/document/test.html"
+    onlineHelpLink = "https://www.ganahe.top/"
+
+    def loadConfigJson(self):
+        """
+        加载Json配置文件
+        :return: None
+        """
+        # 读取json文件内容,返回字典格式
+        with open(self.configJsonPath, 'r', encoding='utf8')as fp:
+            # with open('../source/para_json/config.json', 'r', encoding='utf8')as fp:
+            dict_data = json.load(fp)
+        fp.close()
+        Database.workspace = dict_data["workspace"]
+        Database.elliDict = dict_data["elliPara"]
+        Database.LicensePath = dict_data["License"]
+
     # 坐标转换读入的原始数据
-    _coorTranSourceData = None
-    _coorTranTargetData = None
-
     @property
     def coorTranSourceData(self):
         return self._coorTranSourceData
@@ -108,8 +131,9 @@ class Database():
     @property
     def stablePointCoorGroup(self):
         return self.stablePointCoorGroup
+
     @stablePointCoorGroup.setter
-    def stablePointCoorGroup(self,coorGroup):
+    def stablePointCoorGroup(self, coorGroup):
         self.stablePointCoorGroup = coorGroup
 
     @property
@@ -248,9 +272,9 @@ class Database():
         :return:exist_code:0;1
         """
         if file_type == "N":
-            return self.Nfile_exist,self.Nfile_status
+            return self.Nfile_exist, self.Nfile_status
         elif file_type == "O":
-            return self.Ofile_exist,self.Ofile_status
+            return self.Ofile_exist, self.Ofile_status
         else:
             return -1
 
@@ -265,8 +289,8 @@ class Database():
         """
         # print("执行了？")
         if file_type == "N":
-            print("测试数据库",exist_code,status_code)
-            self.Nfile_exist =  exist_code
+            print("测试数据库", exist_code, status_code)
+            self.Nfile_exist = exist_code
 
             self.Nfile_status = status_code
             print("测试数据库", self.Nfile_exist, self.Nfile_status)

@@ -2,7 +2,7 @@
   "docxTemplate": "./source/template/leica2.docx",
   "License": "./LICENSE",
   "theme": "blank",
-  "workspace": "./workspace",
+  "workspace": "./workspace/",
   "elliPara": {
     "KrasovskiEllipsoid": [
       6378245,

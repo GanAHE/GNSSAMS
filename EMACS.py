@@ -8,6 +8,9 @@ comment: 主函数
 @contact: dinggan@whu.edu.cn
 """
 import sys, os
+import time
+
+from database.database import Database
 
 if hasattr(sys, 'frozen'):
     os.environ['PATH'] = sys._MEIPASS + ";" + os.environ['PATH']
@@ -25,6 +28,11 @@ if __name__ == '__main__':
     splash.showMessage('正在加载……')
     # 载入配置文件
     splash.showMessage('正在加载配置文件……')
+    Database().loadConfigJson()
+    splash.showMessage('加载配置文件完成，祝您使用愉快！')
+    # 关闭启动画面
+    time.sleep(1)
+    splash.close()
 
     MainWindow = QMainWindow()
     # 已定界面 windows
