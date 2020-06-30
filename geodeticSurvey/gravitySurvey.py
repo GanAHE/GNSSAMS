@@ -9,6 +9,43 @@ comment: 重力测量数据处理工具包
 """
 
 
+def observationDataCorrect(observationData, GZTranEnable, GZTable):
+    """
+    重力观测改正
+    :param observationData: 观测原始数据：n*1 list
+    :param GZTranEnable: 格值改正接口
+    :param GZTable: 格值改正表：n*3 list
+    :return:
+    """
+    GZTranResult = observationData
+    if GZTranEnable:  # 格值转换
+        if len(GZTable) == 0:
+            return {
+                "code": 400,
+                "result": None
+            }
+        else:  # 格值转换
+            for i in range(len(observationData)):
+                Ro = int(observationData[i] / 100) * 100
+                # 格值比对
+                ao = 0
+                a1 = 0
+                for k in range(len(GZTable)):
+                    if Ro == GZTable[k][0]:
+                        ao = GZTable[k][1]
+                        a1 = GZTable[k][2]
+                        break
+                    if k == len(GZTable) - 1:
+                        print("未能在格值表查到对应值")
+                # 计算转换值
+                GZTranResult[i] = ao + a1 * (measureValue[i] - Ro)
+    lastResult = GZTranResult
+
+    return {"code": 1, "result": lastResult}
+
+    # TODO 完善观测数据多层改正
+
+
 def GZTran(GZTable, measureValue):
     """
     格值转换
