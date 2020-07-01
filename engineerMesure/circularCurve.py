@@ -10,8 +10,7 @@ comment: 圆曲线相关计算类
 import math
 import numpy as np
 
-from algorithm.common.BasicMeasurementAlgorithm import BasicMeasurementAlgorithm
-from algorithm.common.angleConversion import Angle
+from measureTool.angleConversion import Angle
 
 
 class CircularCurve(object):

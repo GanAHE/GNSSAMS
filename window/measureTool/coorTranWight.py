@@ -10,7 +10,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 from database.database import Database
-from window.action import actionCoorTran
+from window.measureTool import actionCoorTran
 
 
 class Ui_Form(QtCore.QObject):

@@ -10,8 +10,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 from database.database import Database
-from window.action.controlNetwork.actionStableDotGroup import ActionStablePointGroup
-from window.tipDig import ActionWarnException
+from window.controlNetwork.actionStableDotGroup import ActionStablePointGroup
 
 
 class Ui_Form(QtCore.QObject):

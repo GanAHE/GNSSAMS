@@ -10,7 +10,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 from database.database import Database
-from window.action.actionControlNet import ActionTwoDissControlNet
+from window.measureTool.actionControlNet import ActionTwoDissControlNet
 
 
 class Ui_Form(object):

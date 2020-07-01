@@ -3,7 +3,7 @@
 """
 comment:
 
-@author: GanAH  2020/4/2.
+@author: GanAH  2020/7/1.
 @version 1.0.
 @contact: dinggan@whu.edu.cn
 """
