@@ -61,6 +61,7 @@ class TimeSystemChange:
         julday = int(365.25 * self._year) + int(
             30.6001 * (self._month + 1)) + self._day + 1720981.5 + self._hour / 24.0 + \
                  self._minute / 1440.0 + self._second / 86400.0
+
         # print(julday)
         return julday
 
@@ -77,8 +78,9 @@ class TimeSystemChange:
         Month = e - 1 - 12 * int(e / 14)
         Year = c - 4715 - int((7 + Month) / 10)
         Hour = int(24 * (JD + 0.5 - int(JD + 0.5)))
-        Minute = round(60 * (24 * (JD + 0.5 - int(JD + 0.5)) - Hour))
-        return [Year, Month, Day, Hour, Minute]
+        Minute = int(60 * (24 * (JD + 0.5 - int(JD + 0.5)) - Hour))
+        Second= int(60 * (60 * (24 * (JD + 0.5 - int(JD + 0.5)) - Hour)-Minute))
+        return [Year, Month, Day, Hour, Minute, Second]
 
     def JD2GPST(self):
         gps_week = int((self._JD - 2444244.5) / 7)
