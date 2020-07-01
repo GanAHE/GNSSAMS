@@ -8,6 +8,7 @@ comment: 世界通用时间时间系统类
 @contact: dinggan@whu.edu.cn
 """
 from database import database
+from GNSS.timeSystem import GPSToUTC
 
 class TimeSystemChange:
     """
@@ -92,14 +93,29 @@ class TimeSystemChange:
     def GPSTimeToJD(self):
         return self._GPSTimeWN * 7 + self._GPSTimeSec / 86400 + 2444244.5
 
+    def GPSTimeToUTC(self,GPST):
+        UTC = GPST - GPSToUTC.get_leap_seconds(GPST)
+        if self.UTCToGPSTime(UTC) - GPST != 0:
+            return UTC + 1
+        else:
+            return UTC
+
+    def UTCToGPSTime(self,UTC):
+        GPST = UTC + GPSToUTC.get_leap_seconds(UTC)
+        return GPST
+
+
 
 if __name__ == "__main__":
     print("————————对比一下——————")
     lisT = [2010, 10, 20, 10, 20, 20]
     timeT = TimeSystemChange(2010, 10, 20, 10, 20, 20)
     print(timeT.GL2JD())
-    print(timeT.JD2GL(timeT.GL2JD()))
+    # print(timeT.JD2GL(timeT.GL2JD()))
     timeT = TimeSystemChange(1606, 296420)
     print(timeT.GPSTimeToJD())
+
     timeT = TimeSystemChange(2455489.930787037)
     print(timeT.JD2GPST())
+
+
