@@ -65,7 +65,7 @@ class TimeSystemChange:
         # print(julday)
         return julday
 
-    def JD2GL(self,JD):
+    def JD2GL(self, JD):
         a = int(JD + 0.5)
         #    print(a)
         b = a + 1537
@@ -91,6 +91,7 @@ class TimeSystemChange:
 
     def GPSTimeToJD(self):
         return self._GPSTimeWN * 7 + self._GPSTimeSec / 86400 + 2444244.5
+
 
 if __name__ == "__main__":
     print("————————对比一下——————")

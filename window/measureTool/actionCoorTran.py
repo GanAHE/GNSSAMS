@@ -8,10 +8,9 @@ comment:
 @contact: dinggan@whu.edu.cn
 """
 from PyQt5 import QtCore
-from engineerMesure.coorTran import TwoDissCoorTran
+from measureTool.coorTran import TwoDissCoorTran
 from database.database import Database
 from myConfig.logger import Logger
-from window.tipDig import ActionWarnException
 
 
 class ActionCoorTran(QtCore.QThread):
