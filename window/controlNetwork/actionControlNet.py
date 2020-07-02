@@ -9,7 +9,7 @@ comment: 控制网
 """
 from PyQt5.QtCore import pyqtSignal, QThread
 
-from common.BasicMeasurementAlgorithm import BasicMeasurementAlgorithm
+from measureTool.BasicMeasurementAlgorithm import BasicMeasurementAlgorithm
 from engineerMesure.COSADataFormat import COSADataFormat
 from database.database import Database
 from myConfig.logger import Logger
