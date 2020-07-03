@@ -230,18 +230,6 @@ if __name__ == "__main__":
     print(timeT.GL2JD())
     print(timeT.JD2GPSTime(timeT.GL2JD()))
 
-    timeT = TimeSystemChange(0, 0)
-    print(timeT.GPSTime2JD())
-
-    print(timeT.JD2GPSTime(2453736.5))
-
-    timeT = TimeSystemChange(2020, 7, 2, 15, 54, 43)
-    print(timeT.UTC2GPSTime())
-    # print(timeT.JD2GL(timeT.GL2JD()))
-    timeT = TimeSystemChange(2112, 402901)
-    print(timeT.GPSTime2JD())
-    print(timeT.GPSTime2UTC())
-
     timeT = TimeSystemChange(2020, 7, 2, 12, 30, 30)
     print(timeT.UTC2GPSTime())
     print(timeT.UTC2BDTime())
