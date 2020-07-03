@@ -77,6 +77,54 @@ def GZTran(GZTable, measureValue):
     return GZTran
 
 
+def setReturnValue(list1, list2):
+    return [
+        list1[3], list1[4], list1[5], list1[6],
+        list2[3], list2[4], list2[5], list2[6],
+    ]
+
+
+def queryTideTables(tideTable, year, month, day, find_UTCList):
+    """
+    查询潮汐表
+    :param tideTable: 潮汐表
+    :param year: 年
+    :param month: 月
+    :param day: 日
+    :param find_UTCList: 待查询时间点列表
+    :return: list [t1 gt1 t2 gt2]
+    """
+    result = []
+    # judge
+    for i in range(len(find_UTCList)):
+        for k in range(len(tideTable)):
+            if int(tideTable[k][2]) == day:
+                timeMinute = float(tideTable[k][3]) * 60 + float(tideTable[k][4]) + float(tideTable[k][5]) / 60
+                if timeMinute > find_UTCList[i]:
+                    # lookback
+                    timeMinuteBack = float(tideTable[k - 1][3]) * 60 + float(tideTable[k - 1][4]) + float(
+                        tideTable[k - 1][5]) / 60
+                    if timeMinuteBack < find_UTCList[i]:
+                        print(find_UTCList[i], ":", timeMinuteBack, "-", tideTable[k - 1], timeMinute, "-",
+                              tideTable[k])
+                        result.append(setReturnValue(tideTable[k - 1], tideTable[k]))
+                    elif timeMinuteBack == find_UTCList[i]:
+                        print(find_UTCList[i], "*:", tideTable[k - 2], tideTable[k])
+                        result.append(setReturnValue(tideTable[k - 2], tideTable[k]))
+
+    print("\n\t======= 最终筛选出的数据========\n")
+    view = False
+    for i in range(len(result)):
+        for k in range(len(result[0])):
+            if k < 2 or k == 4 or k == 5:
+                print(result[i][k], end=":")
+            else:
+                print(result[i][k], end="  ")
+        if view:
+            print()  # 换两行，print自带一行
+        print()
+
+
 GZTable = [[2800, 2847.38, 1.01842],
            [2900, 2949.22, 1.01856]]
 
