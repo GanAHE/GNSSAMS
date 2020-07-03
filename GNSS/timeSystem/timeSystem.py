@@ -8,7 +8,8 @@ comment: 世界通用时间时间系统类
 @contact: dinggan@whu.edu.cn
 """
 from database import database
-from GNSS.timeSystem import GPSToUTC
+# from GNSS.timeSystem import GPSToUTC
+import datetime
 
 class TimeSystemChange:
     """
@@ -24,7 +25,7 @@ class TimeSystemChange:
     # JDTime
     """
     _JD = None
-    _MJD = None
+    _JDSec = None
     """
     # GPSTime
     """
@@ -32,8 +33,20 @@ class TimeSystemChange:
     _GPSTimeSec = None
 
     """
+    #BDTime
+    """
+    _BDTimeWN = None
+    _BDTimeSec = None
+
+    """
     # UTC
     """
+    _UTC_year = None
+    _UTC_month = None
+    # _UTC_day = None
+    _UTC_hour = None
+    _UTC_minute = None
+    _UTC_second = None
 
     def __init__(self, *args):
         # GLTime
@@ -55,16 +68,16 @@ class TimeSystemChange:
             database.Database.warnExceptionText = "错误的参数数目！"
             print(database.Database.warnExceptionText)
 
+    """格里高利历 与 儒略历 的转换"""
+
     def GL2JD(self):
         if self._month <= 2:
             self._year = self._year - 1
             self._month = self._month + 12
-        julday = int(365.25 * self._year) + int(
-            30.6001 * (self._month + 1)) + self._day + 1720981.5 + self._hour / 24.0 + \
-                 self._minute / 1440.0 + self._second / 86400.0
-
-        # print(julday)
-        return julday
+        JD = int(365.25 * self._year) + int(30.6001 * (self._month + 1)) + self._day + 1720981.5 + self._hour / 24.0 + \
+            self._minute / 1440.0 + self._second / 86400.0
+        # print(JD)
+        return JD
 
     def JD2GL(self, JD):
         a = int(JD + 0.5)
@@ -80,42 +93,156 @@ class TimeSystemChange:
         Year = c - 4715 - int((7 + Month) / 10)
         Hour = int(24 * (JD + 0.5 - int(JD + 0.5)))
         Minute = int(60 * (24 * (JD + 0.5 - int(JD + 0.5)) - Hour))
-        Second= int(60 * (60 * (24 * (JD + 0.5 - int(JD + 0.5)) - Hour)-Minute))
-        return [Year, Month, Day, Hour, Minute, Second]
+        Second = int(60 * (60 * (24 * (JD + 0.5 - int(JD + 0.5)) - Hour) - Minute))
+        return Year, Month, Day, Hour, Minute, Second
 
-    def JD2GPST(self):
-        gps_week = int((self._JD - 2444244.5) / 7)
-        day_of_week = int((self._JD - 2444244.5) % 7)
-        second_of_week = 24 * 60 * 60 * day_of_week + self._hour * 60 * 60 + self._minute * 60 + self._second
-        # print(gps_week, day_of_week, second_of_week)
-        return [gps_week, second_of_week]
+    """儒略历 与 GPS时间 的转换"""
 
-    def GPSTimeToJD(self):
-        return self._GPSTimeWN * 7 + self._GPSTimeSec / 86400 + 2444244.5
+    def JD2GPSTime(self, JD):
+        julday = int(JD)
+        juldaySec = (JD - julday) * 60.0 * 60.0 * 24
+        gps_week = int((JD - 2444244.5) / 7)
+        second_of_week = round(((julday - 2444244) % 7 + (juldaySec / (60.0 * 60.0 * 24) - 0.5)) * 86400)
+        # print(gps_week, second_of_week)
+        return gps_week, second_of_week
 
-    def GPSTimeToUTC(self,GPST):
-        UTC = GPST - GPSToUTC.get_leap_seconds(GPST)
-        if self.UTCToGPSTime(UTC) - GPST != 0:
-            return UTC + 1
+    def GPSTime2JD(self):
+        JD = self._GPSTimeWN * 7 + self._GPSTimeSec / 86400 + 2444244.5
+        return JD
+
+    """GPS时 与 UTC 的转换"""
+
+    def GPSTime2UTC(self):
+        JD = self.GPSTime2JD()
+        Year, Month, Day, Hour, Minute, Second = self.JD2GL(JD)
+        self._year = Year
+        self._month = Month
+        self._day = Day
+        self._hour = Hour
+        self._minute = Minute
+        self._second = Second
+        leapseconds = self.getGPSLeapSeconds()
+        time = datetime.datetime(Year, Month, Day, Hour, Minute, Second)
+        time = time + datetime.timedelta(seconds=-leapseconds)
+        return time.year, time.month, time.day, time.hour, time.minute, time.second
+
+    def UTC2GPSTime(self):
+        Year = self._year
+        Month = self._month
+        Day = self._day
+        Hour = self._hour
+        Minute = self._minute
+        Second = self._second
+        leapseconds = self.getGPSLeapSeconds()
+        time = datetime.datetime(Year, Month, Day, Hour, Minute, Second)
+        time = time + datetime.timedelta(seconds=leapseconds)
+        if time.month <= 2:
+            time.year += 1
+            time.month += 12
+        JD = int(365.25 * time.year) + int(30.6001 * (time.month + 1)) + time.day + 1720981.5 + time.hour / 24.0 + \
+            time.minute / 1440.0 + time.second / 86400.0
+        gps_week, second_of_week = self.JD2GPSTime(JD)
+        return gps_week, second_of_week
+
+    def getGPSLeapSeconds(self):
+        if self._year <= 2006 & self._month <= 1:
+            raise ValueError("Don't know how many leap seconds to use before 2006")
+        elif self._year <= 2009 & self._month <= 1:
+            return 14
+        elif self._year <= 2012 & self._month <= 7:
+            return 15
+        elif self._year <= 2015 & self._month <= 7:
+            return 16
+        elif self._year <= 2017 & self._month <= 1:
+            return 17
         else:
-            return UTC
+            return 18
 
-    def UTCToGPSTime(self,UTC):
-        GPST = UTC + GPSToUTC.get_leap_seconds(UTC)
-        return GPST
+    """BD时 与 儒略历 的转换"""
 
+    def BDTime2JD(self):
+        JD = self._BDTimeWN * 7 + self._BDTimeSec / 86400 + 2453736.5
+        return JD
 
+    def JD2BDTime(self, JD):
+        julday = int(JD)
+        juldaySec = (JD - julday) * 60.0 * 60.0 * 24
+        bd_week = int((JD - 2453736.5) / 7)
+        second_of_week = round(((julday - 2453736) % 7 + (juldaySec / (60.0 * 60.0 * 24) - 0.5)) * 86400)
+        # print(bd_week, second_of_week)
+        return bd_week, second_of_week
+
+    """BD时 与 UTC 的转换"""
+
+    def BDTime2UTC(self):
+        JD = self.BDTime2JD()
+        Year, Month, Day, Hour, Minute, Second = self.JD2GL(JD)
+        self._year = Year
+        self._month = Month
+        self._day = Day
+        self._hour = Hour
+        self._minute = Minute
+        self._second = Second
+        leapseconds = self.getBDLeapSeconds()
+        time = datetime.datetime(Year, Month, Day, Hour, Minute, Second)
+        time = time + datetime.timedelta(seconds=-leapseconds)
+        return time.year, time.month, time.day, time.hour, time.minute, time.second
+
+    def UTC2BDTime(self):
+        Year = self._year
+        Month = self._month
+        Day = self._day
+        Hour = self._hour
+        Minute = self._minute
+        Second = self._second
+        leapseconds = self.getBDLeapSeconds()
+        time = datetime.datetime(Year, Month, Day, Hour, Minute, Second)
+        time = time + datetime.timedelta(seconds=leapseconds)
+        if time.month <= 2:
+            time.year += 1
+            time.month += 12
+        JD = int(365.25 * time.year) + int(30.6001 * (time.month + 1)) + time.day + 1720981.5 + time.hour / 24.0 + \
+            time.minute / 1440.0 + time.second / 86400.0
+        bd_week, second_of_week = self.JD2BDTime(JD)
+        return bd_week, second_of_week
+
+    def getBDLeapSeconds(self):
+        if self._year <= 2006 & self._month <= 1:
+            raise ValueError("BD Time started at 2006")
+        elif self._year <= 2009 & self._month <= 1:
+            return 0
+        elif self._year <= 2012 & self._month <= 7:
+            return 1
+        elif self._year <= 2015 & self._month <= 7:
+            return 2
+        elif self._year <= 2017 & self._month <= 1:
+            return 3
+        else:
+            return 4
 
 if __name__ == "__main__":
     print("————————对比一下——————")
-    lisT = [2010, 10, 20, 10, 20, 20]
-    timeT = TimeSystemChange(2010, 10, 20, 10, 20, 20)
+    timeT = TimeSystemChange(2006, 1, 1, 0, 0, 0)
     print(timeT.GL2JD())
+    print(timeT.JD2BDTime(timeT.GL2JD()))
+
+    timeT = TimeSystemChange(1980, 1, 6, 0, 0, 0)
+    print(timeT.GL2JD())
+    print(timeT.JD2GPSTime(timeT.GL2JD()))
+
+    timeT = TimeSystemChange(0, 0)
+    print(timeT.GPSTime2JD())
+
+    print(timeT.JD2GPSTime(2453736.5))
+
+    timeT = TimeSystemChange(2020, 7, 2, 15, 54, 43)
+    print(timeT.UTC2GPSTime())
     # print(timeT.JD2GL(timeT.GL2JD()))
-    timeT = TimeSystemChange(1606, 296420)
-    print(timeT.GPSTimeToJD())
+    timeT = TimeSystemChange(2112, 402901)
+    print(timeT.GPSTime2JD())
+    print(timeT.GPSTime2UTC())
 
-    timeT = TimeSystemChange(2455489.930787037)
-    print(timeT.JD2GPST())
-
+    timeT = TimeSystemChange(2020, 7, 2, 12, 30, 30)
+    print(timeT.UTC2GPSTime())
+    print(timeT.UTC2BDTime())
 
