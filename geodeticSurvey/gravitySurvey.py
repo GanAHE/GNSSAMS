@@ -7,6 +7,8 @@ comment: 重力测量数据处理工具包
 @version 1.0.
 @contact: dinggan@whu.edu.cn
 """
+import csv
+from math import sin, cos, pi
 
 
 def observationDataCorrect(observationData, GZTranEnable, GZTable, tideTranEnable, tideTable):
@@ -38,7 +40,7 @@ def observationDataCorrect(observationData, GZTranEnable, GZTable, tideTranEnabl
                     if k == len(GZTable) - 1:
                         print("未能在格值表查到对应值")
                 # 计算转换值
-                GZTranResult[i][1] = ao + a1 * (measureValue[i][1] - Ro)
+                GZTranResult[i][1] = ao + a1 * (observationData[i][1] - Ro)
     lastResult = GZTranResult
     if tideTranEnable:  # 潮汐改正
         if len(tideTable):
@@ -125,20 +127,63 @@ def queryTideTables(tideTable, year, month, day, find_UTCList):
         print()
 
 
-GZTable = [[2800, 2847.38, 1.01842],
-           [2900, 2949.22, 1.01856]]
+def normalGravity(fia, type=None, H=None):
+    """
+    计算正常重力值
+    :param fia: 大地纬度
+    :param type: 模型公式
+    :param H: 大地水准面上高度
+    :return: cm/s^2 or Gal
+    """
+    fia = fia * pi / 180
+    if type == "hemote":
+        yo = 978030.0 * (1 + 0.005302 * sin(fia) * sin(fia) - 0.000007 * sin(2 * fia) * sin(2 * fia))
+    elif type == "casni":
+        yo = 978049.0 * (1 + 0.005288 * sin(fia) * sin(fia) - 0.0000059 * sin(2 * fia) * sin(2 * fia))
+    else:
+        yo = 978032.0 * (1 + 0.005302 * sin(fia) * sin(fia) - 0.0000058 * sin(2 * fia) * sin(2 * fia))
 
-measureValue = [
-    2900.567,
-    2898.406,
-    2894.159,
-    2889.785,
-    2885.453,
-    2889.753,
-    2894.112,
-    2898.344,
-    2900.526
-]
-GZTrn = GZTran(GZTable, measureValue)
-for t in range(len(GZTrn)):
-    print("最终结果", GZTrn[t])
+    if H is None:  # 水准面上正常重力
+        return yo
+    else:  # 地面H出正常重力
+        return yo - 0.3086 * H
+
+
+#
+# GZTable = [[2800, 2847.38, 1.01842],
+#            [2900, 2949.22, 1.01856]]
+#
+# measureValue = [
+#     2900.567,
+#     2898.406,
+#     2894.159,
+#     2889.785,
+#     2885.453,
+#     2889.753,
+#     2894.112,
+#     2898.344,
+#     2900.526
+# ]
+# GZTrn = GZTran(GZTable, measureValue)
+# for t in range(len(GZTrn)):
+#     print("最终结果", GZTrn[t])
+
+# print(normalGravity(114.365, H=-200), normalGravity(30.365)*1000)
+
+csvPath = "E:/文档/大三课程/第三学期 - 物理大地测量学实习/数据/Net.csv"
+Data = []
+with open(csvPath, "r") as F:
+    reader = csv.reader(F)
+    count = 1
+    for row in reader:
+        if count == 1:
+            count = 2
+            Data.append(row)
+        else:
+            lineData = list(map(float,row[1:5]))
+            print("重力异常:",lineData[3]-normalGravity(lineData[1], H=lineData[2])-0.1116*lineData[2])
+            row[5] = lineData[3]-normalGravity(lineData[1], H=lineData[2]-0.1116*lineData[2])
+            Data.append(row)
+F.close()
+for i in range(len(Data)):
+    print(Data[i][5])

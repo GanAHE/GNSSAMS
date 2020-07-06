@@ -40,8 +40,5 @@ from win32com import client
 #         print(row_content)  # 以列表形式导出每一行数据
 #
 # docx.save("E:\\CodePrograme\\Python\\EMACS\source\\template\\tet.docx")
-from database.database import Database
-a = Database()
-a.loadConfigJson()
-b = Database()
-print(b.elliDict,b.workspace,Database.elliDict,Database.workspace)
+
+from geodeticSurvey.gravityModel import GravityField
