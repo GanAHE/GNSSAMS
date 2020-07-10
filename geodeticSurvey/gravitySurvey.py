@@ -149,41 +149,48 @@ def normalGravity(fia, type=None, H=None):
         return yo - 0.3086 * H
 
 
-#
-# GZTable = [[2800, 2847.38, 1.01842],
-#            [2900, 2949.22, 1.01856]]
-#
-# measureValue = [
-#     2900.567,
-#     2898.406,
-#     2894.159,
-#     2889.785,
-#     2885.453,
-#     2889.753,
-#     2894.112,
-#     2898.344,
-#     2900.526
-# ]
-# GZTrn = GZTran(GZTable, measureValue)
-# for t in range(len(GZTrn)):
-#     print("最终结果", GZTrn[t])
+def gridCacu():
+    Data = []
+    csvPath = "E:/文档/大三课程/第三学期 - 物理大地测量学实习/数据/Grid.csv"
+    with open(csvPath, "r") as F:
+        reader = csv.reader(F)
+        count = 1
+        for row in reader:
+            if count == 1:
+                count = 2
+                Data.append(row)
+            else:
+                lineData = list(map(float, row[1:5]))
+                print("重力异常:", lineData[3] - normalGravity(lineData[1], H=lineData[2]) - 0.1116 * lineData[2])
+                row[5] = lineData[3] - normalGravity(lineData[1], H=lineData[2] - 0.1116 * lineData[2])
+                Data.append(row)
+    F.close()
+    for i in range(len(Data)):
+        print(Data[i][5])
 
-# print(normalGravity(114.365, H=-200), normalGravity(30.365)*1000)
 
-csvPath = "E:/文档/大三课程/第三学期 - 物理大地测量学实习/数据/Net.csv"
-Data = []
-with open(csvPath, "r") as F:
-    reader = csv.reader(F)
-    count = 1
-    for row in reader:
-        if count == 1:
-            count = 2
-            Data.append(row)
-        else:
-            lineData = list(map(float,row[1:5]))
-            print("重力异常:",lineData[3]-normalGravity(lineData[1], H=lineData[2])-0.1116*lineData[2])
-            row[5] = lineData[3]-normalGravity(lineData[1], H=lineData[2]-0.1116*lineData[2])
-            Data.append(row)
-F.close()
-for i in range(len(Data)):
-    print(Data[i][5])
+def NetCacu():
+    """
+    基线联测
+    :return:
+    """
+    Data = [[2, 114.3569444, 30.53138889, 41, 979349.183300],
+            [4, 114.353121, 30.532709, 37, 979349.738555],
+            [5, 114.352441, 30.532003, 34, 979350.709845],
+            [3, 114.353763, 30.531887, 39, 979350.657243],
+            [6, 114.353044, 30.529602, 37, 979351.344532],
+            [7, 114.35465, 30.529754, 41, 979351.081257],
+            [8, 114.354571, 30.528564, 40, 979349.974796]]
+
+    re = []
+    for i in range(len(Data)):
+        print("基线联测重力异常:", Data[i][4] - normalGravity(Data[i][2], H=Data[i][3]) - 0.1116 * Data[i][3])
+        re.append([Data[i][4] - normalGravity(Data[i][2], H=Data[i][3]),
+                   Data[i][4] - normalGravity(Data[i][2], H=Data[i][3]) - 0.1116 * Data[i][3]])
+    # 完成
+    print("===========")
+    for i in range(len(re)):
+        print(re[i])
+
+# NetCacu()
+# gridCacu()

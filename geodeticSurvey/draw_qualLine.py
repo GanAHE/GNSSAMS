@@ -62,7 +62,7 @@ def example():
 
 
 def f(x, y):
-    return (1 - y ** 5 + x ** 5) * np.exp(-x ** 2 - y ** 2)
+    return (1 - y ** 5 + x ** 5) * np.exp(-x ** 2 - y ** 2) * 10
 
 
 def ThreeDNet(X_v, Y_v, value):
@@ -137,14 +137,15 @@ def sow(X_v, Y_v, value):
 # example()
 
 
-def draw():
-    filePath = "E:\文档\大三课程\第三学期 - 物理大地测量学实习\数据\S.csv"
+def drawGrid():
+    filePath = "E:\文档\大三课程\第三学期 - 物理大地测量学实习\数据\Grid.csv"
     Lon = []
     lat = []
     H = []
     err1 = []
     err2 = []
     err3 = []
+    err4 = []
     with open(filePath, "r") as F:
         re = csv.reader(F)
         c = 1
@@ -159,9 +160,49 @@ def draw():
                 H.append(lineData[2])
                 err1.append(lineData[4])
                 err2.append(lineData[5])
+                err3.append(lineData[6])
+                err4.append(lineData[7])
     F.close()
     # ThreeDNet(Lon, lat, err2)
-    sow(Lon,lat,err1)
+    ThreeDNet(Lon, lat, err4)
+    sow(Lon, lat, err4)
 
 
-draw()
+def drawNet():
+    filePath = "E:/文档/大三课程/第三学期 - 物理大地测量学实习/数据/NetRe.csv"
+    Lon = []
+    lat = []
+    H = []
+    err1 = []
+    err2 = []
+    err3 = []
+    err4 = []
+    with open(filePath, "r") as F:
+        re = csv.reader(F)
+        c = 1
+        for row in re:
+            if c == 1:
+                c = 2
+                print("Head", row)
+            else:
+                lineData = list(map(float, row))
+                Lon.append(lineData[1])
+                lat.append(lineData[2])
+                H.append(lineData[3])
+                err1.append(lineData[6])
+                err2.append(lineData[7])
+                err3.append(lineData[8])
+                err4.append(lineData[9])
+    F.close()
+    # ThreeDNet(Lon, lat, err1)
+    # ThreeDNet(Lon, lat, err2)
+    ThreeDNet(Lon, lat, err3)
+    # ThreeDNet(Lon, lat, err4)
+    # line(Lon,lat,err2)
+    # sow(Lon, lat, err1)
+    sow(Lon, lat, err3)
+
+
+# drawGrid()
+drawNet()
+# example()
