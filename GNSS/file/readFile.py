@@ -17,11 +17,9 @@ import time
 import datetime
 import numpy as np
 import pandas as pd
-from gnsspy.download import get_rinex, get_ionosphere
-from gnsspy.funcs.checkif import (isfloat, isint, isexist)
-from gnsspy.funcs.date import doy2date
-from gnsspy.funcs.constants import _system_name
-from gnsspy.io.io import Observation, Navigation, PEphemeris, _ObservationTypes
+from GNSS.file.checkif import (isfloat, isint)
+from GNSS.file.constants import _system_name
+from GNSS.file.save import Observation, Navigation, PEphemeris, _ObservationTypes
 
 
 def read_navFile(navigationFile):
@@ -34,6 +32,7 @@ def read_navFile(navigationFile):
     f = open(navigationFile)
     nav = f.readlines()
     line = 0
+    version = None
     while True:
         if 'RINEX VERSION / TYPE' in nav[line]:
             version = nav[line][0:-21].split()[0]
@@ -44,8 +43,8 @@ def read_navFile(navigationFile):
         else:
             line += 1
     del nav[0:line]
-    nav = [lines.replace('E ', 'E0') for lines in nav]
     nav = [lines.replace('D', 'E') for lines in nav]
+    nav = [lines.replace('E ', 'E0') for lines in nav]
     nav = [lines.replace('0-', '0 -') for lines in nav]
     nav = [lines.replace('1-', '1 -') for lines in nav]
     nav = [lines.replace('2-', '2 -') for lines in nav]
@@ -96,8 +95,7 @@ def read_navFile(navigationFile):
                 raise Warning('Navigation year is not recognized! | Program stopped!')
         else:
             year = int(nav[0][1])
-        month, day, hour, minute, second = int(nav[0][2]), int(nav[0][3]), int(nav[0][4]), int(nav[0][5]), int(
-            nav[0][6][0])
+        month, day, hour, minute, second = int(nav[0][2]), int(nav[0][3]), int(nav[0][4]), int(nav[0][5]), int(nav[0][6])
         epoch = datetime.datetime(year=year,
                                   month=month,
                                   day=day,
@@ -106,8 +104,8 @@ def read_navFile(navigationFile):
                                   second=second)
         # --------------------------------------------------------------
         clockBias = nav[0][7]
-        relFeqBias = nav[0][8]
-        transmissionTime = nav[0][9]
+        clockDrift = nav[0][8]
+        clockDriftRate = nav[0][9]
         if GLONASS or SBAS:
             x, vx, ax = float(nav[1][0]), float(nav[1][1]), float(nav[1][2])
             y, vy, ay = float(nav[2][0]), float(nav[2][1]), float(nav[2][2])
@@ -115,19 +113,18 @@ def read_navFile(navigationFile):
             health = float(nav[1][3])
             freqNumber = float(nav[2][3])
             operationDay = float(nav[3][3])
-            roota, toe, m0, e, delta_n, smallomega, cus, cuc, crs, crc, cis, cic, idot, i0, bigomega0, bigomegadot = [
-                np.nan for _ in range(16)]
+            sqrtA, toe, m0, e, delta_n, smallomega, cus, cuc, crs, crc, cis, cic, idot, i0, bigomega0, bigomegadot = [np.nan for _ in range(16)]
             if PRN == PRN_old and epoch == epoch_old:
-                ephemeris_list[-1] = [PRN, epoch, clockBias, relFeqBias,
-                                      transmissionTime, roota, toe, m0, e, delta_n,
+                ephemeris_list[-1] = [PRN, epoch, clockBias, clockDrift,
+                                      clockDriftRate, sqrtA, toe, m0, e, delta_n,
                                       smallomega, cus, cuc, crs, crc, cis, cic,
                                       idot, i0, bigomega0, bigomegadot,
                                       x, y, z, vx, vy, vz, ax, ay, az,
                                       health, freqNumber, operationDay]
             else:
                 svList.append(PRN)
-                ephemeris_list.append([PRN, epoch, clockBias, relFeqBias,
-                                       transmissionTime, roota, toe, m0, e, delta_n,
+                ephemeris_list.append([PRN, epoch, clockBias, clockDrift,
+                                       clockDriftRate, sqrtA, toe, m0, e, delta_n,
                                        smallomega, cus, cuc, crs, crc, cis, cic,
                                        idot, i0, bigomega0, bigomegadot,
                                        x, y, z, vx, vy, vz, ax, ay, az,
@@ -145,23 +142,23 @@ def read_navFile(navigationFile):
             cis = float(nav[3][3])
             cic = float(nav[3][1])
             idot = float(nav[5][0])
-            roota = float(nav[2][3])
+            sqrtA = float(nav[2][3])
             delta_n = float(nav[1][2])
             smallomega = float(nav[4][2])
             bigomega0 = float(nav[3][2])
             bigomegadot = float(nav[4][3])
             x, y, z, vx, vy, vz, ax, ay, az, health, freqNumber, operationDay = [np.nan for _ in range(12)]
             if PRN == PRN_old and epoch == epoch_old:
-                ephemeris_list[-1] = [PRN, epoch, clockBias, relFeqBias,
-                                      transmissionTime, roota, toe, m0, e, delta_n,
+                ephemeris_list[-1] = [PRN, epoch, clockBias, clockDrift,
+                                      clockDriftRate, sqrtA, toe, m0, e, delta_n,
                                       smallomega, cus, cuc, crs, crc, cis, cic,
                                       idot, i0, bigomega0, bigomegadot,
                                       x, y, z, vx, vy, vz, ax, ay, az,
                                       health, freqNumber, operationDay]
             else:
                 svList.append(PRN)
-                ephemeris_list.append([PRN, epoch, clockBias, relFeqBias,
-                                       transmissionTime, roota, toe, m0, e, delta_n,
+                ephemeris_list.append([PRN, epoch, clockBias, clockDrift,
+                                       clockDriftRate, sqrtA, toe, m0, e, delta_n,
                                        smallomega, cus, cuc, crs, crc, cis, cic,
                                        idot, i0, bigomega0, bigomegadot,
                                        x, y, z, vx, vy, vz, ax, ay, az,
@@ -171,17 +168,17 @@ def read_navFile(navigationFile):
         epoch_old = epoch
         if len(nav) == 0:
             break
-    columnNames = ["SV", "Epoch", "clockBias", "relFeqBias", "transmissionTime", "roota", "toe", "m0", "eccentricity",
-                   "delta_n",
-                   "smallomega", "cus", "cuc", "crs", "crc", "cis", "cic",
+    columnNames = ["SV", "Epoch", "clockBias", "clockDrift", "clockDriftRate", "sqrtA", "toe", "m0", "eccentricity",
+                   "delta_n","smallomega", "cus", "cuc", "crs", "crc", "cis", "cic",
                    "idot", "i0", "bigomega0", "bigomegadot",
                    "x", "y", "z", "vx", "vy", "vz", "ax", "ay", "az",
                    "health", "freqNumber", "operationDay"]
     ephemeris = pd.DataFrame(ephemeris_list, index=svList, columns=columnNames)
     ephemeris.index.name = 'SV'
-    ephemeris["epoch"] = ephemeris.Epoch
+    # ephemeris["epoch"] = ephemeris.Epoch
     ephemeris.set_index('Epoch', append=True, inplace=True)
     ephemeris = ephemeris.reorder_levels(['Epoch', 'SV'])
+    ephemeris = ephemeris.drop(["SV"], axis=1)
 
     fileEpoch = datetime.date(year=year,
                               month=month,
@@ -202,7 +199,7 @@ def read_obsFile(observationFile):
         raise Warning(
             "All I/O functions take uncompressed files as an input (remove .Z/.gz from filename) | Next release will include this feature...")
     # check if observationFile exists or not
-    isexist(observationFile)
+    # isexist(observationFile)
     # open file
     f = open(observationFile, errors='ignore')
     obsLines = f.readlines()
@@ -230,7 +227,11 @@ def read_obsFile_v2(observationFile):
     obsLines = f.readlines()
 
     line = 0
+    version = None
     ToB = []
+    approx_position = None
+    receiver_type = None
+    antenna_type = None
     while True:
         if 'RINEX VERSION / TYPE' in obsLines[line]:
             version = obsLines[line][0:-21].split()[0]
@@ -261,6 +262,7 @@ def read_obsFile_v2(observationFile):
     obsList = []
     SVList = []
     epochList = []
+    obsNumber = None
     while True:
         # --------------------------------------------------------------------------------------
         while True:
@@ -293,10 +295,9 @@ def read_obsFile_v2(observationFile):
                                   hour=int(obsLines[0][10:12]),
                                   minute=int(obsLines[0][13:15]),
                                   second=int(obsLines[0][16:18]) if isint(obsLines[0][16:18]) == True else 0)
-        # microsecond  = int(obsLines[0][20:27])  if isint(obsLines[0][19:20])==True else 0)
         epochList.append(epoch)
-        eflag = int(obsLines[0][28:30])
-        if eflag == 4:
+        eflag = int(obsLines[0][27:29])
+        if eflag != 0:
             del obsLines[0]
             while True:
                 if 'COMMENT' in obsLines[0]:
@@ -380,6 +381,7 @@ def read_obsFile_v3(obsFileName):
     :param observationFile: 文件路径
     :return: Observation's object
     """
+    global epoch, approx_position, receiver_type, antenna_type, version
     start = time.time()  # Time of start
 
     if obsFileName.endswith("crx"): obsFileName = obsFileName.split(".")[0] + ".rnx"
@@ -544,34 +546,33 @@ def read_obsFile_v3(obsFileName):
             del obsLines[0]  # delete epoch header line
             # =============================================================================
             epoch_SVNumber = int(epoch_SVNumber)
-            for svLine in range(epoch_SVNumber):
+            for j in range(epoch_SVNumber):
                 obsEpoch = np.full((1, len(ToB)), None)
-                svList.append(obsLines[svLine][:3])
-                if obsLines[svLine].startswith("G"):
-                    obsEpoch[0, index_GPS] = np.array([[float(obsLines[svLine][3:][i:i + 14]) if isfloat(
-                        obsLines[svLine][3:][i:i + 14]) == True else None for i in range(0, len(ToB_GPS) * 16, 16)]])
-                elif obsLines[svLine].startswith("R"):
-                    obsEpoch[0, index_GLONASS] = np.array([[float(obsLines[svLine][3:][i:i + 14]) if isfloat(
-                        obsLines[svLine][3:][i:i + 14]) == True else None for i in
+                svList.append(obsLines[j][:3])
+                if obsLines[j].startswith("G"):
+                    obsEpoch[0, index_GPS] = np.array([[float(obsLines[j][3:][i:i + 14]) if isfloat(
+                        obsLines[j][3:][i:i + 14]) == True else None for i in range(0, len(ToB_GPS) * 16, 16)]])
+                elif obsLines[j].startswith("R"):
+                    obsEpoch[0, index_GLONASS] = np.array([[float(obsLines[j][3:][i:i + 14]) if isfloat(
+                        obsLines[j][3:][i:i + 14]) == True else None for i in
                                                             range(0, len(ToB_GLONASS) * 16, 16)]])
-                    # obsEpoch[svLine,index_GLONASS]
-                elif obsLines[svLine].startswith("E"):
-                    obsEpoch[0, index_GALILEO] = np.array([[float(obsLines[svLine][3:][i:i + 14]) if isfloat(
-                        obsLines[svLine][3:][i:i + 14]) == True else None for i in
+                elif obsLines[j].startswith("E"):
+                    obsEpoch[0, index_GALILEO] = np.array([[float(obsLines[j][3:][i:i + 14]) if isfloat(
+                        obsLines[j][3:][i:i + 14]) == True else None for i in
                                                             range(0, len(ToB_GALILEO) * 16, 16)]])
-                elif obsLines[svLine].startswith("C"):
-                    obsEpoch[0, index_COMPASS] = np.array([[float(obsLines[svLine][3:][i:i + 14]) if isfloat(
-                        obsLines[svLine][3:][i:i + 14]) == True else None for i in
+                elif obsLines[j].startswith("C"):
+                    obsEpoch[0, index_COMPASS] = np.array([[float(obsLines[j][3:][i:i + 14]) if isfloat(
+                        obsLines[j][3:][i:i + 14]) == True else None for i in
                                                             range(0, len(ToB_COMPASS) * 16, 16)]])
-                elif obsLines[svLine].startswith("J"):
-                    obsEpoch[0, index_QZSS] = np.array([[float(obsLines[svLine][3:][i:i + 14]) if isfloat(
-                        obsLines[svLine][3:][i:i + 14]) == True else None for i in range(0, len(ToB_QZSS) * 16, 16)]])
-                elif obsLines[svLine].startswith("I"):
-                    obsEpoch[0, index_IRSS] = np.array([[float(obsLines[svLine][3:][i:i + 14]) if isfloat(
-                        obsLines[svLine][3:][i:i + 14]) == True else None for i in range(0, len(ToB_IRSS) * 16, 16)]])
-                elif obsLines[svLine].startswith("S"):
-                    obsEpoch[0, index_SBAS] = np.array([[float(obsLines[svLine][3:][i:i + 14]) if isfloat(
-                        obsLines[svLine][3:][i:i + 14]) == True else None for i in range(0, len(ToB_SBAS) * 16, 16)]])
+                elif obsLines[j].startswith("J"):
+                    obsEpoch[0, index_QZSS] = np.array([[float(obsLines[j][3:][i:i + 14]) if isfloat(
+                        obsLines[j][3:][i:i + 14]) == True else None for i in range(0, len(ToB_QZSS) * 16, 16)]])
+                elif obsLines[j].startswith("I"):
+                    obsEpoch[0, index_IRSS] = np.array([[float(obsLines[j][3:][i:i + 14]) if isfloat(
+                        obsLines[j][3:][i:i + 14]) == True else None for i in range(0, len(ToB_IRSS) * 16, 16)]])
+                elif obsLines[j].startswith("S"):
+                    obsEpoch[0, index_SBAS] = np.array([[float(obsLines[j][3:][i:i + 14]) if isfloat(
+                        obsLines[j][3:][i:i + 14]) == True else None for i in range(0, len(ToB_SBAS) * 16, 16)]])
                 obsEpoch = np.append(obsEpoch, epoch)
                 obsList.append(obsEpoch)
             # =============================================================================
@@ -611,8 +612,9 @@ def read_sp3File(sp3file):
     :param sp3file: 文件路径
     :return: SP3 object
     """
+    global epoch
     start = time.time()
-    isexist(sp3file)
+    # isexist(sp3file)
     f = open(sp3file)
     sp3 = f.readlines()
     line = 0
@@ -676,7 +678,7 @@ def read_sp3File(sp3file):
     # ------------------------------------------------------------------
     end = time.time()
     print('{}'.format(sp3file), 'file is read in', '{0:.2f}'.format(end - start), 'seconds')
-    return position
+    return PEphemeris(epoch, position)
 
 
 def read_clockFile(clkFile):
@@ -685,7 +687,7 @@ def read_clockFile(clkFile):
     :param clkFile:
     :return:
     """
-    isexist(clkFile)
+    # isexist(clkFile)
     start = time.time()
     f = open(clkFile)
     clk = f.readlines()
@@ -751,7 +753,7 @@ def read_ionFile(IonFile):
     :return:
     """
     # check if observationFile exists or not
-    isexist(IonFile)
+    # isexist(IonFile)
     # ----------------------------------------------
     start = time.time()
     f = open(IonFile, errors='ignore')
@@ -792,6 +794,15 @@ def read_ionFile(IonFile):
     return tecuList
 
 if __name__ == "__main__":
+<<<<<<< HEAD
     nav = read_navFile("./D068305A.19N")
     print(nav.navigation)
     pass
+=======
+    # nav = read_navFile("./D068305A.19N")
+    # print(nav.navigation)
+
+    obs = read_obsFile("./GP008301I.19o")
+    print(obs.observation)
+
+>>>>>>> a9c843ca3952f1e643d2fc6177936bb156c067b1
