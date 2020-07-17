@@ -794,15 +794,12 @@ def read_ionFile(IonFile):
     return tecuList
 
 if __name__ == "__main__":
-<<<<<<< HEAD
     nav = read_navFile("./D068305A.19N")
     print(nav.navigation)
     pass
-=======
     # nav = read_navFile("./D068305A.19N")
     # print(nav.navigation)
 
     obs = read_obsFile("./GP008301I.19o")
     print(obs.observation)
 
->>>>>>> a9c843ca3952f1e643d2fc6177936bb156c067b1
