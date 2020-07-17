@@ -172,7 +172,7 @@ class GravityField(object):
                 LineStr = ""
                 for k in range(len(listA[0])):
                     if k < 2:
-                        LineStr += "  " + '{0:{1}<1}\t'.format(listA[i][k], " ")
+                        LineStr += " " + '{0:{1}<3}\t'.format(listA[i][k], " ")
                     else:  # 长数据间隔写入
                         LineStr += "  " + '{0:{1}<22}\t'.format(listA[i][k], " ")
                 LineStr += "\n"
@@ -306,19 +306,45 @@ def reModel():
     N_max = 10
     # 模拟数据读取并实时反演
     path = "E:/文档/大三课程/第三学期 - 物理大地测量学实习/数据/grav_anom_glb_30m_SGG-UGM-1_360d_sph_6371km_1group"
-    savePath = "E:/文档/大三课程/第三学期 - 物理大地测量学实习/数据/MGM-O1"
+    savePath = ["E:/文档/大三课程/第三学期 - 物理大地测量学实习/数据/MGM-O1", "E:/文档/大三课程/第三学期 - 物理大地测量学实习/数据/MGM-02"]
     # 实例化一个重力场对象
     gravity = GravityField()
+    c = 1
+    controlM = 0
+    fileExit = False
     with open(path, "r") as f:
         for line in f:
             lineList = list(map(float, line.split()))
-            print("DATA_", lineList)
-            for i in range(2, N_max):
-                r = gravity.get_r(lineList[1], lineList[0])
-                i_nRe = gravity.get_detCnmSnm(r, lineList[1], lineList[0], lineList[2], i)
-                print("当前阶:---\n", i_nRe)
-                # gravity.writePlus(savePath, i_nRe)
+            controlM += 1
+            if lineList[1] != 0:
+                for i in range(2, N_max):
+                    c += 1
+                    r = gravity.get_r(lineList[1], lineList[0])
+                    i_nRe = gravity.get_detCnmSnm(r, 114, 30, lineList[2], i)
+
+                    print("当前阶:---\n", i_nRe)
+                    if controlM % 2 == 0:
+                        gravity.writePlus(savePath[1], i_nRe)
+
+                    else:
+                        gravity.writePlus(savePath[0], i_nRe)
+
+                    if c > 10:
+                        break
+    if controlM % 2 == 0:
+        print("最终文件保存路径为：", savePath[1])
+    else:
+        print("最终文件保存路径为：", savePath[0])
+
 
 # getModelDet_g()
 # getModelDet_g2()
-reModel()
+# reModel()
+# 实例化一个重力场对象
+gravity = GravityField()
+Data = [89.75000,113.50000,8.78948]
+pa = "E:/文档/大三课程/第三学期 - 物理大地测量学实习/数据/MGM-G"
+for i in range(2,180):
+    r = gravity.get_r(Data[1], Data[0])
+    i_nRe = gravity.get_detCnmSnm(r, Data[1], Data[0], Data[2], i)
+    gravity.writePlus(pa, i_nRe)

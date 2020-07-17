@@ -792,6 +792,6 @@ def read_ionFile(IonFile):
     return tecuList
 
 if __name__ == "__main__":
-    # nav = read_navFile("./D068305A.19N")
-    # print(nav.navigation)
+    nav = read_navFile("./D068305A.19N")
+    print(nav.navigation)
     pass

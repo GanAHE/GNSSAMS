@@ -10,17 +10,16 @@ comment: 主函数
 import sys, os
 import time
 
-from PyQt5 import QtCore, QtWidgets,QtGui
-
 from database.database import Database
 
 if hasattr(sys, 'frozen'):
     os.environ['PATH'] = sys._MEIPASS + ";" + os.environ['PATH']
 from window import windowDS
 from PyQt5.QtWidgets import QApplication, QMainWindow, QSplashScreen
-from PyQt5.QtGui import QPixmap
+from PyQt5 import QtCore, QtGui
 
-class SplashPanel(QtWidgets.QSplashScreen):
+
+class SplashPanel(QSplashScreen):
 
     def __init__(self):
         super(SplashPanel, self).__init__()
@@ -90,8 +89,6 @@ if __name__ == '__main__':
     app.processEvents()
 
     MainWindow = QMainWindow()
-    # 已定界面 windows
-    # ui = window.Ui_mainWindow()
     # 界面重构存储区域
     ui = windowDS.Ui_mainWindow()
     ui.setupUi(MainWindow)

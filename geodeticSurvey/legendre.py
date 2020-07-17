@@ -9,6 +9,7 @@ comment: 勒让德函数
 """
 from math import cos, pi, sqrt
 
+
 # from geodeticSurvey.gravityFieldModel import GravityModel
 
 
@@ -93,8 +94,9 @@ class Legendre(object):
         elif n == m:
             pows = 1
             for i in range(2, n + 1):
-                pows = pows * sqrt((2 * i) / (2 * i))
-            return sin_theta ** n * pows
+                pows = pows * sqrt((2 * i + 1
+                                    ) / (2 * i))
+            return sqrt(3) * (sin_theta ** n) * pows
         else:
             # print("漏网之鱼", n, m)
             return 1
@@ -109,7 +111,9 @@ def test():
     saPath = "E:/文档/大三课程/第三学期 - 物理大地测量学实习/L.txt"
     with open(saPath, "w") as F:
         for i in range(300):
-            G = L.normalizationLegendre(int(m[i][0]), int(m[i][1]), cos(60 * pi / 180) )
+            # G = L.normalizationLegendre(int(m[i][0]), int(m[i][1]), cos(60 * pi / 180))
             G2 = L.normalizationLegendre_II(int(m[i][0]), int(m[i][1]), cos(60 * pi / 180))
-            # print("阶次", m[i][0], m[i][1], G, G2, G - G2)
+            # print("阶次", m[i][0], m[i][1],  G2)
             F.write("{}  {}  {}\n".format(m[i][0], m[i][1], G2))
+
+# test()
