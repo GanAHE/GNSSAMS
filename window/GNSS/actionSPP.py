@@ -9,7 +9,7 @@ comment: 标准单点定位
 """
 from GNSS.file import readFile
 from GNSS.orbetEtc import satelliteOrbetEtc
-from numpy import sqrt,mat
+from numpy import sqrt, mat
 from GNSS.timeSystem.timeChange import TimeSystemChange
 from database.database import Database
 import datetime
@@ -28,7 +28,7 @@ class ActionSPP(object):
         # 读取观测文件并提取对应数据
         observationClass = readFile.read_obsFile(path_OFile)
         # 查看键值
-        print(observationClass.observation.index,observationClass.observation.columns)
+        print(observationClass.observation.index, observationClass.observation.columns)
         # print(observationClass.observation.epoch[0],observationClass.observation["L1C"][observationClass.observation.epoch[0]])
 
         # 观测时刻UTC
@@ -57,7 +57,6 @@ class ActionSPP(object):
         # xyz = mat([[Database.earthRotationalAngularVelocity]]) * mat(xyz)
         # 测站近似坐标,一维list
         approx_position = observationClass.approx_position
-
         # 计算近似站星距离/伪距
         sum = 0
         for i in range(3):
@@ -65,10 +64,11 @@ class ActionSPP(object):
         approx_distance = sqrt(sum)
         print(approx_distance)
         # 对流层延迟/电离层延迟改正
+    # 循环解算系数等完成
+    # 平差求解
 
-        # 平差求解
-        # 精度评价： GDOP / PDOP / TDOP / HDOP / VDOP
-
+    # 改正
+    # 精度评价： GDOP / PDOP / TDOP / HDOP / VDOP
 
 
 ActionSPP().run()
