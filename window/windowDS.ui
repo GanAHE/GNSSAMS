@@ -217,7 +217,7 @@
    </widget>
    <widget class="QMenu" name="menu_C">
     <property name="title">
-     <string>功能(&amp;C)</string>
+     <string>更多功能(&amp;C)</string>
     </property>
     <widget class="QMenu" name="menu_C_2">
      <property name="title">
@@ -231,21 +231,6 @@
      </property>
      <addaction name="munuItem_railwayCurve"/>
      <addaction name="munuItem_CPIII"/>
-    </widget>
-    <widget class="QMenu" name="menuGNSS">
-     <property name="geometry">
-      <rect>
-       <x>516</x>
-       <y>257</y>
-       <width>199</width>
-       <height>102</height>
-      </rect>
-     </property>
-     <property name="title">
-      <string>GNSS</string>
-     </property>
-     <addaction name="munuItem_GNSSNet"/>
-     <addaction name="munuItem_satellite"/>
     </widget>
     <widget class="QMenu" name="menu_T">
      <property name="sizePolicy">
@@ -266,7 +251,6 @@
     <addaction name="munuItem_markbook"/>
     <addaction name="separator"/>
     <addaction name="munuItem_controlNet"/>
-    <addaction name="menuGNSS"/>
     <addaction name="separator"/>
     <addaction name="menu_G"/>
     <addaction name="separator"/>
@@ -302,7 +286,25 @@
     <addaction name="munuItem_onlineHelp"/>
     <addaction name="munuItem_localHelp"/>
    </widget>
+   <widget class="QMenu" name="menuGNSS_2">
+    <property name="title">
+     <string>GNSS(&amp;G)</string>
+    </property>
+    <addaction name="munuItem_satellite"/>
+    <addaction name="separator"/>
+    <addaction name="munuItem_GNSSNet"/>
+    <addaction name="separator"/>
+    <addaction name="menuItem_SPP"/>
+    <addaction name="separator"/>
+    <addaction name="actionPPP_P"/>
+    <addaction name="separator"/>
+    <addaction name="action_G"/>
+    <addaction name="separator"/>
+    <addaction name="actionGNSS_L"/>
+    <addaction name="separator"/>
+   </widget>
    <addaction name="menu_F"/>
+   <addaction name="menuGNSS_2"/>
    <addaction name="menu_C"/>
    <addaction name="menu_S"/>
    <addaction name="menu_H"/>
@@ -472,18 +474,24 @@
    </property>
   </action>
   <action name="munuItem_railwayCurve">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>铁路曲线计算(&amp;T)</string>
    </property>
   </action>
   <action name="munuItem_CPIII">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>CPIII控制网平差(&amp;C)</string>
    </property>
   </action>
   <action name="munuItem_GNSSNet">
    <property name="text">
-    <string>静态GNSS网平差(&amp;G)</string>
+    <string>静态GNSS网平差(&amp;A)</string>
    </property>
   </action>
   <action name="munuItem_cacuPara">
@@ -537,7 +545,7 @@
      <normaloff>../source/icon/outPut.png</normaloff>../source/icon/outPut.png</iconset>
    </property>
    <property name="text">
-    <string>导出结果报告(&amp;O)</string>
+    <string>导出报告(&amp;O)</string>
    </property>
   </action>
   <action name="munuItem_version">
@@ -598,7 +606,7 @@
   </action>
   <action name="munuItem_satellite">
    <property name="text">
-    <string>卫星轨道(&amp;S)</string>
+    <string>卫星轨道解算与预测(&amp;S)</string>
    </property>
   </action>
   <action name="munuItem_coorSystemTran">
@@ -623,6 +631,26 @@
    </property>
    <property name="text">
     <string>联系方式(&amp;L)</string>
+   </property>
+  </action>
+  <action name="menuItem_SPP">
+   <property name="text">
+    <string>标准单点定位SPP(&amp;S)</string>
+   </property>
+  </action>
+  <action name="actionPPP_P">
+   <property name="text">
+    <string>PPP精密单点定位(&amp;P)</string>
+   </property>
+  </action>
+  <action name="action_G">
+   <property name="text">
+    <string>星体重力场反演(&amp;G)</string>
+   </property>
+  </action>
+  <action name="actionGNSS_L">
+   <property name="text">
+    <string>GNSS与重力场应用(&amp;L)</string>
    </property>
   </action>
  </widget>

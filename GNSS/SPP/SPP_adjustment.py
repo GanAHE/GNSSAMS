@@ -11,12 +11,11 @@ import numpy as np
 from PyQt5.QtCore import QObject
 
 
-class spp_adjustment(QObject):
+class Spp_adjustment(QObject):
     def __init__(self):
-        super(spp_adjustment, parent=None).__init__()
+        super(Spp_adjustment, self).__init__()
         pass
 
     def SPP(self, Data):
         # 构建系数矩阵
-
         pass
