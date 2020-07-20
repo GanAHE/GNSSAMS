@@ -23,8 +23,10 @@ class ActionSPP(object):
         # 从数据库获取文件路径
         # path_OFile = Database.oFilePath
         # path_NFile = Database.nFilePath
-        path_OFile = r"E:\\CodePrograme\\Python\\EMACS\\workspace\\GNSS\\GP008301I.19o"
-        path_NFile = r"E:\\CodePrograme\\Python\\EMACS\\workspace\\GNSS\\GP008301I.19n"
+        # path_OFile = r"E:\\CodePrograme\\Python\\EMACS\\workspace\\GNSS\\GP008301I.19o"
+        # path_NFile = r"E:\\CodePrograme\\Python\\EMACS\\workspace\\GNSS\\GP008301I.19n"
+        path_OFile = r"d:\\CodeProgram\\Python\\EMACS\\workspace\\GNSS\\GP008301I.19o"
+        path_NFile = r"d:\\CodeProgram\\Python\\EMACS\\workspace\\GNSS\\GP008301I.19n"
         # 读取观测文件并提取对应数据
         observationClass = readFile.read_obsFile(path_OFile)
         # 查看键值
@@ -48,9 +50,16 @@ class ActionSPP(object):
         print(navClass.navigation.iloc[0].tolist())
         # getSatellitePositon(JD)
         oneDissList = navClass.navigation.loc[('2019-10-28 10:00:00', 'G10')].tolist()
-        # 根据接收时间和伪距，计算信号发射时刻
 
-        time_sendSignal = 511226
+        # 根据接收时间和伪距，计算信号发射时刻
+        time_receiveSignal = "2019-10-28 10:00:00"
+        satelliteName = "G10"
+        waveBand = "C1C"
+        waveDistance = observationClass.observation[(time_receiveSignal, satelliteName ), waveBand]
+        time = TimeSystemChange(2019, 10, 28, 10, 0, 0)
+        week, tow = time.UTC2GPSTime()
+        c = 2.99792458E8
+        time_sendSignal = tow + waveDistance / c
         xyz = satelliteOrbetEtc.getSatellitePositon_II(time_sendSignal, oneDissList)
         print("卫星位置：", xyz)
         # 对卫星坐标进行地球自转改正
