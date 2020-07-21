@@ -17,8 +17,8 @@ class Database(object):
     workspace = None
     default_workspace = "./workspace/"
     elliDict = None
-    # 地球自转角速度rad/s
-    earthRotationalAngularVelocity = 7.29211511467e-5
+    # 地球自转角速度rad/s -RotationalAngularVelocity
+    earth_RAV = 7.29211511467e-5
     # 光速 m/s
     light_speed = 299792458
 
