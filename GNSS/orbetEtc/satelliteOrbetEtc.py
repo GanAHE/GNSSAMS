@@ -181,7 +181,7 @@ def getSatellitePositon_II(t_epoch, epoch_data):
     # matrix_xyzCTS = matrix_p * matrixXYZ
 
     # 目前只返回部分结果，后期存入数据库以供界面其他功能调用
-    return matrixXYZ.tolist()
+    return teta_t,matrixXYZ.tolist()
 
 
 def getSatellite_E(M, e):
