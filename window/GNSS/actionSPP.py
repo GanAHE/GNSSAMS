@@ -26,7 +26,7 @@ class ActionSPP(object):
         # 卫星数量
         count_satellite = len(PRN)
         # 光速 m/s
-        light_speed = 299792458
+        c = 299792458
         # 从数据库获取文件路径
         # path_OFile = Database.oFilePath
         # path_NFile = Database.nFilePath
@@ -70,25 +70,20 @@ class ActionSPP(object):
             waveDistance = observationClass.observation.loc[(observationEpoch, satelliteName)][waveBand]
             time = TimeSystemChange(2019, 10, 28, 8, 33, 15)
             week, tow = time.UTC2GPSTime()
-
-            approx_distance = waveDistance
-            temp = 0
-            while (temp - approx_distance) > 10e8:
-                temp = approx_distance
-                teta_ts = approx_distance / light_speed
-                time_sendSignal = tow - teta_ts
-                Vts, xyz = satelliteOrbetEtc.getSatellitePositon_II(time_sendSignal, oneDissList)
-                # print(PRN[i]+"卫星位置：", xyz)
-                # 对卫星坐标进行地球自转改正
-                xyz = mat([[cos(Database.earth_RAV * teta_ts), sin(Database.earth_RAV * teta_ts), 0],
-                           [-sin(Database.earth_RAV * teta_ts), cos(Database.earth_RAV * teta_ts), 0],
-                           [0, 0, 1]]) * mat(xyz)
-                xyz = xyz.tolist()
-                # 计算近似站星距离/伪距
-                sum = 0
-                for i in range(3):
-                    sum += (xyz[i][0] - approx_position[i]) * (xyz[i][0] - approx_position[i])
-                approx_distance = sqrt(sum)
+            teta_ts = waveDistance / c
+            time_sendSignal = tow - teta_ts
+            Vts, xyz = satelliteOrbetEtc.getSatellitePositon_II(time_sendSignal, oneDissList)
+            print(PRN[i]+"卫星位置：", xyz)
+            # 对卫星坐标进行地球自转改正
+            xyz = mat([[cos(Database.earth_RAV * teta_ts), sin(Database.earth_RAV * teta_ts), 0],
+                       [-sin(Database.earth_RAV * teta_ts), cos(Database.earth_RAV * teta_ts), 0],
+                       [0, 0, 1]]) * mat(xyz)
+            xyz = xyz.tolist()
+            # 计算近似站星距离/伪距
+            sum = 0
+            for i in range(3):
+                sum += (xyz[i][0] - approx_position[i]) * (xyz[i][0] - approx_position[i])
+            approx_distance = sqrt(sum)
             print(approx_distance)
             # 对流层延迟/电离层延迟改正
             Vion = 0
@@ -99,7 +94,7 @@ class ActionSPP(object):
                  (xyz[1][0] - approx_position[1]) / approx_distance,
                  -(xyz[2][0] - approx_position[2]) / approx_distance,
                  -1])
-            L.append([waveDistance - light_speed * Vts + Vion + Vtrop - approx_distance])
+            L.append([waveDistance - c * Vts + Vion + Vtrop - approx_distance])
 
         # 循环解算系数等完成
         # 平差求解
