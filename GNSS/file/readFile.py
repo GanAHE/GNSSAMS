@@ -548,33 +548,36 @@ def read_obsFile_v3(obsFileName):
             epoch_SVNumber = int(epoch_SVNumber)
             for j in range(epoch_SVNumber):
                 obsEpoch = np.full((1, len(ToB)), None)
-                svList.append(obsLines[j][:3])
-                if obsLines[j].startswith("G"):
-                    obsEpoch[0, index_GPS] = np.array([[float(obsLines[j][3:][i:i + 14]) if isfloat(
-                        obsLines[j][3:][i:i + 14]) == True else None for i in range(0, len(ToB_GPS) * 16, 16)]])
-                elif obsLines[j].startswith("R"):
-                    obsEpoch[0, index_GLONASS] = np.array([[float(obsLines[j][3:][i:i + 14]) if isfloat(
-                        obsLines[j][3:][i:i + 14]) == True else None for i in
-                                                            range(0, len(ToB_GLONASS) * 16, 16)]])
-                elif obsLines[j].startswith("E"):
-                    obsEpoch[0, index_GALILEO] = np.array([[float(obsLines[j][3:][i:i + 14]) if isfloat(
-                        obsLines[j][3:][i:i + 14]) == True else None for i in
-                                                            range(0, len(ToB_GALILEO) * 16, 16)]])
-                elif obsLines[j].startswith("C"):
-                    obsEpoch[0, index_COMPASS] = np.array([[float(obsLines[j][3:][i:i + 14]) if isfloat(
-                        obsLines[j][3:][i:i + 14]) == True else None for i in
-                                                            range(0, len(ToB_COMPASS) * 16, 16)]])
-                elif obsLines[j].startswith("J"):
-                    obsEpoch[0, index_QZSS] = np.array([[float(obsLines[j][3:][i:i + 14]) if isfloat(
-                        obsLines[j][3:][i:i + 14]) == True else None for i in range(0, len(ToB_QZSS) * 16, 16)]])
-                elif obsLines[j].startswith("I"):
-                    obsEpoch[0, index_IRSS] = np.array([[float(obsLines[j][3:][i:i + 14]) if isfloat(
-                        obsLines[j][3:][i:i + 14]) == True else None for i in range(0, len(ToB_IRSS) * 16, 16)]])
-                elif obsLines[j].startswith("S"):
-                    obsEpoch[0, index_SBAS] = np.array([[float(obsLines[j][3:][i:i + 14]) if isfloat(
-                        obsLines[j][3:][i:i + 14]) == True else None for i in range(0, len(ToB_SBAS) * 16, 16)]])
-                obsEpoch = np.append(obsEpoch, epoch)
-                obsList.append(obsEpoch)
+                if len(obsLines) >= epoch_SVNumber:
+                    svList.append(obsLines[j][:3])
+                    if obsLines[j].startswith("G"):
+                        obsEpoch[0, index_GPS] = np.array([[float(obsLines[j][3:][i:i + 14]) if isfloat(
+                            obsLines[j][3:][i:i + 14]) == True else None for i in range(0, len(ToB_GPS) * 16, 16)]])
+                    elif obsLines[j].startswith("R"):
+                        obsEpoch[0, index_GLONASS] = np.array([[float(obsLines[j][3:][i:i + 14]) if isfloat(
+                            obsLines[j][3:][i:i + 14]) == True else None for i in
+                                                                range(0, len(ToB_GLONASS) * 16, 16)]])
+                    elif obsLines[j].startswith("E"):
+                        obsEpoch[0, index_GALILEO] = np.array([[float(obsLines[j][3:][i:i + 14]) if isfloat(
+                            obsLines[j][3:][i:i + 14]) == True else None for i in
+                                                                range(0, len(ToB_GALILEO) * 16, 16)]])
+                    elif obsLines[j].startswith("C"):
+                        obsEpoch[0, index_COMPASS] = np.array([[float(obsLines[j][3:][i:i + 14]) if isfloat(
+                            obsLines[j][3:][i:i + 14]) == True else None for i in
+                                                                range(0, len(ToB_COMPASS) * 16, 16)]])
+                    elif obsLines[j].startswith("J"):
+                        obsEpoch[0, index_QZSS] = np.array([[float(obsLines[j][3:][i:i + 14]) if isfloat(
+                            obsLines[j][3:][i:i + 14]) == True else None for i in range(0, len(ToB_QZSS) * 16, 16)]])
+                    elif obsLines[j].startswith("I"):
+                        obsEpoch[0, index_IRSS] = np.array([[float(obsLines[j][3:][i:i + 14]) if isfloat(
+                            obsLines[j][3:][i:i + 14]) == True else None for i in range(0, len(ToB_IRSS) * 16, 16)]])
+                    elif obsLines[j].startswith("S"):
+                        obsEpoch[0, index_SBAS] = np.array([[float(obsLines[j][3:][i:i + 14]) if isfloat(
+                            obsLines[j][3:][i:i + 14]) == True else None for i in range(0, len(ToB_SBAS) * 16, 16)]])
+                    obsEpoch = np.append(obsEpoch, epoch)
+                    obsList.append(obsEpoch)
+                else:
+                    break
             # =============================================================================
             del obsLines[0:epoch_SVNumber]  # number of rows in epoch equals number of visible satellites in RINEX 3
         if len(obsLines) == 0:
@@ -794,12 +797,12 @@ def read_ionFile(IonFile):
     return tecuList
 
 if __name__ == "__main__":
-    nav = read_navFile("./D068305A.19N")
-    print(nav.navigation)
-    pass
+    # nav = read_navFile("./D068305A.19N")
+    # print(nav.navigation)
+    # pass
     # nav = read_navFile("./D068305A.19N")
     # print(nav.navigation)
 
-    obs = read_obsFile("./GP008301I.19o")
+    obs = read_obsFile("./D068305A.19O")
     print(obs.observation)
 
