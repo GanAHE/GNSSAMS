@@ -30,10 +30,10 @@ class ActionSPP(object):
         # 从数据库获取文件路径
         # path_OFile = Database.oFilePath
         # path_NFile = Database.nFilePath
-        path_OFile = r"E:\\CodePrograme\\Python\\EMACS\\workspace\\GNSS\\GP008301I.19o"
-        path_NFile = r"E:\\CodePrograme\\Python\\EMACS\\workspace\\GNSS\\GP008301I.19n"
-        # path_OFile = r"d:\\CodeProgram\\Python\\EMACS\\workspace\\GNSS\\GP008301I.19o"
-        # path_NFile = r"d:\\CodeProgram\\Python\\EMACS\\workspace\\GNSS\\GP008301I.19n"
+        # path_OFile = r"E:\\CodePrograme\\Python\\EMACS\\workspace\\GNSS\\GP008301I.19o"
+        # path_NFile = r"E:\\CodePrograme\\Python\\EMACS\\workspace\\GNSS\\GP008301I.19n"
+        path_OFile = r"d:\\CodeProgram\\Python\\EMACS\\workspace\\GNSS\\GP008301I.19o"
+        path_NFile = r"d:\\CodeProgram\\Python\\EMACS\\workspace\\GNSS\\GP008301I.19n"
         # 读取观测文件并提取对应数据
         observationClass = readFile.read_obsFile(path_OFile)
         # 查看键值
@@ -53,21 +53,6 @@ class ActionSPP(object):
         # getSatellitePositon(JD)
         oneDissList = navClass.navigation.loc[('2019-10-28 10:00:00', 'G10')].tolist()
 
-        # 根据接收时间和伪距，计算信号发射时刻
-        time_receiveSignal = "2019-10-28 08:33:15"
-        satelliteName = "G10"
-        waveBand = "C1C"
-        waveDistance = observationClass.observation.loc[(time_receiveSignal, satelliteName)][waveBand]
-        time = TimeSystemChange(2019, 10, 28, 8, 33, 15)
-        week, tow = time.UTC2GPSTime()
-        c = 2.99792458E8
-        time_sendSignal = tow - waveDistance / c
-
-        
-        xyz = satelliteOrbetEtc.getSatellitePositon_II(time_sendSignal, oneDissList)
-        print("卫星位置：", xyz)
-        # 对卫星坐标进行地球自转改正
-        # xyz = mat([[Database.earthRotationalAngularVelocity]]) * mat(xyz)
         # 测站近似坐标,一维list
         approx_position = observationClass.approx_position
         satellitesCoordinateXYZ = []
@@ -85,20 +70,25 @@ class ActionSPP(object):
             waveDistance = observationClass.observation.loc[(observationEpoch, satelliteName)][waveBand]
             time = TimeSystemChange(2019, 10, 28, 8, 33, 15)
             week, tow = time.UTC2GPSTime()
-            teta_ts = waveDistance / light_speed
-            time_sendSignal = tow - teta_ts
-            Vts, xyz = satelliteOrbetEtc.getSatellitePositon_II(time_sendSignal, oneDissList)
-            print(PRN[i]+"卫星位置：", xyz)
-            # 对卫星坐标进行地球自转改正
-            xyz = mat([[cos(Database.earth_RAV * teta_ts), sin(Database.earth_RAV * teta_ts), 0],
-                       [-sin(Database.earth_RAV * teta_ts), cos(Database.earth_RAV * teta_ts), 0],
-                       [0, 0, 1]]) * mat(xyz)
-            xyz = xyz.tolist()
-            # 计算近似站星距离/伪距
-            sum = 0
-            for i in range(3):
-                sum += (xyz[i][0] - approx_position[i]) * (xyz[i][0] - approx_position[i])
-            approx_distance = sqrt(sum)
+
+            approx_distance = waveDistance
+            temp = 0
+            while (temp - approx_distance) > 10e8:
+                temp = approx_distance
+                teta_ts = approx_distance / light_speed
+                time_sendSignal = tow - teta_ts
+                Vts, xyz = satelliteOrbetEtc.getSatellitePositon_II(time_sendSignal, oneDissList)
+                # print(PRN[i]+"卫星位置：", xyz)
+                # 对卫星坐标进行地球自转改正
+                xyz = mat([[cos(Database.earth_RAV * teta_ts), sin(Database.earth_RAV * teta_ts), 0],
+                           [-sin(Database.earth_RAV * teta_ts), cos(Database.earth_RAV * teta_ts), 0],
+                           [0, 0, 1]]) * mat(xyz)
+                xyz = xyz.tolist()
+                # 计算近似站星距离/伪距
+                sum = 0
+                for i in range(3):
+                    sum += (xyz[i][0] - approx_position[i]) * (xyz[i][0] - approx_position[i])
+                approx_distance = sqrt(sum)
             print(approx_distance)
             # 对流层延迟/电离层延迟改正
             Vion = 0
