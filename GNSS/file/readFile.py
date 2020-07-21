@@ -583,7 +583,6 @@ def read_obsFile_v3(obsFileName):
         if len(obsLines) == 0:
             break
     # =============================================================================
-    columnNames = ToB
     columnNames = np.append(ToB, 'Epoch')
     obs = pd.DataFrame(obsList, index=svList, columns=columnNames)
     obs.index.name = 'SV'
