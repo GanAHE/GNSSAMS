@@ -9,7 +9,7 @@ comment:
 """
 from PyQt5.QtCore import QThread,pyqtSignal
 
-from algorithm.engineerMesure.leicaGsiFormat import LeicaGSIFormat
+from engineerMesure.leicaGsiFormat import LeicaGSIFormat
 from database.database import Database
 
 

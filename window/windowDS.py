@@ -687,6 +687,8 @@ class Ui_mainWindow(object):
                 # 存入数据库
                 Database().setSppFilePath(fileNameList)
                 self.displayInfo("I",str(Database().getSppFilePath("o")) + str(Database().getSppFilePath("n")))
+                # 数据显示
+                self.sppWight_ui.setFileInfo()
             else:
                 ActionWarnException(self.centralwidget).actionWarnException("W", "请先选择相应的功能！")
         except Exception as e:

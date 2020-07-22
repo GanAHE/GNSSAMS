@@ -16,8 +16,7 @@ if hasattr(sys, 'frozen'):
     os.environ['PATH'] = sys._MEIPASS + ";" + os.environ['PATH']
 from window import windowDS
 from PyQt5.QtWidgets import QApplication, QMainWindow, QSplashScreen,QProgressBar
-from PyQt5 import QtCore, QtGui,QtWidgets
-
+from PyQt5 import QtCore, QtGui
 
 class SplashPanel(QSplashScreen):
 

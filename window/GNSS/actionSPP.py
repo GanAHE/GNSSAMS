@@ -8,19 +8,22 @@ comment: 标准单点定位
 @contact: dinggan@whu.edu.cn
 """
 import datetime
-import numpy as np
 from GNSS.file import readFile
 from GNSS.orbetEtc import satelliteOrbetEtc
 from numpy import sqrt, mat, cos, sin, transpose, linalg
 from GNSS.timeSystem.timeChange import TimeSystemChange
 from GNSS.correctionModel import tropCorrection
+from database.database import Database
+
+
+# from PyQt5.QtCore import pyqtSignal, QThread
 
 
 class ActionSPP(object):
     def __init__(self):
         pass
 
-    def run(self, observationEpoch, waveBand, Sat, count_satellite, obsClass, navClass):
+    def getStationPosition(self, observationEpoch, waveBand, Sat, count_satellite, obsClass, navClass):
 
         # 卫星数量
         # count_satellite = len(PRN)
@@ -28,12 +31,6 @@ class ActionSPP(object):
         c = 299792458
         # 地球自转角速度rad/s -RotationalAngularVelocity
         earth_RAV = 7.29211511467e-5
-
-        # 查看键值
-        # print("观测文件", observationClass.observation.index, observationClass.observation.columns)
-        # 查看DataFrame的行列标志
-        # print(navClass.navigation.index, navClass.navigation.columns)
-
         # 测站近似坐标,一维list
         approx_position = obsClass.approx_position
 
@@ -43,6 +40,8 @@ class ActionSPP(object):
         for i in range(len(navEpoch)):
             delta.append((navEpoch[i][0] - observationEpoch).seconds)
         delta = list(map(abs, delta))
+        num = 0
+        navTime = ""
         for i in range(len(delta)):
             mindelta = min(delta)
             navTime = observationEpoch + datetime.timedelta(seconds=mindelta)
@@ -77,7 +76,8 @@ class ActionSPP(object):
             # intTimeFormat 实现如下转换：2019-10-28 08:33:15 --> [2019, 10, 28, 8, 33, 15]
             intTimeFormat = lambda strT: list(map(int, ((strT.split())[0]).split("-") + ((strT.split())[1]).split(":")))
             UTCTimeList = intTimeFormat(str(observationEpoch))
-            time_rec = TimeSystemChange(UTCTimeList[0], UTCTimeList[1], UTCTimeList[2], UTCTimeList[3], UTCTimeList[4], UTCTimeList[5])
+            time_rec = TimeSystemChange(UTCTimeList[0], UTCTimeList[1], UTCTimeList[2], UTCTimeList[3], UTCTimeList[4],
+                                        UTCTimeList[5])
             week, tow = time_rec.UTC2GPSTime()
 
             approx_distance = waveDistance
@@ -107,7 +107,8 @@ class ActionSPP(object):
             Vion = 0
             # TODO 查找卫星仰角
             satelliteAngle = 15
-            Vtrop = tropCorrection.tropospheric_delay(approx_position[0], approx_position[1], approx_position[2], satelliteAngle, UTCTimeList)
+            Vtrop = tropCorrection.tropospheric_delay(approx_position[0], approx_position[1], approx_position[2],
+                                                      satelliteAngle, UTCTimeList)
             # 构建系数矩阵
             B.append(
                 [-(xyz[0, 0] - approx_position[0]) / approx_distance,
@@ -147,27 +148,18 @@ class ActionSPP(object):
 
 def actionReadFile():
     # 从数据库获取文件路径
-    # path_OFile = Database.oFilePath
-    # path_NFile = Database.nFilePath
-    # path_OFile = r"E:\\CodePrograme\\Python\\EMACS\\workspace\\GNSS\\GP008301I.19o"
-    # path_NFile = r"E:\\CodePrograme\\Python\\EMACS\\workspace\\GNSS\\GP008301I.19n"
-    # path_OFile = r"E:\\CodePrograme\\Python\\EMACS\\workspace\\GNSS\\D068305A.19O"
-    # path_NFile = r"E:\\CodePrograme\\Python\\EMACS\\workspace\\GNSS\\D068305A.19N"
-    path_OFile = r"d:\\CodeProgram\\Python\\EMACS\\workspace\\GNSS\\GP008301I.19o"
-    path_NFile = r"d:\\CodeProgram\\Python\\EMACS\\workspace\\GNSS\\GP008301I.19n"
-    # path_OFile = r"d:\\CodeProgram\\Python\\EMACS\\workspace\\GNSS\\D068305A.19O"
-    # path_NFile = r"d:\\CodeProgram\\Python\\EMACS\\workspace\\GNSS\\D068305A.19N"
+    path_OFile = Database.oFilePathList[0]
+    path_NFile = Database.nFilePathList[0]
 
     # 读取观测文件并提取对应数据
     obsClass = readFile.read_obsFile(path_OFile)
     obsEpoch = obsClass.observation.epoch.index.values.tolist()
     # 选定一个观测时间
-    obsTime = \
-        obsEpoch[0][0]
+    obsTime = obsEpoch[0][0]
     # print(obsEpoch,type(obsClass.observation.epoch))
     # sv =obsClass.observation.loc[(obsTime,obsEpoch[0][1])]
     Sat = []
-    count_satellite = 5
+    count_satellite = 6
     for k in range(len(obsEpoch)):
         if obsTime == obsEpoch[k][0]:
             if (obsEpoch[k][1])[0] == "G":
@@ -181,9 +173,4 @@ def actionReadFile():
     # 读取导航电文
     navClass = readFile.read_navFile(path_NFile)
 
-
-    actionSPP = ActionSPP().run(obsTime, "C1C", Sat, count_satellite, obsClass, navClass)
-
-
-# ActionSPP().run()
-actionReadFile()
+    actionSPP = ActionSPP().getStationPosition(obsTime, "C1C", Sat, count_satellite, obsClass, navClass)
