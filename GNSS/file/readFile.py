@@ -592,9 +592,12 @@ def read_obsFile_v3(obsFileName):
     obs = obs.reorder_levels(['Epoch', 'SV'])
     obs["SYSTEM"] = _system_name(obs.index.get_level_values("SV"))
     # =============================================================================
-    fileEpoch = datetime.date(year=epoch.year,
+    fileEpoch = datetime.datetime(year=epoch.year,
                               month=epoch.month,
-                              day=epoch.day)
+                              day=epoch.day,
+                                  hour=epoch.hour,
+                                  minute = epoch.minute,
+                                  second=epoch.second)
     if len(epochList) == 1:
         interval = 30
     else:
