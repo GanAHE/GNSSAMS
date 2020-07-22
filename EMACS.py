@@ -15,8 +15,8 @@ from database.database import Database
 if hasattr(sys, 'frozen'):
     os.environ['PATH'] = sys._MEIPASS + ";" + os.environ['PATH']
 from window import windowDS
-from PyQt5.QtWidgets import QApplication, QMainWindow, QSplashScreen
-from PyQt5 import QtCore, QtGui
+from PyQt5.QtWidgets import QApplication, QMainWindow, QSplashScreen,QProgressBar
+from PyQt5 import QtCore, QtGui,QtWidgets
 
 
 class SplashPanel(QSplashScreen):
@@ -40,13 +40,18 @@ class SplashPanel(QSplashScreen):
             self.show()
             t -= 1
             time.sleep(0.02)
+        progressBar = QProgressBar(self)
+        progressBar.setGeometry(0,self.pixmap().height()-100,self.pixmap().width(),15)
+        progressBar.show()
 
         # 启动信息
         self.showMessage('加载配置文件...', alignment=QtCore.Qt.AlignBottom | QtCore.Qt.AlignCenter, color=QtCore.Qt.black)
 
         # 加载配置文件
-        # Database().loadJsonConfig()
-        time.sleep(2)
+        # Database().loadConfigJson()
+        for i in range(101):
+            progressBar.setValue(i)
+            time.sleep(0.02)
 
         self.showMessage("完成所有配置文件载入，请稍等...", alignment=QtCore.Qt.AlignBottom | QtCore.Qt.AlignCenter,
                          color=QtCore.Qt.black)
