@@ -682,7 +682,11 @@ class Ui_mainWindow(object):
                 self.stablePointGroupDialog.show()
             elif tabLable == "单点定位":
                 # 界面重构存储区域
-                self.displayInfo("E", "瞅你那鬼样儿！")
+                fileNameList,filter = QtWidgets.QFileDialog.getOpenFileNames(self.centralwidget,"导入观测文件与导航电文",Database.default_workspace,"All Files(*)")
+                # self.displayInfo("I",str(fileNameList))
+                # 存入数据库
+                Database().setSppFilePath(fileNameList)
+                self.displayInfo("I",str(Database().getSppFilePath("o")) + str(Database().getSppFilePath("n")))
             else:
                 ActionWarnException(self.centralwidget).actionWarnException("W", "请先选择相应的功能！")
         except Exception as e:

@@ -33,13 +33,13 @@ class SplashPanel(QSplashScreen):
         self.setWindowOpacity(0)
         t = 0
         while t <= 50:
-            newOpacity = self.windowOpacity() + 0.03
+            newOpacity = self.windowOpacity() + 0.06
             if newOpacity > 1:
                 break
             self.setWindowOpacity(newOpacity)
             self.show()
             t -= 1
-            time.sleep(0.02)
+            time.sleep(0.04)
         progressBar = QProgressBar(self)
         progressBar.setGeometry(0,self.pixmap().height()-100,self.pixmap().width(),15)
         progressBar.show()
