@@ -183,7 +183,7 @@ def read_navFile(navigationFile):
                    "health", "freqNumber", "operationDay"]
     ephemeris = pd.DataFrame(ephemeris_list, index=svList, columns=columnNames)
     ephemeris.index.name = 'SV'
-    # ephemeris["epoch"] = ephemeris.Epoch
+    ephemeris["epoch"] = ephemeris.Epoch
     ephemeris.set_index('Epoch', append=True, inplace=True)
     ephemeris = ephemeris.reorder_levels(['Epoch', 'SV'])
     ephemeris = ephemeris.drop(["SV"], axis=1)
