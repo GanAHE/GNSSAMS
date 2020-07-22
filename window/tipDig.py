@@ -17,15 +17,19 @@ class ActionWarnException(QtCore.QObject):
         super(ActionWarnException, self).__init__()
         self.Qwight = parentWight
 
+
     def actionWarnException(self, type, text):
         # 从数据库获取异常消息
         if type == "E":
-            QMessageBox.critical(self.Qwight, "【☠错误༺༒༻警告☠】", text)
+            QMessageBox.critical(self.Qwight, "【错误警告】", text)
         elif type == "W":
-            QMessageBox.warning(self.Qwight, "【⚠异常༺༒༻警告⚠】", text)
-        elif type == "O":
-            QMessageBox.warning(self.Qwight, "【未知༺ཌ༈༒༈ད༻警告】", "干啥呢？")
+            QMessageBox.warning(self.Qwight, "【⚠异常警告⚠】", text)
+        elif type == "T":
+            QMessageBox.about(self.Qwight, "【提༺༒༻示】", text)
         else:
-            reply = QMessageBox.information(self.Qwight, "【☠说༺༒༻明☠】", text,
+            reply = QMessageBox.information(self.Qwight, "【说༺༒༻明】", text,
                                             QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
-
+            if reply == 16384:
+                return True
+            else:  # 65536
+                return False
