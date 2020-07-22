@@ -33,9 +33,17 @@ def read_navFile(navigationFile):
     nav = f.readlines()
     line = 0
     version = None
+    alphaList = None
+    betaList = None
     while True:
         if 'RINEX VERSION / TYPE' in nav[line]:
             version = nav[line][0:-21].split()[0]
+            line += 1
+        if 'ION ALPHA' in nav[line]:
+            alphaList = nav[line][0:55].split()
+            line += 1
+        if 'ION BETA' in nav[line]:
+            betaList = nav[line][0:55].split()
             line += 1
         elif 'END OF HEADER' in nav[line]:
             line += 1
@@ -95,7 +103,7 @@ def read_navFile(navigationFile):
                 raise Warning('Navigation year is not recognized! | Program stopped!')
         else:
             year = int(nav[0][1])
-        month, day, hour, minute, second = int(nav[0][2]), int(nav[0][3]), int(nav[0][4]), int(nav[0][5]), int(nav[0][6])
+        month, day, hour, minute, second = int(nav[0][2]), int(nav[0][3]), int(nav[0][4]), int(nav[0][5]), int(float(nav[0][6]))
         epoch = datetime.datetime(year=year,
                                   month=month,
                                   day=day,
@@ -186,7 +194,7 @@ def read_navFile(navigationFile):
     f.close()  # close the file
     finish = time.time()  # Time of finish
     print("Navigation file ", navigationFile, " is read in", "{0:.2f}".format(finish - start), "seconds.")
-    return Navigation(fileEpoch, ephemeris, version)
+    return Navigation(fileEpoch, ephemeris, version, alphaList, betaList)
 
 
 def read_obsFile(observationFile):
@@ -799,12 +807,14 @@ def read_ionFile(IonFile):
     return tecuList
 
 if __name__ == "__main__":
-    # nav = read_navFile("./D068305A.19N")
-    # print(nav.navigation)
+    nav = read_navFile("C:/Users/97320/Desktop/brdc2020.20n")
+    print(nav.navigation)
+    print(nav.alphalist)
+    print(nav.betalist)
     # pass
     # nav = read_navFile("./D068305A.19N")
     # print(nav.navigation)
-
-    obs = read_obsFile("./D068305A.19O")
-    print(obs.observation)
+    #
+    # obs = read_obsFile("./D068305A.19O")
+    # print(obs.observation)
 

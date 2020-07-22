@@ -11,14 +11,14 @@ import math
 from database.database import Database
 
 
-def klobuchar(el, UT, aList, beidaList):
+def klobuchar(el, UT, alphaList, betaList):
     """
      Klobuchar 改正模型
 
      :param el:卫星高度角
      :param UT:当地时间UT时
-    :param aList:长度为4 从导航电文获取？？
-    :param beidaList:长度为4 从导航电文获取？？
+    :param alphaList:长度为4 从导航电文获取
+    :param betaList:长度为4 从导航电文获取
     :return: Tg_DOT 电离层时延
     """
     """
@@ -48,8 +48,8 @@ def klobuchar(el, UT, aList, beidaList):
     A = 0
     P = 0
     for i in range(4):
-        A += aList[i] * (fia_m ** i)
-        P += beidaList[i] * (fia_m ** i)
+        A += alphaList[i] * (fia_m ** i)
+        P += betaList[i] * (fia_m ** i)
     Tg = 5E-9 + A * math.cos(2 * math.pi / P) * (t - 14)
     secZ = 1 + 2 * (((96-el) / 90) ** 3)
     Tg_DOT = secZ * Tg

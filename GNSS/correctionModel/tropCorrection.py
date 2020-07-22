@@ -7,7 +7,7 @@ comment:单用户对流层延迟改正
 @version 1.0.
 @contact: dinggan@whu.edu.cn
 """
-from datetime import datetime
+import datetime
 
 from database.database import Database
 import math
@@ -64,7 +64,7 @@ def tropospheric_delay(x, y, z, elevation, epoch):
     Geodesy and Geomatics Engineering Technical Report No. 203, University of
     New Brunswick, Fredericton, New Brunswick, Canada, 174 pp
     """
-    lat, lon, ellHeight = cart2ell(x, y, z)
+    lat, lon, ellHeight = XYZ2BLH(x, y, z)
     ortHeight = ellHeight  # Using elliposidal height for now
     # --------------------
     # constants
@@ -108,22 +108,22 @@ def tropospheric_delay(x, y, z, elevation, epoch):
     # ----------------
     if indexLat == 0:
         ave_meteo = ave_params[indexLat, :]
-        svar_meteo = sea_params[indexLat - 1, :]
+        sea_meteo = sea_params[indexLat - 1, :]
     elif indexLat == 5:
         ave_meteo = ave_params[indexLat - 1, :]
-        svar_meteo = sea_params[indexLat - 1, :]
+        sea_meteo = sea_params[indexLat - 1, :]
     else:
         ave_meteo = ave_params[indexLat - 1, :] + (ave_params[indexLat, :] - ave_params[indexLat - 1, :]) * (
                 abs(lat) - Latitude[indexLat - 1]) / (Latitude[indexLat] - Latitude[indexLat - 1])
-        svar_meteo = sea_params[indexLat - 1, :] + (sea_params[indexLat, :] - sea_params[indexLat - 1, :]) * (
+        sea_meteo = sea_params[indexLat - 1, :] + (sea_params[indexLat, :] - sea_params[indexLat - 1, :]) * (
                 abs(lat) - Latitude[indexLat - 1]) / (Latitude[indexLat] - Latitude[indexLat - 1])
-    #
+    # --------------------
     doy = datetime2doy(epoch, string=False)
     if lat >= 0.0:  # northern hemisphere
         doy_min = 28
     else:  # southern latitudes
         doy_min = 211
-    param_meteo = ave_meteo - svar_meteo * np.cos((2 * np.pi * (doy - doy_min)) / 365.25)
+    param_meteo = ave_meteo - sea_meteo * np.cos((2 * np.pi * (doy - doy_min)) / 365.25)
     pressure, temperature, e, beta, lamda = param_meteo[0], param_meteo[1], param_meteo[2], param_meteo[3], param_meteo[
         4]
     # --------------------
@@ -132,34 +132,38 @@ def tropospheric_delay(x, y, z, elevation, epoch):
     d_dry = ave_dry * (1 - beta * ortHeight / temperature) ** (g / Rd / beta)
     d_wet = ave_wet * (1 - beta * ortHeight / temperature) ** (((lamda + 1) * g / Rd / beta) - 1)
     m_elev = 1.001 / np.sqrt(0.002001 + np.sin(np.deg2rad(elevation)) ** 2)
-    dtropo = (d_dry + d_wet) * m_elev
-    return dtropo
+    Vtrop = (d_dry + d_wet) * m_elev
+    return Vtrop
 
 
-def cart2ell(x, y, z, ellipsoid='GRS80'):
+def XYZ2BLH(x, y, z, ellipsoid='GRS80'):
     """
     This function converts 3D cartesian coordinates to geodetic coordinates
     """
     ellipsoid = _ellipsoid(ellipsoid)  # create an ellipsoid instance
-    lon = np.arctan2(y, x)  # $\lambda = \atan\frac{y}{x}$
+    L = np.arctan2(y, x)  # $\lambda = \atan\frac{y}{x}$
     p = np.sqrt(x ** 2 + y ** 2)  # $p = \sqrt{x^2+y^2}$
     N_init = ellipsoid.a  # initial value of prime vertical radius N
-    h_init = np.sqrt(x ** 2 + y ** 2 + z ** 2) - np.sqrt(ellipsoid.a * ellipsoid.b)
-    lat_init = np.arctan2(z, (1 - N_init * ellipsoid.e1 ** 2 / (N_init + h_init)) * p)
+    H_init = np.sqrt(x ** 2 + y ** 2 + z ** 2) - np.sqrt(ellipsoid.a * ellipsoid.b)
+    B_init = np.arctan2(z, (1 - N_init * ellipsoid.e1 ** 2 / (N_init + H_init)) * p)
     while True:
-        N = ellipsoid.a / np.sqrt(1 - (ellipsoid.e1 ** 2 * np.sin(lat_init) ** 2))
-        h = (p / np.cos(lat_init)) - N
-        lat = np.arctan2(z, (1 - N * ellipsoid.e1 ** 2 / (N + h)) * p)
-        if np.abs(lat_init - lat) < 1e-8 and np.abs(h_init - h) < 1e-8:
+        N = ellipsoid.a / np.sqrt(1 - (ellipsoid.e1 ** 2 * np.sin(B_init) ** 2))
+        H = (p / np.cos(B_init)) - N
+        B = np.arctan2(z, (1 - N * ellipsoid.e1 ** 2 / (N + H)) * p)
+        if np.abs(B_init - B) < 1e-8 and np.abs(H_init - H) < 1e-8:
             break
-        lat_init = lat
-        h_init = h
-    return np.rad2deg(lat), np.rad2deg(lon), h
+        B_init = B
+        H_init = H
+    return np.rad2deg(B), np.rad2deg(L), H
 
 
-def datetime2doy(date, string=False):
-    start = datetime.date(year=date.year, month=1, day=1)
-    doy = date - start + datetime.timedelta(days=1)
+def datetime2doy(now_date, string=False):
+    now_year = now_date[0]
+    now_month = now_date[1]
+    now_day = now_date[2]
+    start = datetime.date(now_year, 1, 1)
+    now = datetime.date(now_year, now_month, now_day)
+    doy = now - start + datetime.timedelta(days=1)
     doy = doy.days
     if string == True:
         doy = str(doy)
@@ -187,12 +191,3 @@ class _Ellipsoid:
         self.f = (a - b) / a  # flattening: $f = \frac{a-b}{a}$
         self.e1 = np.sqrt((a ** 2 - b ** 2) / a ** 2)  # first eccentricity  : $e   = \sqrt{\frac{a^2-b^2}{a^2}}$
         self.e2 = np.sqrt((a ** 2 - b ** 2) / b ** 2)  # second eccentricity : $e^' = \sqrt{\frac{a^2-b^2}{b^2}}$
-
-    def radiusOfCurvature(self, phi):
-        # Meridian radius of curvature (M)
-        M = self.a * (1 - self.e1 ** 2) / (1 - self.e1 ** 2 * np.sin(np.deg2rad(phi)) ** 2) ** (
-                3 / 2)  # $M = \frac{a(1 - e^2)}{(1 - e^2\sin(\phi)^2)^(3/2)}$
-        # Prime vertical radius of curvature (N)
-        N = self.a / (1 - self.e1 ** 2 * np.sin(np.deg2rad(phi)) ** 2) ** (
-                1 / 2)  # $N = \frac{a}{(1 - e^2\sin(\phi)^2)^(1/2)} $
-        return M, N
