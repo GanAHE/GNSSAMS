@@ -8,6 +8,7 @@ comment: 临时中转数据库
 @contact: dinggan@whu.edu.cn
 """
 import json
+import os
 
 
 class Database(object):
@@ -29,6 +30,7 @@ class Database(object):
     nFilePath = None
     oFilePathList = []
     nFilePathList = []
+    sppFilePathList = []
 
     def loadConfigJson(self):
         """
@@ -310,3 +312,37 @@ class Database(object):
             return True
         else:
             return False
+
+    def getSppFilePath(self, type=None):
+        if type.lower() == "o":
+            return self.oFilePathList
+        elif type.lower() == "n":
+            return self.nFilePathList
+        else:
+            return self.sppFilePathList
+
+    def setSppFilePath(self, fileList):
+        # 清空数据
+        Database.oFilePathList = []
+        Database.nFilePathList = []
+        Database.sppFilePathList = []
+        # 从文件列表查找相同名组
+        while len(fileList) > 1:
+            i = 1
+            if len(fileList) > 1:
+                dirIndex, fileNameSaveIndex = os.path.split(fileList[0])
+                dirSerch, fileNameSaveSerch = os.path.split(fileList[i])
+                # 找到同名文件数据组
+                if fileNameSaveIndex[:-1] == fileNameSaveSerch[:-1]:
+                    if fileNameSaveIndex[-1].lower() == "o" and fileNameSaveSerch[-1].lower() == "n":
+                        Database.oFilePathList.append(fileList[0])
+                        Database.nFilePathList.append(fileList[i])
+                    elif fileNameSaveIndex[-1].lower() == "n" and fileNameSaveSerch[-1].lower() == "o":
+                        Database.oFilePathList.append(fileList[i])
+                        Database.nFilePathList.append(fileList[0])
+                    # 删除该位置数据
+                    fileList.pop(i)
+                    fileList.pop(0)
+                else:
+                    fileList.pop(0)
+                    i += 1

@@ -18,10 +18,10 @@ from window.engineeringSurvey import leicaDataFormatWight
 from window.windowEvent.actionReport import Report
 from window.file.fileMsg import FileMsg
 from window.tipDig import ActionWarnException
+from window.GNSS import SPPWight
 
 
 class Ui_mainWindow(object):
-
     def setupUi(self, mainWindow):
         mainWindow.setObjectName("mainWindow")
         mainWindow.setWindowModality(QtCore.Qt.NonModal)
@@ -65,7 +65,7 @@ class Ui_mainWindow(object):
         self.widget_2.setObjectName("widget_2")
         self.verticalLayout_2.addWidget(self.widget_2)
         icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("../source/icon/sd.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon2.addPixmap(QtGui.QPixmap("./source/icon/sd.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.tabWidget.addTab(self.tab_position, icon2, "")
         self.tab_monitor = QtWidgets.QWidget()
         self.tab_monitor.setObjectName("tab_monitor")
@@ -135,9 +135,6 @@ class Ui_mainWindow(object):
         self.menu_C_2.setObjectName("menu_C_2")
         self.menu_G = QtWidgets.QMenu(self.menu_C)
         self.menu_G.setObjectName("menu_G")
-        self.menuGNSS = QtWidgets.QMenu(self.menu_C)
-        self.menuGNSS.setGeometry(QtCore.QRect(516, 257, 199, 102))
-        self.menuGNSS.setObjectName("menuGNSS")
         self.menu_T = QtWidgets.QMenu(self.menu_C)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
@@ -151,6 +148,8 @@ class Ui_mainWindow(object):
         self.menu_V.setObjectName("menu_V")
         self.menu_H = QtWidgets.QMenu(self.menubar)
         self.menu_H.setObjectName("menu_H")
+        self.menuGNSS_2 = QtWidgets.QMenu(self.menubar)
+        self.menuGNSS_2.setObjectName("menuGNSS_2")
         mainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(mainWindow)
         self.statusbar.setObjectName("statusbar")
@@ -226,8 +225,10 @@ class Ui_mainWindow(object):
         self.munuItem_controlNet = QtWidgets.QAction(mainWindow)
         self.munuItem_controlNet.setObjectName("munuItem_controlNet")
         self.munuItem_railwayCurve = QtWidgets.QAction(mainWindow)
+        self.munuItem_railwayCurve.setEnabled(True)
         self.munuItem_railwayCurve.setObjectName("munuItem_railwayCurve")
         self.munuItem_CPIII = QtWidgets.QAction(mainWindow)
+        self.munuItem_CPIII.setEnabled(False)
         self.munuItem_CPIII.setObjectName("munuItem_CPIII")
         self.munuItem_GNSSNet = QtWidgets.QAction(mainWindow)
         self.munuItem_GNSSNet.setObjectName("munuItem_GNSSNet")
@@ -263,7 +264,7 @@ class Ui_mainWindow(object):
         self.menuItem_resultReport.setObjectName("menuItem_resultReport")
         self.munuItem_version = QtWidgets.QAction(mainWindow)
         icon15 = QtGui.QIcon()
-        icon15.addPixmap(QtGui.QPixmap("./source/icon/note.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon15.addPixmap(QtGui.QPixmap("../source/icon/note.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.munuItem_version.setIcon(icon15)
         self.munuItem_version.setObjectName("munuItem_version")
         self.menuItem_backWelcome = QtWidgets.QAction(mainWindow)
@@ -303,6 +304,14 @@ class Ui_mainWindow(object):
         icon20.addPixmap(QtGui.QPixmap("./source/icon/conme.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.munuItem_contact.setIcon(icon20)
         self.munuItem_contact.setObjectName("munuItem_contact")
+        self.menuItem_SPP = QtWidgets.QAction(mainWindow)
+        self.menuItem_SPP.setObjectName("menuItem_SPP")
+        self.actionPPP_P = QtWidgets.QAction(mainWindow)
+        self.actionPPP_P.setObjectName("actionPPP_P")
+        self.action_G = QtWidgets.QAction(mainWindow)
+        self.action_G.setObjectName("action_G")
+        self.actionGNSS_L = QtWidgets.QAction(mainWindow)
+        self.actionGNSS_L.setObjectName("actionGNSS_L")
         self.menu_F.addAction(self.menuItem_new)
         self.menu_F.addSeparator()
         self.menu_F.addAction(self.menuItem_openFile)
@@ -315,8 +324,6 @@ class Ui_mainWindow(object):
         self.menu_C_2.addAction(self.munuItem_stablePointGround)
         self.menu_G.addAction(self.munuItem_railwayCurve)
         self.menu_G.addAction(self.munuItem_CPIII)
-        self.menuGNSS.addAction(self.munuItem_GNSSNet)
-        self.menuGNSS.addAction(self.munuItem_satellite)
         self.menu_T.addAction(self.munuItem_coorSystemTran)
         self.menu_T.addAction(self.munuItem_coorTran)
         self.menu_T.addAction(self.munuItem_GussianTran)
@@ -325,7 +332,6 @@ class Ui_mainWindow(object):
         self.menu_C.addAction(self.munuItem_markbook)
         self.menu_C.addSeparator()
         self.menu_C.addAction(self.munuItem_controlNet)
-        self.menu_C.addAction(self.menuGNSS.menuAction())
         self.menu_C.addSeparator()
         self.menu_C.addAction(self.menu_G.menuAction())
         self.menu_C.addSeparator()
@@ -345,7 +351,20 @@ class Ui_mainWindow(object):
         self.menu_V.addAction(self.munuItem_contact)
         self.menu_H.addAction(self.munuItem_onlineHelp)
         self.menu_H.addAction(self.munuItem_localHelp)
+        self.menuGNSS_2.addAction(self.munuItem_satellite)
+        self.menuGNSS_2.addSeparator()
+        self.menuGNSS_2.addAction(self.munuItem_GNSSNet)
+        self.menuGNSS_2.addSeparator()
+        self.menuGNSS_2.addAction(self.menuItem_SPP)
+        self.menuGNSS_2.addSeparator()
+        self.menuGNSS_2.addAction(self.actionPPP_P)
+        self.menuGNSS_2.addSeparator()
+        self.menuGNSS_2.addAction(self.action_G)
+        self.menuGNSS_2.addSeparator()
+        self.menuGNSS_2.addAction(self.actionGNSS_L)
+        self.menuGNSS_2.addSeparator()
         self.menubar.addAction(self.menu_F.menuAction())
+        self.menubar.addAction(self.menuGNSS_2.menuAction())
         self.menubar.addAction(self.menu_C.menuAction())
         self.menubar.addAction(self.menu_S.menuAction())
         self.menubar.addAction(self.menu_H.menuAction())
@@ -393,6 +412,9 @@ class Ui_mainWindow(object):
         self.stablePointGroupFileDialog_ui.infoEmit.connect(self.displayInfo)
         self.stablePointGroupFileDialog_ui.closeEventEmit.connect(self.stableDotGroupTable)
 
+        # GNSS菜单
+        self.menuItem_SPP.triggered.connect(self.sppWight)
+
         self.munuItem_coorTran.triggered.connect(self.coorTranQwight)
         self.munuItem_markbook.triggered.connect(self.leicaFormatWight)
         self.munuItem_controlNet.triggered.connect(self.horizontalControlNetworkWight)
@@ -428,14 +450,14 @@ class Ui_mainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_monitor), _translate("mainWindow", "阅览"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_more), _translate("mainWindow", "更多"))
         self.menu_F.setTitle(_translate("mainWindow", "文件(&F)"))
-        self.menu_C.setTitle(_translate("mainWindow", "功能(&C)"))
+        self.menu_C.setTitle(_translate("mainWindow", "更多功能(&C)"))
         self.menu_C_2.setTitle(_translate("mainWindow", "形变监测(&C)"))
         self.menu_G.setTitle(_translate("mainWindow", "工程测量(&G)"))
-        self.menuGNSS.setTitle(_translate("mainWindow", "GNSS"))
         self.menu_T.setTitle(_translate("mainWindow", "坐标变换(&T)"))
         self.menu_S.setTitle(_translate("mainWindow", "设置(&S)"))
         self.menu_V.setTitle(_translate("mainWindow", "版本(&V)"))
         self.menu_H.setTitle(_translate("mainWindow", "帮助(&H)"))
+        self.menuGNSS_2.setTitle(_translate("mainWindow", "GNSS(&G)"))
         self.dockWidget_File.setWindowTitle(_translate("mainWindow", "文件列表"))
         self.toolBar.setWindowTitle(_translate("mainWindow", "toolBar"))
         self.dockWidget_status.setWindowTitle(_translate("mainWindow", "状态信息"))
@@ -449,25 +471,28 @@ class Ui_mainWindow(object):
         self.munuItem_controlNet.setText(_translate("mainWindow", "地面控制网平差(&D)"))
         self.munuItem_railwayCurve.setText(_translate("mainWindow", "铁路曲线计算(&T)"))
         self.munuItem_CPIII.setText(_translate("mainWindow", "CPIII控制网平差(&C)"))
-        self.munuItem_GNSSNet.setText(_translate("mainWindow", "静态GNSS网平差(&G)"))
+        self.munuItem_GNSSNet.setText(_translate("mainWindow", "静态GNSS网平差(&A)"))
         self.munuItem_cacuPara.setText(_translate("mainWindow", "计算参数(&P)"))
         self.munuItem_systemPara.setText(_translate("mainWindow", "系统参数(&S)"))
         self.munuItem_windowSet.setText(_translate("mainWindow", "界面设置(&W)"))
         self.munuItem_onlineHelp.setText(_translate("mainWindow", "在线帮助(&I)"))
         self.munuItem_localHelp.setText(_translate("mainWindow", "本地文档(&I)"))
-        self.menuItem_resultReport.setText(_translate("mainWindow", "导出结果报告(&O)"))
+        self.menuItem_resultReport.setText(_translate("mainWindow", "导出报告(&O)"))
         self.munuItem_version.setText(_translate("mainWindow", "版本信息(&V)"))
         self.menuItem_backWelcome.setText(_translate("mainWindow", "返回欢迎界面(&B)"))
         self.munuItem_statusBar.setText(_translate("mainWindow", "状态信息栏(&S) "))
         self.munuItem_fileStatusBar.setText(_translate("mainWindow", "文件列表栏(&F)"))
         self.munuItem_license.setText(_translate("mainWindow", "授权注册(&L)"))
         self.munuItem_stablePointGround.setText(_translate("mainWindow", "稳定点组分析(&X)"))
-        self.munuItem_satellite.setText(_translate("mainWindow", "卫星轨道(&S)"))
+        self.munuItem_satellite.setText(_translate("mainWindow", "卫星轨道解算与预测(&S)"))
         self.munuItem_coorSystemTran.setText(_translate("mainWindow", "坐标系统转换(&S)"))
         self.munuItem_coorTran.setText(_translate("mainWindow", "坐标(系)转换"))
         self.munuItem_GussianTran.setText(_translate("mainWindow", "高斯坐标正反算(&S)"))
         self.munuItem_contact.setText(_translate("mainWindow", "联系方式(&L)"))
-
+        self.menuItem_SPP.setText(_translate("mainWindow", "标准单点定位SPP(&S)"))
+        self.actionPPP_P.setText(_translate("mainWindow", "PPP精密单点定位(&P)"))
+        self.action_G.setText(_translate("mainWindow", "星体重力场反演(&G)"))
+        self.actionGNSS_L.setText(_translate("mainWindow", "GNSS与重力场应用(&L)"))
 
     def displayInfo(self, type, strInfo):
 
@@ -561,6 +586,20 @@ class Ui_mainWindow(object):
         self.verticalLayout_4.addWidget(self.widget)
         self.stablePointGroupWight_ui.infoEmit.connect(self.displayInfo)
 
+    def sppWight(self):
+        """GNSS单点定位界面"""
+        _translate = QtCore.QCoreApplication.translate
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_operate), _translate("mainWindow", "单点定位"))
+        # 界面重构存储区域
+        self.widget.deleteLater()
+        self.widget = QtWidgets.QWidget(self.tab_operate)
+        self.widget.setObjectName("widget")
+        # GNSS单点定位
+        self.sppWight_ui = SPPWight.Ui_Form()
+        self.sppWight_ui.setupUi(self.widget)
+        self.verticalLayout_4.addWidget(self.widget)
+        self.sppWight_ui.infoEmit.connect(self.displayInfo)
+
     def welcomeWight(self):
         """
         欢迎页面
@@ -641,6 +680,13 @@ class Ui_mainWindow(object):
                 self.stablePointGroupFileDialog_ui.setupUi(self.stablePointGroupDialog)
                 self.stablePointGroupDialog.setWindowModality(QtCore.Qt.ApplicationModal)
                 self.stablePointGroupDialog.show()
+            elif tabLable == "单点定位":
+                # 界面重构存储区域
+                fileNameList,filter = QtWidgets.QFileDialog.getOpenFileNames(self.centralwidget,"导入观测文件与导航电文",Database.default_workspace,"All Files(*)")
+                # self.displayInfo("I",str(fileNameList))
+                # 存入数据库
+                Database().setSppFilePath(fileNameList)
+                self.displayInfo("I",str(Database().getSppFilePath("o")) + str(Database().getSppFilePath("n")))
             else:
                 ActionWarnException(self.centralwidget).actionWarnException("W", "请先选择相应的功能！")
         except Exception as e:
@@ -677,6 +723,7 @@ class Ui_mainWindow(object):
         else:
             self.textEdit_status.append("---【二期观测坐标文件】---")
             self.textEdit_status.append(str(Database.stableDotGroupMeasure_I))
+
     def stableDotGroupTable(self):
         """
         稳定点组文件导入窗口关闭事件
