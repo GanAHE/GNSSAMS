@@ -10,9 +10,9 @@ comment: 标准单点定位
 import datetime
 from GNSS.file import readFile
 from GNSS.orbetEtc import satelliteOrbetEtc
-from numpy import sqrt, mat, cos, sin, transpose, linalg
+from numpy import sqrt, mat, cos, sin, transpose, linalg, arctan, tan
 from GNSS.timeSystem.timeChange import TimeSystemChange
-from GNSS.correctionModel import tropCorrection
+from GNSS.correctionModel import tropCorrection, ionCorrection
 from database.database import Database
 
 
@@ -61,8 +61,7 @@ class ActionSPP(object):
                 break
         print(PRN)
 
-        B = []
-        L = []
+
         for i in range(count_satellite):
             satelliteName = PRN[i]
             # 根据行键获取数据，key = ('2019-10-28 10:00:00', 'G10'),使用iloc可以根据行序获取，键值从观测文件找
@@ -83,18 +82,21 @@ class ActionSPP(object):
             approx_distance = waveDistance
             temp = 0
             Vts = 0
-            Vtr = 0
             xyz = []
             while abs(temp - approx_distance) > 1e-6:
                 temp = approx_distance
                 teta_ts = approx_distance / c
-                time_sendSignal = tow + Vtr - teta_ts
+                time_sendSignal = tow - teta_ts
                 Vts, xyz = satelliteOrbetEtc.getSatellitePositon_II(time_sendSignal, navEpochData)
                 # print(PRN[i]+"卫星位置：", xyz)
                 # 对卫星坐标进行地球自转改正
-                xyz = mat([[cos(earth_RAV * teta_ts), sin(earth_RAV * teta_ts), 0],
-                           [-sin(earth_RAV * teta_ts), cos(earth_RAV * teta_ts), 0],
-                           [0, 0, 1]]) * mat(xyz)
+                # xyz = mat([[cos(earth_RAV * teta_ts), sin(earth_RAV * teta_ts), 0],
+                #            [-sin(earth_RAV * teta_ts), cos(earth_RAV * teta_ts), 0],
+                #            [0, 0, 1]]) * mat(xyz)
+                d_xyz = mat([[0, sin(earth_RAV * teta_ts), 0],
+                           [-sin(earth_RAV * teta_ts), 0, 0],
+                           [0, 0, 0]]) * mat(xyz)
+                xyz = xyz + d_xyz
                 # xyz = xyz.tolist()
                 # 计算近似站星距离/伪距
                 sum = 0
@@ -103,13 +105,20 @@ class ActionSPP(object):
                 approx_distance = sqrt(sum)
                 # print("迭代站星距：{}".format(approx_distance))
 
-            # 对流层延迟/电离层延迟改正
-            Vion = 0
             # TODO 查找卫星仰角
             satelliteAngle = 15
+
+            # 对流层延迟/电离层延迟改正
+            if navClass.version[0] == 2:
+                Vion = ionCorrection.klobuchar(satelliteAngle, UTCTimeList, approx_position, xyz, navClass.alphalist, navClass.betalist)
+            else:
+                Vion = 0
+
             Vtrop = tropCorrection.tropospheric_delay(approx_position[0], approx_position[1], approx_position[2],
                                                       satelliteAngle, UTCTimeList)
             # 构建系数矩阵
+            B = []
+            L = []
             B.append(
                 [-(xyz[0, 0] - approx_position[0]) / approx_distance,
                  -(xyz[1, 0] - approx_position[1]) / approx_distance,
@@ -125,7 +134,6 @@ class ActionSPP(object):
         print("matrix_L:", matrix_L)
         Q = linalg.inv(transpose(matrix_B) * matrix_B)
         matrix_x = Q * (transpose(matrix_B) * matrix_L)
-        Vtr = matrix_x[3]
         matrix_v = matrix_B * matrix_x - matrix_L
         sigma_o = sqrt((transpose(matrix_v) * matrix_v)[0, 0] / (count_satellite - 4))
         print("中误差：{} mm".format(sigma_o * 1e3))
@@ -148,8 +156,11 @@ class ActionSPP(object):
 
 def actionReadFile():
     # 从数据库获取文件路径
-    path_OFile = Database.oFilePathList[0]
-    path_NFile = Database.nFilePathList[0]
+    # path_OFile = Database.oFilePathList[0]
+    # path_NFile = Database.nFilePathList[0]
+    path_OFile = r"D:\CodeProgram\Python\EMACS\workspace\GNSS\D068305A.19O"
+    path_NFile = r"D:\CodeProgram\Python\EMACS\workspace\GNSS\D068305A.19N"
+
 
     # 读取观测文件并提取对应数据
     obsClass = readFile.read_obsFile(path_OFile)
@@ -174,3 +185,5 @@ def actionReadFile():
     navClass = readFile.read_navFile(path_NFile)
 
     actionSPP = ActionSPP().getStationPosition(obsTime, "C1C", Sat, count_satellite, obsClass, navClass)
+
+actionReadFile()

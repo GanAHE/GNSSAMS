@@ -107,7 +107,7 @@ def getSatellitePositon_II(t_epoch, epoch_data):
     clockDriftRate = float(epoch_data[2])
 
     Crs = epoch_data[11]
-    An = epoch_data[7]  # 存疑
+    An = epoch_data[7]
     Mo = epoch_data[5]
     # 轨道二数据
     Cuc = epoch_data[10]
