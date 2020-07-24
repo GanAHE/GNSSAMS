@@ -8,6 +8,8 @@
 import os
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtCore import QUrl, QFileInfo
+from PyQt5.QtWebEngineWidgets import QWebEngineView
 
 from engineerMesure.leicaGsiFormat import LeicaGSIFormat
 from database.database import Database
@@ -425,7 +427,7 @@ class Ui_mainWindow(object):
         self.munuItem_fileStatusBar.triggered.connect(self.dockWidget_File.show)
         self.menuItem_resultReport.triggered.connect(self.saveReport)
 
-        self.menuItem_new.triggered.connect(self.moreWindow)
+        self.menuItem_new.triggered.connect(self.actionMoreWindow)
         self.munuItem_fileStatusBar.triggered.connect(self.actionMenuItem_fileStatusBar)
         self.munuItem_statusBar.triggered.connect(self.actionMenuItem_statusBar)
         self.dockWidget_File.visibilityChanged['bool'].connect(self.dockWight_fileStatusCloseEvent)
@@ -515,24 +517,31 @@ class Ui_mainWindow(object):
     """
     # 切换功能面板构造
     """
-
-    def moreWindow(self):
+    def actionMoreWindow(self):
+        """
+        多文档界面
+        :return:
+        """
+        _translate = QtCore.QCoreApplication.translate
         # 跳转到指定标签页
         self.tabWidget.setCurrentIndex(3)
-        # 子窗口增加一个
+        type = "map"
+        if type == "map":
+            self.sub.append(QtWidgets.QMdiSubWindow())
+            # 实例化多文档界面对象
+            # 设置新建子窗口的标题
+            self.sub.setWindowTitle('多文档测试')
+            # self.verticalLayout_more.addWidget(self.sub,wight)
+            qwebengine = QWebEngineView(self.sub)
+            # 设置网页在窗口中显示的位置和大小
+            qwebengine.setGeometry(0, 0, self.sub.width() + 1000, self.sub.height() + 500)
+            # 在QWebEngineView中加载网址
+            qwebengine.load(QUrl(r"https://www.ganahe.top"))
+            # 将子窗口添加到Mdi区域
+            self.mdiArea.addSubWindow(self.sub)
 
-        # 实例化多文档界面对象
-        self.sub = QtWidgets.QMdiArea()
-        # 设置新建子窗口的标题
-        self.sub.setWindowTitle('多文档测试')
-        self.verticalLayout_more = QtWidgets.QVBoxLayout(self.sub)
-        self.verticalLayout_more.setObjectName("verticalLayout_more")
-        self.sub.setLayout(self.verticalLayout_more)
-        # 将子窗口添加到Mdi区域
-        self.mdiArea.addSubWindow(self.sub)
-
-        # 子窗口显示
-        self.sub.show()
+            # 子窗口显示
+            self.sub.show()
 
     def coorTranQwight(self):
         """
@@ -797,7 +806,20 @@ class Ui_mainWindow(object):
             self.displayInfo("W", "错误！可能原因：\n 1.没有任何需要导出的数据；\n2. " + e.__str__())
 
     def onlineHelp(self):
-        QtGui.QDesktopServices.openUrl(QtCore.QUrl('https://9jke6l.coding-pages.com/'))
+        self.tabWidget.setCurrentIndex(3)
+        self.helpSub = QtWidgets.QMdiSubWindow()
+        # 实例化多文档界面对象
+        # 设置新建子窗口的标题
+        self.helpSub.setWindowTitle('在线帮助')
+        # self.verticalLayout_more.addWidget(self.sub,wight)
+        qwebengine = QWebEngineView(self.helpSub)
+        # 设置网页在窗口中显示的位置和大小
+        qwebengine.setGeometry(0, 0, self.helpSub.width() + 1000, self.helpSub.height() + 500)
+        # 在QWebEngineView中加载网址
+        qwebengine.load(QUrl(r"https://www.ganahe.top"))
+        # 将子窗口添加到Mdi区域
+        self.mdiArea.addSubWindow(self.helpSub)
+        self.helpSub.show()
 
     def textEditFormatAdd(self, twoDissList):
         listLen = len(twoDissList)

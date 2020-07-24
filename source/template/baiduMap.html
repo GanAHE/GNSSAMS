@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<style type="text/css">
+	body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+	</style>
+	<title>异步加载地图</title>
+</head>
+<body>
+	<div id="allmap"></div>
+</body>
+</html>
+<script type="text/javascript">
+	//百度地图API功能
+	function loadJScript() {
+		var script = document.createElement("script");
+		script.type = "text/javascript";
+		script.src = "//api.map.baidu.com/api?v=2.0&ak=YSVAeBK14gxW7szGkoixX4by5iRW6GNV&callback=init";
+		document.body.appendChild(script);
+	}
+	function init() {
+		var map = new BMap.Map("allmap");            // 创建Map实例
+		var point = new BMap.Point(114.37292090919235, 30.543803317143624); // 创建点坐标
+		map.centerAndZoom(point,15);
+		map.enableScrollWheelZoom();                 //启用滚轮放大缩小
+	}
+	window.onload = loadJScript;  //异步加载地图
+</script>

@@ -87,6 +87,8 @@ class SplashPanel(QSplashScreen):
 if __name__ == '__main__':
     # 窗体构建
     app = QApplication(sys.argv)
+    # 自适应分辨率
+    QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
     # 启动页面
     splash = SplashPanel()
     # 设置进程，启动加载页面时可以进行其他操作而不会卡死
