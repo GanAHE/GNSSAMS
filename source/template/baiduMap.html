@@ -4,27 +4,50 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 	<style type="text/css">
-	body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+		body, html {width: 100%;height: 100%;margin:0;font-family:"微软雅黑";}
+		#allmap{width:100%;height:100%;}
+		p{margin-left:5px; font-size:14px;}
 	</style>
-	<title>异步加载地图</title>
+	<script type="text/javascript" src="//api.map.baidu.com/api?v=1.0&ak=WKoCFDIEVgwhtpk3geDBh9zOura8KhPO"></script>
+	<title>个性化地图</title>
 </head>
 <body>
 	<div id="allmap"></div>
+<!--    <p>个性化底图V2样式可通过<a href='/customv2/help.html' target="_blank">个性化在线编辑器</a>编辑获取</p>-->
 </body>
 </html>
 <script type="text/javascript">
-	//百度地图API功能
-	function loadJScript() {
-		var script = document.createElement("script");
-		script.type = "text/javascript";
-		script.src = "//api.map.baidu.com/api?v=2.0&ak=YSVAeBK14gxW7szGkoixX4by5iRW6GNV&callback=init";
-		document.body.appendChild(script);
-	}
-	function init() {
-		var map = new BMap.Map("allmap");            // 创建Map实例
-		var point = new BMap.Point(114.37292090919235, 30.543803317143624); // 创建点坐标
-		map.centerAndZoom(point,15);
-		map.enableScrollWheelZoom();                 //启用滚轮放大缩小
-	}
-	window.onload = loadJScript;  //异步加载地图
+	var map = new BMap.Map('allmap');
+	map.centerAndZoom(new BMap.Point(114.404269,30.416042), 11);
+	map.enableScrollWheelZoom();                         //启用滚轮放大缩小
+	theNewLocation(114.326,30.356,"小东西 @copyright by GanAHE&DGZC");
+	map.setMapStyleV2({styleId:"8a6aad5f917ff88c1de6d711cdcf24d7"});
+	// 用经纬度设置地图中心点
+		function theNewLocation(x,y,information){
+			if(1){
+				map.clearOverlays();
+				var new_point = new BMap.Point(x,y);
+				var marker = new BMap.Marker(new_point);  // 创建标注
+				map.addOverlay(marker);              // 将标注添加到地图中
+				map.panTo(new_point);
+
+				//增加定位信息标注
+				map.centerAndZoom(new_point, 15);
+				var opts = {
+				  width : 70,     // 信息窗口宽度
+				  height: 100,     // 信息窗口高度
+				  title : "定位点地理信息" , // 信息窗口标题
+				  enableMessage:true,//设置允许信息窗发送短息
+				  message:information
+				}
+				var infoWindow = new BMap.InfoWindow(information, opts);  // 创建信息窗口对象
+				marker.addEventListener("click", function(){
+					map.openInfoWindow(infoWindow,new_point); //开启信息窗口
+				});
+			}
+		}
+	theNewLocation(114.302,30.256);
+
+
+
 </script>
