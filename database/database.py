@@ -9,6 +9,7 @@ comment: 临时中转数据库
 """
 import json
 import os
+from database import ellipsoid
 
 
 class Database(object):
@@ -17,7 +18,8 @@ class Database(object):
     LicensePath = None
     workspace = None
     default_workspace = "./workspace/"
-    elliDict = None
+    # 椭球参数:a,b,偏心率e,第二偏心率e'
+    ellipsoid = None
     # 地球自转角速度rad/s -RotationalAngularVelocity
     earth_RAV = 7.29211511467e-5
     # 光速 m/s
@@ -43,7 +45,16 @@ class Database(object):
             dict_data = json.load(fp)
         fp.close()
         Database.workspace = dict_data["workspace"]
-        Database.elliDict = dict_data["elliPara"]
+        # 保存椭球参数
+        Database.ellipsoid = ellipsoid.Ellipsoid(WGS84=ellipsoid.WGS84(dict_data["elliPara"]["WGS84_Ellipsoid"]),
+                                                 CGCS2000=ellipsoid.CGCS2000(
+                                                     dict_data["elliPara"]["CGCS2000_Ellipsoid"]),
+                                                 krasovskiEllipsoid=ellipsoid.krasovskiEllipsoid(
+                                                     dict_data["elliPara"]["krasovskiEllipsoid"]),
+                                                 internationalEllipsoid_1975=ellipsoid.internationalEllipsoid_1975(
+                                                     dict_data["elliPara"]["internationalEllipsoid_1975"]),
+                                                 userPrivateEllipsoid=ellipsoid.userPrivateEllipsoid(
+                                                     dict_data["elliPara"]["userPrivateEllipsoid"]), )
         Database.LicensePath = dict_data["License"]
 
     # 坐标转换读入的原始数据
