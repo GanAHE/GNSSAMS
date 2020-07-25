@@ -132,6 +132,8 @@ class Ui_Form(QtCore.QObject):
         self.retranslateUi(Form)
         self.tabWidget.setCurrentIndex(0)
         self.button_SPP.clicked.connect(self.actionButtonSPP)
+        self.actionGetStationPosition = actionSPP.ActionSPP()
+        self.actionGetStationPosition.infoEmit.connect(self.sendTopInfo)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
@@ -172,21 +174,62 @@ class Ui_Form(QtCore.QObject):
                 elif k == 2:
                     self.tableWidget.item(i, k).setText(fileName[7])
                 else:
-                    self.tableWidget.item(i, k).setText("20"+fileName[9:11])
+                    self.tableWidget.item(i, k).setText("20" + fileName[9:11])
 
                 print("检测是否进入数据表设定")
 
     def actionButtonSPP(self):
-        print("\n==开始测试：")
-        actionSPP.actionReadFile()
-        self.sendTopInfo("T", "完成测试！")
-        self.status_slider.setValue(1)
-        self.pushButton_3.setChecked(False)
-        self.pushButton_4.setChecked(True)
-        self.pushButton_3.setVisible(False)
+        self.sendTopInfo("I", "\n==单点定位：")
+        ellipsoid = self.comboBox_elliPara.currentText()
+        # 将界面显示选择的椭球转为内部标准查询参数，其他参数符合的不需要转换
+        if ellipsoid == "1975国际椭球":
+            ellipsoid = "IE1975"
+        elif ellipsoid == "格拉索夫斯基椭球":
+            ellipsoid = "Krasovski"
+
+        reCode = self.actionGetStationPosition.actionReadFile(ellipsoid)
+        if reCode:
+            self.sendTopInfo("T", "完成单点定位解算！")
+            self.status_slider.setValue(1)
+            self.pushButton_3.setChecked(False)
+            self.pushButton_4.setCheckable(True)
+            self.pushButton_4.setChecked(True)
 
     def sendTopInfo(self, type, strInfo):
-        self.infoEmit.emit(type, strInfo)
+        if len(type) > 1:
+            # 分开序号与信息
+            [id, title] = type.split("-")
+            id = int(id)
+            # 检查列名是否存在:不存在，新建一个列名，如果已经存在，则需要加行写入数据
+            columnCount = self.tableWidget.columnCount()
+            rowCount = self.tableWidget.rowCount()
+            exitCode = False
+            for i in range(columnCount):
+                if title == self.tableWidget.horizontalHeaderItem(i).text():
+                    exitCode = True
+                    # 存在，按照行号检查,大于现有行宽度则新增一行
+                    if id >= rowCount:
+                        self.tableWidget.setRowCount(rowCount + 1)
+                    item = QtWidgets.QTableWidgetItem()
+                    self.tableWidget.setItem(id, i, item)
+                    self.tableWidget.item(id, i).setText(strInfo)
+                    break
+            if exitCode is False:
+                self.tableWidget.setColumnCount(columnCount + 1)
+                columnCount = self.tableWidget.columnCount()
+                # 新增一列,设置列名
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget.setHorizontalHeaderItem(columnCount - 1, item)
+                item.setText(title)
+                # 按照行号检查,大于现有行宽度则新增一行
+                if id >= rowCount:
+                    self.tableWidget.setRowCount(rowCount + 1)
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget.setItem(id, columnCount - 1, item)
+                self.tableWidget.item(id, columnCount - 1).setText(strInfo)
+
+        else:
+            self.infoEmit.emit(type, strInfo)
 
     def initTableWight(self):
         pass

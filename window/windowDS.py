@@ -527,7 +527,7 @@ class Ui_mainWindow(object):
         self.tabWidget.setCurrentIndex(3)
         type = "map"
         if type == "map":
-            self.sub.append(QtWidgets.QMdiSubWindow())
+            self.sub = QtWidgets.QMdiSubWindow()
             # 实例化多文档界面对象
             # 设置新建子窗口的标题
             self.sub.setWindowTitle('多文档测试')

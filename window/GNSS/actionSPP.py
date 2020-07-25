@@ -10,25 +10,29 @@ comment: 标准单点定位
 import datetime
 from GNSS.file import readFile
 from GNSS.orbetEtc import satelliteOrbetEtc
-from numpy import sqrt, mat, cos, sin, transpose, linalg, arctan, tan
+from numpy import sqrt, mat, cos, sin, transpose, linalg, arctan, tan, rad2deg
 from GNSS.timeSystem.timeChange import TimeSystemChange
 from GNSS.correctionModel import tropCorrection, ionCorrection
 from database.database import Database
 from measureTool import coordinationTran
 from myConfig.logger import Logger
+from PyQt5.QtCore import QObject, pyqtSignal
 
 
-class ActionSPP(object):
-    infoEmit = ""
+class ActionSPP(QObject):
+    infoEmit = pyqtSignal(str, str)
     logger = Logger().get_logger("ACTION_GET_STATION_POSITION")
+    id = None
+    ellipsoid = None
 
     def __init__(self):
-        pass
+        super(ActionSPP, self).__init__()
 
-    def getStationPosition(self, observationEpoch, waveBand, Sat, count_satellite, obsClass, navClass):
+    def getStationPosition(self,observationEpoch, waveBand, Sat, count_satellite, obsClass, navClass):
 
         # print("这是椭球参数：",Database.ellipsoid.CGCS2000.a)
-
+        print(coordinationTran.CoordinationTran(self.ellipsoid).XYZ_to_BLH(
+            [6378020.461599736, 12739.801484877651, 49091.74122939511]))
         # 卫星数量
         # count_satellite = len(PRN)
         # 光速 m/s
@@ -109,7 +113,7 @@ class ActionSPP(object):
                 for k in range(3):
                     sum += (xyz[k, 0] - approxPosition[k]) * (xyz[k, 0] - approxPosition[k])
                 approxDistance = sqrt(sum)
-                print("迭代站星距：{}".format(approxDistance))
+                # print("迭代站星距：{}".format(approxDistance))
 
             # TODO 查找卫星仰角
             satelliteAngle = 15
@@ -135,22 +139,29 @@ class ActionSPP(object):
         # 平差求解
         matrix_B = mat(B)
         matrix_L = mat(L)
-        print("--matrix_B:\n", matrix_B)
-        print("--matrix_L:\n", matrix_L)
+        self._sendInfo("I", "--matrix_B:{}\n".format(matrix_B.tolist()))
+        self._sendInfo("I", "--matrix_L:{}\n".format(matrix_L.tolist()))
         Q = linalg.inv(transpose(matrix_B) * matrix_B)
         matrix_x = Q * (transpose(matrix_B) * matrix_L)
         matrix_v = matrix_B * matrix_x - matrix_L
-        print("--matrix_x:\n", matrix_x)
-        print("--matrix_v:\n", matrix_v)
+        self._sendInfo("I", "--matrix_x:{}\n".format(matrix_x.tolist()))
+        self._sendInfo("I", "--matrix_v:{}\n".format(matrix_v.tolist()))
         sigma_o = sqrt((transpose(matrix_v) * matrix_v)[0, 0] / (count_satellite - 4))
-        print("中误差：{} mm".format(sigma_o * 1e3))
+        self._sendInfo("I", "中误差：{} mm".format(sigma_o * 1000))
         # D = sigma_o * sigma_o * Q
         # 改正
         stationPosition = [approxPosition[0] + matrix_x[0, 0], approxPosition[1] + matrix_x[1, 0],
                            approxPosition[2] + matrix_x[2, 0]]
-        print("近似坐标：", approxPosition, "\n最后坐标：", stationPosition)
-        print("BLH:", coordinationTran.CoordinationTran("WGS84").XYZ_to_BLH(approxPosition), "\nBLH:",
-              coordinationTran.CoordinationTran("WGS84").XYZ_to_BLH(stationPosition))
+        self._sendInfo("I", "近似坐标：{} \n最后坐标：{}".format(approxPosition, stationPosition))
+        self._sendInfo("坐标X/m", str(stationPosition[0]))
+        self._sendInfo("坐标Y/m", str(stationPosition[1]))
+        self._sendInfo("坐标Z/m", str(stationPosition[2]))
+        coor_B, coor_L, coor_H = coordinationTran.CoordinationTran("WGS84").XYZ_to_BLH(stationPosition)
+        self._sendInfo("B/°", str(rad2deg(coor_B)))
+        self._sendInfo("L/°", str(rad2deg(coor_L)))
+        self._sendInfo("H/m", str(coor_H))
+        print("BLH:", coordinationTran.CoordinationTran("WGS84").XYZ_to_BLH(approxPosition), "\nBLH:", coor_B, coor_L,
+              coor_H)
         # 精度评价： GDOP / PDOP / TDOP / HDOP / VDOP
         # 三维点位精度衰减因子
         mo = sigma_o * sigma_o
@@ -162,46 +173,69 @@ class ActionSPP(object):
         # 几何精度衰减因子
         GDOP = sqrt(Q[0, 0] + Q[1, 1] + Q[2, 2] + Q[3, 3])
         mG = mo * GDOP
-        # 坐标系统转换
+        # 坐标系统转换为BLH的系数矩阵
+        matrix_BLH_B = mat([[-sin(coor_B) * cos(coor_L), -sin(coor_B) * sin(coor_L), cos(coor_B)],
+                            [-sin(coor_L), cos(coor_L), 0],
+                            [cos(coor_B) * cos(coor_L), cos(coor_B) * cos(coor_L), sin(coor_B)]])
 
-        print("GDOP / PDOP / TDOP ", GDOP, PDOP, TDOP)
+        Q_dot = matrix_BLH_B * Q[0:3, 0:3] * transpose(matrix_BLH_B)
+        HDOP = sqrt(Q_dot[0, 0] + Q_dot[1, 1])
+        mH = mo * HDOP
+        VDOP = sqrt(Q_dot[2, 2])
+        mV = mo * VDOP
+
+        asd = [PDOP, mP, TDOP, mT, GDOP, mG, HDOP, mH, VDOP, mV]
+        asdName = ["PDOP/m", "mP/m", "TDOP/m", "mT/m", "GDOP/m", "mG/m", "HDOP/m", "mH/m", "VDOP/m", "mV/m"]
+        for g in range(len(asd)):
+            self._sendInfo(asdName[g], str(asd[g]))
+
+        self._sendInfo("I",
+                       " - GDOP \n{}\n - PDOP\n{}\n - TDOP\n{}\n - HDOP\n{}\n - VDOP\n{}".format(GDOP, PDOP, TDOP, HDOP,
+                                                                                                 VDOP))
 
     def _sendInfo(self, type, strInfo):
+        if len(type) == 1:
+            self.logger.info(strInfo)
+        else:  # 符合表格数据传递信息，加入辨识头
+            type = self.id + "-" + type
         self.infoEmit.emit(type, strInfo)
-        self.logger.info(strInfo)
 
+    def actionReadFile(self, ellipsoid):
+        # 传入的椭球参数，设置到类中
+        self.ellipsoid = ellipsoid
+        try:
+            # 从数据库获取文件路径
+            path_OFile = Database.oFilePathList
+            path_NFile = Database.nFilePathList
+            # path_OFile = r"E:\CodePrograme\Python\EMACS\workspace\GNSS\D068305A.19O"
+            # path_NFile = r"E:\CodePrograme\Python\EMACS\workspace\GNSS\D068305A.19N"
+            print(len(path_NFile), type(path_NFile))
+            if len(path_OFile) != 0 and len(path_OFile) == len(path_NFile):
+                for i in range(len(path_NFile)):
+                    # 读取观测文件并提取对应数据
+                    obsClass = readFile.read_obsFile(path_OFile[i])
+                    obsEpoch = obsClass.observation.epoch.index.values.tolist()
+                    # 选定一个观测时间
+                    obsTime = obsEpoch[0][0]
+                    # print(obsEpoch,type(obsClass.observation.epoch))
+                    # sv =obsClass.observation.loc[(obsTime,obsEpoch[0][1])]
+                    Sat = []
+                    count_satellite = 6
+                    for k in range(len(obsEpoch)):
+                        if obsTime == obsEpoch[k][0]:
+                            if (obsEpoch[k][1])[0] == "G":
+                                Sat.append(obsEpoch[k][1])
+                            # elif (obsEpoch[k][1])[0] == "R":
+                            #     PR
+                        # if len(PRN) >= count_satellite:
+                        #     break
 
-def actionReadFile():
-    try:
-        # 从数据库获取文件路径
-        # path_OFile = Database.oFilePathList[0]
-        # path_NFile = Database.nFilePathList[0]
-        path_OFile = r"E:\CodePrograme\Python\EMACS\workspace\GNSS\D068305A.19O"
-        path_NFile = r"E:\CodePrograme\Python\EMACS\workspace\GNSS\D068305A.19N"
-
-        # 读取观测文件并提取对应数据
-        obsClass = readFile.read_obsFile(path_OFile)
-        obsEpoch = obsClass.observation.epoch.index.values.tolist()
-        # 选定一个观测时间
-        obsTime = obsEpoch[0][0]
-        # print(obsEpoch,type(obsClass.observation.epoch))
-        # sv =obsClass.observation.loc[(obsTime,obsEpoch[0][1])]
-        Sat = []
-        count_satellite = 6
-        for k in range(len(obsEpoch)):
-            if obsTime == obsEpoch[k][0]:
-                if (obsEpoch[k][1])[0] == "G":
-                    Sat.append(obsEpoch[k][1])
-                # elif (obsEpoch[k][1])[0] == "R":
-                #     PR
-            # if len(PRN) >= count_satellite:
-            #     break
-
-        # 读取导航电文
-        navClass = readFile.read_navFile(path_NFile)
-
-        ActionSPP().getStationPosition(obsTime, "C1C", Sat, count_satellite, obsClass, navClass)
-    except Exception as e:
-        print(e.__str__())
-
-# actionReadFile()
+                    # 读取导航电文
+                    navClass = readFile.read_navFile(path_NFile[i])
+                    # 设定处理的点序号
+                    self.id = str(i)
+                    self.getStationPosition(obsTime, "C1C", Sat, count_satellite, obsClass, navClass)
+            else:
+                self._sendInfo("T", "未导入导航电文/观测文件")
+        except Exception as e:
+            self._sendInfo("E", "异常错误！具体信息：" + e.__str__())

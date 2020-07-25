@@ -50,10 +50,16 @@ class SplashPanel(QSplashScreen):
         # Database().loadConfigJson()
         for i in range(101):
             progressBar.setValue(i)
+            if i == 81:
+                self.showMessage('加载系统配置...', alignment=QtCore.Qt.AlignBottom | QtCore.Qt.AlignCenter,
+                                 color=QtCore.Qt.black)
+
+                Database().loadConfigJson()
             time.sleep(0.02)
 
         self.showMessage("完成所有配置文件载入，请稍等...", alignment=QtCore.Qt.AlignBottom | QtCore.Qt.AlignCenter,
                          color=QtCore.Qt.black)
+
         time.sleep(1)
         # 淡出效果
         t = 0
