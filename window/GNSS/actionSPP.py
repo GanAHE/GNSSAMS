@@ -14,13 +14,20 @@ from numpy import sqrt, mat, cos, sin, transpose, linalg, arctan, tan
 from GNSS.timeSystem.timeChange import TimeSystemChange
 from GNSS.correctionModel import tropCorrection, ionCorrection
 from database.database import Database
+from measureTool import coordinationTran
+from myConfig.logger import Logger
 
 
 class ActionSPP(object):
+    infoEmit = ""
+    logger = Logger().get_logger("ACTION_GET_STATION_POSITION")
+
     def __init__(self):
         pass
 
     def getStationPosition(self, observationEpoch, waveBand, Sat, count_satellite, obsClass, navClass):
+
+        # print("这是椭球参数：",Database.ellipsoid.CGCS2000.a)
 
         # 卫星数量
         # count_satellite = len(PRN)
@@ -93,8 +100,8 @@ class ActionSPP(object):
                 #            [-sin(earth_RAV * teta_ts), cos(earth_RAV * teta_ts), 0],
                 #            [0, 0, 1]]) * mat(xyz)
                 xyz = mat([[0, sin(earth_RAV * teta_ts), 0],
-                             [-sin(earth_RAV * teta_ts), 0, 0],
-                             [0, 0, 0]]) * mat(xyz) + mat(xyz)
+                           [-sin(earth_RAV * teta_ts), 0, 0],
+                           [0, 0, 0]]) * mat(xyz) + mat(xyz)
 
                 # xyz = xyz.tolist()
                 # 计算近似站星距离/伪距
@@ -142,15 +149,26 @@ class ActionSPP(object):
         stationPosition = [approxPosition[0] + matrix_x[0, 0], approxPosition[1] + matrix_x[1, 0],
                            approxPosition[2] + matrix_x[2, 0]]
         print("近似坐标：", approxPosition, "\n最后坐标：", stationPosition)
+        print("BLH:", coordinationTran.CoordinationTran("WGS84").XYZ_to_BLH(approxPosition), "\nBLH:",
+              coordinationTran.CoordinationTran("WGS84").XYZ_to_BLH(stationPosition))
         # 精度评价： GDOP / PDOP / TDOP / HDOP / VDOP
         # 三维点位精度衰减因子
+        mo = sigma_o * sigma_o
         PDOP = sqrt(Q[0, 0] + Q[1, 1] + Q[2, 2])
+        mP = mo * PDOP
         # 时间精度衰减因子
         TDOP = sqrt(Q[3, 3])
+        mT = mo * TDOP
         # 几何精度衰减因子
         GDOP = sqrt(Q[0, 0] + Q[1, 1] + Q[2, 2] + Q[3, 3])
+        mG = mo * GDOP
+        # 坐标系统转换
 
         print("GDOP / PDOP / TDOP ", GDOP, PDOP, TDOP)
+
+    def _sendInfo(self, type, strInfo):
+        self.infoEmit.emit(type, strInfo)
+        self.logger.info(strInfo)
 
 
 def actionReadFile():
@@ -178,7 +196,6 @@ def actionReadFile():
                 #     PR
             # if len(PRN) >= count_satellite:
             #     break
-        print(Sat)
 
         # 读取导航电文
         navClass = readFile.read_navFile(path_NFile)
@@ -186,6 +203,5 @@ def actionReadFile():
         ActionSPP().getStationPosition(obsTime, "C1C", Sat, count_satellite, obsClass, navClass)
     except Exception as e:
         print(e.__str__())
-
 
 # actionReadFile()
