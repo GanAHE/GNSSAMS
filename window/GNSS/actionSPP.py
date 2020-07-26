@@ -24,11 +24,13 @@ class ActionSPP(QObject):
     logger = Logger().get_logger("ACTION_GET_STATION_POSITION")
     id = None
     ellipsoid = None
+    resDict = {"pointID": [], "X": [], "Y": [], "Z": [], "B": [], "L": [], "H": [], "PDOP": [], "mP": [], "TDOP": [],
+               "mT": [], "GDOP": [], "mG": [], "VDOP": [], "mV": [], "HDOP": [], "mH": [], "information": []}
 
     def __init__(self):
         super(ActionSPP, self).__init__()
 
-    def getStationPosition(self,observationEpoch, waveBand, Sat, count_satellite, obsClass, navClass):
+    def getStationPosition(self, observationEpoch, waveBand, Sat, count_satellite, obsClass, navClass):
 
         # print("这是椭球参数：",Database.ellipsoid.CGCS2000.a)
         print(coordinationTran.CoordinationTran(self.ellipsoid).XYZ_to_BLH(
@@ -160,8 +162,8 @@ class ActionSPP(QObject):
         self._sendInfo("B/°", str(rad2deg(coor_B)))
         self._sendInfo("L/°", str(rad2deg(coor_L)))
         self._sendInfo("H/m", str(coor_H))
-        print("BLH:", coordinationTran.CoordinationTran("WGS84").XYZ_to_BLH(approxPosition), "\nBLH:", coor_B, coor_L,
-              coor_H)
+        # 调用百度地图API获取经纬度对应的地理位置信息
+
         # 精度评价： GDOP / PDOP / TDOP / HDOP / VDOP
         # 三维点位精度衰减因子
         mo = sigma_o * sigma_o
@@ -189,9 +191,23 @@ class ActionSPP(QObject):
         for g in range(len(asd)):
             self._sendInfo(asdName[g], str(asd[g]))
 
-        self._sendInfo("I",
-                       " - GDOP \n{}\n - PDOP\n{}\n - TDOP\n{}\n - HDOP\n{}\n - VDOP\n{}".format(GDOP, PDOP, TDOP, HDOP,
-                                                                                                 VDOP))
+        self.resDict["X"].append(stationPosition[0])
+        self.resDict["Y"].append(stationPosition[1])
+        self.resDict["Z"].append(stationPosition[2])
+        self.resDict["B"].append(coor_B)
+        self.resDict["L"].append(coor_B)
+        self.resDict["H"].append(coor_B)
+        self.resDict["PDOP"].append(PDOP)
+        self.resDict["mP"].append(mP)
+        self.resDict["TDOP"].append(TDOP)
+        self.resDict["mT"].append(mT)
+        self.resDict["GDOP"].append(GDOP)
+        self.resDict["mG"].append(mG)
+        self.resDict["VDOP"].append(VDOP)
+        self.resDict["mV"].append(mV)
+        self.resDict["HDOP"].append(HDOP)
+        self.resDict["mH"].append(mH)
+
 
     def _sendInfo(self, type, strInfo):
         if len(type) == 1:
