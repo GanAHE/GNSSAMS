@@ -6,6 +6,7 @@
 #
 # WARNING! All changes made in this file will be lost!
 import os
+import webbrowser
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QUrl, QFileInfo
@@ -427,7 +428,7 @@ class Ui_mainWindow(object):
         self.munuItem_fileStatusBar.triggered.connect(self.dockWidget_File.show)
         self.menuItem_resultReport.triggered.connect(self.saveReport)
 
-        self.menuItem_new.triggered.connect(self.actionMoreWindow)
+        # self.menuItem_new.triggered.connect(self.actionMoreWindow)
         self.munuItem_fileStatusBar.triggered.connect(self.actionMenuItem_fileStatusBar)
         self.munuItem_statusBar.triggered.connect(self.actionMenuItem_statusBar)
         self.dockWidget_File.visibilityChanged['bool'].connect(self.dockWight_fileStatusCloseEvent)
@@ -500,6 +501,8 @@ class Ui_mainWindow(object):
 
         if type == "I":
             self.textEdit_status.append(strInfo)
+        elif type == "M":
+            self.actionShowStationPositonInMap()
         else:
             ActionWarnException(self.centralwidget).actionWarnException(type, strInfo)
 
@@ -517,31 +520,47 @@ class Ui_mainWindow(object):
     """
     # 切换功能面板构造
     """
+
     def actionMoreWindow(self):
+        pass
+
+    def actionShowStationPositonInMap(self):
         """
         多文档界面
         :return:
         """
         _translate = QtCore.QCoreApplication.translate
-        # 跳转到指定标签页
+        # 加载完成后跳转
         self.tabWidget.setCurrentIndex(3)
-        type = "map"
-        if type == "map":
-            self.sub = QtWidgets.QMdiSubWindow()
-            # 实例化多文档界面对象
-            # 设置新建子窗口的标题
-            self.sub.setWindowTitle('多文档测试')
-            # self.verticalLayout_more.addWidget(self.sub,wight)
-            qwebengine = QWebEngineView(self.sub)
-            # 设置网页在窗口中显示的位置和大小
-            qwebengine.setGeometry(0, 0, self.sub.width() + 1000, self.sub.height() + 500)
-            # 在QWebEngineView中加载网址
-            qwebengine.load(QUrl(r"https://www.ganahe.top"))
-            # 将子窗口添加到Mdi区域
-            self.mdiArea.addSubWindow(self.sub)
-
-            # 子窗口显示
-            self.sub.show()
+        # 实例化多文档界面对象
+        self.sub = QtWidgets.QMdiSubWindow()
+        # 设置新建子窗口的标题
+        self.sub.setWindowTitle('单点定位结果信息')
+        # self.verticalLayout_more.addWidget(self.sub,wight)
+        self.brower = QWebEngineView(self.sub)
+        # 设置网页在窗口中显示的位置和大小
+        self.brower.setGeometry(0, 0, self.sub.width() + 1000, self.sub.height() + 500)
+        # 在QWebEngineView中加载网址
+        # print("nima","file:///"+QFileInfo("./source/template/baiduMap.html").absoluteFilePath())
+        localHtmlPath = "file:///" + QFileInfo("./source/template/404.html").absoluteFilePath()
+        self.brower.load(QUrl(localHtmlPath))
+        dir = os.path.abspath(Database.localHelpDocument)
+        # 默认浏览器打开
+        abspath = os.path.abspath(Database.baiduMapLinkPath)  # 获取当前路径
+        rootpath = os.path.abspath('..')  # 获取上级路径
+        # print(abspath)
+        # print(rootpath)
+        rootpath = rootpath + "\\"
+        ret = abspath.replace(rootpath, '', 1)
+        # print(ret)
+        # 采用本地端口http服务执行，不然打不开，百度API
+        webbrowser.open("http://localhost:63342/" + ret)
+        # qwebengine.page().runJavaScript("theNewLocation(114.302,30.256);")
+        # 将子窗口添加到Mdi区域
+        self.mdiArea.addSubWindow(self.sub)
+        self.brower.show()
+        # 子窗口显示
+        self.sub.show()
 
     def coorTranQwight(self):
         """
@@ -691,11 +710,13 @@ class Ui_mainWindow(object):
                 self.stablePointGroupDialog.show()
             elif tabLable == "单点定位":
                 # 界面重构存储区域
-                fileNameList,filter = QtWidgets.QFileDialog.getOpenFileNames(self.centralwidget,"导入观测文件与导航电文",Database.default_workspace,"All Files(*)")
+                fileNameList, filter = QtWidgets.QFileDialog.getOpenFileNames(self.centralwidget, "导入观测文件与导航电文",
+                                                                              Database.default_workspace,
+                                                                              "All Files(*)")
                 # self.displayInfo("I",str(fileNameList))
                 # 存入数据库
                 Database().setSppFilePath(fileNameList)
-                self.displayInfo("I",str(Database().getSppFilePath("o")) + str(Database().getSppFilePath("n")))
+                self.displayInfo("I", str(Database().getSppFilePath("o")) + str(Database().getSppFilePath("n")))
                 # 数据显示
                 self.sppWight_ui.setFileInfo()
             else:
@@ -812,13 +833,14 @@ class Ui_mainWindow(object):
         # 设置新建子窗口的标题
         self.helpSub.setWindowTitle('在线帮助')
         # self.verticalLayout_more.addWidget(self.sub,wight)
-        qwebengine = QWebEngineView(self.helpSub)
+        self.qwebengine = QWebEngineView(self.helpSub)
         # 设置网页在窗口中显示的位置和大小
-        qwebengine.setGeometry(0, 0, self.helpSub.width() + 1000, self.helpSub.height() + 500)
+        self.qwebengine.setGeometry(0, 0, self.helpSub.width() + 1000, self.helpSub.height() + 500)
         # 在QWebEngineView中加载网址
-        qwebengine.load(QUrl(r"https://www.ganahe.top"))
+        self.qwebengine.load(QUrl("https://www.ganahe.top/"))
         # 将子窗口添加到Mdi区域
         self.mdiArea.addSubWindow(self.helpSub)
+        self.qwebengine.show()
         self.helpSub.show()
 
     def textEditFormatAdd(self, twoDissList):

@@ -133,6 +133,7 @@ class Ui_Form(QtCore.QObject):
         self.tabWidget.setCurrentIndex(0)
         self.button_SPP.clicked.connect(self.actionButtonSPP)
         self.actionGetStationPosition = actionSPP.ActionSPP()
+        self.button_mapLacation.clicked.connect(self.actionShowMap)
         self.actionGetStationPosition.infoEmit.connect(self.sendTopInfo)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
@@ -189,11 +190,16 @@ class Ui_Form(QtCore.QObject):
 
         reCode = self.actionGetStationPosition.actionReadFile(ellipsoid)
         if reCode:
-            self.sendTopInfo("T", "完成单点定位解算！")
+            self.sendTopInfo("T", "完成单点定位解算！点击地图显示可以查看该点\n在地图上的位置信息，该步骤加载较慢，如需要请耐心等待片刻...")
             self.status_slider.setValue(1)
             self.pushButton_3.setChecked(False)
             self.pushButton_4.setCheckable(True)
             self.pushButton_4.setChecked(True)
+
+    def actionShowMap(self):
+        # 从数据库获取点位坐标
+        stationPositionDataFrame = Database.stationPositionDataFrame
+        self.sendTopInfo("M", "jiji")
 
     def sendTopInfo(self, type, strInfo):
         if len(type) > 1:
@@ -227,9 +233,5 @@ class Ui_Form(QtCore.QObject):
                 item = QtWidgets.QTableWidgetItem()
                 self.tableWidget.setItem(id, columnCount - 1, item)
                 self.tableWidget.item(id, columnCount - 1).setText(strInfo)
-
         else:
             self.infoEmit.emit(type, strInfo)
-
-    def initTableWight(self):
-        pass

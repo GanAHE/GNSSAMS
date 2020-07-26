@@ -8,8 +8,8 @@
 		#allmap{width:100%;height:100%;}
 		p{margin-left:5px; font-size:14px;}
 	</style>
-	<script type="text/javascript" src="//api.map.baidu.com/api?v=1.0&ak=WKoCFDIEVgwhtpk3geDBh9zOura8KhPO"></script>
-	<title>个性化地图</title>
+	<script type="text/javascript" src="//api.map.baidu.com/api?v=1.0&ak=YSVAeBK14gxW7szGkoixX4by5iRW6GNV&s=1"></script>
+	<title>GNSS综合系统独立地图</title>
 </head>
 <body>
 	<div id="allmap"></div>
@@ -17,11 +17,11 @@
 </body>
 </html>
 <script type="text/javascript">
-	var map = new BMap.Map('allmap');
+	var map = new BMap.Map("allmap");
 	map.centerAndZoom(new BMap.Point(114.404269,30.416042), 11);
 	map.enableScrollWheelZoom();                         //启用滚轮放大缩小
-	theNewLocation(114.326,30.356,"小东西 @copyright by GanAHE&DGZC");
-	map.setMapStyleV2({styleId:"8a6aad5f917ff88c1de6d711cdcf24d7"});
+	
+	//map.setMapStyleV2({styleId:"8a6aad5f917ff88c1de6d711cdcf24d7"});
 	// 用经纬度设置地图中心点
 		function theNewLocation(x,y,information){
 			if(1){
@@ -32,7 +32,7 @@
 				map.panTo(new_point);
 
 				//增加定位信息标注
-				map.centerAndZoom(new_point, 15);
+				map.centerAndZoom(new_point, 11);
 				var opts = {
 				  width : 70,     // 信息窗口宽度
 				  height: 100,     // 信息窗口高度
@@ -46,8 +46,8 @@
 				});
 			}
 		}
-	theNewLocation(114.302,30.256);
-
-
+		
+	theNewLocation(114.326,30.356,"小东西 @copyright by GanAHE&DGZC");
+	theNewLocation(114.366,30.356,"小东西 @coGanAHE&DGZC");
 
 </script>

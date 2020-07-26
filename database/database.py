@@ -25,14 +25,15 @@ class Database(object):
     # 光速 m/s
     light_speed = 299792458
 
-    localHelpDocument = "./source/document/test.html"
+    localHelpDocument = "./source/template/404.html"
     onlineHelpLink = "https://www.ganahe.top/"
+    baiduMapLinkPath = "./source/template/baiduMap.html"
 
-    oFilePath = None
-    nFilePath = None
     oFilePathList = []
     nFilePathList = []
     sppFilePathList = []
+    # 解算后单点数据，类型为DataFrame
+    stationPositionDataFrame = None
 
     def loadConfigJson(self):
         """

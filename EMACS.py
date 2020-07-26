@@ -55,7 +55,8 @@ class SplashPanel(QSplashScreen):
                                  color=QtCore.Qt.black)
 
                 Database().loadConfigJson()
-            time.sleep(0.02)
+                time.sleep(0.03)
+            time.sleep(0.01)
 
         self.showMessage("完成所有配置文件载入，请稍等...", alignment=QtCore.Qt.AlignBottom | QtCore.Qt.AlignCenter,
                          color=QtCore.Qt.black)
