@@ -248,6 +248,7 @@ class ActionSPP(QObject):
         # path_NFile = r"E:\CodePrograme\Python\EMACS\workspace\GNSS\D068305A.19N"
         print(len(path_NFile), type(path_NFile))
         if len(path_OFile) != 0 and len(path_OFile) == len(path_NFile):
+            index = []
             for i in range(len(path_NFile)):
                 # 读取观测文件并提取对应数据
                 obsClass = readFile.read_obsFile(path_OFile[i])
@@ -272,8 +273,8 @@ class ActionSPP(QObject):
                 # 设定处理的点序号
                 self.id = str(i)
                 self.getStationPosition(obsTime, "C1C", Sat, count_satellite, obsClass, navClass)
-            # 存储到数据库
-            index = [str(i) for i in range(len(path_NFile))]
+                # 存储到数据库
+                index.append(obsClass.stationName)
             columns = [str(key) for key in self.resDict.keys()]
             Database.stationPositionDataFrame = pandas.DataFrame(self.resDict, index, columns)
 

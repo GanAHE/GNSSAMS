@@ -853,8 +853,10 @@ class Ui_mainWindow(object):
                     if filePath != "":
                         # 从数据库获取数据
                         dataFrame = Database.stationPositionDataFrame
-                        textReport = Database.stationPositionReport
-
+                        if tabLabel == "单点定位(SPP)":
+                            textReport = self.sppWight_ui.getTextEdit()
+                        else:
+                            textReport = self.pppWight_ui.getTextEdit()
                         dir, fileName = os.path.split(filePath)
                         self.showPan(dir)
                         # 获取文件名
@@ -868,6 +870,7 @@ class Ui_mainWindow(object):
                             txtFile.close()
                         dataFrame.to_html(dir + "/" + name + ".html")
                         self.displayInfo("T", "已导出{}的解算报告.保存路径为：{}/.html".format(tabLabel, filePath))
+
                 # 写入内存
                 else:
                     self.displayInfo("A", "当前所进行的操作无需本功能的支持。")

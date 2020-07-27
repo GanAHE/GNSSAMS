@@ -176,15 +176,13 @@ class Ui_Form(QtCore.QObject):
                 self.pushButton_3.setChecked(False)
                 self.pushButton_4.setCheckable(True)
                 self.pushButton_4.setChecked(True)
-
-            self.sendTopInfo("J","信号已连接")
         except Exception as e:
             self.sendTopInfo("E", "异常错误，信息：" + e.__str__())
 
     def actionShowMap(self):
         # 从数据库获取点位坐标
         # stationPositionDataFrame = Database.stationPositionDataFrame
-        self.sendTopInfo("M", "标准单点定位-地图点位")
+        self.sendTopInfo("M", "精密单点定位-地图点位")
 
     def sendTopInfo(self, type, strInfo):
         if len(type) > 1:
@@ -226,6 +224,8 @@ class Ui_Form(QtCore.QObject):
         else:
             self.infoEmit.emit(type, strInfo)
 
+    def getTextEdit(self):
+        return self.textEdit.toPlainText()
     # def sendTopInfo(self,type,strInfo):
     #     if type == "J":
     #         self.textEdit.append(strInfo)

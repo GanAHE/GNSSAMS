@@ -11,7 +11,7 @@ comment:
 from GNSS.file import readFile
 from GNSS.correctionModel import tropCorrection, ionCorrection
 import numpy as np
-
+import pandas
 from GNSS.map import baiduMap
 from database.database import Database
 from measureTool import coordinationTran
@@ -183,7 +183,7 @@ class ActionPPP(QObject):
                  -(satellite_y[j] - approx_position[1]) / approxDistance,
                  -(satellite_z[j] - approx_position[2]) / approxDistance,
                  -1])
-            L.append([waveDistance + Vion + Vtrop - approxDistance])
+            L.append([approxDistance + Vion + Vtrop - approxDistance])
 
         self._sendInfo("I", "正在进行平差求解。。。")
         # 平差求解
@@ -200,7 +200,7 @@ class ActionPPP(QObject):
         self._sendInfo("K", "中误差：{} mm".format(sigma_o * 1000))
         stationPosition = [approx_position[0] + matrix_x[0, 0], approx_position[1] + matrix_x[1, 0], approx_position[2] + matrix_x[2, 0]]
         self._sendInfo("K", "近似坐标：\n{} \n最后坐标：\n{}".format(approx_position, stationPosition))
-        self._sendInfo("测站名", obsClass.stationName)
+        self._sendInfo("测站", obsClass.stationName)
         self._sendInfo("X/m", str(approx_position[0]))
         self._sendInfo("Y/m", str(approx_position[1]))
         self._sendInfo("Z/m", str(approx_position[2]))
@@ -243,9 +243,9 @@ class ActionPPP(QObject):
         self.resDict["X"].append(stationPosition[0])
         self.resDict["Y"].append(stationPosition[1])
         self.resDict["Z"].append(stationPosition[2])
-        self.resDict["B"].append(coor_B)
-        self.resDict["L"].append(coor_B)
-        self.resDict["H"].append(coor_B)
+        self.resDict["B"].append(np.rad2deg(coor_B))
+        self.resDict["L"].append(np.rad2deg(coor_L))
+        self.resDict["H"].append(coor_H)
         self.resDict["PDOP"].append(PDOP)
         self.resDict["mP"].append(mP)
         self.resDict["TDOP"].append(TDOP)
@@ -444,25 +444,44 @@ class ActionPPP(QObject):
     def actionReadFilePPP(self, ellipsoid):
         self.ellipsoid = ellipsoid
 
-        path_sp3FilePast = r"e:\CodePrograme\Python\EMACS\workspace\GNSS\igs20770.sp3"
-        path_sp3FileNow = r"e:\CodePrograme\Python\EMACS\workspace\GNSS\igs20771.sp3"
-        path_sp3FileFuture = r"e:\CodePrograme\Python\EMACS\workspace\GNSS\igs20772.sp3"
-        path_oFile = r"E:\CodePrograme\Python\EMACS\workspace\GNSS\GP008301I.19o"
+        oFilePathList = Database.oFilePathList
+        sp3FilePathList = Database.sp3FilePathList
 
-        sp3PastClass = readFile.read_sp3File(path_sp3FilePast)
-        sp3NowClass = readFile.read_sp3File(path_sp3FileNow)
-        sp3FutureClass = readFile.read_sp3File(path_sp3FileFuture)
-        obsClass = readFile.read_obsFile(path_oFile)
+        if len(oFilePathList) == 0 and len(sp3FilePathList) == 0:
+            self._sendInfo("T", "观测文件或sp3文件未导入！")
+        else:
+            path_sp3FilePast = sp3FilePathList[0]
+            path_sp3FileNow = sp3FilePathList[1]
+            path_sp3FileFuture = sp3FilePathList[2]
 
-        # sp3PastEpoch = sp3PastClass.ephemeris.index.values.tolist()
-        # sp3NowEpoch = sp3NowClass.ephemeris.index.values.tolist()
-        # sp3FutureEpoch = sp3FutureClass.ephemeris.index.values.tolist()
-        obsEpoch = obsClass.observation.index.values.tolist()
+            sp3PastClass = readFile.read_sp3File(path_sp3FilePast)
+            sp3NowClass = readFile.read_sp3File(path_sp3FileNow)
+            sp3FutureClass = readFile.read_sp3File(path_sp3FileFuture)
 
-        obsTime = obsEpoch[0][0]
-        count_satellite = 6
+            obsClass = readFile.read_obsFile(oFilePathList[0])
 
-        self.stationPosition(sp3PastClass, sp3NowClass, sp3FutureClass, obsClass, obsTime, count_satellite)
+            # sp3PastEpoch = sp3PastClass.ephemeris.index.values.tolist()
+            # sp3NowEpoch = sp3NowClass.ephemeris.index.values.tolist()
+            # sp3FutureEpoch = sp3FutureClass.ephemeris.index.values.tolist()
+            obsEpoch = obsClass.observation.index.values.tolist()
+
+            obsTime = obsEpoch[0][0]
+            count_satellite = 6
+
+            self.stationPosition(sp3PastClass, sp3NowClass, sp3FutureClass, obsClass, obsTime, count_satellite)
+
+            # 存储到数据库
+            index = [str(i) for i in range(len(oFilePathList))]
+            columns = [str(key) for key in self.resDict.keys()]
+            Database.stationPositionDataFrame = pandas.DataFrame(self.resDict, index, columns)
+
+            points = []
+            for i in range(len(self.resDict["L"])):
+                points.append({'lat': self.resDict["B"][i], 'lng': self.resDict["L"][i],
+                               'infomation': self.resDict["information"][i]})
+            # 将解算的点写入JS变量
+            with open(Database.mapJSVarPath, "w", encoding="utf-8") as f:
+                f.write("points = " + str(points))
 
 
 
