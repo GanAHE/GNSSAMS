@@ -19,9 +19,7 @@ myNK = "LdqAIioVjerroI6AQ2xUZLxT0Cejrdzr"
 
 def getJsonUrl(address):
     # 以get请求为例http://api.map.baidu.com/geocoding/v3/?address=百度大厦&output=json&ak=你的ak
-    queryStr = '/geocoding/v3/?address={}&output=json&ak={}'.format(address,myAK)
-    # queryStr = "http://api.map.baidu.com/reverhttp://api.map.baidu.com/telematics/v3/weather?location=foshan&output=json&WKoCFDIEVgwhtpk3geDBh9zOura8KhPO"
-
+    queryStr = '/geocoding/v3/?address={}&output=json&ak={}'.format(address, myAK)
     # 对queryStr进行转码，safe内的保留字符不转换
     encodedStr = parse.quote(queryStr, safe="/:=&?#+!$,;'@()*[]")
 
@@ -43,7 +41,7 @@ def getLonLat(address):
     r = ''
     try:
         # 以get请求为例http://api.map.baidu.com/geocoding/v3/?address=百度大厦&output=json&ak=你的ak
-        queryStr = '/geocoding/v3/?address={}&output=json&ak={}'.format(address,myAK)
+        queryStr = '/geocoding/v3/?address={}&output=json&ak={}'.format(address, myAK)
         # queryStr = "http://api.map.baidu.com/reverhttp://api.map.baidu.com/telematics/v3/weather?location=foshan&output=json&WKoCFDIEVgwhtpk3geDBh9zOura8KhPO"
 
         # 对queryStr进行转码，safe内的保留字符不转换
@@ -63,7 +61,7 @@ def getLonLat(address):
         jsonValue = json.loads(r.text)
         print("{}经度：{}°，纬度：{}°".format(address, jsonValue["result"]["location"]["lng"],
                                        jsonValue["result"]["location"]["lat"]))
-        return jsonValue["result"]["location"]["lng"],jsonValue["result"]["location"]["lat"]
+        return jsonValue["result"]["location"]["lng"], jsonValue["result"]["location"]["lat"]
     except Exception as e:
         print(r, e.__str__())
 
@@ -75,8 +73,6 @@ def getlocation(lat, lng):
     # 以get请求为例http://api.map.baidu.com/geocoding/v3/?address=百度大厦&output=json&ak=你的ak
 
     queryStr = "/reverse_geocoding/v3/?ak={}&output=json&coordtype=wgs84ll&location={},{}".format(myAK, lat, lng)
-    # queryStr = "http://api.map.baidu.com/reverhttp://api.map.baidu.com/telematics/v3/weather?location=foshan&output=json&WKoCFDIEVgwhtpk3geDBh9zOura8KhPO"
-
     # 对queryStr进行转码，safe内的保留字符不转换
     encodedStr = parse.quote(queryStr, safe="/:=&?#+!$,;'@()*[]")
 
@@ -99,20 +95,20 @@ def getAddressInfo(lon, lat):
     print(str)
     dictjson = {}  # 声明一个字典
     # get()获取json里面的数据
-    jsonResult = str.get('result')
-    address = jsonResult.get('addressComponent')
+    jsonResult = str['result']
+    address = jsonResult['addressComponent']
     # 国家
-    country = address.get('country')
+    country = address['country']
     # 国家编号（0：中国）
-    country_code = address.get('country_code')
+    country_code = address['country_code_iso']
     # 省
-    province = address.get('province')
+    province = address['province']
     # 城市
-    city = address.get('city')
+    city = address['city']
     # 城市等级
-    city_level = address.get('city_level')
+    city_level = address['city_level']
     # 县级
-    district = address.get('district')
+    district = address['district']
     # 把获取到的值，添加到字典里（添加）
     dictjson['country'] = country
     dictjson['country_code'] = country_code
@@ -120,8 +116,9 @@ def getAddressInfo(lon, lat):
     dictjson['city'] = city
     dictjson['city_level'] = city_level
     dictjson['district'] = district
+
     return dictjson
 
 
-lon,lat = getLonLat("武汉大学")
-print(getAddressInfo(lon, lat))
+# lon, lat = getLonLat("武汉大学")
+# print(getAddressInfo(lon, lat))

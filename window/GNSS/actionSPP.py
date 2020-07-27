@@ -8,6 +8,9 @@ comment: 标准单点定位
 @contact: dinggan@whu.edu.cn
 """
 import datetime
+
+import pandas
+
 from GNSS.file import readFile
 from GNSS.orbetEtc import satelliteOrbetEtc
 from numpy import sqrt, mat, cos, sin, transpose, linalg, arctan, tan, rad2deg
@@ -17,6 +20,7 @@ from database.database import Database
 from measureTool import coordinationTran
 from myConfig.logger import Logger
 from PyQt5.QtCore import QObject, pyqtSignal
+from GNSS.map import baiduMap
 
 
 class ActionSPP(QObject):
@@ -135,7 +139,7 @@ class ActionSPP(QObject):
                  -(xyz[2, 0] - approxPosition[2]) / approxDistance,
                  -1])
             print("==+==", waveDistance - approxDistance)
-            L.append([waveDistance - c * Vts + Vion + Vtrop - approxDistance])
+            L.append([approxDistance - c * Vts + Vion + Vtrop - approxDistance])
 
         # 循环解算系数等完成
         # 平差求解
@@ -163,6 +167,8 @@ class ActionSPP(QObject):
         self._sendInfo("L/°", str(rad2deg(coor_L)))
         self._sendInfo("H/m", str(coor_H))
         # 调用百度地图API获取经纬度对应的地理位置信息
+        pointInfomation = baiduMap.getAddressInfo(rad2deg(coor_L),rad2deg(coor_B))
+        print("Poi0",pointInfomation)
 
         # 精度评价： GDOP / PDOP / TDOP / HDOP / VDOP
         # 三维点位精度衰减因子
@@ -190,7 +196,7 @@ class ActionSPP(QObject):
         asdName = ["PDOP/m", "mP/m", "TDOP/m", "mT/m", "GDOP/m", "mG/m", "HDOP/m", "mH/m", "VDOP/m", "mV/m"]
         for g in range(len(asd)):
             self._sendInfo(asdName[g], str(asd[g]))
-
+        self.resDict["pointID"].append("nan")
         self.resDict["X"].append(stationPosition[0])
         self.resDict["Y"].append(stationPosition[1])
         self.resDict["Z"].append(stationPosition[2])
@@ -207,7 +213,7 @@ class ActionSPP(QObject):
         self.resDict["mV"].append(mV)
         self.resDict["HDOP"].append(HDOP)
         self.resDict["mH"].append(mH)
-
+        self.resDict["information"].append(pointInfomation)
 
     def _sendInfo(self, type, strInfo):
         if len(type) == 1:
@@ -219,39 +225,40 @@ class ActionSPP(QObject):
     def actionReadFile(self, ellipsoid):
         # 传入的椭球参数，设置到类中
         self.ellipsoid = ellipsoid
-        try:
-            # 从数据库获取文件路径
-            path_OFile = Database.oFilePathList
-            path_NFile = Database.nFilePathList
-            # path_OFile = r"E:\CodePrograme\Python\EMACS\workspace\GNSS\D068305A.19O"
-            # path_NFile = r"E:\CodePrograme\Python\EMACS\workspace\GNSS\D068305A.19N"
-            print(len(path_NFile), type(path_NFile))
-            if len(path_OFile) != 0 and len(path_OFile) == len(path_NFile):
-                for i in range(len(path_NFile)):
-                    # 读取观测文件并提取对应数据
-                    obsClass = readFile.read_obsFile(path_OFile[i])
-                    obsEpoch = obsClass.observation.epoch.index.values.tolist()
-                    # 选定一个观测时间
-                    obsTime = obsEpoch[0][0]
-                    # print(obsEpoch,type(obsClass.observation.epoch))
-                    # sv =obsClass.observation.loc[(obsTime,obsEpoch[0][1])]
-                    Sat = []
-                    count_satellite = 6
-                    for k in range(len(obsEpoch)):
-                        if obsTime == obsEpoch[k][0]:
-                            if (obsEpoch[k][1])[0] == "G":
-                                Sat.append(obsEpoch[k][1])
-                            # elif (obsEpoch[k][1])[0] == "R":
-                            #     PR
-                        # if len(PRN) >= count_satellite:
-                        #     break
+        # 从数据库获取文件路径
+        path_OFile = Database.oFilePathList
+        path_NFile = Database.nFilePathList
+        # path_OFile = r"E:\CodePrograme\Python\EMACS\workspace\GNSS\D068305A.19O"
+        # path_NFile = r"E:\CodePrograme\Python\EMACS\workspace\GNSS\D068305A.19N"
+        print(len(path_NFile), type(path_NFile))
+        if len(path_OFile) != 0 and len(path_OFile) == len(path_NFile):
+            for i in range(len(path_NFile)):
+                # 读取观测文件并提取对应数据
+                obsClass = readFile.read_obsFile(path_OFile[i])
+                obsEpoch = obsClass.observation.epoch.index.values.tolist()
+                # 选定一个观测时间
+                obsTime = obsEpoch[0][0]
+                # print(obsEpoch,type(obsClass.observation.epoch))
+                # sv =obsClass.observation.loc[(obsTime,obsEpoch[0][1])]
+                Sat = []
+                count_satellite = 6
+                for k in range(len(obsEpoch)):
+                    if obsTime == obsEpoch[k][0]:
+                        if (obsEpoch[k][1])[0] == "G":
+                            Sat.append(obsEpoch[k][1])
+                        # elif (obsEpoch[k][1])[0] == "R":
+                        #     PR
+                    # if len(PRN) >= count_satellite:
+                    #     break
 
-                    # 读取导航电文
-                    navClass = readFile.read_navFile(path_NFile[i])
-                    # 设定处理的点序号
-                    self.id = str(i)
-                    self.getStationPosition(obsTime, "C1C", Sat, count_satellite, obsClass, navClass)
-            else:
-                self._sendInfo("T", "未导入导航电文/观测文件")
-        except Exception as e:
-            self._sendInfo("E", "异常错误！具体信息：" + e.__str__())
+                # 读取导航电文
+                navClass = readFile.read_navFile(path_NFile[i])
+                # 设定处理的点序号
+                self.id = str(i)
+                self.getStationPosition(obsTime, "C1C", Sat, count_satellite, obsClass, navClass)
+            # 存储到数据库
+            index = [str(i) for i in range(len(path_NFile))]
+            columns = [str(key) for key in self.resDict.keys()]
+            Database.stationPositionDataFrame = pandas.DataFrame(self.resDict, index, columns)
+        else:
+            self._sendInfo("T", "未导入导航电文/观测文件")
