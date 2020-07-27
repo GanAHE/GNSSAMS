@@ -244,6 +244,9 @@ def read_obsFile_v2(observationFile):
         if 'RINEX VERSION / TYPE' in obsLines[line]:
             version = obsLines[line][0:-21].split()[0]
             line += 1
+        elif 'MARKER NAME' in obsLines[line]:
+            stationName = obsLines[line][0:-20].split()[0]
+            line += 1
         elif 'REC # / TYPE / VERS' in obsLines[line]:
             receiver_type = obsLines[line][0:-20].split()
             line += 1
@@ -380,7 +383,7 @@ def read_obsFile_v2(observationFile):
     finish = time.time()
     print("Observation file ", observationFile, " is read in", "{0:.2f}".format(finish - start), "seconds.")
     return Observation(f.name, fileEpoch, observation, approx_position, receiver_type, antenna_type, interval,
-                       receiver_clock, version, ToB)
+                       receiver_clock, version, ToB, stationName)
 
 
 def read_obsFile_v3(obsFileName):
@@ -402,6 +405,9 @@ def read_obsFile_v3(obsFileName):
     while True:
         if 'RINEX VERSION / TYPE' in obsLines[line]:
             version = obsLines[line][0:-21].split()[0]
+            line += 1
+        elif 'MARKER NAME' in obsLines[line]:
+            stationName = obsLines[line][0:-20].split()[0]
             line += 1
         elif 'REC # / TYPE / VERS' in obsLines[line]:
             receiver_type = obsLines[line][0:-20].split()
@@ -616,7 +622,7 @@ def read_obsFile_v3(obsFileName):
     finish = time.time()  # Time of finish
     print("Observation file ", obsFileName, " is read in", "{0:.2f}".format(finish - start), "seconds.")
     return Observation(f.name, fileEpoch, obs, approx_position, receiver_type, antenna_type, interval, receiver_clock,
-                       version, observation_types)
+                       version, observation_types, stationName)
 
 
 def read_sp3File(sp3file):

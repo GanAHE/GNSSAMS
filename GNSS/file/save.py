@@ -16,7 +16,7 @@ class Observation(object):
 
     def __init__(self, filename=None, epoch=None, observation=None, approx_position=None,
                  receiver_type=None, antenna_type=None, interval=None,
-                 receiver_clock=None, version=None, observation_types=None):
+                 receiver_clock=None, version=None, observation_types=None, stationName = None):
         self.filename = filename
         self.epoch = epoch
         self.observation = observation
@@ -27,6 +27,7 @@ class Observation(object):
         self.receiver_clock = receiver_clock
         self.version = version
         self.observation_types = observation_types
+        self.stationName = stationName
 
 
 class _ObservationTypes:
