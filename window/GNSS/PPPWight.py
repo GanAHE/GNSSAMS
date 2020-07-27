@@ -115,6 +115,7 @@ class Ui_Form(QtCore.QObject):
         self.button_PP.clicked.connect(self.actionButtonPPP)
         self.actionGetStationPosition = actionPPP.ActionPPP()
         self.actionGetStationPosition.infoEmit.connect(self.sendTopInfo)
+        self.button_mapLacation.clicked.connect(self.actionShowMap)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
@@ -154,6 +155,11 @@ class Ui_Form(QtCore.QObject):
         except Exception as e:
             self.sendTopInfo("E", "异常错误，信息：" + e.__str__())
 
+    def actionShowMap(self):
+        # 从数据库获取点位坐标
+        # stationPositionDataFrame = Database.stationPositionDataFrame
+        self.sendTopInfo("M", "标准单点定位-地图点位")
+
     def sendTopInfo(self, type, strInfo):
         if len(type) > 1:
             # 分开序号与信息
@@ -172,6 +178,7 @@ class Ui_Form(QtCore.QObject):
                     item = QtWidgets.QTableWidgetItem()
                     self.tableWidget.setItem(id, i, item)
                     self.tableWidget.item(id, i).setText(strInfo)
+                    self.tableWidget.item(id, i).setTextAlignment(QtCore.Qt.AlignCenter)
                     break
             if exitCode is False:
                 self.tableWidget.setColumnCount(columnCount + 1)
@@ -186,6 +193,7 @@ class Ui_Form(QtCore.QObject):
                 item = QtWidgets.QTableWidgetItem()
                 self.tableWidget.setItem(id, columnCount - 1, item)
                 self.tableWidget.item(id, columnCount - 1).setText(strInfo)
+                self.tableWidget.item(id, columnCount - 1).setTextAlignment(QtCore.Qt.AlignCenter)
         elif type == "K":
             self.textEdit.append(strInfo)
 

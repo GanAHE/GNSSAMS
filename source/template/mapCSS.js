@@ -638,4 +638,4 @@ var styleJson = [{
     "stylers": {
         "fontsize": 24
     }
-}]
+}];

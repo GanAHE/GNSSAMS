@@ -37,8 +37,8 @@ class ActionSPP(QObject):
     def getStationPosition(self, observationEpoch, waveBand, Sat, count_satellite, obsClass, navClass):
 
         # print("这是椭球参数：",Database.ellipsoid.CGCS2000.a)
-        print(coordinationTran.CoordinationTran(self.ellipsoid).XYZ_to_BLH(
-            [6378020.461599736, 12739.801484877651, 49091.74122939511]))
+        # print(coordinationTran.CoordinationTran(self.ellipsoid).XYZ_to_BLH(
+        #     [6378020.461599736, 12739.801484877651, 49091.74122939511]))
         # 卫星数量
         # count_satellite = len(PRN)
         # 光速 m/s
@@ -164,7 +164,7 @@ class ActionSPP(QObject):
         self._sendInfo("坐标X/m", str(stationPosition[0]))
         self._sendInfo("坐标Y/m", str(stationPosition[1]))
         self._sendInfo("坐标Z/m", str(stationPosition[2]))
-        coor_B, coor_L, coor_H = coordinationTran.CoordinationTran("WGS84").XYZ_to_BLH(stationPosition)
+        coor_B, coor_L, coor_H = coordinationTran.CoordinationTran(self.ellipsoid).XYZ_to_BLH(stationPosition)
         self._sendInfo("B/°", str(rad2deg(coor_B)))
         self._sendInfo("L/°", str(rad2deg(coor_L)))
         self._sendInfo("H/m", str(coor_H))
