@@ -187,7 +187,7 @@ class Ui_Form(QtCore.QObject):
 
     def actionShowMap(self):
         # 从数据库获取点位坐标
-        stationPositionDataFrame = Database.stationPositionDataFrame
+        # stationPositionDataFrame = Database.stationPositionDataFrame
         self.sendTopInfo("M", "标准单点定位-地图点位")
 
     def sendTopInfo(self, type, strInfo):
@@ -224,5 +224,7 @@ class Ui_Form(QtCore.QObject):
                 self.tableWidget.setItem(id, columnCount - 1, item)
                 self.tableWidget.item(id, columnCount - 1).setText(strInfo)
                 self.tableWidget.item(id, columnCount - 1).setTextAlignment(QtCore.Qt.AlignCenter)
+        elif type == "K":
+            self.textEdit.append(strInfo)
         else:
             self.infoEmit.emit(type, strInfo)
