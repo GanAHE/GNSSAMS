@@ -33,7 +33,7 @@
       </size>
      </property>
      <property name="title">
-      <string>标准单点定位</string>
+      <string>精密单点定位(PPP)</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_4">
       <item>
@@ -85,7 +85,7 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_4">
           <item>
-           <widget class="QPushButton" name="button_SPP">
+           <widget class="QPushButton" name="button_PP">
             <property name="text">
              <string>标准单点定位</string>
             </property>
@@ -165,7 +165,7 @@ border-color: rgb(0, 255, 255);</string>
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap>../../source/icon/icon_mu.png</pixmap>
+         <pixmap>../../source/icon/icon_educa.png</pixmap>
         </property>
         <property name="scaledContents">
          <bool>false</bool>

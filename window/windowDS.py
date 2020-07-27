@@ -21,7 +21,7 @@ from window.engineeringSurvey import leicaDataFormatWight
 from window.windowEvent.actionReport import Report
 from window.file.fileMsg import FileMsg
 from window.tipDig import ActionWarnException
-from window.GNSS import SPPWight
+from window.GNSS import SPPWight, PPPWight
 
 
 class Ui_mainWindow(object):
@@ -417,6 +417,7 @@ class Ui_mainWindow(object):
 
         # GNSS菜单
         self.menuItem_SPP.triggered.connect(self.sppWight)
+        self.actionPPP_P.triggered.connect(self.pppWight)
 
         self.munuItem_coorTran.triggered.connect(self.coorTranQwight)
         self.munuItem_markbook.triggered.connect(self.leicaFormatWight)
@@ -567,6 +568,7 @@ class Ui_mainWindow(object):
         坐标转换功能面板
         :return: None
         """
+        self.tabWidget.setCurrentIndex(0)
         _translate = QtCore.QCoreApplication.translate
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_operate), _translate("mainWindow", "坐标转换"))
         # 界面重构存储区域
@@ -577,6 +579,7 @@ class Ui_mainWindow(object):
         self.coorTranWight_ui.setupUi(self.widget)
 
     def leicaFormatWight(self):
+        self.tabWidget.setCurrentIndex(0)
         _translate = QtCore.QCoreApplication.translate
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_operate), _translate("mainWindow", "电子手簿"))
         # 界面重构存储区域
@@ -588,6 +591,7 @@ class Ui_mainWindow(object):
         self.leicaDataFormat_ui.setupUi(self.widget)
 
     def horizontalControlNetworkWight(self):
+        self.tabWidget.setCurrentIndex(0)
         _translate = QtCore.QCoreApplication.translate
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_operate), _translate("mainWindow", "控制网"))
         # 界面重构存储区域
@@ -603,6 +607,7 @@ class Ui_mainWindow(object):
         相对稳定点组
         :return:
         """
+        self.tabWidget.setCurrentIndex(0)
         _translate = QtCore.QCoreApplication.translate
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_operate), _translate("mainWindow", "稳定点组"))
         # 界面重构存储区域
@@ -616,6 +621,7 @@ class Ui_mainWindow(object):
 
     def sppWight(self):
         """GNSS单点定位界面"""
+        self.tabWidget.setCurrentIndex(0)
         _translate = QtCore.QCoreApplication.translate
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_operate), _translate("mainWindow", "单点定位"))
         # 界面重构存储区域
@@ -627,6 +633,21 @@ class Ui_mainWindow(object):
         self.sppWight_ui.setupUi(self.widget)
         self.verticalLayout_4.addWidget(self.widget)
         self.sppWight_ui.infoEmit.connect(self.displayInfo)
+
+    def pppWight(self):
+        """GNSS单点定位界面"""
+        self.tabWidget.setCurrentIndex(0)
+        _translate = QtCore.QCoreApplication.translate
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_operate), _translate("mainWindow", "单点定位(PPP)"))
+        # 界面重构存储区域
+        self.widget.deleteLater()
+        self.widget = QtWidgets.QWidget(self.tab_operate)
+        self.widget.setObjectName("widget")
+        # GNSS单点定位
+        self.pppWight_ui = PPPWight.Ui_Form()
+        self.pppWight_ui.setupUi(self.widget)
+        self.verticalLayout_4.addWidget(self.widget)
+        self.pppWight_ui.infoEmit.connect(self.displayInfo)
 
     def welcomeWight(self):
         """
