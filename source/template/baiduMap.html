@@ -1,53 +1,134 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-	<style type="text/css">
-		body, html {width: 100%;height: 100%;margin:0;font-family:"微软雅黑";}
-		#allmap{width:100%;height:100%;}
-		p{margin-left:5px; font-size:14px;}
-	</style>
-	<script type="text/javascript" src="//api.map.baidu.com/api?v=1.0&ak=YSVAeBK14gxW7szGkoixX4by5iRW6GNV&s=1"></script>
-	<title>GNSS综合系统独立地图</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+    <style type="text/css">
+
+        body, html, #allmap {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+            font-family: "微软雅黑";
+        }
+
+    </style>
+    <script type="text/javascript"
+            src="http://api.map.baidu.com/api?v=3.0&ak=YSVAeBK14gxW7szGkoixX4by5iRW6GNV">
+    </script>
+    <!-- 引用自定义资源 -->
+    <script type="text/javascript" src="pointsVar.js"></script>
+    <script type="text/javascript" src="mapCSS.js"></script>
+    <title>GNSS综合系统</title>
 </head>
 <body>
-	<div id="allmap"></div>
-<!--    <p>个性化底图V2样式可通过<a href='/customv2/help.html' target="_blank">个性化在线编辑器</a>编辑获取</p>-->
+<div id="allmap"></div>
 </body>
 </html>
 <script type="text/javascript">
-	var map = new BMap.Map("allmap");
-	map.centerAndZoom(new BMap.Point(114.404269,30.416042), 11);
-	map.enableScrollWheelZoom();                         //启用滚轮放大缩小
-	
-	//map.setMapStyleV2({styleId:"8a6aad5f917ff88c1de6d711cdcf24d7"});
-	// 用经纬度设置地图中心点
-		function theNewLocation(x,y,information){
-			if(1){
-				map.clearOverlays();
-				var new_point = new BMap.Point(x,y);
-				var marker = new BMap.Marker(new_point);  // 创建标注
-				map.addOverlay(marker);              // 将标注添加到地图中
-				map.panTo(new_point);
 
-				//增加定位信息标注
-				map.centerAndZoom(new_point, 11);
-				var opts = {
-				  width : 70,     // 信息窗口宽度
-				  height: 100,     // 信息窗口高度
-				  title : "定位点地理信息" , // 信息窗口标题
-				  enableMessage:true,//设置允许信息窗发送短息
-				  message:information
-				}
-				var infoWindow = new BMap.InfoWindow(information, opts);  // 创建信息窗口对象
-				marker.addEventListener("click", function(){
-					map.openInfoWindow(infoWindow,new_point); //开启信息窗口
-				});
-			}
-		}
-		
-	theNewLocation(114.326,30.356,"小东西 @copyright by GanAHE&DGZC");
-	theNewLocation(114.366,30.356,"小东西 @coGanAHE&DGZC");
+    //从JS获取参数
+    var points = window.points;
+
+    //创建标注点并添加到地图中
+
+    function addMarker(points) {
+
+        //循环建立标注点
+
+        for (var i = 0, pointsLen = points.length; i < pointsLen; i++) {
+
+            var point = new BMap.Point(points[i].lng, points[i].lat); //将标注点转化成地图上的点
+
+            var marker = new BMap.Marker(point); //将点转化成标注点
+
+            map.addOverlay(marker);  //将标注点添加到地图上
+
+
+            map.panTo(point);// map.panTo方法，把点击的点设置为地图中心点
+
+
+            //添加监听事件
+
+            (function () {
+
+                var thePoint = points[i];
+
+                marker.addEventListener("click",
+
+                    function () {
+
+                        showInfo(this, thePoint);
+
+                    });
+
+            })();
+
+        }
+
+    }
+
+    function showInfo(thisMarker, point) {
+
+        //获取点的信息
+
+        var sContent =
+
+            '<ul style="margin:0 0 5px 0;padding:0.2em 0">'
+
+            + '<li style="line-height: 26px;font-size: 15px;">'
+
+            + '<span style="width: px;display: inline-block;">点空间地理信息：</span>' + point.infomation + '</li>'
+
+            + '<li style="line-height: 50px;font-size: 15px;">'
+
+            + '<span style="width: 50px;display: inline-block;">纬度：</span>' +
+
+            point.lat +
+
+            '°<br><span style="width: 50px;display: inline-block;"> 经度：</span>' + point.lng + '°</li></br>'
+
+
+            + '</ul>';
+
+        var infoWindow = new BMap.InfoWindow(sContent); //创建信息窗口对象
+
+        thisMarker.openInfoWindow(infoWindow); //图片加载完后重绘infoWindow
+
+    }
+
+    //创建地图
+
+    var map = new BMap.Map("allmap");
+    var top_left_navigation = new BMap.NavigationControl();  //左上角，添加默认缩放平移控件
+    var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});// 左上角，添加比例尺
+
+    map.centerAndZoom(new BMap.Point(140.164, 30.530), 11);  // 设置中心点
+
+    //map.centerAndZoom("武汉");
+
+    //map.setCurrentCity("武汉");          //设置
+
+    map.addControl(new BMap.MapTypeControl());
+    map.addControl(top_left_control);
+    map.addControl(top_left_navigation);
+
+    map.enableScrollWheelZoom(true);
+    addMarker(points);
+
+    //重新设置中心点
+    if (points.length == 0) {
+        console.log("不存在待定位点，设置地图中心为武汉");
+        map.centerAndZoom("武汉");
+        map.setCurrentCity("武汉");          //设置
+    } else {
+        console.log("存在定位点");
+        map.panTo(new BMap.Point(points[0].lng, points[0].lat));// map.panTo方法，把第一个定位点设置为地图中心点
+    }
+
+    // 设定风格
+    //var styleJson = window.styleJson;
+    //map.setMapStyleV2({styleJson:styleJson});
 
 </script>

@@ -28,6 +28,7 @@ class Database(object):
     localHelpDocument = "./source/template/404.html"
     onlineHelpLink = "https://www.ganahe.top/"
     baiduMapLinkPath = "./source/template/baiduMap.html"
+    mapJSVarPath = "./source/template/pointsVar.js"
 
     oFilePathList = []
     nFilePathList = []

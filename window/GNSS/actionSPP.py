@@ -168,7 +168,8 @@ class ActionSPP(QObject):
         self._sendInfo("H/m", str(coor_H))
         # 调用百度地图API获取经纬度对应的地理位置信息
         pointInfomation = baiduMap.getAddressInfo(rad2deg(coor_L),rad2deg(coor_B))
-        print("Poi0",pointInfomation)
+        # print("Poi0",pointInfomation)
+        self._sendInfo("地理信息",pointInfomation)
 
         # 精度评价： GDOP / PDOP / TDOP / HDOP / VDOP
         # 三维点位精度衰减因子
@@ -195,14 +196,14 @@ class ActionSPP(QObject):
         asd = [PDOP, mP, TDOP, mT, GDOP, mG, HDOP, mH, VDOP, mV]
         asdName = ["PDOP/m", "mP/m", "TDOP/m", "mT/m", "GDOP/m", "mG/m", "HDOP/m", "mH/m", "VDOP/m", "mV/m"]
         for g in range(len(asd)):
-            self._sendInfo(asdName[g], str(asd[g]))
+            self._sendInfo(asdName[g], str(round(asd[g],5)))
         self.resDict["pointID"].append("nan")
         self.resDict["X"].append(stationPosition[0])
         self.resDict["Y"].append(stationPosition[1])
         self.resDict["Z"].append(stationPosition[2])
-        self.resDict["B"].append(coor_B)
-        self.resDict["L"].append(coor_B)
-        self.resDict["H"].append(coor_B)
+        self.resDict["B"].append(rad2deg(coor_B))
+        self.resDict["L"].append(rad2deg(coor_L))
+        self.resDict["H"].append(coor_H)
         self.resDict["PDOP"].append(PDOP)
         self.resDict["mP"].append(mP)
         self.resDict["TDOP"].append(TDOP)
@@ -260,5 +261,13 @@ class ActionSPP(QObject):
             index = [str(i) for i in range(len(path_NFile))]
             columns = [str(key) for key in self.resDict.keys()]
             Database.stationPositionDataFrame = pandas.DataFrame(self.resDict, index, columns)
+
+            points = []
+            for i in range(len(self.resDict["L"])):
+                points.append({'lat':self.resDict["B"][i], 'lng': self.resDict["L"][i], 'infomation': self.resDict["information"][i]})
+            # 将解算的点写入JS变量
+            with open(Database.mapJSVarPath,"w",encoding="utf-8") as f:
+                f.write("points = "+str(points))
+
         else:
             self._sendInfo("T", "未导入导航电文/观测文件")

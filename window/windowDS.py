@@ -503,7 +503,7 @@ class Ui_mainWindow(object):
         if type == "I":
             self.textEdit_status.append(strInfo)
         elif type == "M":
-            self.actionShowStationPositonInMap()
+            self.actionShowStationPositonInMap(strInfo)
         else:
             ActionWarnException(self.centralwidget).actionWarnException(type, strInfo)
 
@@ -525,7 +525,7 @@ class Ui_mainWindow(object):
     def actionMoreWindow(self):
         pass
 
-    def actionShowStationPositonInMap(self):
+    def actionShowStationPositonInMap(self,title):
         """
         多文档界面
         :return:
@@ -536,27 +536,15 @@ class Ui_mainWindow(object):
         # 实例化多文档界面对象
         self.sub = QtWidgets.QMdiSubWindow()
         # 设置新建子窗口的标题
-        self.sub.setWindowTitle('单点定位结果信息')
+        self.sub.setWindowTitle(title)
         # self.verticalLayout_more.addWidget(self.sub,wight)
         self.brower = QWebEngineView(self.sub)
         # 设置网页在窗口中显示的位置和大小
         self.brower.setGeometry(0, 0, self.sub.width() + 1000, self.sub.height() + 500)
         # 在QWebEngineView中加载网址
         # print("nima","file:///"+QFileInfo("./source/template/baiduMap.html").absoluteFilePath())
-        localHtmlPath = "file:///" + QFileInfo("./source/template/404.html").absoluteFilePath()
+        localHtmlPath = "file:///" + QFileInfo(Database.baiduMapLinkPath).absoluteFilePath()
         self.brower.load(QUrl(localHtmlPath))
-        dir = os.path.abspath(Database.localHelpDocument)
-        # 默认浏览器打开
-        abspath = os.path.abspath(Database.baiduMapLinkPath)  # 获取当前路径
-        rootpath = os.path.abspath('..')  # 获取上级路径
-        # print(abspath)
-        # print(rootpath)
-        rootpath = rootpath + "\\"
-        ret = abspath.replace(rootpath, '', 1)
-        # print(ret)
-        # 采用本地端口http服务执行，不然打不开，百度API
-        webbrowser.open("http://localhost:63342/" + ret)
-        # qwebengine.page().runJavaScript("theNewLocation(114.302,30.256);")
         # 将子窗口添加到Mdi区域
         self.mdiArea.addSubWindow(self.sub)
         self.brower.show()

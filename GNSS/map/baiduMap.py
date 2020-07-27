@@ -93,7 +93,7 @@ def getlocation(lat, lng):
 def getAddressInfo(lon, lat):
     str = getlocation(lat, lon)
     print(str)
-    dictjson = {}  # 声明一个字典
+    # dictjson = {}  # 声明一个字典
     # get()获取json里面的数据
     jsonResult = str['result']
     address = jsonResult['addressComponent']
@@ -110,14 +110,16 @@ def getAddressInfo(lon, lat):
     # 县级
     district = address['district']
     # 把获取到的值，添加到字典里（添加）
-    dictjson['country'] = country
-    dictjson['country_code'] = country_code
-    dictjson['province'] = province
-    dictjson['city'] = city
-    dictjson['city_level'] = city_level
-    dictjson['district'] = district
+    # dictjson['country'] = country
+    # dictjson['country_code'] = country_code
+    # dictjson['province'] = province
+    # dictjson['city'] = city
+    # dictjson['city_level'] = city_level
+    # dictjson['district'] = district
+    strInfo = country + "["+country_code+"]"+province+city+ "["+"{}".format(city_level)+"]"+district
+    print(strInfo)
 
-    return dictjson
+    return strInfo
 
 
 # lon, lat = getLonLat("武汉大学")
