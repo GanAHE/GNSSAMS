@@ -525,7 +525,7 @@ class Ui_mainWindow(object):
     def actionMoreWindow(self):
         pass
 
-    def actionShowStationPositonInMap(self,title):
+    def actionShowStationPositonInMap(self, title):
         """
         多文档界面
         :return:
@@ -611,7 +611,7 @@ class Ui_mainWindow(object):
         """GNSS单点定位界面"""
         self.tabWidget.setCurrentIndex(0)
         _translate = QtCore.QCoreApplication.translate
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_operate), _translate("mainWindow", "单点定位"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_operate), _translate("mainWindow", "单点定位(SPP)"))
         # 界面重构存储区域
         self.widget.deleteLater()
         self.widget = QtWidgets.QWidget(self.tab_operate)
@@ -717,17 +717,20 @@ class Ui_mainWindow(object):
                 self.stablePointGroupFileDialog_ui.setupUi(self.stablePointGroupDialog)
                 self.stablePointGroupDialog.setWindowModality(QtCore.Qt.ApplicationModal)
                 self.stablePointGroupDialog.show()
-            elif tabLable == "单点定位":
+            elif tabLable == "单点定位(SPP)":
                 # 界面重构存储区域
                 fileNameList, filter = QtWidgets.QFileDialog.getOpenFileNames(self.centralwidget, "导入观测文件与导航电文",
                                                                               Database.default_workspace,
                                                                               "All Files(*)")
                 # self.displayInfo("I",str(fileNameList))
                 # 存入数据库
-                Database().setSppFilePath(fileNameList)
-                self.displayInfo("I", str(Database().getSppFilePath("o")) + str(Database().getSppFilePath("n")))
-                # 数据显示
-                self.sppWight_ui.setFileInfo()
+                if len(fileNameList) > 0:
+                    dir, fileName = os.path.split(fileNameList[0])
+                    self.showPan(dir)
+                    Database().setSppFilePath(fileNameList)
+                    self.displayInfo("I", str(Database().getSppFilePath("o")) + str(Database().getSppFilePath("n")))
+                    # 数据显示
+                    self.sppWight_ui.setFileInfo()
             else:
                 ActionWarnException(self.centralwidget).actionWarnException("W", "请先选择相应的功能！")
         except Exception as e:
@@ -827,7 +830,29 @@ class Ui_mainWindow(object):
                     text = self.stablePointGroupWight_ui.getTextEdit()
                     FileMsg(self.centralwidget).writeFile("txt", text)
                     ActionWarnException(self.centralwidget).actionWarnException("I", "已导出稳定点组解算报告。")
+                elif tabLabel == "单点定位(SPP)" or tabLabel == "单点定位(PPP)":
+                    # 用户打开文件保存界面
+                    filePath, ok = QtWidgets.QFileDialog.getSaveFileName(self.centralwidget, "导出报告", Database.workspace,
+                                                                         "Text Files (*.txt)")
+                    if filePath != "":
+                        # 从数据库获取数据
+                        dataFrame = Database.stationPositionDataFrame
+                        textReport = Database.stationPositionReport
 
+                        dir, fileName = os.path.split(filePath)
+                        self.showPan(dir)
+                        # 获取文件名
+                        [name, type] = fileName.split(".")
+                        # 写入Txt报告
+                        with open(filePath, "w", encoding="utf-8") as txtFile:
+                            txtFile.flush()  # 缓冲区
+                            for line in textReport:
+                                txtFile.write(line)
+                            os.fsync(txtFile)
+                            txtFile.close()
+                        dataFrame.to_html(dir +"/"+ name + ".html")
+                        self.displayInfo("T", "已导出{}的解算报告.保存路径为：{}/.html".format(tabLabel,filePath))
+                # 写入内存
                 else:
                     self.displayInfo("A", "当前所进行的操作无需本功能的支持。")
 

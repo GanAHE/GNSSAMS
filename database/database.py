@@ -35,6 +35,7 @@ class Database(object):
     sppFilePathList = []
     # 解算后单点数据，类型为DataFrame
     stationPositionDataFrame = None
+    stationPositionReport = None
 
     def loadConfigJson(self):
         """
