@@ -160,8 +160,6 @@ class Ui_Form(QtCore.QObject):
                 # 居中
                 self.tableWidget.item(i, k).setTextAlignment(QtCore.Qt.AlignCenter)
 
-                print("检测是否进入数据表设定")
-
     def actionButtonSPP(self):
         # 初始化当前界面的数据显示框
         self.textEdit.setText("\n  ==========标准单点定位===========\n")
@@ -175,7 +173,8 @@ class Ui_Form(QtCore.QObject):
                 ellipsoid = "Krasovski"
 
             reCode = self.actionGetStationPosition.actionReadFile(ellipsoid)
-            print(Database.stationPositionDataFrame.values)
+            # 从文本框获取数据
+            Database.stationPositionReport = self.textEdit.toPlainText()
             if reCode:
                 self.sendTopInfo("T", "完成单点定位解算！点击地图显示可以查看该点\n在地图上的位置信息，该步骤加载较慢，如需要请耐心等待片刻...")
                 self.status_slider.setValue(1)
@@ -186,8 +185,6 @@ class Ui_Form(QtCore.QObject):
             self.sendTopInfo("E", "异常错误，信息：" + e.__str__())
 
     def actionShowMap(self):
-        # 从数据库获取点位坐标
-        # stationPositionDataFrame = Database.stationPositionDataFrame
         self.sendTopInfo("M", "标准单点定位-地图点位")
 
     def sendTopInfo(self, type, strInfo):

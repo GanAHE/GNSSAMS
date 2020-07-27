@@ -11,6 +11,8 @@ comment:
 from GNSS.file import readFile
 from GNSS.correctionModel import tropCorrection, ionCorrection
 import numpy as np
+
+from GNSS.map import baiduMap
 from database.database import Database
 from measureTool import coordinationTran
 from myConfig.logger import Logger
@@ -202,10 +204,15 @@ class ActionPPP(QObject):
         self._sendInfo("X/m", str(approx_position[0]))
         self._sendInfo("Y/m", str(approx_position[1]))
         self._sendInfo("Z/m", str(approx_position[2]))
-        coor_B, coor_L, coor_H = coordinationTran.CoordinationTran("WGS84").XYZ_to_BLH(stationPosition)
+        coor_B, coor_L, coor_H = coordinationTran.CoordinationTran(self.ellipsoid).XYZ_to_BLH(stationPosition)
         self._sendInfo("B/°", str(np.rad2deg(coor_B)))
         self._sendInfo("L/°", str(np.rad2deg(coor_L)))
         self._sendInfo("H/m", str(coor_H))
+
+        # 调用百度地图API获取经纬度对应的地理位置信息
+        pointInfomation = baiduMap.getAddressInfo(np.rad2deg(coor_L), np.rad2deg(coor_B))
+        # print("Poi0",pointInfomation)
+        self._sendInfo("地理信息", pointInfomation)
 
         # 精度评价： GDOP / PDOP / TDOP / HDOP / VDOP
         # 三维点位精度衰减因子
@@ -249,13 +256,13 @@ class ActionPPP(QObject):
         self.resDict["mV"].append(mV)
         self.resDict["HDOP"].append(HDOP)
         self.resDict["mH"].append(mH)
-        # self.resDict["information"].append(pointInfomation)
+        self.resDict["information"].append(pointInfomation)
 
 
     def satelliteOrbits(self):
-        path_sp3FilePast = r"d:\CodeProgram\Python\EMACS\workspace\GNSS\igs20770.sp3"
-        path_sp3FileNow = r"d:\CodeProgram\Python\EMACS\workspace\GNSS\igs20771.sp3"
-        path_sp3FileFuture = r"d:\CodeProgram\Python\EMACS\workspace\GNSS\igs20772.sp3"
+        path_sp3FilePast = r"e:\CodePrograme\Python\EMACS\workspace\GNSS\igs20770.sp3"
+        path_sp3FileNow = r"e:\CodePrograme\Python\EMACS\workspace\GNSS\igs20771.sp3"
+        path_sp3FileFuture = r"e:\CodePrograme\Python\EMACS\workspace\GNSS\igs20772.sp3"
 
         sp3PastClass = readFile.read_sp3File(path_sp3FilePast)
         sp3NowClass = readFile.read_sp3File(path_sp3FileNow)
@@ -373,11 +380,11 @@ class ActionPPP(QObject):
                 py = 0
                 pz = 0
                 for m in range(len(timeSeconds)):
-                    px_delta = x[j][m] * coefficients(time[i], timeSeconds[m], timeSeconds)
+                    px_delta = x[j][m] * self.coefficients(time[i], timeSeconds[m], timeSeconds)
                     px += px_delta
-                    py_delta = y[j][m] * coefficients(time[i], timeSeconds[m], timeSeconds)
+                    py_delta = y[j][m] * self.coefficients(time[i], timeSeconds[m], timeSeconds)
                     py += py_delta
-                    pz_delta = z[j][m] * coefficients(time[i], timeSeconds[m], timeSeconds)
+                    pz_delta = z[j][m] * self.coefficients(time[i], timeSeconds[m], timeSeconds)
                     pz += pz_delta
                 satellite_x.append(px)
                 satellite_y.append(py)
@@ -437,10 +444,10 @@ class ActionPPP(QObject):
     def actionReadFilePPP(self, ellipsoid):
         self.ellipsoid = ellipsoid
 
-        path_sp3FilePast = r"d:\CodeProgram\Python\EMACS\workspace\GNSS\igs20770.sp3"
-        path_sp3FileNow = r"d:\CodeProgram\Python\EMACS\workspace\GNSS\igs20771.sp3"
-        path_sp3FileFuture = r"d:\CodeProgram\Python\EMACS\workspace\GNSS\igs20772.sp3"
-        path_oFile = r"D:\CodeProgram\Python\EMACS\workspace\GNSS\GP008301I.19o"
+        path_sp3FilePast = r"e:\CodePrograme\Python\EMACS\workspace\GNSS\igs20770.sp3"
+        path_sp3FileNow = r"e:\CodePrograme\Python\EMACS\workspace\GNSS\igs20771.sp3"
+        path_sp3FileFuture = r"e:\CodePrograme\Python\EMACS\workspace\GNSS\igs20772.sp3"
+        path_oFile = r"E:\CodePrograme\Python\EMACS\workspace\GNSS\GP008301I.19o"
 
         sp3PastClass = readFile.read_sp3File(path_sp3FilePast)
         sp3NowClass = readFile.read_sp3File(path_sp3FileNow)
@@ -456,8 +463,6 @@ class ActionPPP(QObject):
         count_satellite = 6
 
         self.stationPosition(sp3PastClass, sp3NowClass, sp3FutureClass, obsClass, obsTime, count_satellite)
-
-
 
 
 

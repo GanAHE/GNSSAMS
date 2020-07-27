@@ -33,8 +33,10 @@ class Database(object):
     oFilePathList = []
     nFilePathList = []
     sppFilePathList = []
+    sp3FilePathList = []
     # 解算后单点数据，类型为DataFrame
     stationPositionDataFrame = None
+    stationPositionReport = None
 
     def loadConfigJson(self):
         """
@@ -359,3 +361,18 @@ class Database(object):
                 else:
                     fileList.pop(0)
                     i += 1
+
+    def setPppFilePath(self, fileList):
+        # 清空数据
+        Database.oFilePathList = []
+        Database.sp3FilePathList = []
+        # 从文件列表查找相同名组
+        while len(fileList) > 1:
+            dirIndex, fileName = os.path.split(fileList[0])
+            [name, type] = fileName.split(".")
+            if type[-1].lower() == "o":
+                Database.oFilePathList.append(fileList[0])
+            if type.lower() == "sp3":
+                Database.sp3FilePathList.append(fileList[0])
+            # 删除该位置数据
+            fileList.pop(0)

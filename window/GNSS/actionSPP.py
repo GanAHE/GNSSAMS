@@ -37,8 +37,8 @@ class ActionSPP(QObject):
     def getStationPosition(self, observationEpoch, waveBand, Sat, count_satellite, obsClass, navClass):
 
         # print("这是椭球参数：",Database.ellipsoid.CGCS2000.a)
-        print(coordinationTran.CoordinationTran(self.ellipsoid).XYZ_to_BLH(
-            [6378020.461599736, 12739.801484877651, 49091.74122939511]))
+        # print(coordinationTran.CoordinationTran(self.ellipsoid).XYZ_to_BLH(
+        #     [6378020.461599736, 12739.801484877651, 49091.74122939511]))
         # 卫星数量
         # count_satellite = len(PRN)
         # 光速 m/s
@@ -78,6 +78,8 @@ class ActionSPP(QObject):
         # 构建系数矩阵
         B = []
         L = []
+        # 设置测站
+        self._sendInfo("测站",obsClass.stationName)
         for i in range(len(PRN)):
             satelliteName = PRN[i]
             # 根据行键获取数据，key = ('2019-10-28 10:00:00', 'G10'),使用iloc可以根据行序获取，键值从观测文件找
@@ -164,7 +166,7 @@ class ActionSPP(QObject):
         self._sendInfo("坐标X/m", str(stationPosition[0]))
         self._sendInfo("坐标Y/m", str(stationPosition[1]))
         self._sendInfo("坐标Z/m", str(stationPosition[2]))
-        coor_B, coor_L, coor_H = coordinationTran.CoordinationTran("WGS84").XYZ_to_BLH(stationPosition)
+        coor_B, coor_L, coor_H = coordinationTran.CoordinationTran(self.ellipsoid).XYZ_to_BLH(stationPosition)
         self._sendInfo("B/°", str(rad2deg(coor_B)))
         self._sendInfo("L/°", str(rad2deg(coor_L)))
         self._sendInfo("H/m", str(coor_H))
@@ -172,7 +174,6 @@ class ActionSPP(QObject):
         pointInfomation = baiduMap.getAddressInfo(rad2deg(coor_L), rad2deg(coor_B))
         # print("Poi0",pointInfomation)
         self._sendInfo("地理信息", pointInfomation)
-
         # 精度评价： GDOP / PDOP / TDOP / HDOP / VDOP
         # 三维点位精度衰减因子
         mo = sigma_o * sigma_o
@@ -199,7 +200,7 @@ class ActionSPP(QObject):
         asdName = ["PDOP/m", "mP/m", "TDOP/m", "mT/m", "GDOP/m", "mG/m", "HDOP/m", "mH/m", "VDOP/m", "mV/m"]
         for g in range(len(asd)):
             self._sendInfo(asdName[g], str(round(asd[g], 5)))
-        self.resDict["pointID"].append("nan")
+        self.resDict["pointID"].append(obsClass.stationName)
         self.resDict["X"].append(stationPosition[0])
         self.resDict["Y"].append(stationPosition[1])
         self.resDict["Z"].append(stationPosition[2])

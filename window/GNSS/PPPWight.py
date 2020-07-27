@@ -115,6 +115,7 @@ class Ui_Form(QtCore.QObject):
         self.button_PP.clicked.connect(self.actionButtonPPP)
         self.actionGetStationPosition = actionPPP.ActionPPP()
         self.actionGetStationPosition.infoEmit.connect(self.sendTopInfo)
+        self.button_mapLacation.clicked.connect(self.actionShowMap)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
@@ -130,6 +131,33 @@ class Ui_Form(QtCore.QObject):
         self.button_PP.setText(_translate("Form", "标准单点定位"))
         self.button_mapLacation.setText(_translate("Form", "查看地图点位"))
         self.groupBox.setTitle(_translate("Form", "数据"))
+
+    def setFileInfo(self):
+        fileList = Database.oFilePathList
+        self.tableWidget.setRowCount(len(fileList))
+        self.tableWidget.setColumnCount(4)
+        headList = ["测站", "年积日", "文件序号", "观测时间"]
+        for i in range(len(headList)):
+            item = QtWidgets.QTableWidgetItem()
+            self.tableWidget.setHorizontalHeaderItem(i, item)
+            item.setText(headList[i])
+        # self.tableWidget.setHorizontalHeaderItem(2)
+        # 构建表格数据模型
+        for i in range(len(fileList)):
+            dir, fileName = os.path.split(fileList[i])
+            for k in range(self.tableWidget.columnCount()):
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget.setItem(i, k, item)
+                if k == 0:
+                    self.tableWidget.item(i, k).setText(fileName[:4])
+                elif k == 1:
+                    self.tableWidget.item(i, k).setText(fileName[4:7])
+                elif k == 2:
+                    self.tableWidget.item(i, k).setText(fileName[7])
+                else:
+                    self.tableWidget.item(i, k).setText("20" + fileName[9:11])
+                # 居中
+                self.tableWidget.item(i, k).setTextAlignment(QtCore.Qt.AlignCenter)
 
     def actionButtonPPP(self):
         try:
@@ -153,6 +181,11 @@ class Ui_Form(QtCore.QObject):
         except Exception as e:
             self.sendTopInfo("E", "异常错误，信息：" + e.__str__())
 
+    def actionShowMap(self):
+        # 从数据库获取点位坐标
+        # stationPositionDataFrame = Database.stationPositionDataFrame
+        self.sendTopInfo("M", "标准单点定位-地图点位")
+
     def sendTopInfo(self, type, strInfo):
         if len(type) > 1:
             # 分开序号与信息
@@ -171,6 +204,7 @@ class Ui_Form(QtCore.QObject):
                     item = QtWidgets.QTableWidgetItem()
                     self.tableWidget.setItem(id, i, item)
                     self.tableWidget.item(id, i).setText(strInfo)
+                    self.tableWidget.item(id, i).setTextAlignment(QtCore.Qt.AlignCenter)
                     break
             if exitCode is False:
                 self.tableWidget.setColumnCount(columnCount + 1)
@@ -185,6 +219,7 @@ class Ui_Form(QtCore.QObject):
                 item = QtWidgets.QTableWidgetItem()
                 self.tableWidget.setItem(id, columnCount - 1, item)
                 self.tableWidget.item(id, columnCount - 1).setText(strInfo)
+                self.tableWidget.item(id, columnCount - 1).setTextAlignment(QtCore.Qt.AlignCenter)
         elif type == "K":
             self.textEdit.append(strInfo)
 
