@@ -728,9 +728,25 @@ class Ui_mainWindow(object):
                     dir, fileName = os.path.split(fileNameList[0])
                     self.showPan(dir)
                     Database().setSppFilePath(fileNameList)
-                    self.displayInfo("I", str(Database().getSppFilePath("o")) + str(Database().getSppFilePath("n")))
+                    self.displayInfo("I", "文件过滤筛选：" + str(Database().getSppFilePath("sp3")) + str(
+                        Database().getSppFilePath("n")))
                     # 数据显示
                     self.sppWight_ui.setFileInfo()
+            elif tabLable == "单点定位(PPP)":
+                # 界面重构存储区域
+                fileNameList, filter = QtWidgets.QFileDialog.getOpenFileNames(self.centralwidget, "导入观测文件与SP3文件",
+                                                                              Database.default_workspace,
+                                                                              "All Files(*)")
+                # self.displayInfo("I",str(fileNameList))
+                # 存入数据库
+                if len(fileNameList) > 0:
+                    dir, fileName = os.path.split(fileNameList[0])
+                    self.showPan(dir)
+                    Database().setPppFilePath(fileNameList)
+                    self.displayInfo("I", "文件过滤筛选：" + str(Database.oFilePathList) + str(
+                        Database.sp3FilePathList))
+                    # 数据显示
+                    self.pppWight_ui.setFileInfo()
             else:
                 ActionWarnException(self.centralwidget).actionWarnException("W", "请先选择相应的功能！")
         except Exception as e:
@@ -850,8 +866,8 @@ class Ui_mainWindow(object):
                                 txtFile.write(line)
                             os.fsync(txtFile)
                             txtFile.close()
-                        dataFrame.to_html(dir +"/"+ name + ".html")
-                        self.displayInfo("T", "已导出{}的解算报告.保存路径为：{}/.html".format(tabLabel,filePath))
+                        dataFrame.to_html(dir + "/" + name + ".html")
+                        self.displayInfo("T", "已导出{}的解算报告.保存路径为：{}/.html".format(tabLabel, filePath))
                 # 写入内存
                 else:
                     self.displayInfo("A", "当前所进行的操作无需本功能的支持。")

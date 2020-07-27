@@ -132,6 +132,33 @@ class Ui_Form(QtCore.QObject):
         self.button_mapLacation.setText(_translate("Form", "查看地图点位"))
         self.groupBox.setTitle(_translate("Form", "数据"))
 
+    def setFileInfo(self):
+        fileList = Database.oFilePathList
+        self.tableWidget.setRowCount(len(fileList))
+        self.tableWidget.setColumnCount(4)
+        headList = ["测站", "年积日", "文件序号", "观测时间"]
+        for i in range(len(headList)):
+            item = QtWidgets.QTableWidgetItem()
+            self.tableWidget.setHorizontalHeaderItem(i, item)
+            item.setText(headList[i])
+        # self.tableWidget.setHorizontalHeaderItem(2)
+        # 构建表格数据模型
+        for i in range(len(fileList)):
+            dir, fileName = os.path.split(fileList[i])
+            for k in range(self.tableWidget.columnCount()):
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidget.setItem(i, k, item)
+                if k == 0:
+                    self.tableWidget.item(i, k).setText(fileName[:4])
+                elif k == 1:
+                    self.tableWidget.item(i, k).setText(fileName[4:7])
+                elif k == 2:
+                    self.tableWidget.item(i, k).setText(fileName[7])
+                else:
+                    self.tableWidget.item(i, k).setText("20" + fileName[9:11])
+                # 居中
+                self.tableWidget.item(i, k).setTextAlignment(QtCore.Qt.AlignCenter)
+
     def actionButtonPPP(self):
         try:
             self.sendTopInfo("I", "\n==单点定位：")

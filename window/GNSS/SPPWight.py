@@ -160,8 +160,6 @@ class Ui_Form(QtCore.QObject):
                 # 居中
                 self.tableWidget.item(i, k).setTextAlignment(QtCore.Qt.AlignCenter)
 
-                print("检测是否进入数据表设定")
-
     def actionButtonSPP(self):
         # 初始化当前界面的数据显示框
         self.textEdit.setText("\n  ==========标准单点定位===========\n")
