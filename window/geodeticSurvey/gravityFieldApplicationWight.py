@@ -10,6 +10,9 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+from database.database import Database
+from window.geodeticSurvey.actionCacuGravityAnomaly import ActionCacuGravityAnomaly
+
 
 class Ui_Form(QtCore.QObject):
     infoEmit = QtCore.pyqtSignal(str, str)
@@ -73,6 +76,9 @@ class Ui_Form(QtCore.QObject):
         self.tabWidget.setCurrentIndex(0)
         self.commandLinkButton.clicked.connect(self.actionButtonMeasureDataCacu)
         self.commandLinkButton_2.clicked.connect(self.actionModelCacu)
+        self.actionCacuGravityAnomaly = ActionCacuGravityAnomaly()
+        self.actionCacuGravityAnomaly.infoEmit.connect(self.sendTopInfo)
+        self.actionCacuGravityAnomaly.overEmit.connect(self.killThread)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
@@ -100,13 +106,15 @@ class Ui_Form(QtCore.QObject):
         item.setText(_translate("Form", "测量点重力值/mGal"))
 
     def actionButtonMeasureDataCacu(self):
-        pass
+        dictPara = {"code": 201, "filePath": Database.filePath}
+        self.actionCacuGravityAnomaly.setPara(dictPara)
+        self.actionCacuGravityAnomaly.start()
 
     def actionModelCacu(self):
         pass
 
     def killThread(self):
-        pass
+        self.actionCacuGravityAnomaly.killThread()
 
     def sendTopInfo(self, type, strInfo):
         self.infoEmit.emit(type, strInfo)
