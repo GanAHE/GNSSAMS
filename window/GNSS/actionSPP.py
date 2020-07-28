@@ -65,15 +65,15 @@ class ActionSPP(QObject):
                 delta.pop(num)
             else:
                 break
-        print(delta.pop(num))
-        print(navTime)
+        # print(delta.pop(num))
+        # print(navTime)
 
         PRN = []
         for i in range(len(Sat)):
             PRN.append(Sat[i])
             if len(PRN) >= count_satellite:
                 break
-        print(PRN)
+        # print(PRN)
 
         # 构建系数矩阵
         B = []
@@ -104,7 +104,7 @@ class ActionSPP(QObject):
             while abs(temp - approxDistance) > 1e-6:
                 temp = approxDistance
                 teta_ts = approxDistance / c
-                time_sendSignal = tow - teta_ts
+                time_sendSignal = tow + 0.01 - teta_ts
                 Vts, xyz = satelliteOrbetEtc.getSatellitePositon_II(time_sendSignal, navEpochData)
                 # print(PRN[i]+"卫星位置：", xyz)
                 # 对卫星坐标进行地球自转改正
@@ -114,7 +114,7 @@ class ActionSPP(QObject):
                 xyz = mat([[0, sin(earth_RAV * teta_ts), 0],
                            [-sin(earth_RAV * teta_ts), 0, 0],
                            [0, 0, 0]]) * mat(xyz) + mat(xyz)
-
+                # xyz = mat(xyz)
                 # xyz = xyz.tolist()
                 # 计算近似站星距离/伪距
                 sum = 0
@@ -124,24 +124,24 @@ class ActionSPP(QObject):
                 # print("迭代站星距：{}".format(approxDistance))
 
             # TODO 查找卫星仰角
-            satelliteAngle = 15
+            satelliteAngle = self.calSatelliteAngle(approxPosition, xyz[0, 0], xyz[1, 0], xyz[2, 0])
 
             # 对流层延迟/电离层延迟改正
             if navClass.version[0] == 2:
                 Vion = ionCorrection.klobuchar(satelliteAngle, UTCTimeList, approxPosition, xyz, navClass.alphalist,
-                                               navClass.betalist)
+                                               navClass.betalist, self.ellipsoid)
             else:
                 Vion = 0
 
-            Vtrop = tropCorrection.tropospheric_delay(approxPosition[0], approxPosition[1], approxPosition[2],
-                                                      satelliteAngle, UTCTimeList)
+            Vtrop = tropCorrection.tropospheric_delay(approxPosition, satelliteAngle, UTCTimeList, self.ellipsoid)
+            print(Vts, Vion, Vtrop)
             B.append(
                 [-(xyz[0, 0] - approxPosition[0]) / approxDistance,
                  -(xyz[1, 0] - approxPosition[1]) / approxDistance,
                  -(xyz[2, 0] - approxPosition[2]) / approxDistance,
                  -1])
-            print("==+==", waveDistance - approxDistance)
-            L.append([approxDistance - c * Vts + Vion + Vtrop - approxDistance])
+            print("==+==", PRN[i], waveDistance - approxDistance, approxDistance)
+            L.append([approxDistance + c * Vts + Vion + Vtrop - approxDistance])
 
         # 循环解算系数等完成
         # 平差求解
@@ -288,3 +288,14 @@ class ActionSPP(QObject):
 
         else:
             self._sendInfo("T", "未导入导航电文/观测文件")
+
+    def calSatelliteAngle(self, approx_position, x, y, z):
+        print(x, y, z)
+        pos_B, pos_L, pos_H = coordinationTran.CoordinationTran(self.ellipsoid).XYZ_to_BLH(approx_position)
+        satellite_position = []
+        satellite_position.append(x)
+        satellite_position.append(y)
+        satellite_position.append(z)
+        sat_B, sat_L, sat_H = coordinationTran.CoordinationTran(self.ellipsoid).XYZ_to_BLH(satellite_position)
+        E = rad2deg(arctan((cos(sat_L - pos_L) * cos(pos_B) - 0.15) / sqrt(1 - (cos(sat_L - pos_L) * cos(pos_B)) ** 2)))
+        return E

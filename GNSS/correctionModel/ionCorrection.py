@@ -12,7 +12,7 @@ import numpy as np
 from database.database import Database
 
 
-def klobuchar(el, UTCTime, position, satellite, alphaList, betaList):
+def klobuchar(el, UTCTime, position, satellite, alphaList, betaList, ellipsoid):
     """
      Klobuchar 改正模型
 
@@ -27,15 +27,15 @@ def klobuchar(el, UTCTime, position, satellite, alphaList, betaList):
     卫星方位角a
     测站P的地心纬度fia_P,地心经度lambda_P
     """
-    ellipsoid = 'GRS80'
     elli = _ellipsoid(ellipsoid)
 
-    B_pos, L_pos, H_pos = XYZ2BLH(position[0], position[1], position[2], elli)
+    B_pos, L_pos, H_pos = coordinationTran.CoordinationTran(ellipsoid).XYZ_to_BLH(position)
     fia_P = np.arctan((1 - elli.e1 ** 2) * np.tan(B_pos))
     lambda_P = L_pos
 
     B_sat, L_sat, H_sat = XYZ2BLH(satellite[0, 0], satellite[1, 0], satellite[2, 0], elli)
     a = np.arctan(np.tan(L_sat - L_pos) / np.sin(B_pos))
+    print("方位角", a)
 
     # 测站与P’的地心夹角 单位：度
     EA = 445 / (el + 20) - 4
@@ -81,7 +81,7 @@ def XYZ2BLH(x, y, z, ellipsoid):
             break
         B_init = B
         H_init = H
-    return np.rad2deg(B), np.rad2deg(L), H
+    return B, L, H
 
 def _ellipsoid(ellipsoidName):
     axes = {'GRS80': [6378137.000, 6356752.314140],

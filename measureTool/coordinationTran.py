@@ -53,12 +53,14 @@ class CoordinationTran():
         ti_1 = 0
 
         P = self.ellipsis.c * self.ellipsis.e * self.ellipsis.e / sqrt_XY
-        k = 1 - self.ellipsis.dot_e * self.ellipsis.dot_e + 1
+        # k = 1 - self.ellipsis.dot_e * self.ellipsis.dot_e + 1
+        k = 1 + self.ellipsis.dot_e * self.ellipsis.dot_e
         while abs(ti_1 - ti) > 1e-6:
             ti_1 = ti
             ti = to + P * ti / sqrt(k + ti * ti)
         B = arctan(ti)
-        N = self.ellipsis.a / sqrt(1 - self.ellipsis.e * self.ellipsis.e * sin(B) * sin(B))
+        # N = self.ellipsis.a / sqrt(1 - self.ellipsis.e * self.ellipsis.e * sin(B) * sin(B))
+        N = self.ellipsis.c / sqrt(1 + self.ellipsis.dot_e * self.ellipsis.dot_e * cos(B) * cos(B))
         H = sqrt_XY / cos(B) - N
 
         return B, L, H
