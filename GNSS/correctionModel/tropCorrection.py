@@ -12,6 +12,7 @@ import datetime
 from database.database import Database
 import math
 import numpy as np
+from measureTool import coordinationTran
 
 
 def standardMeteorologicalMethod(H):
@@ -38,7 +39,7 @@ def standardMeteorologicalMethod(H):
     return Vtrop
 
 
-def tropospheric_delay(x, y, z, elevation, epoch):
+def tropospheric_delay(approx_position, elevation, epoch, ellipsoid):
     """
     Colins（1999）方法
     <p1>对流层延迟
@@ -64,7 +65,9 @@ def tropospheric_delay(x, y, z, elevation, epoch):
     Geodesy and Geomatics Engineering Technical Report No. 203, University of
     New Brunswick, Fredericton, New Brunswick, Canada, 174 pp
     """
-    lat, lon, ellHeight = XYZ2BLH(x, y, z)
+    lat, lon, ellHeight = coordinationTran.CoordinationTran(ellipsoid).XYZ_to_BLH(approx_position)
+    lat = np.rad2deg(lat)
+    lon = np.rad2deg(lon)
     ortHeight = ellHeight  # Using elliposidal height for now
     # --------------------
     # constants

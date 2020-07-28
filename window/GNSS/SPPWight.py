@@ -173,8 +173,6 @@ class Ui_Form(QtCore.QObject):
                 ellipsoid = "Krasovski"
 
             reCode = self.actionGetStationPosition.actionReadFile(ellipsoid)
-            # 从文本框获取数据
-            Database.stationPositionReport = self.textEdit.toPlainText()
             if reCode:
                 self.sendTopInfo("T", "完成单点定位解算！点击地图显示可以查看该点\n在地图上的位置信息，该步骤加载较慢，如需要请耐心等待片刻...")
                 self.status_slider.setValue(1)
@@ -225,3 +223,6 @@ class Ui_Form(QtCore.QObject):
             self.textEdit.append(strInfo)
         else:
             self.infoEmit.emit(type, strInfo)
+
+    def getTextEdit(self):
+        return self.textEdit.toPlainText()

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from numpy import sin, cos, arctan, sqrt, mat
+from numpy import sin, cos, arctan, sqrt, mat, rad2deg, deg2rad
 
 
 def getSatellitePositon(t_epoch, single_epoch_data):
@@ -141,6 +141,9 @@ def getSatellitePositon_II(t_epoch, epoch_data):
     M = Mo + n * (t_epoch - t_oe)
     # 获取偏近点角E
     E = getSatellite_E(M, e)
+    # 相对论效应
+    teta_tr = -2290 * e * sin(E) * 1e-9
+    t_epoch = t_epoch - teta_tr
     # 计算真近点角f
     f = arctan(sqrt(1 - e ** 2) * sin(E) / (cos(E) - e))
     # 计算升交角距
@@ -180,7 +183,7 @@ def getSatellitePositon_II(t_epoch, epoch_data):
     # matrix_xyzCTS = matrix_p * matrixXYZ
 
     # 目前只返回部分结果，后期存入数据库以供界面其他功能调用
-    return teta_t,matrixXYZ.tolist()
+    return teta_t + teta_tr, matrixXYZ.tolist()
 
 
 def getSatellite_E(M, e):

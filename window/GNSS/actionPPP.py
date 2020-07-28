@@ -11,7 +11,7 @@ comment:
 from GNSS.file import readFile
 from GNSS.correctionModel import tropCorrection, ionCorrection
 import numpy as np
-
+import pandas
 from GNSS.map import baiduMap
 from database.database import Database
 from measureTool import coordinationTran
@@ -33,8 +33,6 @@ class ActionPPP(QObject):
 
     def __init__(self):
         super(ActionPPP, self).__init__()
-
-
 
     def stationPosition(self, sp3PastClass, sp3NowClass, sp3FutureClass, obsClass, obsTime, count_satellite):
 
@@ -119,21 +117,21 @@ class ActionPPP(QObject):
             dz = []
             for i in range(len(timePastList)):
                 timePastSeconds.append(timePastList[i][3] + timePastList[i][4] / 60 + timePastList[i][5] / 3600)
-                dx.append(sp3PastClass.ephemeris.loc[(epochPast[i], Sat[j])]["X"])
-                dy.append(sp3PastClass.ephemeris.loc[(epochPast[i], Sat[j])]["Y"])
-                dz.append(sp3PastClass.ephemeris.loc[(epochPast[i], Sat[j])]["Z"])
+                dx.append((sp3PastClass.ephemeris.loc[(epochPast[i], Sat[j])]["X"]) * 1000)
+                dy.append((sp3PastClass.ephemeris.loc[(epochPast[i], Sat[j])]["Y"]) * 1000)
+                dz.append((sp3PastClass.ephemeris.loc[(epochPast[i], Sat[j])]["Z"]) * 1000)
 
             for i in range(len(timeNowList)):
                 timeNowSeconds.append(timeNowList[i][3] + timeNowList[i][4] / 60 + timeNowList[i][5] / 3600)
-                dx.append(sp3NowClass.ephemeris.loc[(epochNow[i], Sat[j])]["X"])
-                dy.append(sp3NowClass.ephemeris.loc[(epochNow[i], Sat[j])]["Y"])
-                dz.append(sp3NowClass.ephemeris.loc[(epochNow[i], Sat[j])]["Z"])
+                dx.append((sp3NowClass.ephemeris.loc[(epochNow[i], Sat[j])]["X"]) * 1000)
+                dy.append((sp3NowClass.ephemeris.loc[(epochNow[i], Sat[j])]["Y"]) * 1000)
+                dz.append((sp3NowClass.ephemeris.loc[(epochNow[i], Sat[j])]["Z"]) * 1000)
 
             for i in range(len(timeFutureList)):
                 timeFutureSeconds.append(timeFutureList[i][3] + timeFutureList[i][4] / 60 + timeFutureList[i][5] / 3600)
-                dx.append(sp3FutureClass.ephemeris.loc[(epochFuture[i], Sat[j])]["X"])
-                dy.append(sp3FutureClass.ephemeris.loc[(epochFuture[i], Sat[j])]["Y"])
-                dz.append(sp3FutureClass.ephemeris.loc[(epochFuture[i], Sat[j])]["Z"])
+                dx.append((sp3FutureClass.ephemeris.loc[(epochFuture[i], Sat[j])]["X"]) * 1000)
+                dy.append((sp3FutureClass.ephemeris.loc[(epochFuture[i], Sat[j])]["Y"]) * 1000)
+                dz.append((sp3FutureClass.ephemeris.loc[(epochFuture[i], Sat[j])]["Z"]) * 1000)
 
             x.append(dx)
             y.append(dy)
@@ -170,20 +168,20 @@ class ActionPPP(QObject):
             approxDistance = np.sqrt((satellite_x[j] - approx_position[0]) ** 2 + (satellite_y[j] - approx_position[1]) ** 2 + (satellite_z[j] - approx_position[2]) ** 2)
 
             # TODO 查找卫星仰角
-            satelliteAngle = 15
+            satelliteAngle = self.calSatelliteAngle(approx_position, px, py, pz)
+            print("卫星仰角", satelliteAngle)
 
             # 对流层延迟/电离层延迟改正
             Vion = 0
 
-            Vtrop = tropCorrection.tropospheric_delay(approx_position[0], approx_position[1], approx_position[2],
-                                                      satelliteAngle, obsTimeList)
+            Vtrop = tropCorrection.tropospheric_delay(approx_position, satelliteAngle, obsTimeList, self.ellipsoid)
 
             B.append(
                 [-(satellite_x[j] - approx_position[0]) / approxDistance,
                  -(satellite_y[j] - approx_position[1]) / approxDistance,
                  -(satellite_z[j] - approx_position[2]) / approxDistance,
                  -1])
-            L.append([waveDistance + Vion + Vtrop - approxDistance])
+            L.append([approxDistance + Vion + Vtrop - approxDistance])
 
         self._sendInfo("I", "正在进行平差求解。。。")
         # 平差求解
@@ -200,7 +198,7 @@ class ActionPPP(QObject):
         self._sendInfo("K", "中误差：{} mm".format(sigma_o * 1000))
         stationPosition = [approx_position[0] + matrix_x[0, 0], approx_position[1] + matrix_x[1, 0], approx_position[2] + matrix_x[2, 0]]
         self._sendInfo("K", "近似坐标：\n{} \n最后坐标：\n{}".format(approx_position, stationPosition))
-        self._sendInfo("测站名", obsClass.stationName)
+        self._sendInfo("测站", obsClass.stationName)
         self._sendInfo("X/m", str(approx_position[0]))
         self._sendInfo("Y/m", str(approx_position[1]))
         self._sendInfo("Z/m", str(approx_position[2]))
@@ -243,9 +241,9 @@ class ActionPPP(QObject):
         self.resDict["X"].append(stationPosition[0])
         self.resDict["Y"].append(stationPosition[1])
         self.resDict["Z"].append(stationPosition[2])
-        self.resDict["B"].append(coor_B)
-        self.resDict["L"].append(coor_B)
-        self.resDict["H"].append(coor_B)
+        self.resDict["B"].append(np.rad2deg(coor_B))
+        self.resDict["L"].append(np.rad2deg(coor_L))
+        self.resDict["H"].append(coor_H)
         self.resDict["PDOP"].append(PDOP)
         self.resDict["mP"].append(mP)
         self.resDict["TDOP"].append(TDOP)
@@ -260,9 +258,9 @@ class ActionPPP(QObject):
 
 
     def satelliteOrbits(self):
-        path_sp3FilePast = r"e:\CodePrograme\Python\EMACS\workspace\GNSS\igs20770.sp3"
-        path_sp3FileNow = r"e:\CodePrograme\Python\EMACS\workspace\GNSS\igs20771.sp3"
-        path_sp3FileFuture = r"e:\CodePrograme\Python\EMACS\workspace\GNSS\igs20772.sp3"
+        path_sp3FilePast = r"D:\CodeProgram\Python\EMACS\workspace\GNSS\igs20770.sp3"
+        path_sp3FileNow = r"D:\CodeProgram\Python\EMACS\workspace\GNSS\igs20771.sp3"
+        path_sp3FileFuture = r"D:\CodeProgram\Python\EMACS\workspace\GNSS\igs20772.sp3"
 
         sp3PastClass = readFile.read_sp3File(path_sp3FilePast)
         sp3NowClass = readFile.read_sp3File(path_sp3FileNow)
@@ -286,6 +284,10 @@ class ActionPPP(QObject):
         y = []
         z = []
         timeSeconds = []
+        time = np.linspace(0, 24, 24 * 5, endpoint=True)
+        allsatellite_x = []
+        allsatellite_y = []
+        allsatellite_z = []
         for j in range(len(Sat)):
             print(Sat[j])
             timePastList = []
@@ -350,31 +352,9 @@ class ActionPPP(QObject):
             for i in range(len(timeFutureSeconds)):
                 timeSeconds.append(timeFutureSeconds[i] + 24)
 
-            # print(timeSeconds)
-        # print(x[2][5])
-        # # 生成画布
-        # fig = plt.figure()
-
-        # 打开交互模式
-        plt.ion()
-
-        # # 清除原有图像
-        # fig.clf()
-
-        time = np.linspace(0, 24, 24 * 5, endpoint=True)
-
-        for j in range(len(Sat)):
-            print(Sat[j])
             satellite_x = []
             satellite_y = []
             satellite_z = []
-
-            # 生成画布
-            fig = plt.figure()
-
-            # 清除原有图像
-            fig.clf()
-
             for i in range(len(time)):
                 px = 0
                 py = 0
@@ -390,16 +370,45 @@ class ActionPPP(QObject):
                 satellite_y.append(py)
                 satellite_z.append(pz)
 
+            allsatellite_x.append(satellite_x)
+            allsatellite_y.append(satellite_y)
+            allsatellite_z.append(satellite_z)
+
+            # print(timeSeconds)
+        # print(x[2][5])
+
+        # 生成画布
+        fig = plt.figure()
+
+        # 打开交互模式
+        plt.ion()
+
+        # 清除原有图像
+        fig.clf()
+
+        # # 生成画布
+        # ax = fig.gca(projection='3d')
+
+        for j in range(len(Sat)):
+            print(Sat[j])
+
+            # 生成画布
+            fig = plt.figure()
+
+            # # 清除原有图像
+            # fig.clf()
+
             # 生成画布
             ax = fig.gca(projection='3d')
-            # 画三维散点图
-            for i in range(len(time)):
-                ax.scatter(satellite_x[i], satellite_y[i], satellite_z[i], c = "r", marker = ".")
 
             # 设置坐标轴范围
             ax.set_xlim(-30000, 30000)
             ax.set_ylim(-30000, 30000)
             ax.set_zlim(-30000, 30000)
+
+            # 画三维散点图
+            for i in range(len(time)):
+                ax.scatter(allsatellite_x[j][i], allsatellite_y[j][i], allsatellite_z[j][i], c = "r", marker = ".")
 
             plt.pause(0.2)
 
@@ -409,8 +418,6 @@ class ActionPPP(QObject):
         # 图形显示
         plt.show()
         return
-
-
 
     # satelliteOrbits()
     def coefficients(self, x, m, seconds):   # 计算L系数
@@ -444,27 +451,57 @@ class ActionPPP(QObject):
     def actionReadFilePPP(self, ellipsoid):
         self.ellipsoid = ellipsoid
 
-        path_sp3FilePast = r"e:\CodePrograme\Python\EMACS\workspace\GNSS\igs20770.sp3"
-        path_sp3FileNow = r"e:\CodePrograme\Python\EMACS\workspace\GNSS\igs20771.sp3"
-        path_sp3FileFuture = r"e:\CodePrograme\Python\EMACS\workspace\GNSS\igs20772.sp3"
-        path_oFile = r"E:\CodePrograme\Python\EMACS\workspace\GNSS\GP008301I.19o"
+        oFilePathList = Database.oFilePathList
+        sp3FilePathList = Database.sp3FilePathList
 
-        sp3PastClass = readFile.read_sp3File(path_sp3FilePast)
-        sp3NowClass = readFile.read_sp3File(path_sp3FileNow)
-        sp3FutureClass = readFile.read_sp3File(path_sp3FileFuture)
-        obsClass = readFile.read_obsFile(path_oFile)
+        if len(oFilePathList) == 0 and len(sp3FilePathList) == 0:
+            self._sendInfo("T", "观测文件或sp3文件未导入！")
+        else:
+            path_sp3FilePast = sp3FilePathList[0]
+            path_sp3FileNow = sp3FilePathList[1]
+            path_sp3FileFuture = sp3FilePathList[2]
 
-        # sp3PastEpoch = sp3PastClass.ephemeris.index.values.tolist()
-        # sp3NowEpoch = sp3NowClass.ephemeris.index.values.tolist()
-        # sp3FutureEpoch = sp3FutureClass.ephemeris.index.values.tolist()
-        obsEpoch = obsClass.observation.index.values.tolist()
+            sp3PastClass = readFile.read_sp3File(path_sp3FilePast)
+            sp3NowClass = readFile.read_sp3File(path_sp3FileNow)
+            sp3FutureClass = readFile.read_sp3File(path_sp3FileFuture)
 
-        obsTime = obsEpoch[0][0]
-        count_satellite = 6
+            obsClass = readFile.read_obsFile(oFilePathList[0])
 
-        self.stationPosition(sp3PastClass, sp3NowClass, sp3FutureClass, obsClass, obsTime, count_satellite)
+            # sp3PastEpoch = sp3PastClass.ephemeris.index.values.tolist()
+            # sp3NowEpoch = sp3NowClass.ephemeris.index.values.tolist()
+            # sp3FutureEpoch = sp3FutureClass.ephemeris.index.values.tolist()
+            obsEpoch = obsClass.observation.index.values.tolist()
+
+            obsTime = obsEpoch[0][0]
+            count_satellite = 6
+
+            self.stationPosition(sp3PastClass, sp3NowClass, sp3FutureClass, obsClass, obsTime, count_satellite)
+
+            # 存储到数据库
+            index = [str(i) for i in range(len(oFilePathList))]
+            columns = [str(key) for key in self.resDict.keys()]
+            Database.stationPositionDataFrame = pandas.DataFrame(self.resDict, index, columns)
+
+            points = []
+            for i in range(len(self.resDict["L"])):
+                points.append({'lat': self.resDict["B"][i], 'lng': self.resDict["L"][i],
+                               'infomation': self.resDict["information"][i]})
+            # 将解算的点写入JS变量
+            with open(Database.mapJSVarPath, "w", encoding="utf-8") as f:
+                f.write("points = " + str(points))
 
 
-
+# ActionPPP().satelliteOrbits()
+    def calSatelliteAngle(self, approx_position, x, y, z):
+        print(x, y, z)
+        pos_B, pos_L, pos_H = coordinationTran.CoordinationTran(self.ellipsoid).XYZ_to_BLH(approx_position)
+        print(np.rad2deg(pos_B), np.rad2deg(pos_L))
+        satellite_position = []
+        satellite_position.append(x)
+        satellite_position.append(y)
+        satellite_position.append(z)
+        sat_B, sat_L, sat_H = coordinationTran.CoordinationTran(self.ellipsoid).XYZ_to_BLH(satellite_position)
+        E = np.rad2deg(np.arctan((np.cos(sat_L - pos_L) * np.cos(pos_B) - 0.15) / np.sqrt(1 - (np.cos(sat_L - pos_L) * np.cos(pos_B)) ** 2)))
+        return E
 
 
