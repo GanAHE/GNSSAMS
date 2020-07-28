@@ -9,10 +9,14 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from database.database import Database
+from window.geodeticSurvey import actionInversionGravityFieldThread
 
 
 class Ui_Form(QtCore.QObject):
     infoEmit = QtCore.pyqtSignal(str, str)
+
+    filePath = None
 
     def setupUi(self, Form):
         Form.setObjectName("Form")
@@ -93,7 +97,18 @@ class Ui_Form(QtCore.QObject):
         self.horizontalLayout_4.addWidget(self.groupBox_2)
 
         self.retranslateUi(Form)
+        self.radioButton.clicked.connect(self.actionRadioButton)
+        self.radioButton_2.clicked.connect(self.actionRadioButton)
+        self.radioButton_3.clicked.connect(self.actionRadioButton)
+        self.radioButton_4.clicked.connect(self.actionRadioButton)
+        self.radioButton_5.clicked.connect(self.actionRadioButton)
+
+        self.pushButton.clicked.connect(self.startInversionGravityFiled)
         self.pushButton_2.clicked.connect(self.textEdit.clear)
+
+        self.cacuThread = actionInversionGravityFieldThread.ActionInversionGravityField()
+        self.cacuThread.infoEmit.connect(self.sendTopInfo)
+        self.cacuThread.overEmit.connect(self.killCacuThread)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
@@ -109,9 +124,59 @@ class Ui_Form(QtCore.QObject):
         self.pushButton_2.setText(_translate("Form", "清空"))
         self.groupBox_2.setTitle(_translate("Form", "信息"))
 
-    def actionLocal(self):
-        pass
+    def actionRadioButton(self):
+        if self.radioButton_2.isChecked():
+            fileName, type = QtWidgets.QFileDialog.getOpenFileName(self.parent(), "导入全球重力异常数据", Database.workspace,
+                                                                   "All File(*);;Txt(.txt)")
+            if fileName != "":
+                self.filePath = fileName
+                self.radioButton_2.setChecked(True)
+
+        elif self.radioButton.isChecked():
+            self.sendTopInfo("T", "当前功能尚未开发！")
+            self.radioButton.setChecked(False)
+        elif self.radioButton_3.isChecked():
+            self.radioButton_3.setChecked(False)
+            self.sendTopInfo("T", "当前功能尚未开发！")
+        elif self.radioButton_4.isChecked():
+            self.radioButton_4.setChecked(False)
+            self.sendTopInfo("T", "当前功能尚未开发！")
+        else:
+            self.radioButton_5.setChecked(False)
+            self.sendTopInfo("T", "当前功能尚未开发！")
+
+    def sendTopInfo(self, type, strInfo):
+        if type == "G":
+            self.textEdit.append(strInfo)
+        else:
+            self.infoEmit.emit(type, strInfo)
 
     def actionEarth(self):
         # 打开窗口
         pass
+
+    def startInversionGravityFiled(self):
+        if self.filePath is None:
+            self.sendTopInfo("T", "未选择反演方法并导入数据")
+        else:
+            # 判断选择的方法
+            if self.radioButton.isChecked():
+                controlCode = 100
+            elif self.radioButton_2.isChecked():
+                controlCode = 101
+            elif self.radioButton_3.isChecked():
+                controlCode = 102
+            elif self.radioButton_4.isChecked():
+                controlCode = 103
+            else:
+                controlCode = 104
+            # 设置线程参数
+            paraDict = {"code": controlCode, "filePath": self.filePath}
+            self.cacuThread.setPara(paraDict)
+            # 开启线程
+            self.cacuThread.start()
+            self.sendTopInfo("I", "子线程已启动，准备进行重力场模型反演...")
+
+    def killCacuThread(self):
+        self.cacuThread.killThread()
+        self.sendTopInfo("I", "已关闭重力场模型反演线程")

@@ -341,10 +341,10 @@ def reModel():
 # getModelDet_g2()
 # reModel()
 # 实例化一个重力场对象
-gravity = GravityField()
-Data = [89.75000,113.50000,8.78948]
-pa = "E:/文档/大三课程/第三学期 - 物理大地测量学实习/数据/MGM-G"
-for i in range(2,180):
-    r = gravity.get_r(Data[1], Data[0])
-    i_nRe = gravity.get_detCnmSnm(r, Data[1], Data[0], Data[2], i)
-    gravity.writePlus(pa, i_nRe)
+# gravity = GravityField()
+# Data = [89.75000,113.50000,8.78948]
+# pa = "E:/文档/大三课程/第三学期 - 物理大地测量学实习/数据/MGM-G"
+# for i in range(2,180):
+#     r = gravity.get_r(Data[1], Data[0])
+#     i_nRe = gravity.get_detCnmSnm(r, Data[1], Data[0], Data[2], i)
+#     gravity.writePlus(pa, i_nRe)
