@@ -15,6 +15,7 @@ from PyQt5.QtWebEngineWidgets import QWebEngineView
 from engineerMesure.leicaGsiFormat import LeicaGSIFormat
 from database.database import Database
 from window import welcomeWight
+from window.geodeticSurvey import inversionGravityFieldWight
 from window.measureTool import coorTranWight, coorTranOpenFileDiaog, stablePointGroupWight
 from window.controlNetwork import stablePointGroupFileDialog, controlNetAdjustmentWight
 from window.engineeringSurvey import leicaDataFormatWight
@@ -418,6 +419,7 @@ class Ui_mainWindow(object):
         # GNSS菜单
         self.menuItem_SPP.triggered.connect(self.sppWight)
         self.actionPPP_P.triggered.connect(self.pppWight)
+        self.action_G.triggered.connect(self.gravityFieldWight)
 
         self.munuItem_coorTran.triggered.connect(self.coorTranQwight)
         self.munuItem_markbook.triggered.connect(self.leicaFormatWight)
@@ -495,7 +497,7 @@ class Ui_mainWindow(object):
         self.munuItem_contact.setText(_translate("mainWindow", "联系方式(&L)"))
         self.menuItem_SPP.setText(_translate("mainWindow", "标准单点定位SPP(&S)"))
         self.actionPPP_P.setText(_translate("mainWindow", "PPP精密单点定位(&P)"))
-        self.action_G.setText(_translate("mainWindow", "星体重力场反演(&G)"))
+        self.action_G.setText(_translate("mainWindow", "GNSS重力场反演(&G)"))
         self.actionGNSS_L.setText(_translate("mainWindow", "GNSS与重力场应用(&L)"))
 
     def displayInfo(self, type, strInfo):
@@ -636,6 +638,21 @@ class Ui_mainWindow(object):
         self.pppWight_ui.setupUi(self.widget)
         self.verticalLayout_4.addWidget(self.widget)
         self.pppWight_ui.infoEmit.connect(self.displayInfo)
+
+    def gravityFieldWight(self):
+        """重力场反演界面"""
+        self.tabWidget.setCurrentIndex(0)
+        _translate = QtCore.QCoreApplication.translate
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_operate), _translate("mainWindow", "重力场反演"))
+        # 界面重构存储区域
+        self.widget.deleteLater()
+        self.widget = QtWidgets.QWidget(self.tab_operate)
+        self.widget.setObjectName("widget")
+        # GNSS单点定位
+        self.gravityFieldWight_ui = inversionGravityFieldWight.Ui_Form()
+        self.gravityFieldWight_ui.setupUi(self.widget)
+        self.verticalLayout_4.addWidget(self.widget)
+        self.gravityFieldWight_ui.infoEmit.connect(self.displayInfo)
 
     def welcomeWight(self):
         """
