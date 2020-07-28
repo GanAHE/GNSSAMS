@@ -128,7 +128,7 @@ class Ui_Form(QtCore.QObject):
         self.comboBox_elliPara.setItemText(2, _translate("Form", "克拉索夫斯基椭球"))
         self.comboBox_elliPara.setItemText(3, _translate("Form", "1975国际参考椭球"))
         self.comboBox_elliPara.setItemText(4, _translate("Form", "自定义椭球"))
-        self.button_PP.setText(_translate("Form", "标准单点定位"))
+        self.button_PP.setText(_translate("Form", "精密单点定位"))
         self.button_mapLacation.setText(_translate("Form", "查看地图点位"))
         self.groupBox.setTitle(_translate("Form", "数据"))
 
