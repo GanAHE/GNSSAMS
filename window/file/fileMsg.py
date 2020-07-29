@@ -10,6 +10,8 @@ comment:
 import os
 
 from PyQt5 import QtWidgets, QtCore
+
+from database.database import Database
 from window.file.operationFile import OperationFile
 
 
@@ -27,7 +29,7 @@ class FileMsg(QtCore.QObject):
         打开文件对话框
         :return:dataList
         """
-        filePath, ok = QtWidgets.QFileDialog.getOpenFileName(self.centerPanel, "打开", "./source/",
+        filePath, ok = QtWidgets.QFileDialog.getOpenFileName(self.centerPanel, "打开", Database.workspace,
                                                              "All Files (*);;Text Files (*.txt);;Leica GSI (*.gsi);;Kesa IN2 (*.in2)")
 
         if filePath != "":
@@ -52,7 +54,7 @@ class FileMsg(QtCore.QObject):
         else:
             fileFilter = "All Files (*);;Text Files (*.txt);;Docx Files(*.docx);;CSV Files (*.csv)"
 
-        filePath, ok = QtWidgets.QFileDialog.getSaveFileName(self.centerPanel, "打开", "./source/",fileFilter)
+        filePath, ok = QtWidgets.QFileDialog.getSaveFileName(self.centerPanel, "打开", Database.workspace,fileFilter)
 
         if type == "txt":
             OperationFile().writeTXTFile(data, filePath)

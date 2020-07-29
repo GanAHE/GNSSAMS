@@ -780,18 +780,34 @@ class Ui_mainWindow(object):
                     self.pppWight_ui.setFileInfo()
             elif tabLable == "重力场反演":
                 # 界面重构存储区域
-                fileName, filter = QtWidgets.QFileDialog.getOpenFileNames(self.centralwidget, "导入重力场反演所需数据文件",
+                fileName, filter = QtWidgets.QFileDialog.getOpenFileName(self.centralwidget, "导入重力场反演所需数据文件",
                                                                           Database.workspace,
                                                                           "All Files(*)")
                 # self.displayInfo("I",str(fileNameList))
                 # 存入数据库
                 if fileName != "":
+                    dir, name = os.path.split(fileName)
+                    self.showPan(dir)
                     Database.inversionGroupFilePath = fileName
                     self.displayInfo("I", "已导入文件，路径：{}".format(fileName))
                 else:
                     self.displayInfo("I", "取消文件导入")
+            elif tabLable == "重力场应用":
+                # 界面重构存储区域
+                fileName, filter = QtWidgets.QFileDialog.getOpenFileName(self.centralwidget, "导入解算重力异常文件",
+                                                                         Database.workspace,
+                                                                         "csv文件(*.csv);;TXT文件(*.txt)")
+                # self.displayInfo("I",str(fileNameList))
+                # 存入数据库
+                if fileName != "":
+                    dir,name = os.path.split(fileName)
+                    self.showPan(dir)
+                    Database.gravityMeasureFilePath = fileName
+                    self.displayInfo("I", "已导入文件，路径：{}".format(fileName))
+                else:
+                    self.displayInfo("I", "取消文件导入")
             else:
-                ActionWarnException(self.centralwidget).actionWarnException("W", "请先选择相应的功能！")
+                ActionWarnException(self.centralwidget).actionWarnException("W", "请先选择相应需要导入文件的功能！")
         except Exception as e:
             self.displayInfo("E", e.__str__())
 
@@ -879,16 +895,15 @@ class Ui_mainWindow(object):
                         ActionWarnException(self.centralwidget).actionWarnException("A",
                                                                                     "【" + tabLabel + "】" + "报告导出中，文件转码时间\n较长，请耐心等待！")
                         self.textEdit_status.append("【" + tabLabel + "】" + "报告导出中，文件转码时间较长，请耐心等待！完成后将在指定目录生成")
-                    else:
-                        ActionWarnException(self.centralwidget).actionWarnException("A", "已取消导出操作。")
+
                 elif tabLabel == "控制网":  # 平面控制网
                     text = self.controlNetAdjustment_ui.getTextEditText()
                     FileMsg(self.centralwidget).writeFile("txt", text)
-                    ActionWarnException(self.centralwidget).actionWarnException("A", "已导出计算数据。")
+                    self.displayInfo("A", "已导出计算数据。")
                 elif tabLabel == "稳定点组":
                     text = self.stablePointGroupWight_ui.getTextEdit()
                     FileMsg(self.centralwidget).writeFile("txt", text)
-                    ActionWarnException(self.centralwidget).actionWarnException("I", "已导出稳定点组解算报告。")
+                    self.displayInfo("I", "已导出稳定点组解算报告。")
                 elif tabLabel == "单点定位(SPP)" or tabLabel == "单点定位(PPP)":
                     # 用户打开文件保存界面
                     filePath, ok = QtWidgets.QFileDialog.getSaveFileName(self.centralwidget, "导出报告", Database.workspace,
@@ -913,14 +928,17 @@ class Ui_mainWindow(object):
                             txtFile.close()
                         dataFrame.to_html(dir + "/" + name + ".html")
                         self.displayInfo("T", "已导出{}的解算报告.保存路径为：{}/.html".format(tabLabel, filePath))
-
+                elif tabLabel == "重力场应用":
+                    text = self.gravityFieldApplicationWight_ui.getReportText()
+                    FileMsg(self.centralwidget).writeFile("txt", text)
+                    self.displayInfo("T", "已导出重力异常数据")
                 # 写入内存
                 else:
                     self.displayInfo("A", "当前所进行的操作无需本功能的支持。")
 
-
         except Exception as e:
             self.displayInfo("W", "错误！可能原因：\n 1.没有任何需要导出的数据；\n2. " + e.__str__())
+
 
     def onlineHelp(self):
         self.tabWidget.setCurrentIndex(3)
@@ -939,6 +957,7 @@ class Ui_mainWindow(object):
         self.qwebengine.show()
         self.helpSub.show()
 
+
     def textEditFormatAdd(self, twoDissList):
         listLen = len(twoDissList)
         if listLen == 0:
@@ -947,12 +966,14 @@ class Ui_mainWindow(object):
             for i in range(len(twoDissList)):
                 self.textEdit_status.append(str(twoDissList[i]))
 
+
     def actionMenuItem_fileStatusBar(self):
         stat = self.munuItem_fileStatusBar.isChecked()
         if stat:  # 选中状态
             self.dockWidget_File.show()
         else:  # 取消选择状态
             self.dockWidget_File.setVisible(False)
+
 
     def actionMenuItem_statusBar(self):
         stat = self.munuItem_statusBar.isChecked()
@@ -961,8 +982,10 @@ class Ui_mainWindow(object):
         else:  # 取消选择状态
             self.dockWidget_status.setVisible(False)
 
+
     def dockWight_fileStatusCloseEvent(self):
         self.munuItem_fileStatusBar.setChecked(False)
+
 
     def dockWight_statusCloseEvent(self):
         self.munuItem_statusBar.setChecked(False)

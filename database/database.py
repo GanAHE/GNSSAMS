@@ -39,6 +39,9 @@ class Database(object):
 
     # 重力场反演必要文件路径
     inversionGroupFilePath = None
+    # 重力测量数据解算重力异常
+    gravityMeasureFilePath = None
+    grivatyModelPath = None
 
     def loadConfigJson(self):
         """

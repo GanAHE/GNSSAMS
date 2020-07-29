@@ -76,9 +76,9 @@ class GravityField(object):
                 value += (n - 1) * ((R / r) ** n) * (
                         (Cnm - Cnm_N) * cos(m * lada) + Snm * sin(m * lada)) * self.legendre.normalizationLegendre_II(
                     n, m, cos(theta))
-        print("\n==========\n", value)
+        # print("\n==========\n", value)
         g = GM * value / (r * r)
-        print("重力异常值解算结果:", g, "mGal")
+        # print("重力异常值解算结果:", g, "mGal")
         return g
 
     def model_N(self, model, r, lon, lat, avg_g):
