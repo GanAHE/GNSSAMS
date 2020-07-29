@@ -778,6 +778,18 @@ class Ui_mainWindow(object):
                         Database.sp3FilePathList))
                     # 数据显示
                     self.pppWight_ui.setFileInfo()
+            elif tabLable == "重力场反演":
+                # 界面重构存储区域
+                fileName, filter = QtWidgets.QFileDialog.getOpenFileNames(self.centralwidget, "导入重力场反演所需数据文件",
+                                                                          Database.workspace,
+                                                                          "All Files(*)")
+                # self.displayInfo("I",str(fileNameList))
+                # 存入数据库
+                if fileName != "":
+                    Database.inversionGroupFilePath = fileName
+                    self.displayInfo("I", "已导入文件，路径：{}".format(fileName))
+                else:
+                    self.displayInfo("I", "取消文件导入")
             else:
                 ActionWarnException(self.centralwidget).actionWarnException("W", "请先选择相应的功能！")
         except Exception as e:

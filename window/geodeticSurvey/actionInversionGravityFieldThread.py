@@ -22,7 +22,9 @@ class ActionInversionGravityField(QThread):
     infoEmit = pyqtSignal(str, str)
     overEmit = pyqtSignal()
     processEmit = pyqtSignal(int, int)
+    stopEmit = pyqtSignal()
     ellpsoid = None
+    stopCode = False
 
     def __init__(self):
         super(ActionInversionGravityField, self).__init__()
@@ -45,6 +47,9 @@ class ActionInversionGravityField(QThread):
 
         self.sendInfo("over", "")
 
+    def setStop(self):
+        self.stopCode = True
+
     def inversionModel(self):
         # 实例化一个重力场对象
         gravity = gravityFieldModel.GravityField()
@@ -56,24 +61,28 @@ class ActionInversionGravityField(QThread):
             # 先清空
             F.truncate(0)
             for i in range(2, self.N + 1):
-                r = gravity.get_r(Data[1], Data[0])
-                i_nRe = self.get_detCnmSnm(r, Data[1], Data[0], Data[2], i)
-                for g in range(len(i_nRe)):
-                    LineStr = ""
-                    for k in range(len(i_nRe[0])):
-                        if k < 2:
-                            LineStr += " " + '{0:{1}<3}\t'.format(i_nRe[g][k], " ")
-                        else:  # 长数据间隔写入
-                            LineStr += "  " + '{0:{1}<22}\t'.format(i_nRe[g][k], " ")
-                    self.sendInfo("G", LineStr)
-                    if self.save:
-                        LineStr += "\n"
-                        F.flush()  # 缓冲区
-                        F.writelines(LineStr)
-                        os.fsync(F)
-
+                if self.stopCode:
+                    self.sendInfo("I","正在终止重力场反演进程，处理后续数据中....")
+                    self.sendInfo("I", "请等待当前阶解算完成....")
+                    break
+                else:
+                    r = gravity.get_r(Data[1], Data[0])
+                    i_nRe = self.get_detCnmSnm(r, Data[1], Data[0], Data[2], i)
+                    for g in range(len(i_nRe)):
+                        LineStr = ""
+                        for k in range(len(i_nRe[0])):
+                            if k < 2:
+                                LineStr += " " + '{0:{1}<3}\t'.format(i_nRe[g][k], " ")
+                            else:  # 长数据间隔写入
+                                LineStr += "  " + '{0:{1}<22}\t'.format(i_nRe[g][k], " ")
+                        self.sendInfo("G", LineStr)
+                        if self.save:
+                            LineStr += "\n"
+                            F.flush()  # 缓冲区
+                            F.writelines(LineStr)
+                            os.fsync(F)
         if self.save:
-            self.sendInfo("I", "模型已自动保存到工作空间，路径：{}".format(savePath))
+            self.sendInfo("I", "结束反演，模型已自动保存到工作空间，路径：{}".format(savePath))
 
     def get_detCnmSnm(self, r, lon, lat, det_g, n):
         """

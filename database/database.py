@@ -37,6 +37,9 @@ class Database(object):
     # 解算后单点数据，类型为DataFrame
     stationPositionDataFrame = None
 
+    # 重力场反演必要文件路径
+    inversionGroupFilePath = None
+
     def loadConfigJson(self):
         """
         加载Json配置文件
