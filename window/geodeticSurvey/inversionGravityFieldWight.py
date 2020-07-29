@@ -15,14 +15,14 @@ from window.geodeticSurvey import actionInversionGravityFieldThread
 
 class Ui_Form(QtCore.QObject):
     infoEmit = QtCore.pyqtSignal(str, str)
-
     filePath = None
-
+    lineLenght = 0
+    nowN = 0
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(1167, 768)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("./source/icon/bance.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("../../source/icon/bance.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         Form.setWindowIcon(icon)
         self.horizontalLayout_4 = QtWidgets.QHBoxLayout(Form)
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
@@ -31,6 +31,26 @@ class Ui_Form(QtCore.QObject):
         self.groupBox.setObjectName("groupBox")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.groupBox)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
+        self.horizontalLayout_5 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_5.setObjectName("horizontalLayout_5")
+        self.label_2 = QtWidgets.QLabel(self.groupBox)
+        self.label_2.setObjectName("label_2")
+        self.horizontalLayout_5.addWidget(self.label_2)
+        self.spinBox = QtWidgets.QSpinBox(self.groupBox)
+        self.spinBox.setMinimum(2)
+        self.spinBox.setMaximum(5000)
+        self.spinBox.setProperty("value", 180)
+        self.spinBox.setObjectName("spinBox")
+        self.horizontalLayout_5.addWidget(self.spinBox)
+        self.verticalLayout_2.addLayout(self.horizontalLayout_5)
+        self.checkBox = QtWidgets.QCheckBox(self.groupBox)
+        self.checkBox.setObjectName("checkBox")
+        self.verticalLayout_2.addWidget(self.checkBox)
+        self.line_2 = QtWidgets.QFrame(self.groupBox)
+        self.line_2.setFrameShape(QtWidgets.QFrame.HLine)
+        self.line_2.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.line_2.setObjectName("line_2")
+        self.verticalLayout_2.addWidget(self.line_2)
         self.radioButton = QtWidgets.QRadioButton(self.groupBox)
         self.radioButton.setObjectName("radioButton")
         self.verticalLayout_2.addWidget(self.radioButton)
@@ -64,7 +84,7 @@ class Ui_Form(QtCore.QObject):
         self.verticalLayout_2.addLayout(self.horizontalLayout)
         self.label = QtWidgets.QLabel(self.groupBox)
         self.label.setText("")
-        self.label.setPixmap(QtGui.QPixmap("./source/icon/earth.png"))
+        self.label.setPixmap(QtGui.QPixmap("../../source/icon/earth.png"))
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
         self.verticalLayout_2.addWidget(self.label)
@@ -109,12 +129,15 @@ class Ui_Form(QtCore.QObject):
         self.cacuThread = actionInversionGravityFieldThread.ActionInversionGravityField()
         self.cacuThread.infoEmit.connect(self.sendTopInfo)
         self.cacuThread.overEmit.connect(self.killCacuThread)
+        self.cacuThread.processEmit.connect(self.setProcess)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
         self.groupBox.setTitle(_translate("Form", "操作"))
+        self.label_2.setText(_translate("Form", "反演最大阶："))
+        self.checkBox.setText(_translate("Form", "保存模型到工作空间"))
         self.radioButton.setText(_translate("Form", "区域重力异常数据反演"))
         self.radioButton_2.setText(_translate("Form", "全球重力异常数据反演"))
         self.radioButton_3.setText(_translate("Form", "重力卫星轨道和梯度数据反演"))
@@ -148,12 +171,21 @@ class Ui_Form(QtCore.QObject):
     def sendTopInfo(self, type, strInfo):
         if type == "G":
             self.textEdit.append(strInfo)
+            if self.lineLenght > 100:
+                self.textEdit.clear()
         else:
             self.infoEmit.emit(type, strInfo)
 
-    def actionEarth(self):
+    def setProcess(self, m, n):
         # 打开窗口
-        pass
+        self.progressBar_2.setMaximum(n)
+        self.progressBar_2.setValue(m)
+        self.progressBar.setMaximum(180)
+        if self.nowN != n:
+            self.progressBar.setValue(n)
+            self.nowN = n
+
+
 
     def startInversionGravityFiled(self):
         if self.filePath is None:
@@ -171,8 +203,9 @@ class Ui_Form(QtCore.QObject):
             else:
                 controlCode = 104
             # 设置线程参数
-            paraDict = {"code": controlCode, "filePath": self.filePath}
+            paraDict = {"code": controlCode, "filePath": self.filePath,"autoSave":self.checkBox.isChecked(),"N":int(self.spinBox.text())}
             self.cacuThread.setPara(paraDict)
+            self.progressBar.setMaximum(paraDict["N"])
             # 开启线程
             self.cacuThread.start()
             self.sendTopInfo("I", "子线程已启动，准备进行重力场模型反演...")
