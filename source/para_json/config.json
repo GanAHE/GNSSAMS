@@ -1,6 +1,6 @@
 {
   "docxTemplate": "./source/template/leica2.docx",
-  "License": "./LICENSE",
+  "License": "./source/LICENSE",
   "theme": "blank",
   "workspace": "./workspace/",
   "elliPara": {

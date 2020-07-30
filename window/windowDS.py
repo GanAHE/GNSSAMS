@@ -15,7 +15,7 @@ from PyQt5.QtWebEngineWidgets import QWebEngineView
 from engineerMesure.leicaGsiFormat import LeicaGSIFormat
 from database.database import Database
 from geodeticSurvey.draw_qualLine import drawGravityAnomaly
-from window import welcomeWight
+from window import welcomeWight, aboutDialog
 from window.geodeticSurvey import inversionGravityFieldWight, gravityFieldApplicationWight
 from window.measureTool import coorTranWight, coorTranOpenFileDiaog, stablePointGroupWight
 from window.controlNetwork import stablePointGroupFileDialog, controlNetAdjustmentWight
@@ -424,6 +424,8 @@ class Ui_mainWindow(object):
         self.action_G.triggered.connect(self.gravityFieldWight)
         self.actionGNSS_L.triggered.connect(self.gravityModelApplicationWight)
 
+        # 其他菜单
+        self.menuItem_quitSystem.triggered.connect(self.quitSystemEvent)
         self.munuItem_coorTran.triggered.connect(self.coorTranQwight)
         self.munuItem_markbook.triggered.connect(self.leicaFormatWight)
         self.munuItem_controlNet.triggered.connect(self.horizontalControlNetworkWight)
@@ -434,7 +436,11 @@ class Ui_mainWindow(object):
         self.munuItem_fileStatusBar.triggered.connect(self.dockWidget_File.show)
         self.menuItem_resultReport.triggered.connect(self.saveReport)
 
-        # self.menuItem_new.triggered.connect(self.actionMoreWindow)
+        self.munuItem_contact.triggered.connect(self.aboutDialog)
+        self.munuItem_version.triggered.connect(self.aboutDialog)
+        # 默认显示开源证书
+        self.localText()
+        self.munuItem_localHelp.triggered.connect(self.localText)
         self.munuItem_fileStatusBar.triggered.connect(self.actionMenuItem_fileStatusBar)
         self.munuItem_statusBar.triggered.connect(self.actionMenuItem_statusBar)
         self.dockWidget_File.visibilityChanged['bool'].connect(self.dockWight_fileStatusCloseEvent)
@@ -705,6 +711,14 @@ class Ui_mainWindow(object):
         self.widget.setObjectName("widget")
         self.verticalLayout_4.addWidget(self.widget)
         self.welcomeWight_ui.setupUi(self.widget)
+
+    def aboutDialog(self):
+        self.aboutDialog_ui = aboutDialog.Ui_Dialog()
+        self.aboutAndContactDialog = QtWidgets.QDialog()
+        self.aboutDialog_ui.setupUi(self.aboutAndContactDialog)
+        # 设定无边框
+        # self.aboutAndContactDialog.setWindowFlags(QtCore.Qt.Dialog|QtCore.Qt.FramelessWindowHint)
+        self.aboutAndContactDialog.show()
 
     def coorTranOpenFileDialog(self):
         """
@@ -989,6 +1003,15 @@ class Ui_mainWindow(object):
             for i in range(len(twoDissList)):
                 self.textEdit_status.append(str(twoDissList[i]))
 
+    def localText(self):
+        # 打开第二个页面
+        self.tabWidget.setCurrentIndex(2)
+        # 显示到文本区域
+        self.textEdit_monitor.setText(" ===========开源证书===========\n")
+        with open(Database.LicensePath, "r") as F:
+            for line in F:
+                self.textEdit_monitor.append(line)
+
     def actionMenuItem_fileStatusBar(self):
         stat = self.munuItem_fileStatusBar.isChecked()
         if stat:  # 选中状态
@@ -1008,3 +1031,8 @@ class Ui_mainWindow(object):
 
     def dockWight_statusCloseEvent(self):
         self.munuItem_statusBar.setChecked(False)
+
+    def quitSystemEvent(self):
+        userReply = ActionWarnException(self.centralwidget).actionWarnException("R", "即将关闭系统，未保存文件将会丢失，是否继续？\n")
+        if userReply:
+            QtCore.QCoreApplication.quit()
