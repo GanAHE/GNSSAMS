@@ -628,11 +628,12 @@ class ActionGetStationPositionThread(QThread):
             z = []
             timeSeconds = []
             time = np.linspace(0, 24, 24 * 5, endpoint=True)
-            allsatellite_x = []
-            allsatellite_y = []
-            allsatellite_z = []
-            # # 生成画布
-            # fig = plt.figure()
+            # allsatellite_x = []
+            # allsatellite_y = []
+            # allsatellite_z = []
+
+            # 生成画布
+            fig = plt.figure()
 
             # 打开交互模式
             plt.ion()
@@ -689,8 +690,6 @@ class ActionGetStationPositionThread(QThread):
                 x.append(dx)
                 y.append(dy)
                 z.append(dz)
-                # print(dx)
-                # print(x)
 
                 timeSeconds.clear()
                 for i in range(len(timePastSeconds)):
@@ -720,24 +719,21 @@ class ActionGetStationPositionThread(QThread):
                     satellite_y.append(py)
                     satellite_z.append(pz)
 
-                allsatellite_x.append(satellite_x)
-                allsatellite_y.append(satellite_y)
-                allsatellite_z.append(satellite_z)
+                # allsatellite_x.append(satellite_x)
+                # allsatellite_y.append(satellite_y)
+                # allsatellite_z.append(satellite_z)
 
-                # 生成画布
-                fig = plt.figure(num=str(Sat[j]))
+                # # 生成画布
+                # fig = plt.figure(num=str(Sat[j]))
 
-                # # 清除原有图像
-                # fig.clf()
-
-                # 生成画布
-                # fig = plt.figure()
-
-                # # 清除原有图像
-                # fig.clf()
+                # 清除原有图像
+                fig.clf()
 
                 # 生成画布
                 ax = fig.gca(projection='3d')
+
+                # 设置标题
+                ax.set_title("Satellite  " + str(Sat[j]) + "  Orbit")
 
                 # 设置坐标轴范围
                 ax.set_xlim(-30000, 30000)
@@ -746,9 +742,11 @@ class ActionGetStationPositionThread(QThread):
 
                 # 画三维散点图
                 for i in range(len(time)):
-                    ax.scatter(allsatellite_x[j][i], allsatellite_y[j][i], allsatellite_z[j][i], c="r", marker=".")
+                    ax.scatter(allsatellite_x[i], allsatellite_y[i], allsatellite_z[i], c="r", marker=".")
 
                 plt.pause(0.2)
+
+                # 保存图片到文件夹
                 dirName = Database.workspace + "SatelliteOrbet"
                 if not os.path.exists(dirName):
                     os.mkdir(dirName)
@@ -762,28 +760,16 @@ class ActionGetStationPositionThread(QThread):
         else:
             self._sendInfo("T", "SP3文件未导入或导入错误,\n需要导入连续三天的sp3文件！")
 
-    # satelliteOrbits()
     def coefficients(self, x, m, seconds):  # 计算L系数
         l = 1
         for i in range(len(seconds)):
             if seconds[i] != m:
                 l_delta = (x - seconds[i]) / (m - seconds[i])
                 l *= l_delta
-                # print(l_delta)
             else:
                 l *= 1
-        # print(l)
         return l
 
-    # def transMatrix(self, matrix):
-    #     x = ""
-    #     for i in range(matrix.shape[0]):
-    #         # for j in range(matrix.shape[1]):
-    #         x += str(matrix[i])
-    #         x += ", "
-    #     return x
-
-    # ActionPPP().satelliteOrbits()
     def calSatelliteAngle(self, approx_position, x, y, z):
         print(x, y, z)
         pos_B, pos_L, pos_H = coordinationTran.CoordinationTran(self.ellipsoid).XYZ_to_BLH(approx_position)
