@@ -633,7 +633,7 @@ class ActionGetStationPositionThread(QThread):
             # allsatellite_z = []
 
             # 生成画布
-            fig = plt.figure(num = "Satellite orbet")
+            fig = plt.figure(num="Satellite orbet")
             # 打开交互模式
             plt.ion()
 

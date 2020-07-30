@@ -14,7 +14,7 @@ from PyQt5.QtWebEngineWidgets import QWebEngineView
 from engineerMesure.leicaGsiFormat import LeicaGSIFormat
 from database.database import Database
 from geodeticSurvey.draw_qualLine import drawGravityAnomaly
-from window import welcomeWight, aboutDialog
+from window import welcomeWight, aboutDialog, configSettingDialog
 from window.geodeticSurvey import inversionGravityFieldWight, gravityFieldApplicationWight
 from window.measureTool import coorTranWight, coorTranOpenFileDiaog, stablePointGroupWight
 from window.controlNetwork import stablePointGroupFileDialog, controlNetAdjustmentWight
@@ -445,11 +445,19 @@ class Ui_mainWindow(object):
         self.dockWidget_status.visibilityChanged['bool'].connect(self.dockWight_statusCloseEvent)
         self.munuItem_onlineHelp.triggered.connect(self.onlineHelp)
 
+        # 设置窗口
+        self.configSettingDialog_ui = configSettingDialog.Ui_Dialog()
+        self.configSettingDialog_ui.topInfoEmit.connect(self.displayInfo)
+        self.configSettingDialog_ui.closeEmit.connect(self.actionCloseParaSettingDialog)
+        self.aboutDialog_ui = aboutDialog.Ui_Dialog()
+        self.munuItem_systemPara.triggered.connect(self.actionParaSettingDialog)
+
+
         QtCore.QMetaObject.connectSlotsByName(mainWindow)
 
     def retranslateUi(self, mainWindow):
         _translate = QtCore.QCoreApplication.translate
-        mainWindow.setWindowTitle(_translate("mainWindow", "EMACS 2020"))
+        mainWindow.setWindowTitle(_translate("mainWindow", "GNSS导航定位与测量综合系统 official 1.0"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_operate), _translate("mainWindow", "操作"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_position), _translate("mainWindow", "可视化"))
         item = self.tableWidget_monitor.verticalHeaderItem(0)
@@ -717,6 +725,22 @@ class Ui_mainWindow(object):
         # 设定无边框
         # self.aboutAndContactDialog.setWindowFlags(QtCore.Qt.Dialog|QtCore.Qt.FramelessWindowHint)
         self.aboutAndContactDialog.show()
+
+    def actionParaSettingDialog(self):
+        """
+        系统参数设置界面
+        :return:
+        """
+        self.configDialog = QtWidgets.QDialog()
+        self.configSettingDialog_ui.setupUi(self.configDialog)
+        self.configDialog.show()
+
+    def actionCloseParaSettingDialog(self):
+        """
+        关闭设置窗口响应事件
+        :return:
+        """
+        self.configDialog.close()
 
     def coorTranOpenFileDialog(self):
         """

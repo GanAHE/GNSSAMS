@@ -16,10 +16,19 @@ class Database(object):
     # 基本配置文件信息
     configJsonPath = "./source/para_json/config.json"
     LicensePath = None
+    envir = "CPU"
+    default_envir = "CPU"
+    speaker = 0
+    default_speaker = 0
     workspace = None
     default_workspace = "./workspace/"
+    # 数据库文件路径
+    databaseFilePath = None
+    databaseDefaultFilePath = "./source/database/project.db"
+
     # 椭球参数:a,b,偏心率e,第二偏心率e'
     ellipsoid = None
+    userCheckEllipsoid = "WGS84"
     # 地球自转角速度rad/s -RotationalAngularVelocity
     earth_RAV = 7.29211511467e-5
     # 光速 m/s
@@ -29,6 +38,9 @@ class Database(object):
     onlineHelpLink = "https://www.ganahe.top/"
     baiduMapLinkPath = "./source/template/baiduMap.html"
     mapJSVarPath = "./source/template/pointsVar.js"
+
+    userBaiduAK = None
+    userBaiduNK = None
 
     oFilePathList = []
     nFilePathList = []
@@ -54,7 +66,10 @@ class Database(object):
             # with open('../source/para_json/config.json', 'r', encoding='utf8')as fp:
             dict_data = json.load(fp)
         fp.close()
+        Database.envir = dict_data["envir"]
         Database.workspace = dict_data["workspace"]
+        Database.databaseFilePath = dict_data["databaseFilePath"]
+        Database.userCheckEllipsoid = dict_data["userCheckEllipsoid"]
         # 保存椭球参数
         Database.ellipsoid = ellipsoid.Ellipsoid(WGS84=ellipsoid.WGS84(dict_data["elliPara"]["WGS84_Ellipsoid"]),
                                                  CGCS2000=ellipsoid.CGCS2000(
@@ -66,6 +81,56 @@ class Database(object):
                                                  userPrivateEllipsoid=ellipsoid.userPrivateEllipsoid(
                                                      dict_data["elliPara"]["userPrivateEllipsoid"]), )
         Database.LicensePath = dict_data["License"]
+
+    def writeJsonKeyValue(self, key1, value, key2=None):
+        """
+        修改键值
+        :param key1: 键
+        :param value: 值
+        :param key2: 内键 主键为model时
+        :return:
+        """
+        try:
+            with open(self.configJsonPath, "r") as f:
+                jsonData = json.load(f)
+            f.close()
+            if key1 == "model" and key2 != None:  # json内字典
+                jsonData[key1][key2] = value
+                with open(self.configJsonPath, "w") as r:
+                    json.dump(jsonData, r)
+                return True
+            elif key1 != "model" and key2 is None:
+                jsonData[key1] = value
+                with open(self.configJsonPath, "w") as r2:
+                    json.dump(jsonData, r2)
+                return True
+            else:
+                return False
+        except Exception as e:
+            return e.__str__()
+
+    def connectDatabase(self):
+        # 创建一个cursor 游标（用于执行SQL语句）
+        # cursor = conn.cursor()
+        # # 执行SQL语句
+        # # 创建user表
+        # cursor.execute('create table user (id varchar(20) primary key, name varchar(20))')
+        # # 向表中插入数据
+        # cursor.execute('insert into user (id, name) values (\'1\', \'seven bai\')')
+        # # 执行查询语句
+        # cursor.execute('select * from user where id=?', ('1',))
+        # # rowcount返回影响的行数（可以在执行update，delete，inset后执行查看）
+        # cursor.rowcount
+        # # 查询结果
+        # values = cursor.fetchall()
+        # print(values)
+        # # 关闭cursor
+        # cursor.close()
+        # # 提交事务
+        # conn.commit()
+        # # 关闭数据库连接
+        # conn.close()
+        pass
 
     # 坐标转换读入的原始数据
     @property
