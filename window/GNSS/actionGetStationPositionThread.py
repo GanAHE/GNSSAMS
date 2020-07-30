@@ -8,7 +8,7 @@ comment: 标准单点定位
 @contact: dinggan@whu.edu.cn
 """
 import datetime
-
+import os
 import pandas
 import numpy as np
 from GNSS.file import readFile
@@ -749,6 +749,14 @@ class ActionGetStationPositionThread(QThread):
                     ax.scatter(allsatellite_x[j][i], allsatellite_y[j][i], allsatellite_z[j][i], c="r", marker=".")
 
                 plt.pause(0.2)
+
+                dirName = Database.workspace + "SatelliteOrbet"
+                if not os.path.exists(dirName):
+                    os.mkdir(dirName)
+                plt.savefig(dirName +"/" + str(Sat[j]) + "/.jpg")
+
+
+
 
             # 关闭交互模式
             plt.ioff()
