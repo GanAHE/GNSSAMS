@@ -439,7 +439,6 @@ class Ui_mainWindow(object):
         self.munuItem_contact.triggered.connect(self.aboutDialog)
         self.munuItem_version.triggered.connect(self.aboutDialog)
         # 默认显示开源证书
-        self.localText()
         self.munuItem_localHelp.triggered.connect(self.localText)
         self.munuItem_fileStatusBar.triggered.connect(self.actionMenuItem_fileStatusBar)
         self.munuItem_statusBar.triggered.connect(self.actionMenuItem_statusBar)
