@@ -92,7 +92,7 @@ def getlocation(lat, lng):
 
 def getAddressInfo(lon, lat):
     str = getlocation(lat, lon)
-    print(str)
+    # print(str)
     # dictjson = {}  # 声明一个字典
     # get()获取json里面的数据
     jsonResult = str['result']
@@ -117,7 +117,7 @@ def getAddressInfo(lon, lat):
     # dictjson['city_level'] = city_level
     # dictjson['district'] = district
     strInfo = country + "["+country_code+"]"+province+city+ "["+"{}".format(city_level)+"]"+district
-    print(strInfo)
+    # print(strInfo)
 
     return strInfo
 

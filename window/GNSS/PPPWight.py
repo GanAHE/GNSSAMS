@@ -10,11 +10,11 @@
 import os
 from PyQt5 import QtCore, QtGui, QtWidgets
 from database.database import Database
-from window.GNSS import actionPPP
+from window.GNSS.actionGetStationPositionThread import ActionGetStationPositionThread
 
 
 class Ui_Form(QtCore.QObject):
-    infoEmit = QtCore.pyqtSignal(str,str)
+    infoEmit = QtCore.pyqtSignal(str, str)
 
     def setupUi(self, Form):
         Form.setObjectName("Form")
@@ -69,8 +69,8 @@ class Ui_Form(QtCore.QObject):
         self.status_slider = QtWidgets.QSlider(self.groupBox_3)
         self.status_slider.setAutoFillBackground(False)
         self.status_slider.setStyleSheet("color: rgb(0, 170, 255);\n"
-"background-color: rgb(170, 255, 255);\n"
-"border-color: rgb(0, 255, 255);")
+                                         "background-color: rgb(170, 255, 255);\n"
+                                         "border-color: rgb(0, 255, 255);")
         self.status_slider.setMaximum(1)
         self.status_slider.setTracking(True)
         self.status_slider.setOrientation(QtCore.Qt.Horizontal)
@@ -88,7 +88,7 @@ class Ui_Form(QtCore.QObject):
         self.verticalLayout_4.addLayout(self.verticalLayout_2)
         self.label_3 = QtWidgets.QLabel(self.groupBox_3)
         self.label_3.setText("")
-        self.label_3.setPixmap(QtGui.QPixmap("./source/icon/icon_educa.png"))
+        self.label_3.setPixmap(QtGui.QPixmap("./source/icon/satall.png"))
         self.label_3.setScaledContents(False)
         self.label_3.setAlignment(QtCore.Qt.AlignCenter)
         self.label_3.setWordWrap(False)
@@ -96,6 +96,10 @@ class Ui_Form(QtCore.QObject):
         self.label_3.setTextInteractionFlags(QtCore.Qt.NoTextInteraction)
         self.label_3.setObjectName("label_3")
         self.verticalLayout_4.addWidget(self.label_3)
+        self.commandLinkButton = QtWidgets.QCommandLinkButton(self.groupBox_3)
+        self.commandLinkButton.setIconSize(QtCore.QSize(20, 20))
+        self.commandLinkButton.setObjectName("commandLinkButton")
+        self.verticalLayout_4.addWidget(self.commandLinkButton)
         self.horizontalLayout_6.addWidget(self.groupBox_3)
         self.groupBox = QtWidgets.QGroupBox(Form)
         self.groupBox.setObjectName("groupBox")
@@ -113,8 +117,9 @@ class Ui_Form(QtCore.QObject):
 
         self.retranslateUi(Form)
         self.button_PP.clicked.connect(self.actionButtonPPP)
-        self.actionGetStationPosition = actionPPP.ActionPPP()
-        self.actionGetStationPosition.infoEmit.connect(self.sendTopInfo)
+        self.commandLinkButton.clicked.connect(self.actionDrawSatelliteOrbet)
+        self.actionGetStationPositionThread = ActionGetStationPositionThread()
+        self.actionGetStationPositionThread.infoEmit.connect(self.sendTopInfo)
         self.button_mapLacation.clicked.connect(self.actionShowMap)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
@@ -130,6 +135,7 @@ class Ui_Form(QtCore.QObject):
         self.comboBox_elliPara.setItemText(4, _translate("Form", "自定义椭球"))
         self.button_PP.setText(_translate("Form", "精密单点定位"))
         self.button_mapLacation.setText(_translate("Form", "查看地图点位"))
+        self.commandLinkButton.setText(_translate("Form", "卫星轨道可视化"))
         self.groupBox.setTitle(_translate("Form", "数据"))
 
     def setFileInfo(self):
@@ -161,21 +167,38 @@ class Ui_Form(QtCore.QObject):
 
     def actionButtonPPP(self):
         try:
-            self.sendTopInfo("I", "\n==单点定位：")
-            ellipsoid = self.comboBox_elliPara.currentText()
-            # 将界面显示选择的椭球转为内部标准查询参数，其他参数符合的不需要转换
-            if ellipsoid == "1975国际椭球":
-                ellipsoid = "IE1975"
-            elif ellipsoid == "克拉索夫斯基椭球":
-                ellipsoid = "Krasovski"
+            if len(Database.oFilePathList) > 0 and len(Database.sp3FilePathList) >= 3:
+                self.sendTopInfo("I", "\n==单点定位")
+                ellipsoid = self.comboBox_elliPara.currentText()
+                # 将界面显示选择的椭球转为内部标准查询参数，其他参数符合的不需要转换
+                if ellipsoid == "1975国际椭球":
+                    ellipsoid = "IE1975"
+                elif ellipsoid == "克拉索夫斯基椭球":
+                    ellipsoid = "Krasovski"
 
-            reCode = self.actionGetStationPosition.actionReadFilePPP(ellipsoid)
-            if reCode:
-                self.sendTopInfo("T", "完成单点定位解算！点击地图显示可以查看该点\n在地图上的位置信息，该步骤加载较慢，如需要请耐心等待片刻...")
-                self.status_slider.setValue(1)
-                self.pushButton_3.setChecked(False)
-                self.pushButton_4.setCheckable(True)
-                self.pushButton_4.setChecked(True)
+                dictPara = {"code": 202,
+                            "ellipsoid": ellipsoid
+                            }
+                self.actionGetStationPositionThread.setPara(dictPara)
+                self.actionGetStationPositionThread.start()
+            else:
+                self.sendTopInfo("T", "未导入或未正确导入观测文件/sp3文件")
+        except Exception as e:
+            self.sendTopInfo("E", "异常错误，信息：" + e.__str__())
+
+    def actionDrawSatelliteOrbet(self):
+        try:
+            print(len(Database.sp3FilePathList),Database.sp3FilePathList)
+            if len(Database.sp3FilePathList) >= 3:
+                self.sendTopInfo("I", "\n卫星轨道可视化...")
+                dictPara = {"code": 203,
+                            "ellipsoid": None
+                            }
+                self.actionGetStationPositionThread.setPara(dictPara)
+                self.actionGetStationPositionThread.start()
+                self.sendTopInfo("I", "\n子线程启动...")
+            else:
+                self.sendTopInfo("T", "未导入或未正确导入sp3文件")
         except Exception as e:
             self.sendTopInfo("E", "异常错误，信息：" + e.__str__())
 
@@ -220,7 +243,9 @@ class Ui_Form(QtCore.QObject):
                 self.tableWidget.item(id, columnCount - 1).setTextAlignment(QtCore.Qt.AlignCenter)
         elif type == "K":
             self.textEdit.append(strInfo)
-
+        elif type == "B":
+            self.actionGetStationPositionThread.killThread()
+            self.infoEmit.emit("I", "子线程关闭.")
         else:
             self.infoEmit.emit(type, strInfo)
 

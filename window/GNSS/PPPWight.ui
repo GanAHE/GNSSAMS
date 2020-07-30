@@ -87,7 +87,7 @@
           <item>
            <widget class="QPushButton" name="button_PP">
             <property name="text">
-             <string>标准单点定位</string>
+             <string>精密单点定位</string>
             </property>
            </widget>
           </item>
@@ -165,7 +165,7 @@ border-color: rgb(0, 255, 255);</string>
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap>../../source/icon/icon_educa.png</pixmap>
+         <pixmap>../../source/icon/satall.png</pixmap>
         </property>
         <property name="scaledContents">
          <bool>false</bool>
@@ -181,6 +181,19 @@ border-color: rgb(0, 255, 255);</string>
         </property>
         <property name="textInteractionFlags">
          <set>Qt::NoTextInteraction</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCommandLinkButton" name="commandLinkButton">
+        <property name="text">
+         <string>卫星轨道可视化</string>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
         </property>
        </widget>
       </item>

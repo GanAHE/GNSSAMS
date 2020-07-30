@@ -11,7 +11,7 @@ import os
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 from database.database import Database
-from window.GNSS import actionSPP
+from window.GNSS import actionGetStationPositionThread
 
 
 class Ui_Form(QtCore.QObject):
@@ -114,7 +114,7 @@ class Ui_Form(QtCore.QObject):
 
         self.retranslateUi(Form)
         self.button_SPP.clicked.connect(self.actionButtonSPP)
-        self.actionGetStationPosition = actionSPP.ActionSPP()
+        self.actionGetStationPosition = actionGetStationPositionThread.ActionGetStationPositionThread()
         self.button_mapLacation.clicked.connect(self.actionShowMap)
         self.actionGetStationPosition.infoEmit.connect(self.sendTopInfo)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -171,14 +171,8 @@ class Ui_Form(QtCore.QObject):
                 ellipsoid = "IE1975"
             elif ellipsoid == "克拉索夫斯基椭球":
                 ellipsoid = "Krasovski"
-
-            reCode = self.actionGetStationPosition.actionReadFile(ellipsoid)
-            if reCode:
-                self.sendTopInfo("T", "完成单点定位解算！点击地图显示可以查看该点\n在地图上的位置信息，该步骤加载较慢，如需要请耐心等待片刻...")
-                self.status_slider.setValue(1)
-                self.pushButton_3.setChecked(False)
-                self.pushButton_4.setCheckable(True)
-                self.pushButton_4.setChecked(True)
+            self.actionGetStationPosition.setPara({"code":201,"ellipsoid":ellipsoid})
+            self.actionGetStationPosition.start()
         except Exception as e:
             self.sendTopInfo("E", "异常错误，信息：" + e.__str__())
 
@@ -221,6 +215,9 @@ class Ui_Form(QtCore.QObject):
                 self.tableWidget.item(id, columnCount - 1).setTextAlignment(QtCore.Qt.AlignCenter)
         elif type == "K":
             self.textEdit.append(strInfo)
+        elif type == "B":
+            self.actionGetStationPosition.killThread()
+            self.infoEmit.emit("I", "子线程关闭.")
         else:
             self.infoEmit.emit(type, strInfo)
 
