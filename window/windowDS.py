@@ -504,16 +504,18 @@ class Ui_mainWindow(object):
         self.actionGNSS_L.setText(_translate("mainWindow", "GNSS与重力场应用(&L)"))
 
     def displayInfo(self, type, strInfo):
-
-        if type == "I":
-            self.textEdit_status.append(strInfo)
-        elif type == "M":
-            self.actionShowStationPositonInMap(strInfo)
-        elif type == "draw":
-            fig = drawGravityAnomaly()
-            self.setVisualFigure(fig)
-        else:
-            ActionWarnException(self.centralwidget).actionWarnException(type, strInfo)
+        try:
+            if type == "I":
+                self.textEdit_status.append(strInfo)
+            elif type == "M":
+                self.actionShowStationPositonInMap(strInfo)
+            elif type == "draw":
+                fig = drawGravityAnomaly()
+                self.setVisualFigure(fig)
+            else:
+                ActionWarnException(self.centralwidget).actionWarnException(type, strInfo)
+        except Exception as e:
+            ActionWarnException(self.centralwidget).actionWarnException("E", e.__str__())
 
     def showPan(self, fileRoot):
         """
