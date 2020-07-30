@@ -631,6 +631,11 @@ class ActionGetStationPositionThread(QThread):
             allsatellite_x = []
             allsatellite_y = []
             allsatellite_z = []
+            # 生成画布
+            fig = plt.figure()
+
+            # 打开交互模式
+            plt.ion()
             for j in range(len(Sat)):
                 self._sendInfo("K"," - 当前轨道解算的卫星：{}".format(Sat[j]))
                 timePastList = []
@@ -719,11 +724,7 @@ class ActionGetStationPositionThread(QThread):
                 allsatellite_z.append(satellite_z)
 
 
-                # 生成画布
-                fig = plt.figure()
 
-                # 打开交互模式
-                plt.ion()
 
                 # 清除原有图像
                 fig.clf()
@@ -731,7 +732,7 @@ class ActionGetStationPositionThread(QThread):
                 print(Sat[j])
 
                 # 生成画布
-                fig = plt.figure()
+                # fig = plt.figure()
 
                 # # 清除原有图像
                 # fig.clf()
@@ -750,11 +751,11 @@ class ActionGetStationPositionThread(QThread):
 
                 plt.pause(0.2)
 
-                # 关闭交互模式
-                plt.ioff()
+            # 关闭交互模式
+            plt.ioff()
 
-                # 图形显示
-                plt.show()
+            # 图形显示
+            plt.show()
         else:
             self._sendInfo("T", "SP3文件未导入或导入错误,\n需要导入连续三天的sp3文件！")
 
