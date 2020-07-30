@@ -42,6 +42,7 @@ class Database(object):
     # 重力测量数据解算重力异常
     gravityMeasureFilePath = None
     grivatyModelPath = None
+    gravityAnomalyData = None
 
     def loadConfigJson(self):
         """

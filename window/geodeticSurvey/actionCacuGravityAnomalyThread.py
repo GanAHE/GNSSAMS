@@ -10,6 +10,8 @@ comment: 解算重力异常
 import csv
 
 from PyQt5.QtCore import QThread, pyqtSignal
+
+from database.database import Database
 from geodeticSurvey import gravitySurvey
 from geodeticSurvey.gravityFieldModel import GravityModel, GravityField
 from geodeticSurvey.gravitySurvey import normalGravity
@@ -34,7 +36,6 @@ class ActionCacuGravityAnomaly(QThread):
             self.measureDataCacu()
         else:
             self.gravityModelCacu()
-
         self.sendInfo("over", "")
 
     def measureDataCacu(self):
@@ -46,11 +47,13 @@ class ActionCacuGravityAnomaly(QThread):
             strTitle = ""
             for i in range(len(title)):
                 if i == 0 or i == 3:
-                    strTitle += "{0:{1}<6}\t".format(title[i], "")
+                    strTitle += " {0:{1}<6}\t".format(title[i], "")
                 elif i > 0 and i < 3:
-                    strTitle += "{0:{1}<10}\t".format(title[i], "")
+                    strTitle += "{0:{1}<12}\t".format(title[i], "")
+                elif i == 4:
+                    strTitle += "{0:{1}<16}\t".format(title[i], "")
                 else:
-                    strTitle += "{0:{1}<22}\t".format(title[i], "")
+                    strTitle += "{0:{1}<18}\t".format(title[i], "")
             self.sendInfo("G", strTitle)
             data = self.readFile(self.filePath)
             if len(data) > 0:
@@ -63,12 +66,16 @@ class ActionCacuGravityAnomaly(QThread):
                     lineStr = ""
                     for l in range(len(data[i])):
                         if l == 0 or l == 3:
-                            lineStr += "{0:{1}<6}\t".format(data[i][l], "")
+                            lineStr += " {0:{1}<6}\t".format(data[i][l], "")
                         elif l > 0 and l < 3:
-                            lineStr += "{0:{1}<10}\t".format(data[i][l], "")
+                            lineStr += "{0:{1}<15}\t".format(data[i][l], "")
                         else:
                             lineStr += "{0:{1}<22}\t".format(data[i][l], "")
                     self.sendInfo("G", lineStr)
+                # 循环结束，存入数据库
+                Database.gravityAnomalyData = data
+                # 发送绘图指令
+                self.sendInfo("draw", "")
 
     def gravityModelCacu(self):
         if self.filePath is None:
@@ -86,9 +93,11 @@ class ActionCacuGravityAnomaly(QThread):
             strTitle = ""
             for i in range(len(title)):
                 if i == 0:
-                    strTitle += "{0:{1}<6}\t".format(title[i], "")
+                    strTitle += " {0:{1}<6}\t".format(title[i], "")
                 elif i > 0 and i < 4:
-                    strTitle += "{0:{1}<10}\t".format(title[i], "")
+                    strTitle += "{0:{1}<12}\t".format(title[i], "")
+                elif i == 4:
+                    strTitle += "{0:{1}<16}\t".format(title[i], "")
                 else:
                     strTitle += "{0:{1}<22}\t".format(title[i], "")
             self.sendInfo("G", strTitle)
@@ -105,12 +114,16 @@ class ActionCacuGravityAnomaly(QThread):
                     lineStr = ""
                     for l in range(len(data[i])):
                         if l == 0:
-                            lineStr += "{0:{1}<6}\t".format(data[i][l], "")
+                            lineStr += " {0:{1}<6}\t".format(data[i][l], "")
                         elif l > 0 and l < 4:
-                            lineStr += "{0:{1}<10}\t".format(data[i][l], "")
+                            lineStr += "{0:{1}<15}\t".format(data[i][l], "")
                         else:
                             lineStr += "{0:{1}<22}\t".format(data[i][l], "")
                     self.sendInfo("G", lineStr)
+                # 循环结束，存入数据库
+                Database.gravityAnomalyData = data
+                # 发送绘图指令
+                self.sendInfo("draw", "")
 
     def readFile(self, filePath):
         data = []

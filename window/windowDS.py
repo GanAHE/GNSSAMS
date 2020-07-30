@@ -6,14 +6,15 @@
 #
 # WARNING! All changes made in this file will be lost!
 import os
-import webbrowser
-
-from PyQt5 import QtCore, QtGui, QtWidgets
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from PyQt5 import QtCore, QtWidgets, QtGui
+import matplotlib.pyplot as plt
 from PyQt5.QtCore import QUrl, QFileInfo
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 
 from engineerMesure.leicaGsiFormat import LeicaGSIFormat
 from database.database import Database
+from geodeticSurvey.draw_qualLine import drawGravityAnomaly
 from window import welcomeWight
 from window.geodeticSurvey import inversionGravityFieldWight, gravityFieldApplicationWight
 from window.measureTool import coorTranWight, coorTranOpenFileDiaog, stablePointGroupWight
@@ -417,6 +418,7 @@ class Ui_mainWindow(object):
         self.stablePointGroupFileDialog_ui.closeEventEmit.connect(self.stableDotGroupTable)
 
         # GNSS菜单
+        # self.munuItem_satellite.triggered.connect(self.actionFig)
         self.menuItem_SPP.triggered.connect(self.sppWight)
         self.actionPPP_P.triggered.connect(self.pppWight)
         self.action_G.triggered.connect(self.gravityFieldWight)
@@ -491,7 +493,7 @@ class Ui_mainWindow(object):
         self.munuItem_fileStatusBar.setText(_translate("mainWindow", "文件列表栏(&F)"))
         self.munuItem_license.setText(_translate("mainWindow", "授权注册(&L)"))
         self.munuItem_stablePointGround.setText(_translate("mainWindow", "稳定点组分析(&X)"))
-        self.munuItem_satellite.setText(_translate("mainWindow", "卫星轨道解算与预测(&S)"))
+        self.munuItem_satellite.setText(_translate("mainWindow", "精密卫星轨道解算(&S)"))
         self.munuItem_coorSystemTran.setText(_translate("mainWindow", "坐标系统转换(&S)"))
         self.munuItem_coorTran.setText(_translate("mainWindow", "坐标(系)转换"))
         self.munuItem_GussianTran.setText(_translate("mainWindow", "高斯坐标正反算(&S)"))
@@ -507,6 +509,9 @@ class Ui_mainWindow(object):
             self.textEdit_status.append(strInfo)
         elif type == "M":
             self.actionShowStationPositonInMap(strInfo)
+        elif type == "draw":
+            fig = drawGravityAnomaly()
+            self.setVisualFigure(fig)
         else:
             ActionWarnException(self.centralwidget).actionWarnException(type, strInfo)
 
@@ -553,6 +558,24 @@ class Ui_mainWindow(object):
         self.brower.show()
         # 子窗口显示
         self.sub.show()
+
+    def setVisualFigure(self, fig):
+        # 清屏
+        self.tabWidget.setCurrentIndex(1)
+        # plt.cla() # this will destroy the fig
+        cavans = FigureCanvas(fig)
+        _translate = QtCore.QCoreApplication.translate
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_position), _translate("mainWindow", "可视化"))
+        # 界面重构存储区域
+        self.widget_2.deleteLater()
+        self.widget_2 = QtWidgets.QWidget(self.tab_position)
+        self.widget_2.setObjectName("widget-2")
+        self.verticalLayout_2.addWidget(cavans)
+        self.verticalLayout_2.deleteLater()  # 删除旧布局
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.tab_position)
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
+        self.verticalLayout_2.addWidget(cavans)
+        self.widget_2.show()
 
     def coorTranQwight(self):
         """
@@ -781,8 +804,8 @@ class Ui_mainWindow(object):
             elif tabLable == "重力场反演":
                 # 界面重构存储区域
                 fileName, filter = QtWidgets.QFileDialog.getOpenFileName(self.centralwidget, "导入重力场反演所需数据文件",
-                                                                          Database.workspace,
-                                                                          "All Files(*)")
+                                                                         Database.workspace,
+                                                                         "All Files(*)")
                 # self.displayInfo("I",str(fileNameList))
                 # 存入数据库
                 if fileName != "":
@@ -800,7 +823,7 @@ class Ui_mainWindow(object):
                 # self.displayInfo("I",str(fileNameList))
                 # 存入数据库
                 if fileName != "":
-                    dir,name = os.path.split(fileName)
+                    dir, name = os.path.split(fileName)
                     self.showPan(dir)
                     Database.gravityMeasureFilePath = fileName
                     self.displayInfo("I", "已导入文件，路径：{}".format(fileName))
@@ -939,7 +962,6 @@ class Ui_mainWindow(object):
         except Exception as e:
             self.displayInfo("W", "错误！可能原因：\n 1.没有任何需要导出的数据；\n2. " + e.__str__())
 
-
     def onlineHelp(self):
         self.tabWidget.setCurrentIndex(3)
         self.helpSub = QtWidgets.QMdiSubWindow()
@@ -957,7 +979,6 @@ class Ui_mainWindow(object):
         self.qwebengine.show()
         self.helpSub.show()
 
-
     def textEditFormatAdd(self, twoDissList):
         listLen = len(twoDissList)
         if listLen == 0:
@@ -966,14 +987,12 @@ class Ui_mainWindow(object):
             for i in range(len(twoDissList)):
                 self.textEdit_status.append(str(twoDissList[i]))
 
-
     def actionMenuItem_fileStatusBar(self):
         stat = self.munuItem_fileStatusBar.isChecked()
         if stat:  # 选中状态
             self.dockWidget_File.show()
         else:  # 取消选择状态
             self.dockWidget_File.setVisible(False)
-
 
     def actionMenuItem_statusBar(self):
         stat = self.munuItem_statusBar.isChecked()
@@ -982,10 +1001,8 @@ class Ui_mainWindow(object):
         else:  # 取消选择状态
             self.dockWidget_status.setVisible(False)
 
-
     def dockWight_fileStatusCloseEvent(self):
         self.munuItem_fileStatusBar.setChecked(False)
-
 
     def dockWight_statusCloseEvent(self):
         self.munuItem_statusBar.setChecked(False)

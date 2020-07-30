@@ -11,6 +11,7 @@ import os
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 from database.database import Database
+from geodeticSurvey.draw_qualLine import drawGravityAnomaly
 from window.geodeticSurvey.actionCacuGravityAnomalyThread import ActionCacuGravityAnomaly
 
 
@@ -153,5 +154,7 @@ class Ui_Form(QtCore.QObject):
     def sendTopInfo(self, type, strInfo):
         if type == "G":
             self.textEdit.append(strInfo)
+        # elif type == "draw":
+        #     drawGravityAnomaly()
         else:
             self.infoEmit.emit(type, strInfo)

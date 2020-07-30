@@ -36,7 +36,7 @@ class ActionPPP(QObject):
 
     def stationPosition(self, sp3PastClass, sp3NowClass, sp3FutureClass, obsClass, obsTime, count_satellite):
 
-        self._sendInfo("I", "正在读取文件。。。")
+        self._sendInfo("I", "正在读取文件...")
 
         # path_sp3FilePast = r"d:\CodeProgram\Python\EMACS\workspace\GNSS\igs20770.sp3"
         # path_sp3FileNow = r"d:\CodeProgram\Python\EMACS\workspace\GNSS\igs20771.sp3"
@@ -83,7 +83,7 @@ class ActionPPP(QObject):
         satellite_z = []
         B = []
         L = []
-        self._sendInfo("I", "正在读取卫星数据。。。")
+        self._sendInfo("I", "正在读取卫星数据...")
         for j in range(len(Sat)):
             self._sendInfo("I", str(Sat[j]))
             print(Sat[j])
@@ -183,7 +183,7 @@ class ActionPPP(QObject):
                  -1])
             L.append([approxDistance + Vion + Vtrop - approxDistance])
 
-        self._sendInfo("I", "正在进行平差求解。。。")
+        self._sendInfo("I", "正在进行平差求解...")
         # 平差求解
         matrix_B = np.mat(B)
         matrix_L = np.mat(L)

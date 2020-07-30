@@ -14,6 +14,8 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from scipy.interpolate import griddata
 
+from database.database import Database
+
 
 def gravityQualLine(X_v, Y_v, value):
     X, Y = np.meshgrid(np.array(X_v), np.array(Y_v))  # 网格化
@@ -92,7 +94,7 @@ def ThreeDNet(X_v, Y_v, value):
     ax.set_zlim(-15, 15)
 
     plt.show()
-
+    return fig
 
 def sow(X_v, Y_v, value):
     """
@@ -109,10 +111,8 @@ def sow(X_v, Y_v, value):
     xi = np.linspace(x.min(), x.max(), 200)
     yi = np.linspace(y.min(), y.max(), 200)
     X, Y = np.meshgrid(xi, yi)
-
     # 插值
     Z = griddata((x, y), z, (X, Y), method='nearest')
-
     # 绘图
     fig = plt.figure()
     ax1 = fig.add_subplot(121, projection='3d')
@@ -125,6 +125,7 @@ def sow(X_v, Y_v, value):
 
     plt.tight_layout()
     plt.show()
+    return fig
 
 
 # a = [
@@ -136,6 +137,63 @@ def sow(X_v, Y_v, value):
 # gravityQualLine(a, b, v)
 # example()
 
+def drawGravityAnomaly():
+    # 数据库获取文件
+    data = Database.gravityAnomalyData
+    lon = []
+    lat = []
+    err1 = []
+    err2 = []
+    if len(data)> 5:
+        for i in range(len(data)):
+            lineData = list(map(float, data[i][1:]))
+            lon.append(lineData[0])
+            lat.append(lineData[1])
+            err1.append(lineData[4])
+            if len(lineData) == 6:
+                err2.append(lineData[5])
+    # 开始绘图
+    x = np.array(lon)
+    y = np.array(lat)
+    z = np.array(err1)
+    # 准备待插值位置
+    xi = np.linspace(x.min(), x.max(), 200)
+    yi = np.linspace(y.min(), y.max(), 200)
+    X, Y = np.meshgrid(xi, yi)
+    # 插值
+    Z = griddata((x, y), z, (X, Y), method='nearest')
+    # 绘图
+    fig = plt.figure(dpi=150)
+    ax1 = fig.add_subplot(221, projection='3d')
+    ax1.plot_surface(X, Y, Z, cmap='jet')
+    ax1.contour(X, Y, Z, cmap='jet')
+    ax1.set_zlim(-15, 15)
+
+    ax2 = fig.add_subplot(222)
+    ax2.contourf(X, Y, Z, cmap='jet')
+
+    ax3 = fig.add_subplot(223,projection='3d')
+    xi = np.linspace(min(lon), max(lat), len(err1))
+    yi = np.linspace(min(lon), max(lat), len(err1))
+    x, y = np.meshgrid(xi, yi)
+    r = np.sqrt(x / x + y / y)
+    z = r / r + err1
+    ax3.plot_surface(x, y, z, rstride=1,  # row 行步长
+                    cstride=2,  # colum 列步长
+                    cmap='rainbow')  # 渐变颜色
+    ax3.contourf(x, y, z,
+                zdir='z',  # 使用数据方向
+                offset=-2,  # 填充投影轮廓位置
+                cmap='rainbow')
+    ax3.set_zlim(-15, 15)
+
+    ax4 = fig.add_subplot(224)
+    ax4.contourf(X, Y, Z, cmap='jet')
+
+    plt.tight_layout()
+    plt.show()
+
+    return fig
 
 def drawGrid():
     filePath = "E:\文档\大三课程\第三学期 - 物理大地测量学实习\数据\Grid.csv"
@@ -169,7 +227,7 @@ def drawGrid():
 
 
 def drawNet():
-    filePath = "E:/文档/大三课程/第三学期 - 物理大地测量学实习/数据/NetRe.csv"
+    filePath = "E:/文档/2020 - 物理大地测量学实习/数据/NetRe.csv"
     Lon = []
     lat = []
     H = []
@@ -204,5 +262,5 @@ def drawNet():
 
 
 # drawGrid()
-drawNet()
+# drawNet()
 # example()
