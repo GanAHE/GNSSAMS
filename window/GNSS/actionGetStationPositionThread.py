@@ -631,11 +631,12 @@ class ActionGetStationPositionThread(QThread):
             allsatellite_x = []
             allsatellite_y = []
             allsatellite_z = []
-            # 生成画布
-            fig = plt.figure()
+            # # 生成画布
+            # fig = plt.figure()
 
             # 打开交互模式
             plt.ion()
+
             for j in range(len(Sat)):
                 self._sendInfo("K"," - 当前轨道解算的卫星：{}".format(Sat[j]))
                 timePastList = []
@@ -723,11 +724,11 @@ class ActionGetStationPositionThread(QThread):
                 allsatellite_y.append(satellite_y)
                 allsatellite_z.append(satellite_z)
 
+                # 生成画布
+                fig = plt.figure(num = str(Sat[j]))
 
-
-
-                # 清除原有图像
-                fig.clf()
+                # # 清除原有图像
+                # fig.clf()
 
 
                 # 生成画布
