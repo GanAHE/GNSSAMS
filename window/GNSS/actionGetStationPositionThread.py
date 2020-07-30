@@ -633,8 +633,7 @@ class ActionGetStationPositionThread(QThread):
             # allsatellite_z = []
 
             # 生成画布
-            fig = plt.figure()
-
+            fig = plt.figure(num = "Satellite orbet")
             # 打开交互模式
             plt.ion()
 
@@ -742,7 +741,7 @@ class ActionGetStationPositionThread(QThread):
 
                 # 画三维散点图
                 for i in range(len(time)):
-                    ax.scatter(allsatellite_x[i], allsatellite_y[i], allsatellite_z[i], c="r", marker=".")
+                    ax.scatter(satellite_x[i], satellite_y[i], satellite_z[i], c="r", marker=".")
 
                 plt.pause(0.2)
 
