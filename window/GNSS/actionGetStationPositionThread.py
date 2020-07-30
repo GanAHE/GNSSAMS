@@ -165,7 +165,7 @@ class ActionGetStationPositionThread(QThread):
     def drawSatelliteOrbet(self):
         self._sendInfo("T", "卫星轨道解算中，请稍候...")
         self.satelliteOrbits()
-        self._sendInfo("T","完成卫星轨道可视化")
+        self._sendInfo("T", "完成卫星轨道可视化")
 
     def getStationPosition_SPP(self, observationEpoch, waveBand, Sat, count_satellite, obsClass, navClass):
 
@@ -618,7 +618,7 @@ class ActionGetStationPositionThread(QThread):
             for k in range(len(sp3NowEpoch)):
                 if sp3NowTime == sp3NowEpoch[k][0]:
                     Sat.append(sp3NowEpoch[k][1])
-            self._sendInfo("K","所有卫星列表：{}".format(Sat))
+            self._sendInfo("K", "所有卫星列表：{}".format(Sat))
 
             intTimeFormat = lambda strT: list(
                 map(int, ((strT.split())[0]).split("-") + ((strT.split())[1]).split(":")))
@@ -638,7 +638,7 @@ class ActionGetStationPositionThread(QThread):
             plt.ion()
 
             for j in range(len(Sat)):
-                self._sendInfo("K"," - 当前轨道解算的卫星：{}".format(Sat[j]))
+                self._sendInfo("K", " - 当前轨道解算的卫星：{}".format(Sat[j]))
                 timePastList = []
                 timeNowList = []
                 timeFutureList = []
@@ -725,11 +725,10 @@ class ActionGetStationPositionThread(QThread):
                 allsatellite_z.append(satellite_z)
 
                 # 生成画布
-                fig = plt.figure(num = str(Sat[j]))
+                fig = plt.figure(num=str(Sat[j]))
 
                 # # 清除原有图像
                 # fig.clf()
-
 
                 # 生成画布
                 # fig = plt.figure()
@@ -750,18 +749,11 @@ class ActionGetStationPositionThread(QThread):
                     ax.scatter(allsatellite_x[j][i], allsatellite_y[j][i], allsatellite_z[j][i], c="r", marker=".")
 
                 plt.pause(0.2)
-<<<<<<< HEAD
-=======
-
                 dirName = Database.workspace + "SatelliteOrbet"
                 if not os.path.exists(dirName):
                     os.mkdir(dirName)
-                plt.savefig(dirName +"/" + str(Sat[j]) + "/.jpg")
+                plt.savefig(dirName + "/" + str(Sat[j]))
 
-
-
-
->>>>>>> d4791915529648f8968a96398fc70441ffc8febf
             # 关闭交互模式
             plt.ioff()
 
