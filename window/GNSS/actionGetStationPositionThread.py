@@ -753,7 +753,6 @@ class ActionGetStationPositionThread(QThread):
                     ax.scatter(allsatellite_x[j][i], allsatellite_y[j][i], allsatellite_z[j][i], c="r", marker=".")
 
                 plt.pause(0.2)
-
             # 关闭交互模式
             plt.ioff()
 

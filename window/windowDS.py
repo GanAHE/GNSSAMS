@@ -8,7 +8,6 @@
 import os
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from PyQt5 import QtCore, QtWidgets, QtGui
-import matplotlib.pyplot as plt
 from PyQt5.QtCore import QUrl, QFileInfo
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 
