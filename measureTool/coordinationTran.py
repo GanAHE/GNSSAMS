@@ -7,7 +7,7 @@ comment: 坐标转换类
 @version 1.0.
 @contact: dinggan@whu.edu.cn
 """
-from numpy import sin, cos, tan, arctan2, sqrt, arctan
+from numpy import sin, cos, tan, arctan2, sqrt, arctan, mat
 
 from database.database import Database
 
@@ -37,7 +37,16 @@ class CoordinationTran():
     """
 
     def BLH_to_XYZ(self, BLH):
-        pass
+        """
+        BLH转XYZ
+        :param BLH: 大地坐标系坐标 B(rad),L(rad),H(m)
+        :return: X(m),Y(m),Z(m)
+        """
+        N = self.ellipsis.c / sqrt(1 + (self.ellipsis.dot_e ** 2) * (cos(B) ** 2))
+        X = (N + BLH[2]) * cos(BLH[0]) * cos(BLH[1])
+        Y = (N + BLH[2]) * cos(BLH[0]) * sin(BLH[1])
+        Z = (N * (1 - self.ellipsis.e ** 2) + BLH[2]) * sin(BLH[0])
+        return X, Y, Z
 
     def XYZ_to_BLH(self, XYZ):
         """
@@ -65,11 +74,49 @@ class CoordinationTran():
 
         return B, L, H
 
-    def XYZ_to_NEH(self, XYZ):
-        pass
+    def XYZ_to_NEH(self, XYZ, centerXYZ):
+        """
+        XYZ转NEH
+        :param XYZ: X(m),Y(m),Z(m)
+        :param centerXYZ: 站心坐标X(m),Y(m),Z(m)
+        :return:
+        """
+        centerB, centerL, centerH = self.XYZ_to_BLH(centerXYZ)
+        trans = [[(-1 * sin(centerB) * cos(centerL)), (-1 * sin(centerB) * sin(centerL)), (cos(centerB))],
+                 [(-1 * sin(centerL)),                (cos(centerL)),                     0],
+                 [(cos(centerB) * cos(centerL)),      (cos(centerB) * sin(centerL)),      (sin(centerB))]]
+        deltaXYZ = [[XYZ[0] - centerXYZ[0]],
+                    [XYZ[1] - centerXYZ[1]],
+                    [XYZ[2] - centerXYZ[2]]]
+        NEH = mat(trans) * mat(deltaXYZ)
+        N = NEH[0][0]
+        E = NEH[1][0]
+        H = NEH[2][0]
+        return N, E, H
 
-    def NEH_to_XYZ(self, NEH):
-        pass
+
+    def NEH_to_XYZ(self, NEH, centerXYZ):
+        """
+        NEU转XYZ
+        :param NEH:
+        :param centerXYZ: 站心坐标X(m),Y(m),Z(m)
+        :return:
+        """
+        centerB, centerL, centerH = self.XYZ_to_BLH(centerXYZ)
+        trans = [[(-1 * sin(centerB) * cos(centerL)), (-1 * sin(centerL)), (cos(centerB) * cos(centerL))],
+                 [(-1 * sin(centerB) * sin(centerL)), (cos(centerL)),      (cos(centerB) * sin(centerL))],
+                 [(cos(centerB)),                     0,                   (sin(centerB))]]
+        NEH_mat = [[NEH[0]],
+                   [NEH[1]],
+                   [NEH[2]]]
+        center = [[centerXYZ[0]],
+                  [centerXYZ[1]],
+                  [centerXYZ[2]]]
+        XYZ = mat(center) + mat(trans) * mat(NEH_mat)
+        X = XYZ[0][0]
+        Y = XYZ[1][0]
+        Z = XYZ[2][0]
+        return X, Y, Z
 
     def BLH_to_NEH(self, BLH):
         """
@@ -78,9 +125,9 @@ class CoordinationTran():
         :param BLH:
         :return:
         """
-        return self.XYZ_to_NEH(self.BLH_to_XYZ(BLH))
+        return self.XYZ_to_NEH(self.BLH_to_XYZ(BLH), centerXYZ)
 
     def NEH_to_BLH(self, NEH):
-        self.XYZ_to_BLH(self.NEH_to_XYZ(NEH))
+        self.XYZ_to_BLH(self.NEH_to_XYZ(NEH, centerXYZ))
 
 
