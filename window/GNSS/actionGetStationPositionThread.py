@@ -729,7 +729,6 @@ class ActionGetStationPositionThread(QThread):
                 # 清除原有图像
                 fig.clf()
 
-                print(Sat[j])
 
                 # 生成画布
                 # fig = plt.figure()
