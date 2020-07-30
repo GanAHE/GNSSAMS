@@ -8,7 +8,7 @@ comment: 标准单点定位
 @contact: dinggan@whu.edu.cn
 """
 import datetime
-
+import os
 import pandas
 import numpy as np
 from GNSS.file import readFile
@@ -631,11 +631,12 @@ class ActionGetStationPositionThread(QThread):
             allsatellite_x = []
             allsatellite_y = []
             allsatellite_z = []
-            # 生成画布
-            fig = plt.figure()
+            # # 生成画布
+            # fig = plt.figure()
 
             # 打开交互模式
             plt.ion()
+
             for j in range(len(Sat)):
                 self._sendInfo("K"," - 当前轨道解算的卫星：{}".format(Sat[j]))
                 timePastList = []
@@ -723,16 +724,12 @@ class ActionGetStationPositionThread(QThread):
                 allsatellite_y.append(satellite_y)
                 allsatellite_z.append(satellite_z)
 
+                # 生成画布
+                fig = plt.figure(num = str(Sat[j]))
 
+                # # 清除原有图像
+                # fig.clf()
 
-
-                # 清除原有图像
-                fig.clf()
-
-                # # 生成画布
-                # ax = fig.gca(projection='3d')
-
-                print(Sat[j])
 
                 # 生成画布
                 # fig = plt.figure()
@@ -753,6 +750,18 @@ class ActionGetStationPositionThread(QThread):
                     ax.scatter(allsatellite_x[j][i], allsatellite_y[j][i], allsatellite_z[j][i], c="r", marker=".")
 
                 plt.pause(0.2)
+<<<<<<< HEAD
+=======
+
+                dirName = Database.workspace + "SatelliteOrbet"
+                if not os.path.exists(dirName):
+                    os.mkdir(dirName)
+                plt.savefig(dirName +"/" + str(Sat[j]) + "/.jpg")
+
+
+
+
+>>>>>>> d4791915529648f8968a96398fc70441ffc8febf
             # 关闭交互模式
             plt.ioff()
 
