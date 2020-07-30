@@ -728,9 +728,6 @@ class ActionGetStationPositionThread(QThread):
                 # 清除原有图像
                 fig.clf()
 
-                # # 生成画布
-                # ax = fig.gca(projection='3d')
-
                 print(Sat[j])
 
                 # 生成画布
