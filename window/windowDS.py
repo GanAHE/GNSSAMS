@@ -1047,7 +1047,7 @@ class Ui_mainWindow(object):
         # 设置网页在窗口中显示的位置和大小
         self.qwebengine.setGeometry(0, 0, self.helpSub.width() + 1000, self.helpSub.height() + 500)
         # 在QWebEngineView中加载网址
-        self.qwebengine.load(QUrl("https://www.ganahe.top/"))
+        self.qwebengine.load(QUrl(Database.onlineHelpLink))
         # 将子窗口添加到Mdi区域
         self.mdiArea.addSubWindow(self.helpSub)
         self.qwebengine.show()
