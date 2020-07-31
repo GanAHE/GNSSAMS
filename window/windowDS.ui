@@ -14,11 +14,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>EMACS 2020</string>
+   <string>GNSS导航定位与测量综合系统 Official 1.0</string>
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>../source/icon/EMACS-logo.png</normaloff>../source/icon/EMACS-logo.png</iconset>
+    <normaloff>../source/icon/satall.png</normaloff>../source/icon/satall.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true"/>
@@ -265,7 +265,6 @@
     <addaction name="separator"/>
     <addaction name="menuItem_backWelcome"/>
     <addaction name="separator"/>
-    <addaction name="munuItem_cacuPara"/>
     <addaction name="munuItem_systemPara"/>
     <addaction name="separator"/>
     <addaction name="munuItem_statusBar"/>
@@ -290,10 +289,6 @@
     <property name="title">
      <string>GNSS(&amp;G)</string>
     </property>
-    <addaction name="munuItem_satellite"/>
-    <addaction name="separator"/>
-    <addaction name="munuItem_GNSSNet"/>
-    <addaction name="separator"/>
     <addaction name="menuItem_SPP"/>
     <addaction name="separator"/>
     <addaction name="actionPPP_P"/>
@@ -301,6 +296,12 @@
     <addaction name="action_G"/>
     <addaction name="separator"/>
     <addaction name="actionGNSS_L"/>
+    <addaction name="separator"/>
+    <addaction name="actionsd_2"/>
+    <addaction name="separator"/>
+    <addaction name="munuItem_GNSSNet"/>
+    <addaction name="separator"/>
+    <addaction name="actionw"/>
     <addaction name="separator"/>
    </widget>
    <addaction name="menu_F"/>
@@ -323,6 +324,9 @@
    <property name="toolTip">
     <string/>
    </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
    <property name="styleSheet">
     <string notr="true"/>
    </property>
@@ -336,7 +340,7 @@
     <string>文件列表</string>
    </property>
    <attribute name="dockWidgetArea">
-    <number>1</number>
+    <number>2</number>
    </attribute>
    <widget class="QWidget" name="dockWidgetContents_2">
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -366,7 +370,6 @@
    <addaction name="separator"/>
    <addaction name="menuItem_resultReport"/>
    <addaction name="separator"/>
-   <addaction name="munuItem_contact"/>
   </widget>
   <widget class="QDockWidget" name="dockWidget_status">
    <property name="tabletTracking">
@@ -394,7 +397,7 @@
     <string>状态信息</string>
    </property>
    <attribute name="dockWidgetArea">
-    <number>1</number>
+    <number>2</number>
    </attribute>
    <widget class="QWidget" name="dockWidgetContents_4">
     <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -420,6 +423,7 @@
    <addaction name="munuItem_localHelp"/>
    <addaction name="munuItem_onlineHelp"/>
    <addaction name="separator"/>
+   <addaction name="munuItem_contact"/>
   </widget>
   <action name="menuItem_new">
    <property name="checkable">
@@ -490,6 +494,12 @@
    </property>
   </action>
   <action name="munuItem_GNSSNet">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>静态GNSS网平差(&amp;A)</string>
    </property>
@@ -542,7 +552,7 @@
   <action name="menuItem_resultReport">
    <property name="icon">
     <iconset>
-     <normaloff>../source/icon/outPut.png</normaloff>../source/icon/outPut.png</iconset>
+     <normaloff>../source/icon/zaogao.png</normaloff>../source/icon/zaogao.png</iconset>
    </property>
    <property name="text">
     <string>导出报告(&amp;O)</string>
@@ -620,6 +630,9 @@
    </property>
   </action>
   <action name="munuItem_GussianTran">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>高斯坐标正反算(&amp;S)</string>
    </property>
@@ -627,7 +640,7 @@
   <action name="munuItem_contact">
    <property name="icon">
     <iconset>
-     <normaloff>../source/icon/conme.png</normaloff>../source/icon/conme.png</iconset>
+     <normaloff>../source/icon/chat.png</normaloff>../source/icon/chat.png</iconset>
    </property>
    <property name="text">
     <string>联系方式(&amp;L)</string>
@@ -651,6 +664,27 @@
   <action name="actionGNSS_L">
    <property name="text">
     <string>GNSS与重力场应用(&amp;L)</string>
+   </property>
+  </action>
+  <action name="actionw">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>卫星测高(&amp;H)</string>
+   </property>
+  </action>
+  <action name="actionsd">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>路线规划与导航(&amp;D)</string>
+   </property>
+  </action>
+  <action name="actionsd_2">
+   <property name="text">
+    <string>GNSS地图测量</string>
    </property>
   </action>
  </widget>

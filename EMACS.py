@@ -27,7 +27,7 @@ class SplashPanel(QSplashScreen):
         message_font.setPointSize(14)
         self.setFont(message_font)
         # 创建启动界面，支持png透明图片
-        self.setPixmap(QtGui.QPixmap("./source/EMACS.png"))
+        self.setPixmap(QtGui.QPixmap("./source/Flash.png"))
         # 淡入效果
         self.setWindowOpacity(0)
         t = 0
@@ -44,7 +44,7 @@ class SplashPanel(QSplashScreen):
         progressBar.show()
 
         # 启动信息
-        self.showMessage('加载配置文件...', alignment=QtCore.Qt.AlignBottom | QtCore.Qt.AlignCenter, color=QtCore.Qt.black)
+        self.showMessage('加载配置文件...', alignment=QtCore.Qt.AlignBottom | QtCore.Qt.AlignCenter, color=QtCore.Qt.white)
 
         # 加载配置文件
         # Database().loadConfigJson()
@@ -52,14 +52,14 @@ class SplashPanel(QSplashScreen):
             progressBar.setValue(i)
             if i == 81:
                 self.showMessage('加载系统配置...', alignment=QtCore.Qt.AlignBottom | QtCore.Qt.AlignCenter,
-                                 color=QtCore.Qt.black)
+                                 color=QtCore.Qt.white)
 
                 Database().loadConfigJson()
                 time.sleep(0.03)
             time.sleep(0.01)
 
         self.showMessage("完成所有配置文件载入，请稍等...", alignment=QtCore.Qt.AlignBottom | QtCore.Qt.AlignCenter,
-                         color=QtCore.Qt.black)
+                         color=QtCore.Qt.white)
 
         time.sleep(1)
         # 淡出效果

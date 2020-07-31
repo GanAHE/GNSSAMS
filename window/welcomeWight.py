@@ -55,7 +55,7 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
-        self.commandLinkButton_2.setText(_translate("Form", "欢迎使用EMACS测量软件"))
+        self.commandLinkButton_2.setText(_translate("Form", "欢迎使用GNSS导航定位与测量综合系统"))
         self.commandLinkButton_2.setDescription(_translate("Form", "1.请在菜单栏选择相应的功能完成指定操作；\n"
-"2.该软件为工程测量相关计算的集成；\n"
+"2.该软件为GNSS测量等相关计算的集成；\n"
 "3.详细使用帮助，请查看文档。"))
