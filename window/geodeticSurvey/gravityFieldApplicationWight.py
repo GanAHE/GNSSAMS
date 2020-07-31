@@ -150,6 +150,7 @@ class Ui_Form(QtCore.QObject):
 
     def killThread(self):
         self.actionCacuGravityAnomaly.killThread()
+        self.sendTopInfo("I","关闭子线程")
 
     def sendTopInfo(self, type, strInfo):
         if type == "G":

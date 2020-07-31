@@ -10,7 +10,7 @@ import os
 
 from PyQt5.QtCore import QUrl, QFileInfo
 from PyQt5.QtWebEngineWidgets import QWebEngineView
-from matplotlib.backends.backend_template import FigureCanvas
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 
 from engineerMesure.leicaGsiFormat import LeicaGSIFormat
 from database.database import Database
