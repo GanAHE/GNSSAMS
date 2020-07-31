@@ -1075,14 +1075,15 @@ class Ui_mainWindow(object):
         if stat:  # 选中状态
             self.dockWidget_File.show()
         else:  # 取消选择状态
-            self.dockWidget_File.setVisible(False)
+            self.munuItem_fileStatusBar.setChecked(True)
+            self.dockWidget_File.setVisible(True)
 
     def actionMenuItem_statusBar(self):
         stat = self.munuItem_statusBar.isChecked()
         if stat:  # 选中状态
             self.dockWidget_status.show()
         else:  # 取消选择状态
-            self.dockWidget_status.setVisible(False)
+            self.dockWidget_status.setVisible(True)
 
     def dockWight_fileStatusCloseEvent(self):
         self.munuItem_fileStatusBar.setChecked(False)
