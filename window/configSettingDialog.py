@@ -367,12 +367,12 @@ class Ui_Dialog(QtCore.QObject):
                                                            "All File(*);;h5(*.h5);;or5(*.or5);;")
         if path != "":
             self.lineEdit_databaseFilePath.setText(path)
-            Database.modelPath = path
+            Database.databaseFilePath = path
             self.databasePathChanged = True
 
     def actionDefaultDatabasePath(self):
         self.lineEdit_databaseFilePath.setText(Database.databaseDefaultFilePath)
-        Database.modelPath = Database.databaseDefaultFilePath
+        Database.databaseFilePath = Database.databaseDefaultFilePath
 
     def actionCPU(self):
         Database.envir = "CPU"
