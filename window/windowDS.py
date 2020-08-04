@@ -32,7 +32,7 @@ class Ui_mainWindow(object):
     def setupUi(self, mainWindow):
         mainWindow.setObjectName("mainWindow")
         mainWindow.setWindowModality(QtCore.Qt.NonModal)
-        mainWindow.resize(1241, 725)
+        mainWindow.resize(1450, 840)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("./source/icon/logo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         mainWindow.setWindowIcon(icon)
@@ -830,7 +830,7 @@ class Ui_mainWindow(object):
             elif tabLable == "单点定位(SPP)":
                 # 界面重构存储区域
                 fileNameList, filter = QtWidgets.QFileDialog.getOpenFileNames(self.centralwidget, "导入观测文件与导航电文",
-                                                                              Database.default_workspace,
+                                                                              Database.workspace,
                                                                               "All Files(*)")
                 # self.displayInfo("I",str(fileNameList))
                 # 存入数据库
@@ -838,14 +838,14 @@ class Ui_mainWindow(object):
                     dir, fileName = os.path.split(fileNameList[0])
                     self.showPan(dir)
                     Database().setSppFilePath(fileNameList)
-                    self.displayInfo("I", "文件过滤筛选：" + str(Database().getSppFilePath("sp3")) + str(
+                    self.displayInfo("I", "文件过滤筛选：" + str(Database().getSppFilePath("o")) + str(
                         Database().getSppFilePath("n")))
                     # 数据显示
                     self.sppWight_ui.setFileInfo()
             elif tabLable == "单点定位(PPP)":
                 # 界面重构存储区域
                 fileNameList, filter = QtWidgets.QFileDialog.getOpenFileNames(self.centralwidget, "导入观测文件与SP3文件",
-                                                                              Database.default_workspace,
+                                                                              Database.workspace,
                                                                               "All Files(*)")
                 # self.displayInfo("I",str(fileNameList))
                 # 存入数据库
@@ -875,7 +875,7 @@ class Ui_mainWindow(object):
                 # 界面重构存储区域
                 fileName, filter = QtWidgets.QFileDialog.getOpenFileName(self.centralwidget, "导入解算重力异常文件",
                                                                          Database.workspace,
-                                                                         "csv文件(*.csv);;TXT文件(*.txt)")
+                                                                         "TXT文件(*.txt);;CSV(*.csv)")
                 # self.displayInfo("I",str(fileNameList))
                 # 存入数据库
                 if fileName != "":

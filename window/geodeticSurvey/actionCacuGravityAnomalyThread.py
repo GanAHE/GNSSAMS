@@ -15,6 +15,7 @@ from database.database import Database
 from geodeticSurvey import gravitySurvey
 from geodeticSurvey.gravityFieldModel import GravityModel, GravityField
 from geodeticSurvey.gravitySurvey import normalGravity
+from window.file import operationFile
 
 
 class ActionCacuGravityAnomaly(QThread):
@@ -138,12 +139,11 @@ class ActionCacuGravityAnomaly(QThread):
                         data.append(row)
             return data
         elif self.fileType == "txt":
-            with open(self.filePath, "r", encoding="utf-8") as f:
-                for line in f:
-                    data.append(line.split(","))
-            return data
-        else:
-            return data
+            data = operationFile.OperationFile().readlargeFile(self.filePath)
+            lists = []
+            for i in range(1,len(data)):
+                lists.append(data[i].split())
+            return lists
 
     def sendInfo(self, type, strInfo):
         if type == "over":

@@ -134,7 +134,7 @@ class ActionGetStationPositionThread(QThread):
             for i in range(len(oFilePathList)):
                 # 设定处理的点序号
                 self.id = str(i)
-                obsClass = readFile.read_obsFile(oFilePathList[0])
+                obsClass = readFile.read_obsFile(oFilePathList[i])
 
                 # sp3PastEpoch = sp3PastClass.ephemeris.index.values.tolist()
                 # sp3NowEpoch = sp3NowClass.ephemeris.index.values.tolist()
