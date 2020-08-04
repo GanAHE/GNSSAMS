@@ -35,7 +35,7 @@ class Database(object):
     light_speed = 299792458
 
     localHelpDocument = "./source/template/404.html"
-    onlineHelpLink = "https://www.ganahe.top/measureSoftwareHelp.html"
+    onlineHelpLink = "https://www.ganahe.top/archives/measureSoftwareHelp.html"
     baiduMapLinkPath = "./source/template/baiduMap.html"
     mapJSVarPath = "./source/template/pointsVar.js"
 
