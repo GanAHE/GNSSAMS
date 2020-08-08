@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+from numpy import rad2deg
 from database.database import Database
 from measureTool.coordinationTran import CoordinationTran
 
@@ -140,6 +140,7 @@ class Ui_Form(QtCore.QObject):
         self.retranslateUi(Form)
         self.toolBox.setCurrentIndex(0)
         self.button_coorSystemTran.clicked.connect(self.actionCoorSystemTranButton)
+        self.comboBox_coorSystemTran.currentIndexChanged.connect(self.actionChangedTableHead)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
@@ -175,11 +176,22 @@ class Ui_Form(QtCore.QObject):
         item = self.tableWidget_result.horizontalHeaderItem(0)
         item.setText(_translate("Form", "ID"))
         item = self.tableWidget_result.horizontalHeaderItem(1)
-        item.setText(_translate("Form", "X"))
+        item.setText(_translate("Form", "B"))
         item = self.tableWidget_result.horizontalHeaderItem(2)
-        item.setText(_translate("Form", "Y"))
+        item.setText(_translate("Form", "L"))
         item = self.tableWidget_result.horizontalHeaderItem(3)
-        item.setText(_translate("Form", "Z"))
+        item.setText(_translate("Form", "H"))
+
+    def actionChangedTableHead(self):
+        # 获取参数
+        text = self.comboBox_coorSystemTran.currentText()
+        # 更换表头
+        self.tableWidget_sourceCoor.horizontalHeaderItem(1).setText(text[0])
+        self.tableWidget_sourceCoor.horizontalHeaderItem(2).setText(text[1])
+        self.tableWidget_sourceCoor.horizontalHeaderItem(3).setText(text[2])
+        self.tableWidget_result.horizontalHeaderItem(1).setText(text[-3])
+        self.tableWidget_result.horizontalHeaderItem(2).setText(text[-2])
+        self.tableWidget_result.horizontalHeaderItem(3).setText(text[-1])
 
     def actionCoorSystemTran(self):
         # 从数据库获取文件路径
@@ -226,6 +238,9 @@ class Ui_Form(QtCore.QObject):
             coorDinationTran = CoordinationTran(elliPara)
             for i in range(len(self.dataList)):
                 tranLine = self.lineDataTran(coorDinationTran, list(map(float, self.dataList[i][1:])), index)
+                # 弧度转度
+                tranLine[0] = rad2deg(tranLine[0])
+                tranLine[1] = rad2deg(tranLine[1])
                 tranLine = list(map(str, tranLine))
                 tranLine.insert(0, self.dataList[i][0])
                 self.tranResult.append(tranLine)
@@ -235,7 +250,7 @@ class Ui_Form(QtCore.QObject):
                 for k in range(4):
                     self.tableWidget_result.setItem(i, k, QtWidgets.QTableWidgetItem())
                     if k != 0:
-                        self.tableWidget_result.item(i, k).setText(str(round(float(self.tranResult[i][k]),5)))
+                        self.tableWidget_result.item(i, k).setText(str(round(float(self.tranResult[i][k]), 5)))
                     else:
                         self.tableWidget_result.item(i, k).setText(self.tranResult[i][k])
                     self.tableWidget_result.item(i, k).setTextAlignment(QtCore.Qt.AlignCenter)
@@ -262,4 +277,29 @@ class Ui_Form(QtCore.QObject):
         self.infoEmit.emit(type, strInfo)
 
     def getTranResult(self):
+
         return self.tranResult
+
+    def report(self,filePath):
+        with open(filePath, "w+") as f:
+            text = self.comboBox_coorSystemTran.currentText()
+            headList = ["ID",text[-3]+"/°",text[-2]+"/°",text[-1]+"/m"]
+            head = ""
+            for i in range(len(headList)):
+                if i == 0:
+                    head += " {0:{1}<10}\t".format(headList[i], "")
+                else:
+                    head += "{0:{1}<15}\t".format(headList[i],"")
+            head += "\n"
+            f.write(head)
+            for i in range(len(self.tranResult)):
+                line = ""
+                for k in range(len(self.tranResult[0])):
+                    if k == 0:
+                        line += " {0:{1}<10}\t".format(self.tranResult[i][k], "")
+                    else:
+                        line += "{0:{1}<15}\t".format(self.tranResult[i][k], "")
+                line += "\n"
+                f.write(line)
+        f.close()
+        self.sendTopInfo("T", "已导出坐标系统转换结果")

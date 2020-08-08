@@ -985,15 +985,8 @@ class Ui_mainWindow(object):
                     if len(listData) > 0:
                         filePath,type = QtWidgets.QFileDialog.getSaveFileName(self.centralwidget,"导出坐标系统转换报告",Database.workspace,"Txt文本文件(*.txt)")
                         if filePath != "":
-                            with open(filePath,"w+") as f:
-                                f.write("ID Coor1 Coor2 Coor3\n")
-                                for i in range(len(listData)):
-                                    line = ""
-                                    for k in range(len(listData[0])):
-                                        line += " {0:{1}<15}\t".format(listData[i][k],"")
-                                    line += "\n"
-                                    f.write(line)
-                            self.displayInfo("I", "已导出坐标系统转换结果")
+                            self.coorSystemTranWight_ui.report(filePath)
+                            self.displayInfo("I","已导出报告,路径："+filePath)
                     else:
                         self.displayInfo("T", "数据未解算，无法导出结果报告")
 
