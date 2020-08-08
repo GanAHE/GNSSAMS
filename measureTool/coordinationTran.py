@@ -42,7 +42,7 @@ class CoordinationTran():
         :param BLH: 大地坐标系坐标 B(rad),L(rad),H(m)
         :return: X(m),Y(m),Z(m)
         """
-        N = self.ellipsis.c / sqrt(1 + (self.ellipsis.dot_e ** 2) * (cos(B) ** 2))
+        N = self.ellipsis.c / sqrt(1 + (self.ellipsis.dot_e ** 2) * (cos(BLH[0]) ** 2))
         X = (N + BLH[2]) * cos(BLH[0]) * cos(BLH[1])
         Y = (N + BLH[2]) * cos(BLH[0]) * sin(BLH[1])
         Z = (N * (1 - self.ellipsis.e ** 2) + BLH[2]) * sin(BLH[0])
@@ -118,7 +118,7 @@ class CoordinationTran():
         Z = XYZ[2][0]
         return X, Y, Z
 
-    def BLH_to_NEH(self, BLH):
+    def BLH_to_NEH(self, BLH,centerXYZ):
         """
         BLH 转 NEH
         <p> 中转
@@ -127,7 +127,7 @@ class CoordinationTran():
         """
         return self.XYZ_to_NEH(self.BLH_to_XYZ(BLH), centerXYZ)
 
-    def NEH_to_BLH(self, NEH):
+    def NEH_to_BLH(self, NEH,centerXYZ):
         self.XYZ_to_BLH(self.NEH_to_XYZ(NEH, centerXYZ))
 
 

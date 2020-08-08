@@ -149,6 +149,9 @@ class Database(object):
     def coorTranTargetData(self, fileReadData):
         self._coorTranTargetData = fileReadData
 
+    # 坐标系统转换原始坐标文件
+    coorSystemTranSourcePath = None
+
     _publicPointNumber = 3
 
     @property

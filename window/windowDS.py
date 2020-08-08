@@ -17,7 +17,7 @@ from database.database import Database
 from geodeticSurvey.draw_qualLine import drawGravityAnomaly
 from window import welcomeWight, aboutDialog, configSettingDialog
 from window.geodeticSurvey import inversionGravityFieldWight, gravityFieldApplicationWight
-from window.measureTool import coorTranWight, coorTranOpenFileDiaog, stablePointGroupWight
+from window.measureTool import coorTranWight, coorTranOpenFileDiaog, stablePointGroupWight, coorSystemTranWight
 from window.controlNetwork import stablePointGroupFileDialog, controlNetAdjustmentWight
 from window.engineeringSurvey import leicaDataFormatWight
 from window.windowEvent.actionReport import Report
@@ -416,6 +416,9 @@ class Ui_mainWindow(object):
         self.coorTranWight_ui = coorTranWight.Ui_Form()
         self.coorTranWight_ui.infoEmit.connect(self.displayInfo)
 
+        self.coorSystemTranWight_ui = coorSystemTranWight.Ui_Form()
+        self.coorSystemTranWight_ui.infoEmit.connect(self.displayInfo)
+
         # self.leicaDataFormat_ui = leicaDataFormatWight.Ui_Form()
 
         self.controlNetAdjustment_ui = controlNetAdjustmentWight.Ui_Form()
@@ -441,6 +444,7 @@ class Ui_mainWindow(object):
         # 其他菜单
         self.menuItem_quitSystem.triggered.connect(self.quitSystemEvent)
         self.munuItem_coorTran.triggered.connect(self.coorTranQwight)
+        self.munuItem_coorSystemTran.triggered.connect(self.coorSystemTranWight)
         self.munuItem_markbook.triggered.connect(self.leicaFormatWight)
         self.munuItem_controlNet.triggered.connect(self.horizontalControlNetworkWight)
         self.munuItem_stablePointGround.triggered.connect(self.stablePointGroupWight)
@@ -466,7 +470,6 @@ class Ui_mainWindow(object):
         self.configSettingDialog_ui.closeEmit.connect(self.actionCloseParaSettingDialog)
         self.aboutDialog_ui = aboutDialog.Ui_Dialog()
         self.munuItem_systemPara.triggered.connect(self.actionParaSettingDialog)
-
 
         QtCore.QMetaObject.connectSlotsByName(mainWindow)
 
@@ -624,6 +627,18 @@ class Ui_mainWindow(object):
         self.verticalLayout_4.addWidget(self.widget)
         self.coorTranWight_ui.setupUi(self.widget)
 
+    def coorSystemTranWight(self):
+        self.tabWidget.setCurrentIndex(0)
+        _translate = QtCore.QCoreApplication.translate
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_operate), _translate("mainWindow", "坐标系统转换"))
+        # 界面重构存储区域
+        self.widget.deleteLater()
+        self.widget = QtWidgets.QWidget(self.tab_operate)
+        self.widget.setObjectName("widget")
+        self.verticalLayout_4.addWidget(self.widget)
+
+        self.coorSystemTranWight_ui.setupUi(self.widget)
+
     def leicaFormatWight(self):
         self.tabWidget.setCurrentIndex(0)
         _translate = QtCore.QCoreApplication.translate
@@ -776,6 +791,19 @@ class Ui_mainWindow(object):
                 self.dialogUi.setupUi(self.dialog)
                 self.dialog.setWindowModality(QtCore.Qt.ApplicationModal)
                 self.dialog.show()
+            elif tabLable == "坐标系统转换":
+                # 界面重构存储区域
+                filePath, filter = QtWidgets.QFileDialog.getOpenFileName(self.centralwidget, "导入原始坐标文件",
+                                                                          Database.workspace,
+                                                                          "TXT文本(*.txt);;All Files(*)")
+                # self.displayInfo("I",str(fileNameList))
+                # 存入数据库
+                if filePath != "":
+                    dir, fileName = os.path.split(filePath)
+                    self.showPan(dir)
+                    Database.coorSystemTranSourcePath = filePath
+                    self.displayInfo("I", "导入文件：" + filePath)
+                    self.coorSystemTranWight_ui.actionShowSourceData()
 
             elif tabLable == "电子手簿":
                 # 界面wight区域重构
@@ -950,6 +978,25 @@ class Ui_mainWindow(object):
                     filePath = FileMsg(self.centralwidget).getWriteFilePath("txt")
                     self.report = Report("C", filePath, resultDict, resultFormatList)
                     self.report.start()
+
+                elif tabLabel == "坐标系统转换":
+                    self.textEdit_status.append("坐标系统转换报告导出中....")
+                    listData = self.coorSystemTranWight_ui.getTranResult()
+                    if len(listData) > 0:
+                        filePath,type = QtWidgets.QFileDialog.getSaveFileName(self.centralwidget,"导出坐标系统转换报告",Database.workspace,"Txt文本文件(*.txt)")
+                        if filePath != "":
+                            with open(filePath,"w+") as f:
+                                f.write("ID Coor1 Coor2 Coor3\n")
+                                for i in range(len(listData)):
+                                    line = ""
+                                    for k in range(len(listData[0])):
+                                        line += " {0:{1}<15}\t".format(listData[i][k],"")
+                                    line += "\n"
+                                    f.write(line)
+                            self.displayInfo("I", "已导出坐标系统转换结果")
+                    else:
+                        self.displayInfo("T", "数据未解算，无法导出结果报告")
+
                 elif tabLabel == "电子手簿":
                     """
                     # 徕卡数据
@@ -1017,7 +1064,6 @@ class Ui_mainWindow(object):
 
         except Exception as e:
             self.displayInfo("W", "错误！可能原因：\n 1.没有任何需要导出的数据；\n2. " + e.__str__())
-
 
     def onMapMeasure(self):
         self.tabWidget.setCurrentIndex(3)
