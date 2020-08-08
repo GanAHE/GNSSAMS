@@ -19,7 +19,7 @@ from window import welcomeWight, aboutDialog, configSettingDialog
 from window.geodeticSurvey import inversionGravityFieldWight, gravityFieldApplicationWight
 from window.measureTool import coorTranWight, coorTranOpenFileDiaog, stablePointGroupWight, coorSystemTranWight
 from window.controlNetwork import stablePointGroupFileDialog, controlNetAdjustmentWight
-from window.engineeringSurvey import leicaDataFormatWight
+from window.engineeringSurvey import leicaDataFormatWight,circularCurveWight
 from window.windowEvent.actionReport import Report
 from window.file.fileMsg import FileMsg
 from window.tipDig import ActionWarnException
@@ -445,6 +445,7 @@ class Ui_mainWindow(object):
         self.menuItem_quitSystem.triggered.connect(self.quitSystemEvent)
         self.munuItem_coorTran.triggered.connect(self.coorTranQwight)
         self.munuItem_coorSystemTran.triggered.connect(self.coorSystemTranWight)
+        self.munuItem_railwayCurve.triggered.connect(self.railwayCurveCalculationWight)
         self.munuItem_markbook.triggered.connect(self.leicaFormatWight)
         self.munuItem_controlNet.triggered.connect(self.horizontalControlNetworkWight)
         self.munuItem_stablePointGround.triggered.connect(self.stablePointGroupWight)
@@ -639,6 +640,19 @@ class Ui_mainWindow(object):
 
         self.coorSystemTranWight_ui.setupUi(self.widget)
 
+    def railwayCurveCalculationWight(self):
+        self.tabWidget.setCurrentIndex(0)
+        _translate = QtCore.QCoreApplication.translate
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_operate), _translate("mainWindow", "铁路曲线计算"))
+        # 界面重构存储区域
+        self.widget.deleteLater()
+        self.widget = QtWidgets.QWidget(self.tab_operate)
+        self.widget.setObjectName("widget")
+        self.verticalLayout_4.addWidget(self.widget)
+        self.railwayCurveCalculationWight_ui = circularCurveWight.Ui_Form()
+        self.railwayCurveCalculationWight_ui.setupUi(self.widget)
+        self.railwayCurveCalculationWight_ui.infoEmit.connect(self.displayInfo)
+
     def leicaFormatWight(self):
         self.tabWidget.setCurrentIndex(0)
         _translate = QtCore.QCoreApplication.translate
@@ -804,6 +818,8 @@ class Ui_mainWindow(object):
                     Database.coorSystemTranSourcePath = filePath
                     self.displayInfo("I", "导入文件：" + filePath)
                     self.coorSystemTranWight_ui.actionShowSourceData()
+            elif tabLable == "铁路曲线计算":
+                self.displayInfo("T","暂未开放导入功能！")
 
             elif tabLable == "电子手簿":
                 # 界面wight区域重构
