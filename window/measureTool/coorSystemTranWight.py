@@ -17,6 +17,7 @@ from measureTool.coordinationTran import CoordinationTran
 class Ui_Form(QtCore.QObject):
     infoEmit = QtCore.pyqtSignal(str, str)
     tranResult = []
+    dataList = []
 
     def setupUi(self, Form):
         Form.setObjectName("Form")
