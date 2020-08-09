@@ -267,7 +267,6 @@ class Ui_Form(QtCore.QObject):
                 lineList = []
                 for k in range(6):
                     lineList.append(self.tableWidget.item(i, k).text().strip())
-                    print(self.tableWidget.item(i, k).text())
                 self.textEdit.append("--当前解算ID：{}".format(lineList[0]))
 
                 self.singleCircularCurve_principalPointMileage(float(lineList[1]), np.deg2rad(float(lineList[2])),
@@ -314,7 +313,6 @@ class Ui_Form(QtCore.QObject):
                 lineList = []
                 for k in range(7):
                     lineList.append(self.tableWidget.item(i, k).text().strip())
-                    print(self.tableWidget.item(i, k).text())
                 self.textEdit.append("--当前解算ID：{}".format(lineList[0]))
 
                 self.relief_circularCurve_principalPointMileage(float(lineList[1]),
@@ -516,9 +514,9 @@ class Ui_Form(QtCore.QObject):
             self.textEdit.append("解算各项结果如下：")
             for i in range(len(name)):
                 if i < 4:
-                    self.textEdit.append(" ({}).{}:{}".format(i, name[i], data[i]))
+                    self.textEdit.append(" ({}){}:{}".format(i, name[i], data[i]))
                 else:
-                    self.textEdit.append(" ({}).{}:{}+{}m".format(i, name[i], KJD_type, data[i]))
+                    self.textEdit.append(" ({}){}:{}+{}m".format(i, name[i], KJD_type, data[i]))
             return {"code": 1,
                     "result": [m, P, bata_0, TH, K_ZH, K_HY, K_QZ, K_YH, K_HZ]}
         else:
