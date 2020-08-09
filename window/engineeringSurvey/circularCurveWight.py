@@ -9,6 +9,9 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import numpy as np
+
+from measureTool.angleConversion import Angle
 
 
 class Ui_Form(QtCore.QObject):
@@ -119,6 +122,9 @@ class Ui_Form(QtCore.QObject):
 
         self.retranslateUi(Form)
         self.button_mainMileage.clicked.connect(self.actionMainMileage)
+        self.button_pointStation.clicked.connect(self.action_singleCircularCurveMiddlePilePointCoor)
+        self.button_easementMainMileage.clicked.connect(self.action_relief_circularCurve_principalPointMileage)
+        self.button_easementPointStation.clicked.connect(self.action_relief_circularCurve_middlePilePointCoor)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
@@ -180,13 +186,342 @@ class Ui_Form(QtCore.QObject):
                                          "<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
                                          "<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Source Code Pro\'; font-size:10.5pt; font-style:italic; color:#546e7a;\">=================</span></p></body></html>"))
 
-    def actionMainMileage(self):
-        # 从表格读取数据
-        tableRow = self.tableWidget.rowCount()
-        tableColumn = self.tableWidget.columnCount()
-        for i in range(tableRow):
-            for k in range(tableColumn):
-                print(self.tableWidget.item(i, k).text())
+    def fileSetData(self):
+        # 从文件导入数据
+        pass
 
-    def sendTopInfo(self,type,strInfo):
-        self.infoEmit.emit(type,strInfo)
+    def actionMainMileage(self):
+        """
+        曲线主点里程
+        :return:
+        """
+        try:
+            # 从表格读取数据
+            self.textEdit.append("\n  == 单圆曲线主点里程 ==")
+            for i in range(self.tableWidget.rowCount()):
+                lineList = []
+                for k in range(5):
+                    lineList.append(self.tableWidget.item(i, k).text().strip())
+                    print(self.tableWidget.item(i, k).text())
+                self.textEdit.append("--{} 主点里程".format(lineList[0]))
+
+                self.singleCircularCurve_principalPointMileage(float(lineList[1]), np.deg2rad(float(lineList[2])),
+                                                               float(lineList[4]))
+        except Exception as e:
+            self.sendTopInfo("E", "异常错误！可能原因：\n 1.待解算数据未填充或是填写错误；"
+                                  "\n2.填写数据为汉字字符等非数据类型；"
+                                  "\n3.详细信息：" + e.__str__())
+
+    def action_singleCircularCurveMiddlePilePointCoor(self):
+        """
+        曲线中桩点坐标
+        :return:
+        """
+        try:
+            self.textEdit.append("\n  == 单圆曲线中桩点坐标计算 ==")
+            for i in range(self.tableWidget.rowCount()):
+                lineList = []
+                for k in range(self.tableWidget.columnCount()):
+                    lineList.append(self.tableWidget.item(i, k).text().strip())
+                self.textEdit.append("--当前解算ID：{}".format(lineList[0]))
+                self.singleCircularCurve_middlePilePointCoor(float(lineList[1]), np.deg2rad(float(lineList[2])),
+                                                             lineList[3], float(lineList[4]), float(lineList[5]),
+                                                             float(lineList[6]),
+                                                             float(lineList[7]), np.deg2rad(float(lineList[8])))
+        except Exception as e:
+            self.sendTopInfo("E", "异常错误！可能原因：\n 1.待解算数据未填充或是填写错误；"
+                                  "\n2.填写数据为汉字字符等非数据类型；"
+                                  "\n3.详细信息：" + e.__str__())
+
+    def action_relief_circularCurve_principalPointMileage(self):
+        """
+        带缓和曲线的主点里程
+        :return:
+        """
+        try:
+            # 从表格读取数据
+            self.textEdit.append("\n  == 带有缓和曲线的圆曲线主点里程 ==")
+            for i in range(self.tableWidget.rowCount()):
+                lineList = []
+                for k in range(5):
+                    lineList.append(self.tableWidget.item(i, k).text().strip())
+                    print(self.tableWidget.item(i, k).text())
+                self.textEdit.append("--{} 主点里程".format(lineList[0]))
+
+                self.relief_circularCurve_principalPointMileage(float(lineList[1]),
+                                                                np.deg2rad(float(lineList[2])),
+                                                                lineList[3],
+                                                                float(lineList[4]))
+        except Exception as e:
+            self.sendTopInfo("E", "异常错误！可能原因：\n 1.待解算数据未填充或是填写错误；"
+                                  "\n2.填写数据为汉字字符等非数据类型；"
+                                  "\n3.详细信息：" + e.__str__())
+
+    def action_relief_circularCurve_middlePilePointCoor(self):
+        """
+        带缓和曲线的中桩点坐标
+        :return:
+        """
+        try:
+            self.textEdit.append("\n  == 带有缓和曲线的圆曲线中桩点坐标计算 ==")
+            for i in range(self.tableWidget.rowCount()):
+                lineList = []
+                for k in range(self.tableWidget.columnCount()):
+                    lineList.append(self.tableWidget.item(i, k).text().strip())
+                self.textEdit.append("--当前解算ID：{}".format(lineList[0]))
+                self.relief_circularCurve_middlePilePointCoor(float(lineList[1]), np.deg2rad(float(lineList[2])),
+                                                              lineList[3], float(lineList[4]), float(lineList[5]),
+                                                              float(lineList[6]),
+                                                              float(lineList[7]), np.deg2rad(float(lineList[8])))
+        except Exception as e:
+            self.sendTopInfo("E", "异常错误！可能原因：\n 1.待解算数据未填充或是填写错误；"
+                                  "\n2.填写数据为汉字字符等非数据类型；"
+                                  "\n3.详细信息：" + e.__str__())
+
+    def sendTopInfo(self, type, strInfo):
+        self.infoEmit.emit(type, strInfo)
+
+    def singleCircularCurve_principalPointMileage(self, circularR, steerAngle_alpha, K_JD):
+        """
+        圆曲线主点里程计算
+        :param circularR: 圆曲线半径R:m
+        :param steerAngle_alpha: 线路转向角（弧度）
+        :param K_JD: 交点JD里程：m
+        :return:
+        """
+        # 圆曲线切线长
+        T = circularR * np.tan(steerAngle_alpha / 2)
+        # 曲线长
+        L = circularR * steerAngle_alpha
+        # 曲线外矢距
+        # E = circularR * (1 / math.cos(steerAngle_alpha / 2) - 1)
+        # 切曲差
+        q = 2 * T - L
+
+        # 计算主点里程
+        K_ZY = K_JD - T
+        K_QZ = K_ZY + L / 2
+        K_YZ = K_ZY + L
+
+        # 检核
+        JH1 = K_QZ + q / 2
+        JH2 = K_ZY + T
+        self.textEdit.append("检核数据：KJD={}, JH1={}, JH2={}".format(K_JD, JH1, JH2))
+
+        if K_JD == JH2 and K_JD == JH1:
+            self.textEdit.append("检核正确！")
+            self.textEdit.append(" 主点里程有：\n 1)直圆点ZY:{} m；2）曲中点QZ：{} m；3）圆直点YZ：{} m。".format(K_ZY, K_QZ, K_YZ))
+        else:
+            if JH1 - K_JD < 1.0E6 and JH2 - K_JD < 1.0E6:
+                self.textEdit.append("基本检核正确！")
+                self.textEdit.append(" 主点里程有：\n 1)直圆点ZY:{} m；2）曲中点QZ：{} m；3）圆直点YZ：{} m。".format(K_ZY, K_QZ, K_YZ))
+            else:
+                self.sendTopInfo("T", "计算错误，再看看输入数据？我已经保证算法无误了")
+
+    def singleCircularCurve_middlePilePointCoor(self, circularR, steerAngle_alpha, steerAngleType, K_JD, JD_CoorX,
+                                                JD_CoorY,
+                                                K_middlePilePoint, alpha_ZYJDorJDYZ):
+        """
+        计算已知里程中桩点的坐标
+        <p> 前提：待求中桩点所在圆曲线的R，路线转向角alpha，交点JD里程，待求中桩点里程
+        :param circularR: 中桩点所在圆曲线的半径：m
+        :param steerAngle_alpha: 线路转向角（弧度）
+        :param steerAngleType: 线路转向角方向：R-右折角，L-左折角
+        :param K_JD: 交点JD里程：m
+        :param JD_CoorX: 交点JD的X坐标
+        :param JD_CoorY: 交点JD的Y坐标
+        :param K_middlePilePoint: 待求中桩点里程：m
+        :param alpha_ZYJDorJDYZ: 坐标方位角(弧度）：1.待求点在ZY-QZ：ZYJD；2.待求点在QZ-YZ：JDYZ
+        :return:
+        """
+        # 圆曲线切线长
+        T = circularR * np.tan(steerAngle_alpha / 2)
+        # 曲线长
+        L = circularR * steerAngle_alpha
+        # 曲线外矢距
+        # E = circularR * (1 / math.cos(steerAngle_alpha / 2) - 1)
+        q = 2 * T - L
+
+        # 计算主点里程
+        K_ZY = K_JD - T
+        K_QZ = K_ZY + L / 2
+        K_YZ = K_ZY + L
+
+        # 检核
+        JH1 = K_QZ + q / 2
+        JH2 = K_ZY + T
+        self.textEdit.append("检核数据：KJD={}, JH1={}, JH2={}".format(K_JD, JH1, JH2))
+
+        if (K_JD == JH2 and K_JD == JH1) or (JH1 - K_JD < 1.0E6 and JH2 - K_JD < 1.0E6):
+            self.textEdit.append("主点里程计算结果检核正确！执行下一步计算")
+            # 根据QZ点判断中桩点位于圆曲线的区域
+            if K_middlePilePoint < K_QZ and K_middlePilePoint > K_ZY:
+                self.textEdit.append("-中桩点位于圆曲线区域：前半段")
+                # 前半段
+                distanceDifference = K_middlePilePoint - K_ZY
+                # 计算独立坐标系下坐标
+                seta = distanceDifference / circularR
+                x = circularR * np.sin(seta)
+                y = circularR * (1 - np.cos(seta))
+                if steerAngleType == "L":
+                    y = -y
+                # 计算 ZY/YZ 的坐标，需要知道ZY-JD/JD-YZ的坐标方位角
+                X_ZY = JD_CoorX - T * np.cos(alpha_ZYJDorJDYZ)
+                Y_ZY = JD_CoorY - T * np.sin(alpha_ZYJDorJDYZ)
+                # 统一坐标系下的坐标
+                X_middlePilePoint = X_ZY + x * np.cos(alpha_ZYJDorJDYZ) - y * np.sin(alpha_ZYJDorJDYZ)
+                Y_middlePilePoint = Y_ZY + x * np.sin(alpha_ZYJDorJDYZ) + y * np.cos(alpha_ZYJDorJDYZ)
+
+            elif K_middlePilePoint < K_YZ and K_middlePilePoint > K_QZ:
+                self.textEdit.append("-中桩点位于圆曲线区域：后半段")
+                # 后半段
+                distanceDifference = K_ZY - K_middlePilePoint
+                # 计算独立坐标系下坐标
+                seta = distanceDifference / circularR
+                x = circularR * np.sin(seta)
+                y = circularR * (1 - np.cos(seta))
+                if steerAngleType == "L":
+                    y = -y
+                # 计算 ZY/YZ 的坐标，需要知道ZY-JD/JD-YZ的坐标方位角
+                X_YZ = JD_CoorX - T * np.cos(alpha_ZYJDorJDYZ)
+                Y_YZ = JD_CoorY - T * np.sin(alpha_ZYJDorJDYZ)
+                # 统一坐标系下的坐标
+                X_middlePilePoint = X_YZ + x * np.cos(alpha_ZYJDorJDYZ) + y * np.sin(alpha_ZYJDorJDYZ)
+                Y_middlePilePoint = Y_YZ + x * np.sin(alpha_ZYJDorJDYZ) - y * np.cos(alpha_ZYJDorJDYZ)
+            else:
+                self.sendTopInfo("E", "中桩点不在圆曲线上，错误！")
+                return None
+            self.textEdit.append("计算完成！坐标为: X:{} m,Y:{} m".format(X_middlePilePoint, Y_middlePilePoint))
+
+        else:
+            self.sendTopInfo("E", "主点里程计算错误,检核失败")
+
+    def relief_circularCurve_principalPointMileage(self, circularR, steerAngle_alpha, Ls, K_JD):
+        """
+        带有缓和曲线的圆曲线主点里程计算
+        :param circularR: 圆曲线半径R:m
+        :param steerAngle_alpha: 线路转向角（弧度）
+        :param Ls: 缓和曲线长度：m
+        :param K_JD: 交点JD里程：m
+        :return:
+        """
+        # 切垂距
+        m = Ls / 2 - Ls * Ls * Ls / (240 * circularR * circularR)
+        # 圆曲线内移值
+        P = Ls * Ls / (24 * circularR)
+        # 缓和曲线的切线角
+        bata_0 = Ls * 180 / (2 * circularR * np.pi)  # 度
+        self.textEdit.append("缓和曲线的切线角DMS:{}".format(Angle(bata_0).degreeToDMS()))
+        # 切线长
+        TH = (circularR + P) * np.tan(steerAngle_alpha / 2) + m
+        # 曲线长
+        LH = np.pi * circularR * (steerAngle_alpha * 180 / np.pi - 2 * bata_0) / 180 + 2 * Ls
+        LT = LH - 2 * Ls
+        # 外矢距
+        EH = (circularR + P) * (1 / np.cos(steerAngle_alpha / 2)) - circularR
+        # 切曲差
+        q = 2 * TH - LH
+
+        # 主点里程
+        K_ZH = K_JD - TH
+        K_HY = K_ZH + Ls
+
+        K_QZ = K_ZH + LH / 2
+        K_YH = K_HY + LT
+        K_HZ = K_YH + Ls
+
+        # 检核
+        self.textEdit.append("检核： K_QZ + 1 / 2 * q:{},K_JD:{}".format(K_QZ + 1 / 2 * q, K_JD))
+        if K_JD - (K_QZ + 1 / 2 * q) < 1E-5 or (K_QZ + 1 / 2 * q) == K_JD:
+            self.textEdit.append("曲线综合要素计算检核正确")
+            data = [m, P, bata_0, TH, K_ZH, K_HY, K_QZ, K_YH, K_HZ]
+            name = list(map(str, data))
+            self.textEdit.append("解算各项结果如下：")
+            for i in range(len(name)):
+                self.textEdit.append(" -{}.{}:{}".format(i, name, data))
+        else:
+            self.textEdit("曲线综合要素计算检核错误!")
+            return None
+
+    def relief_circularCurve_middlePilePointCoor(self, circularR, steerAngle_alpha, steerAngleType, Ls, K_JD, JD_CoorX,
+                                                 JD_CoorY,
+                                                 K_middlePilePoint, alpha_ZHYJDorJDHZ):
+        """
+        计算已知里程中桩点的坐标
+        <p> 前提：待求中桩点所在圆曲线的R，路线转向角alpha，交点JD里程，待求中桩点里程
+        :param circularR: 中桩点所在圆曲线的半径：m
+        :param steerAngle_alpha: 线路转向角（弧度）
+        :param steerAngleType: 线路转向角方向：R-右折角，L-左折角
+        :param Ls: 缓和曲线长：m
+        :param K_JD: 交点JD里程：m
+        :param JD_CoorX: 交点JD的X坐标
+        :param JD_CoorY: 交点JD的Y坐标
+        :param K_middlePilePoint: 待求中桩点里程：m
+        :param alpha_ZHYJDorJDHZ: 坐标方位角：弧度
+        :return:
+        """
+        # 获取曲线主点参数
+        principalPointDict = self.relief_circularCurve_principalPointMileage(circularR, steerAngle_alpha, Ls, K_JD)
+        if principalPointDict["code"] == 1:
+            # 检核正确
+            m = principalPointDict["result"][0]
+            P = principalPointDict["result"][1]
+            # bata =  principalPointDict["result"][2]
+            T = principalPointDict["result"][3]
+            K_ZH = principalPointDict["result"][4]
+            K_HY = principalPointDict["result"][5]
+            # K_QZ = principalPointDict["result"][6]
+            K_YH = principalPointDict["result"][7]
+            K_HZ = principalPointDict["result"][8]
+
+            # 计算线路坐标
+            X_ZHorHZ = JD_CoorX - T * np.cos(alpha_ZHYJDorJDHZ)
+            Y_ZHorHZ = JD_CoorY - T * np.sin(alpha_ZHYJDorJDHZ)
+
+            # 判断待求中桩点的位置
+            if K_middlePilePoint > K_ZH and K_middlePilePoint < K_HY:
+                print("在第一段缓和曲线上")
+                # 在第一段缓曲线上
+                L_I = K_middlePilePoint - K_ZH
+                x_I = L_I - L_I ** 5 / (40 * circularR * circularR * Ls * Ls)
+                y_I = L_I * L_I * L_I / (6 * circularR * Ls)
+                if steerAngleType == "L":
+                    y_I = - y_I
+                X_middlePilePoint = X_ZHorHZ + x_I * np.cos(alpha_ZHYJDorJDHZ) - y_I * np.sin(alpha_ZHYJDorJDHZ)
+                Y_middlePilePoint = Y_ZHorHZ + x_I * np.sin(alpha_ZHYJDorJDHZ) + y_I * np.cos(alpha_ZHYJDorJDHZ)
+
+
+            elif K_middlePilePoint > K_HY and K_middlePilePoint < K_YH:
+                # 在圆曲线区域,归并到第一个独立坐标系进行计算
+                print("在圆曲线区域,归并到第一个独立坐标系进行计算")
+                L_circular = K_middlePilePoint - K_ZH
+                seta = (L_circular - 0.5 * Ls) / circularR
+                x_circular = m + circularR * np.sin(seta)
+                y_circular = P + circularR * (1 - np.cos(seta))
+                if steerAngleType == "L":
+                    y_circular = - y_circular
+                X_middlePilePoint = X_ZHorHZ + x_circular * np.cos(alpha_ZHYJDorJDHZ) - y_circular * np.sin(
+                    alpha_ZHYJDorJDHZ)
+                Y_middlePilePoint = Y_ZHorHZ + x_circular * np.sin(alpha_ZHYJDorJDHZ) + y_circular * np.cos(
+                    alpha_ZHYJDorJDHZ)
+
+
+            elif K_middlePilePoint > K_YH and K_middlePilePoint < K_HZ:
+                # 在第二段缓曲线上
+                print("在第二段缓曲线上")
+                L_II = K_HZ - K_middlePilePoint
+                x_II = L_II - L_II ** 5 / (40 * circularR * circularR * Ls * Ls)
+                y_II = L_II * L_II * L_II / (6 * circularR * Ls)
+                if steerAngleType == "L":
+                    y_II = - y_II
+                X_middlePilePoint = X_ZHorHZ + x_II * np.cos(alpha_ZHYJDorJDHZ) + y_II * np.sin(
+                    alpha_ZHYJDorJDHZ)
+                Y_middlePilePoint = Y_ZHorHZ + x_II * np.sin(alpha_ZHYJDorJDHZ) - y_II * np.cos(
+                    alpha_ZHYJDorJDHZ)
+            else:
+                print("中桩点不在曲线上！")
+                return None
+            print("结果：", X_middlePilePoint, Y_middlePilePoint)
+        else:
+            print("主点坐标计算检核错误")
+            return None
