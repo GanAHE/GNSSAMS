@@ -50,6 +50,12 @@ class Ui_Form(QtCore.QObject):
         self.button_easementPointStation = QtWidgets.QPushButton(self.groupBox_2)
         self.button_easementPointStation.setObjectName("button_easementPointStation")
         self.verticalLayout_3.addWidget(self.button_easementPointStation)
+        self.label_2 = QtWidgets.QLabel(self.groupBox_2)
+        self.label_2.setText("")
+        self.label_2.setPixmap(QtGui.QPixmap("./source/icon/designer-tools.png"))
+        self.label_2.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_2.setObjectName("label_2")
+        self.verticalLayout_3.addWidget(self.label_2)
         spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_3.addItem(spacerItem1)
         self.verticalLayout_4.addWidget(self.groupBox_2)
@@ -60,7 +66,7 @@ class Ui_Form(QtCore.QObject):
         self.verticalLayout.setObjectName("verticalLayout")
         self.tableWidget = QtWidgets.QTableWidget(self.groupBox_3)
         self.tableWidget.setObjectName("tableWidget")
-        self.tableWidget.setColumnCount(9)
+        self.tableWidget.setColumnCount(11)
         self.tableWidget.setRowCount(1)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setVerticalHeaderItem(0, item)
@@ -83,15 +89,42 @@ class Ui_Form(QtCore.QObject):
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(8, item)
         item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(9, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(10, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
         self.tableWidget.setItem(0, 0, item)
         item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
         self.tableWidget.setItem(0, 1, item)
         item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
         self.tableWidget.setItem(0, 2, item)
         item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
         self.tableWidget.setItem(0, 3, item)
         item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
         self.tableWidget.setItem(0, 4, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.tableWidget.setItem(0, 5, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.tableWidget.setItem(0, 6, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.tableWidget.setItem(0, 7, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.tableWidget.setItem(0, 8, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.tableWidget.setItem(0, 9, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.tableWidget.setItem(0, 10, item)
         self.verticalLayout.addWidget(self.tableWidget)
         self.commandLinkButton = QtWidgets.QCommandLinkButton(self.groupBox_3)
         self.commandLinkButton.setObjectName("commandLinkButton")
@@ -148,19 +181,23 @@ class Ui_Form(QtCore.QObject):
         item = self.tableWidget.horizontalHeaderItem(3)
         item.setText(_translate("Form", "路线转向角类型/(R/L)"))
         item = self.tableWidget.horizontalHeaderItem(4)
-        item.setText(_translate("Form", "交点JD里程/m"))
+        item.setText(_translate("Form", "里程桩号"))
         item = self.tableWidget.horizontalHeaderItem(5)
-        item.setText(_translate("Form", "*交点JD的X坐标/m"))
+        item.setText(_translate("Form", "交点JD里程/m"))
         item = self.tableWidget.horizontalHeaderItem(6)
-        item.setText(_translate("Form", "*交点JD的Y坐标/m"))
+        item.setText(_translate("Form", "*缓和曲线长/m"))
         item = self.tableWidget.horizontalHeaderItem(7)
-        item.setText(_translate("Form", "*待求中桩点里程/m"))
+        item.setText(_translate("Form", "*交点JD的X坐标/m"))
         item = self.tableWidget.horizontalHeaderItem(8)
+        item.setText(_translate("Form", "*交点JD的Y坐标/m"))
+        item = self.tableWidget.horizontalHeaderItem(9)
+        item.setText(_translate("Form", "*待求中桩点里程/m"))
+        item = self.tableWidget.horizontalHeaderItem(10)
         item.setText(_translate("Form", "入(出)线坐标方位角/°"))
         __sortingEnabled = self.tableWidget.isSortingEnabled()
         self.tableWidget.setSortingEnabled(False)
         item = self.tableWidget.item(0, 0)
-        item.setText(_translate("Form", "示例1"))
+        item.setText(_translate("Form", "示例编号G01"))
         item = self.tableWidget.item(0, 1)
         item.setText(_translate("Form", "203"))
         item = self.tableWidget.item(0, 2)
@@ -168,6 +205,8 @@ class Ui_Form(QtCore.QObject):
         item = self.tableWidget.item(0, 3)
         item.setText(_translate("Form", "R"))
         item = self.tableWidget.item(0, 4)
+        item.setText(_translate("Form", "DK"))
+        item = self.tableWidget.item(0, 5)
         item.setText(_translate("Form", "258.36"))
         self.tableWidget.setSortingEnabled(__sortingEnabled)
         self.commandLinkButton.setText(_translate("Form", "1.右键单击上方表格区域可以手动添加数据； 2.可以导入整理后的.rc格式的文本文件，格式参照说明"))
@@ -200,13 +239,13 @@ class Ui_Form(QtCore.QObject):
             self.textEdit.append("\n  == 单圆曲线主点里程 ==")
             for i in range(self.tableWidget.rowCount()):
                 lineList = []
-                for k in range(5):
+                for k in range(6):
                     lineList.append(self.tableWidget.item(i, k).text().strip())
                     print(self.tableWidget.item(i, k).text())
                 self.textEdit.append("--{} 主点里程".format(lineList[0]))
 
                 self.singleCircularCurve_principalPointMileage(float(lineList[1]), np.deg2rad(float(lineList[2])),
-                                                               float(lineList[4]))
+                                                               lineList[4], float(lineList[5]))
         except Exception as e:
             self.sendTopInfo("E", "异常错误！可能原因：\n 1.待解算数据未填充或是填写错误；"
                                   "\n2.填写数据为汉字字符等非数据类型；"
@@ -225,9 +264,9 @@ class Ui_Form(QtCore.QObject):
                     lineList.append(self.tableWidget.item(i, k).text().strip())
                 self.textEdit.append("--当前解算ID：{}".format(lineList[0]))
                 self.singleCircularCurve_middlePilePointCoor(float(lineList[1]), np.deg2rad(float(lineList[2])),
-                                                             lineList[3], float(lineList[4]), float(lineList[5]),
-                                                             float(lineList[6]),
-                                                             float(lineList[7]), np.deg2rad(float(lineList[8])))
+                                                             lineList[3], float(lineList[5]),
+                                                             float(lineList[7]), float(lineList[8]),
+                                                             float(lineList[9]), np.deg2rad(float(lineList[10])))
         except Exception as e:
             self.sendTopInfo("E", "异常错误！可能原因：\n 1.待解算数据未填充或是填写错误；"
                                   "\n2.填写数据为汉字字符等非数据类型；"
@@ -243,15 +282,15 @@ class Ui_Form(QtCore.QObject):
             self.textEdit.append("\n  == 带有缓和曲线的圆曲线主点里程 ==")
             for i in range(self.tableWidget.rowCount()):
                 lineList = []
-                for k in range(5):
+                for k in range(7):
                     lineList.append(self.tableWidget.item(i, k).text().strip())
                     print(self.tableWidget.item(i, k).text())
                 self.textEdit.append("--{} 主点里程".format(lineList[0]))
 
                 self.relief_circularCurve_principalPointMileage(float(lineList[1]),
                                                                 np.deg2rad(float(lineList[2])),
-                                                                lineList[3],
-                                                                float(lineList[4]))
+                                                                lineList[4],
+                                                                float(lineList[5]), float(lineList[6]))
         except Exception as e:
             self.sendTopInfo("E", "异常错误！可能原因：\n 1.待解算数据未填充或是填写错误；"
                                   "\n2.填写数据为汉字字符等非数据类型；"
@@ -270,9 +309,10 @@ class Ui_Form(QtCore.QObject):
                     lineList.append(self.tableWidget.item(i, k).text().strip())
                 self.textEdit.append("--当前解算ID：{}".format(lineList[0]))
                 self.relief_circularCurve_middlePilePointCoor(float(lineList[1]), np.deg2rad(float(lineList[2])),
-                                                              lineList[3], float(lineList[4]), float(lineList[5]),
+                                                              lineList[3], lineList[4], float(lineList[5]),
                                                               float(lineList[6]),
-                                                              float(lineList[7]), np.deg2rad(float(lineList[8])))
+                                                              float(lineList[7]), float(lineList[8]),
+                                                              float(lineList[9]), np.deg2rad(float(lineList[10])))
         except Exception as e:
             self.sendTopInfo("E", "异常错误！可能原因：\n 1.待解算数据未填充或是填写错误；"
                                   "\n2.填写数据为汉字字符等非数据类型；"
@@ -281,7 +321,7 @@ class Ui_Form(QtCore.QObject):
     def sendTopInfo(self, type, strInfo):
         self.infoEmit.emit(type, strInfo)
 
-    def singleCircularCurve_principalPointMileage(self, circularR, steerAngle_alpha, K_JD):
+    def singleCircularCurve_principalPointMileage(self, circularR, steerAngle_alpha, KJD_type, K_JD):
         """
         圆曲线主点里程计算
         :param circularR: 圆曲线半径R:m
@@ -310,11 +350,13 @@ class Ui_Form(QtCore.QObject):
 
         if K_JD == JH2 and K_JD == JH1:
             self.textEdit.append("检核正确！")
-            self.textEdit.append(" 主点里程有：\n 1)直圆点ZY:{} m；2）曲中点QZ：{} m；3）圆直点YZ：{} m。".format(K_ZY, K_QZ, K_YZ))
+            self.textEdit.append(
+                " 主点里程有：\n 1)直圆点ZY:{}+{} m；2）曲中点QZ：{}+{} m；3）圆直点YZ：{}+{} m。".format(KJD_type, K_ZY, KJD_type, K_QZ,
+                                                                                    KJD_type, K_YZ))
         else:
             if JH1 - K_JD < 1.0E6 and JH2 - K_JD < 1.0E6:
                 self.textEdit.append("基本检核正确！")
-                self.textEdit.append(" 主点里程有：\n 1)直圆点ZY:{} m；2）曲中点QZ：{} m；3）圆直点YZ：{} m。".format(K_ZY, K_QZ, K_YZ))
+                self.textEdit.append(" 主点里程有：\n 1)直圆点ZY:{}+{} m；2）曲中点QZ：{}+{} m；3）圆直点YZ：{}+{} m。".format(KJD_type,K_ZY,KJD_type, K_QZ,KJD_type, K_YZ))
             else:
                 self.sendTopInfo("T", "计算错误，再看看输入数据？我已经保证算法无误了")
 
@@ -389,14 +431,14 @@ class Ui_Form(QtCore.QObject):
                 X_middlePilePoint = X_YZ + x * np.cos(alpha_ZYJDorJDYZ) + y * np.sin(alpha_ZYJDorJDYZ)
                 Y_middlePilePoint = Y_YZ + x * np.sin(alpha_ZYJDorJDYZ) - y * np.cos(alpha_ZYJDorJDYZ)
             else:
-                self.sendTopInfo("E", "中桩点不在圆曲线上，错误！")
+                self.sendTopInfo("W", "中桩点不在圆曲线上，错误！")
                 return None
-            self.textEdit.append("计算完成！坐标为: X:{} m,Y:{} m".format(X_middlePilePoint, Y_middlePilePoint))
+            self.textEdit.append("计算完成！坐标为: X:{}m,Y:{}m".format(X_middlePilePoint, Y_middlePilePoint))
 
         else:
             self.sendTopInfo("E", "主点里程计算错误,检核失败")
 
-    def relief_circularCurve_principalPointMileage(self, circularR, steerAngle_alpha, Ls, K_JD):
+    def relief_circularCurve_principalPointMileage(self, circularR, steerAngle_alpha, KJD_type, K_JD, Ls):
         """
         带有缓和曲线的圆曲线主点里程计算
         :param circularR: 圆曲线半径R:m
@@ -411,7 +453,8 @@ class Ui_Form(QtCore.QObject):
         P = Ls * Ls / (24 * circularR)
         # 缓和曲线的切线角
         bata_0 = Ls * 180 / (2 * circularR * np.pi)  # 度
-        self.textEdit.append("缓和曲线的切线角DMS:{}".format(Angle(bata_0).degreeToDMS()))
+        DMS = Angle(bata_0).degreeToDMS()
+        self.textEdit.append("缓和曲线的切线角DMS:{}°{}′{}″".format(DMS[0], DMS[1], DMS[2]))
         # 切线长
         TH = (circularR + P) * np.tan(steerAngle_alpha / 2) + m
         # 曲线长
@@ -435,15 +478,21 @@ class Ui_Form(QtCore.QObject):
         if K_JD - (K_QZ + 1 / 2 * q) < 1E-5 or (K_QZ + 1 / 2 * q) == K_JD:
             self.textEdit.append("曲线综合要素计算检核正确")
             data = [m, P, bata_0, TH, K_ZH, K_HY, K_QZ, K_YH, K_HZ]
-            name = list(map(str, data))
+            name = ["切垂距m/m", "圆曲线内移值P/m", "缓和曲线的切线角bata_0/度", "切线长TH/m", "K_ZH", "K_HY", "K_QZ", "K_YH", "K_HZ"]
             self.textEdit.append("解算各项结果如下：")
             for i in range(len(name)):
-                self.textEdit.append(" -{}.{}:{}".format(i, name, data))
+                if i < 4:
+                    self.textEdit.append(" ({}).{}:{}".format(i, name[i], data[i]))
+                else:
+                    self.textEdit.append(" ({}).{}:{}+{}m".format(i, name[i], KJD_type, data[i]))
+            return {"code": 1,
+                    "result": [m, P, bata_0, TH, K_ZH, K_HY, K_QZ, K_YH, K_HZ]}
         else:
             self.textEdit("曲线综合要素计算检核错误!")
-            return None
+            return {"code": 0}
 
-    def relief_circularCurve_middlePilePointCoor(self, circularR, steerAngle_alpha, steerAngleType, Ls, K_JD, JD_CoorX,
+    def relief_circularCurve_middlePilePointCoor(self, circularR, steerAngle_alpha, steerAngleType, KJD_type, K_JD, Ls,
+                                                 JD_CoorX,
                                                  JD_CoorY,
                                                  K_middlePilePoint, alpha_ZHYJDorJDHZ):
         """
@@ -461,7 +510,8 @@ class Ui_Form(QtCore.QObject):
         :return:
         """
         # 获取曲线主点参数
-        principalPointDict = self.relief_circularCurve_principalPointMileage(circularR, steerAngle_alpha, Ls, K_JD)
+        principalPointDict = self.relief_circularCurve_principalPointMileage(circularR, steerAngle_alpha, KJD_type,
+                                                                             K_JD, Ls)
         if principalPointDict["code"] == 1:
             # 检核正确
             m = principalPointDict["result"][0]
@@ -480,7 +530,7 @@ class Ui_Form(QtCore.QObject):
 
             # 判断待求中桩点的位置
             if K_middlePilePoint > K_ZH and K_middlePilePoint < K_HY:
-                print("在第一段缓和曲线上")
+                self.textEdit.append("中桩点在第一段缓和曲线上")
                 # 在第一段缓曲线上
                 L_I = K_middlePilePoint - K_ZH
                 x_I = L_I - L_I ** 5 / (40 * circularR * circularR * Ls * Ls)
@@ -493,7 +543,7 @@ class Ui_Form(QtCore.QObject):
 
             elif K_middlePilePoint > K_HY and K_middlePilePoint < K_YH:
                 # 在圆曲线区域,归并到第一个独立坐标系进行计算
-                print("在圆曲线区域,归并到第一个独立坐标系进行计算")
+                self.textEdit.append("在圆曲线区域,归并到第一个独立坐标系进行计算")
                 L_circular = K_middlePilePoint - K_ZH
                 seta = (L_circular - 0.5 * Ls) / circularR
                 x_circular = m + circularR * np.sin(seta)
@@ -508,7 +558,7 @@ class Ui_Form(QtCore.QObject):
 
             elif K_middlePilePoint > K_YH and K_middlePilePoint < K_HZ:
                 # 在第二段缓曲线上
-                print("在第二段缓曲线上")
+                self.textEdit.append("中桩点在第二段缓曲线上")
                 L_II = K_HZ - K_middlePilePoint
                 x_II = L_II - L_II ** 5 / (40 * circularR * circularR * Ls * Ls)
                 y_II = L_II * L_II * L_II / (6 * circularR * Ls)
@@ -519,9 +569,9 @@ class Ui_Form(QtCore.QObject):
                 Y_middlePilePoint = Y_ZHorHZ + x_II * np.sin(alpha_ZHYJDorJDHZ) - y_II * np.cos(
                     alpha_ZHYJDorJDHZ)
             else:
-                print("中桩点不在曲线上！")
+                self.sendTopInfo("W", "中桩点不在曲线上！")
                 return None
-            print("结果：", X_middlePilePoint, Y_middlePilePoint)
+            self.textEdit.append("计算完成！坐标为: X:{}m,Y:{}m".format(X_middlePilePoint, Y_middlePilePoint))
         else:
-            print("主点坐标计算检核错误")
+            self.sendTopInfo("W", "主点里程计算检核错误！")
             return None
