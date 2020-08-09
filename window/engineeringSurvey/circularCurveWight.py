@@ -11,6 +11,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import numpy as np
 
+from database.database import Database
 from measureTool.angleConversion import Angle
 
 
@@ -227,7 +228,32 @@ class Ui_Form(QtCore.QObject):
 
     def fileSetData(self):
         # 从文件导入数据
-        pass
+        dataList = []
+        with open(Database.circulaiCurveCRFilePath,"r") as f:
+            for line in f:
+                lineList = line.strip().split()
+                if len(lineList) != 11:
+                    lineList = line.strip().split(",")
+                if len(lineList) != 11:
+                    lineList = line.strip().split("，")
+                # 开始执行插入操作
+                if len(lineList) == 11:
+                    dataList.append(lineList)
+                else:
+                    self.sendTopInfo("W", "输入的文件数据格式有误！请按照RC文件格式\n编辑数据，格式与界面内表格相同！注意：数据为空时用0代替")
+                    break
+        f.close()
+        if len(dataList) > 0:
+            # 设置表格列数
+            self.tableWidget.setRowCount(len(dataList))
+            for i in range(len(dataList)):
+                for k in range(len(dataList[0])):
+                    self.tableWidget.setItem(i,k,QtWidgets.QTableWidgetItem())
+                    self.tableWidget.item(i, k).setText(dataList[i][k])
+                    self.tableWidget.item(i, k).setTextAlignment(QtCore.Qt.AlignCenter)
+
+    def actionReport(self):
+        return self.textEdit.toPlainText()
 
     def actionMainMileage(self):
         """
@@ -242,10 +268,12 @@ class Ui_Form(QtCore.QObject):
                 for k in range(6):
                     lineList.append(self.tableWidget.item(i, k).text().strip())
                     print(self.tableWidget.item(i, k).text())
-                self.textEdit.append("--{} 主点里程".format(lineList[0]))
+                self.textEdit.append("--当前解算ID：{}".format(lineList[0]))
 
                 self.singleCircularCurve_principalPointMileage(float(lineList[1]), np.deg2rad(float(lineList[2])),
                                                                lineList[4], float(lineList[5]))
+                self.textEdit.append("-------")
+            self.textEdit.append("=========||========")
         except Exception as e:
             self.sendTopInfo("E", "异常错误！可能原因：\n 1.待解算数据未填充或是填写错误；"
                                   "\n2.填写数据为汉字字符等非数据类型；"
@@ -267,6 +295,8 @@ class Ui_Form(QtCore.QObject):
                                                              lineList[3], float(lineList[5]),
                                                              float(lineList[7]), float(lineList[8]),
                                                              float(lineList[9]), np.deg2rad(float(lineList[10])))
+                self.textEdit.append("-------")
+            self.textEdit.append("=========||========")
         except Exception as e:
             self.sendTopInfo("E", "异常错误！可能原因：\n 1.待解算数据未填充或是填写错误；"
                                   "\n2.填写数据为汉字字符等非数据类型；"
@@ -285,12 +315,14 @@ class Ui_Form(QtCore.QObject):
                 for k in range(7):
                     lineList.append(self.tableWidget.item(i, k).text().strip())
                     print(self.tableWidget.item(i, k).text())
-                self.textEdit.append("--{} 主点里程".format(lineList[0]))
+                self.textEdit.append("--当前解算ID：{}".format(lineList[0]))
 
                 self.relief_circularCurve_principalPointMileage(float(lineList[1]),
                                                                 np.deg2rad(float(lineList[2])),
                                                                 lineList[4],
                                                                 float(lineList[5]), float(lineList[6]))
+                self.textEdit.append("-------")
+            self.textEdit.append("=========||========")
         except Exception as e:
             self.sendTopInfo("E", "异常错误！可能原因：\n 1.待解算数据未填充或是填写错误；"
                                   "\n2.填写数据为汉字字符等非数据类型；"
@@ -313,6 +345,8 @@ class Ui_Form(QtCore.QObject):
                                                               float(lineList[6]),
                                                               float(lineList[7]), float(lineList[8]),
                                                               float(lineList[9]), np.deg2rad(float(lineList[10])))
+                self.textEdit.append("-------")
+            self.textEdit.append("=========||========")
         except Exception as e:
             self.sendTopInfo("E", "异常错误！可能原因：\n 1.待解算数据未填充或是填写错误；"
                                   "\n2.填写数据为汉字字符等非数据类型；"

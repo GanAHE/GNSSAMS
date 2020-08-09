@@ -19,7 +19,7 @@ from window import welcomeWight, aboutDialog, configSettingDialog
 from window.geodeticSurvey import inversionGravityFieldWight, gravityFieldApplicationWight
 from window.measureTool import coorTranWight, coorTranOpenFileDiaog, stablePointGroupWight, coorSystemTranWight
 from window.controlNetwork import stablePointGroupFileDialog, controlNetAdjustmentWight
-from window.engineeringSurvey import leicaDataFormatWight,circularCurveWight
+from window.engineeringSurvey import leicaDataFormatWight, circularCurveWight
 from window.windowEvent.actionReport import Report
 from window.file.fileMsg import FileMsg
 from window.tipDig import ActionWarnException
@@ -808,8 +808,8 @@ class Ui_mainWindow(object):
             elif tabLable == "坐标系统转换":
                 # 界面重构存储区域
                 filePath, filter = QtWidgets.QFileDialog.getOpenFileName(self.centralwidget, "导入原始坐标文件",
-                                                                          Database.workspace,
-                                                                          "TXT文本(*.txt);;All Files(*)")
+                                                                         Database.workspace,
+                                                                         "TXT文本(*.txt);;All Files(*)")
                 # self.displayInfo("I",str(fileNameList))
                 # 存入数据库
                 if filePath != "":
@@ -819,7 +819,14 @@ class Ui_mainWindow(object):
                     self.displayInfo("I", "导入文件：" + filePath)
                     self.coorSystemTranWight_ui.actionShowSourceData()
             elif tabLable == "铁路曲线计算":
-                self.displayInfo("T","暂未开放导入功能！")
+                filePath, filter = QtWidgets.QFileDialog.getOpenFileName(self.centralwidget, "导入RC格式曲线文件",
+                                                                         Database.workspace,
+                                                                         "RC格式文本(*.rc);;All Files(*)")
+                if filePath != "":
+                    dir, fileName = os.path.split(filePath)
+                    self.showPan(dir)
+                    Database.circulaiCurveCRFilePath = filePath
+                    self.railwayCurveCalculationWight_ui.fileSetData()
 
             elif tabLable == "电子手簿":
                 # 界面wight区域重构
@@ -999,12 +1006,17 @@ class Ui_mainWindow(object):
                     self.textEdit_status.append("坐标系统转换报告导出中....")
                     listData = self.coorSystemTranWight_ui.getTranResult()
                     if len(listData) > 0:
-                        filePath,type = QtWidgets.QFileDialog.getSaveFileName(self.centralwidget,"导出坐标系统转换报告",Database.workspace,"Txt文本文件(*.txt)")
+                        filePath, type = QtWidgets.QFileDialog.getSaveFileName(self.centralwidget, "导出坐标系统转换报告",
+                                                                               Database.workspace, "Txt文本文件(*.txt)")
                         if filePath != "":
                             self.coorSystemTranWight_ui.report(filePath)
-                            self.displayInfo("I","已导出报告,路径："+filePath)
+                            self.displayInfo("I", "已导出报告,路径：" + filePath)
                     else:
                         self.displayInfo("T", "数据未解算，无法导出结果报告")
+                elif tabLabel == "铁路曲线计算":
+                    text = self.railwayCurveCalculationWight_ui.actionReport()
+                    FileMsg(self.centralwidget).writeFile("txt", text)
+                    self.displayInfo("T", "已导出铁路曲线计算数据。")
 
                 elif tabLabel == "电子手簿":
                     """
@@ -1034,7 +1046,7 @@ class Ui_mainWindow(object):
                 elif tabLabel == "控制网":  # 平面控制网
                     text = self.controlNetAdjustment_ui.getTextEditText()
                     FileMsg(self.centralwidget).writeFile("txt", text)
-                    self.displayInfo("A", "已导出计算数据。")
+                    self.displayInfo("T", "已导出计算数据。")
                 elif tabLabel == "稳定点组":
                     text = self.stablePointGroupWight_ui.getTextEdit()
                     FileMsg(self.centralwidget).writeFile("txt", text)
@@ -1069,7 +1081,7 @@ class Ui_mainWindow(object):
                     self.displayInfo("T", "已导出重力异常数据")
                 # 写入内存
                 else:
-                    self.displayInfo("A", "当前所进行的操作无需本功能的支持。")
+                    self.displayInfo("T", "当前所进行的操作无需本功能的支持。")
 
         except Exception as e:
             self.displayInfo("W", "错误！可能原因：\n 1.没有任何需要导出的数据；\n2. " + e.__str__())

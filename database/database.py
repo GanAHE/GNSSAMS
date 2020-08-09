@@ -42,6 +42,9 @@ class Database(object):
     userBaiduAK = None
     userBaiduNK = None
 
+    # 铁路曲线计算RC文件路径
+    circulaiCurveCRFilePath = None
+
     oFilePathList = []
     nFilePathList = []
     sppFilePathList = []
