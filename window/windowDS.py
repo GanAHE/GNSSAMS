@@ -476,7 +476,7 @@ class Ui_mainWindow(object):
 
     def retranslateUi(self, mainWindow):
         _translate = QtCore.QCoreApplication.translate
-        mainWindow.setWindowTitle(_translate("mainWindow", "GNSS导航定位与测量综合系统 Official 1.0"))
+        mainWindow.setWindowTitle(_translate("mainWindow", "GNSS导航定位与测量综合系统"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_operate), _translate("mainWindow", "操作"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_position), _translate("mainWindow", "可视化"))
         item = self.tableWidget_monitor.verticalHeaderItem(0)

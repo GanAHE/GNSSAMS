@@ -15,8 +15,9 @@ from database.database import Database
 if hasattr(sys, 'frozen'):
     os.environ['PATH'] = sys._MEIPASS + ";" + os.environ['PATH']
 from window import windowDS
-from PyQt5.QtWidgets import QApplication, QMainWindow, QSplashScreen,QProgressBar
+from PyQt5.QtWidgets import QApplication, QMainWindow, QSplashScreen, QProgressBar
 from PyQt5 import QtCore, QtGui
+
 
 class SplashPanel(QSplashScreen):
 
@@ -24,10 +25,10 @@ class SplashPanel(QSplashScreen):
         super(SplashPanel, self).__init__()
         message_font = QtGui.QFont()
         message_font.setBold(True)
-        message_font.setPointSize(14)
+        message_font.setPointSize(12)
         self.setFont(message_font)
         # 创建启动界面，支持png透明图片
-        self.setPixmap(QtGui.QPixmap("./source/Flash.png"))
+        self.setPixmap(QtGui.QPixmap("./source/icon/flash.png"))
         # 淡入效果
         self.setWindowOpacity(0)
         t = 0
@@ -40,7 +41,8 @@ class SplashPanel(QSplashScreen):
             t -= 1
             time.sleep(0.04)
         progressBar = QProgressBar(self)
-        progressBar.setGeometry(0,self.pixmap().height()-100,self.pixmap().width(),15)
+        progressBar.setGeometry(0, self.pixmap().height() - 100, self.pixmap().width(), 15)
+        progressBar.setTextVisible(False)
         progressBar.show()
 
         # 启动信息

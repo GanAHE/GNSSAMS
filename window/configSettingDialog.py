@@ -281,7 +281,7 @@ class Ui_Dialog(QtCore.QObject):
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "参数设置"))
-        self.label.setText(_translate("Dialog", "GNSS导航定位与综合系统"))
+        self.label.setText(_translate("Dialog", "GNSS导航定位与测量综合系统"))
         self.label_5.setText(_translate("Dialog", " 说明\n"
                                                   "\n"
                                                   " 1. 无特别指定，工作空间将作为所有处理结果的保存区域,\n"
