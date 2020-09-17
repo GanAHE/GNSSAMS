@@ -65,8 +65,8 @@ class Database(object):
         :return: None
         """
         # 读取json文件内容,返回字典格式
-        with open(self.configJsonPath, 'r', encoding='utf8')as fp:
-            # with open('../source/para_json/config.json', 'r', encoding='utf8')as fp:
+        with open(os.path.abspath(self.configJsonPath), 'r', encoding='utf8') as fp:
+        # with open('../source/para_json/config.json', 'r', encoding='utf8')as fp:
             dict_data = json.load(fp)
         fp.close()
         Database.envir = dict_data["envir"]

@@ -1,85 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="b4f42aad-ddc7-4fa8-9fe0-863e11b97aba" name="默认" comment="">
+    <list default="true" id="b7a252b2-b39c-42d4-9988-a33f92f7e492" name="默认更改列表" comment="">
+      <change afterPath="$PROJECT_DIR$/geodeticSurvey/mvs/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/geodeticSurvey/mvs/callCMVS.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/geodeticSurvey/mvs/camParaEst.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/geodeticSurvey/mvs/checkerboardChart.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/geodeticSurvey/mvs/sfm_out.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/geodeticSurvey/mvs/videoKeyFrameToImage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/EMACS.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/EMACS.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/database.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G01.png" beforeDir="false" afterPath="$PROJECT_DIR$/workspace/SatelliteOrbet/G01.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G02.png" beforeDir="false" afterPath="$PROJECT_DIR$/workspace/SatelliteOrbet/G02.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G03.png" beforeDir="false" afterPath="$PROJECT_DIR$/workspace/SatelliteOrbet/G03.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G04.png" beforeDir="false" afterPath="$PROJECT_DIR$/workspace/SatelliteOrbet/G04.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G05.png" beforeDir="false" afterPath="$PROJECT_DIR$/workspace/SatelliteOrbet/G05.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G06.png" beforeDir="false" afterPath="$PROJECT_DIR$/workspace/SatelliteOrbet/G06.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G07.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G08.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G09.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G10.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G11.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G12.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G13.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G14.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G15.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G16.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G17.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G18.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G19.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G20.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G21.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G22.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G23.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G24.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G25.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G26.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G27.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G28.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G29.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G30.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G31.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G32.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="DatabaseView">
-    <option name="SHOW_INTERMEDIATE" value="true" />
-    <option name="GROUP_DATA_SOURCES" value="true" />
-    <option name="GROUP_SCHEMA" value="true" />
-    <option name="GROUP_CONTENTS" value="false" />
-    <option name="SORT_POSITIONED" value="false" />
-    <option name="SHOW_EMPTY_GROUPS" value="false" />
-    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
-    <option name="HIDDEN_KINDS">
-      <set />
-    </option>
-    <expand>
-      <path>
-        <item name="数据库" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="MySQL - @localhost" type="feb32156:DbDataSourceImpl" />
-      </path>
-    </expand>
-    <select />
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Setup Script" />
-        <option value="Python Script" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1XxnOUFsSSVEFaX8YjATlReH5gf" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectId" id="1hd6fCgI5PUmipe3DlWwCtRfbKx" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="DatabaseDriversLRU" value="mysql" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/window/action/controlNetwork" />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.detected.package.tslint" value="true" />
-    <property name="node.js.path.for.package.eslint" value="project" />
-    <property name="node.js.path.for.package.tslint" value="project" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="python.debugger.dataview.coloredbydefault" value="false" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="PyConsoleOptionsProvider">
-    <option name="myPythonConsoleState">
-      <console-settings>
-        <option name="useSoftWraps" value="true" />
-      </console-settings>
-    </option>
-  </component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\CodePrograme\Python\EMACS\window\action\controlNetwork" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\CodePrograme\Python\EMACS\window\action\engineerMeasure" />
-      <recent name="E:\CodePrograme\Python\EMACS\window\action\controlNetwork" />
-      <recent name="E:\CodePrograme\Python\EMACS\window\engineeringSurvey" />
-      <recent name="E:\CodePrograme\Python\EMACS\window" />
-    </key>
-  </component>
-  <component name="RunManager" selected="Python.EMACS">
-    <configuration name="EMACS" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager">
+    <configuration name="GNSSAMS" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="EMACS" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -91,10 +98,9 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="E:\CodePrograme\Python\EMACS\EMACS.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GNSSAMS.py" />
       <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
       <option name="REDIRECT_INPUT" value="false" />
@@ -108,413 +114,87 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
+      <option name="SDK_HOME" value="D:\softwareInstall\ananconda\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/.." />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$" />
       <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
       <option name="REDIRECT_INPUT" value="false" />
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="circularCurve" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="EMACS" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/algorithm/engineerMesure" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/algorithm/engineerMesure/circularCurve.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="database" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="EMACS" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/database" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/database/database.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="measureAngleAccurcy" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="EMACS" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/algorithm/engineerMesure" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/algorithm/engineerMesure/measureAngleAccurcy.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="stablePointGroup" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="EMACS" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/algorithm/controlNetwork" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/algorithm/controlNetwork/stablePointGroup.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <list>
-      <item itemvalue="Python.EMACS" />
-      <item itemvalue="Python.circularCurve" />
-      <item itemvalue="Python.measureAngleAccurcy" />
-      <item itemvalue="Python.stablePointGroup" />
-      <item itemvalue="Python.database" />
-    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.EMACS" />
-        <item itemvalue="Python.database" />
-        <item itemvalue="Python.stablePointGroup" />
-        <item itemvalue="Python.circularCurve" />
-        <item itemvalue="Python.measureAngleAccurcy" />
+        <item itemvalue="Python.GNSSAMS" />
       </list>
     </recent_temporary>
   </component>
-  <component name="ServiceViewManager">
-    <option name="viewStates">
-      <list>
-        <serviceView>
-          <treeState>
-            <expand />
-            <select />
-          </treeState>
-        </serviceView>
-      </list>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
     </option>
-  </component>
-  <component name="SvnConfiguration">
-    <configuration>C:\Users\浩宇殿主\AppData\Roaming\Subversion</configuration>
-  </component>
-  <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="b4f42aad-ddc7-4fa8-9fe0-863e11b97aba" name="默认" comment="" />
-      <created>1581996580484</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1581996580484</updated>
-      <workItem from="1581996582074" duration="2542000" />
-      <workItem from="1582024659881" duration="3232000" />
-      <workItem from="1582157311042" duration="5493000" />
-      <workItem from="1582285392546" duration="87000" />
-      <workItem from="1582600805455" duration="682000" />
-      <workItem from="1582633004654" duration="755000" />
-      <workItem from="1582686663253" duration="1059000" />
-      <workItem from="1582762462728" duration="4488000" />
-      <workItem from="1582809677888" duration="5236000" />
-      <workItem from="1582850152273" duration="6017000" />
-      <workItem from="1582893745196" duration="7292000" />
-      <workItem from="1583029396042" duration="31154000" />
-      <workItem from="1583106719216" duration="9699000" />
-      <workItem from="1583149039501" duration="11400000" />
-      <workItem from="1583163088873" duration="3853000" />
-      <workItem from="1583193649028" duration="9334000" />
-      <workItem from="1583236036792" duration="7848000" />
-      <workItem from="1583285570158" duration="3483000" />
-      <workItem from="1583307085948" duration="14479000" />
-      <workItem from="1583366327276" duration="6176000" />
-      <workItem from="1583385067698" duration="2551000" />
-      <workItem from="1583404806046" duration="6055000" />
-      <workItem from="1583420438260" duration="393000" />
-      <workItem from="1583459678289" duration="3673000" />
-      <workItem from="1583475981986" duration="12445000" />
-      <workItem from="1583548641766" duration="3120000" />
-      <workItem from="1583650805935" duration="1142000" />
-      <workItem from="1583652910592" duration="1468000" />
-      <workItem from="1583712536093" duration="14375000" />
-      <workItem from="1583748293028" duration="16773000" />
-      <workItem from="1583796011041" duration="8220000" />
-      <workItem from="1583821405975" duration="3586000" />
-      <workItem from="1583846332697" duration="503000" />
-      <workItem from="1583892122435" duration="3828000" />
-      <workItem from="1583971516090" duration="4429000" />
-      <workItem from="1584018119842" duration="4158000" />
-      <workItem from="1584064362696" duration="5834000" />
-      <workItem from="1584669228955" duration="5683000" />
-      <workItem from="1584712306777" duration="3628000" />
-      <workItem from="1584754088187" duration="5057000" />
-      <workItem from="1584947145999" duration="4072000" />
-      <workItem from="1584965607653" duration="10520000" />
-      <workItem from="1585008018124" duration="10332000" />
-      <workItem from="1585052443337" duration="8294000" />
-      <workItem from="1585094719028" duration="8108000" />
-      <workItem from="1585116204930" duration="11204000" />
-      <workItem from="1585132580917" duration="9735000" />
-      <workItem from="1585151370065" duration="3872000" />
-      <workItem from="1585179869766" duration="5841000" />
-      <workItem from="1585203143683" duration="15963000" />
-      <workItem from="1585485130771" duration="269000" />
-      <workItem from="1585787841059" duration="4958000" />
-      <workItem from="1585812068003" duration="2116000" />
-      <workItem from="1585918242764" duration="4154000" />
-      <workItem from="1585965583282" duration="5576000" />
-      <workItem from="1586001080246" duration="11192000" />
-      <workItem from="1586053474601" duration="5456000" />
-      <workItem from="1586074903887" duration="5838000" />
-      <workItem from="1586081121178" duration="506000" />
-      <workItem from="1586133166513" duration="7515000" />
-      <workItem from="1586153436420" duration="24575000" />
-      <workItem from="1586223754484" duration="3349000" />
-      <workItem from="1586240897642" duration="14364000" />
-      <workItem from="1586266881166" duration="1290000" />
-      <workItem from="1586310503127" duration="5649000" />
-      <workItem from="1586343992330" duration="1901000" />
-      <workItem from="1586361561783" duration="26000" />
-      <workItem from="1586415101275" duration="7984000" />
-      <workItem from="1586440825635" duration="2158000" />
-      <workItem from="1586480479620" duration="9952000" />
-      <workItem from="1586567934130" duration="11039000" />
-      <workItem from="1586586369347" duration="8343000" />
-      <workItem from="1586608341281" duration="9780000" />
-      <workItem from="1586619667615" duration="107000" />
-      <workItem from="1586651663275" duration="7702000" />
-      <workItem from="1586660560476" duration="685000" />
-      <workItem from="1586697407641" duration="845000" />
-      <workItem from="1586913002707" duration="1324000" />
-      <workItem from="1587105336892" duration="1495000" />
-      <workItem from="1587129385836" duration="2657000" />
-      <workItem from="1587171112055" duration="1127000" />
-      <workItem from="1587200508201" duration="504000" />
-      <workItem from="1587257844605" duration="5549000" />
-      <workItem from="1587518686983" duration="602000" />
-      <workItem from="1587565667430" duration="356000" />
-      <workItem from="1587709571518" duration="4512000" />
-      <workItem from="1588082495039" duration="211000" />
-      <workItem from="1588381119887" duration="7316000" />
-      <workItem from="1588401064473" duration="490000" />
-      <workItem from="1588578220631" duration="6721000" />
-      <workItem from="1588598606618" duration="3142000" />
-      <workItem from="1588637460644" duration="3652000" />
-      <workItem from="1588686128994" duration="4761000" />
-      <workItem from="1588751787696" duration="1287000" />
-      <workItem from="1588771316897" duration="3958000" />
-      <workItem from="1588946611793" duration="4189000" />
-      <workItem from="1589092128657" duration="323000" />
-      <workItem from="1589092467643" duration="460000" />
-      <workItem from="1589099275068" duration="2678000" />
-      <workItem from="1589247761589" duration="396000" />
-      <workItem from="1589612983916" duration="1346000" />
-      <workItem from="1589637121117" duration="806000" />
-      <workItem from="1589697799752" duration="22780000" />
-      <workItem from="1589758223497" duration="6200000" />
-      <workItem from="1589898050320" duration="99000" />
-      <workItem from="1590048797055" duration="3817000" />
-      <workItem from="1590286284934" duration="2467000" />
-      <workItem from="1590304433632" duration="7251000" />
-      <workItem from="1590314490796" duration="2343000" />
-      <workItem from="1590321789900" duration="9996000" />
-      <workItem from="1590367144344" duration="10149000" />
-      <workItem from="1590378379276" duration="2080000" />
-      <workItem from="1590406459227" duration="9738000" />
-      <workItem from="1590454073495" duration="3662000" />
-      <workItem from="1590460271981" duration="4525000" />
-      <workItem from="1590478620688" duration="4007000" />
-      <workItem from="1590544023238" duration="52000" />
-      <workItem from="1591273044460" duration="748000" />
-      <workItem from="1591321058458" duration="8000" />
-      <workItem from="1592464645816" duration="855000" />
-      <workItem from="1592465813982" duration="3117000" />
-      <workItem from="1593263547338" duration="1855000" />
-    </task>
-    <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="722" y="101" key="#Notifications" timestamp="1584964197153">
+    <state x="223" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1600328920208">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="722" y="101" key="#Notifications/0.0.1536.864@0.0.1536.864" timestamp="1584964197153" />
-    <state x="361" y="91" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1589102274923">
+    <state x="223" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.864@0.0.1536.864" timestamp="1600328920208" />
+    <state x="547" y="187" key="FileChooserDialogImpl" timestamp="1600328917876">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="361" y="91" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.864@0.0.1536.864" timestamp="1589102274923" />
-    <state x="839" y="178" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1590378285374">
+    <state x="547" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1600328917876" />
+    <state width="1513" height="298" key="GridCell.Tab.0.bottom" timestamp="1600328697665">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="839" y="178" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1536.864@0.0.1536.864" timestamp="1590378285374" />
-    <state x="216" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1586415201964">
+    <state width="1513" height="298" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1600328697665" />
+    <state width="1513" height="298" key="GridCell.Tab.0.center" timestamp="1600328697665">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="216" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.864@0.0.1536.864" timestamp="1586415201964" />
-    <state x="499" y="179" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1586613420780">
+    <state width="1513" height="298" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1600328697665" />
+    <state width="1513" height="298" key="GridCell.Tab.0.left" timestamp="1600328697665">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="499" y="179" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.864@0.0.1536.864" timestamp="1586613420780" />
-    <state x="857" y="127" key="#xdebugger.evaluate" timestamp="1589719363767">
+    <state width="1513" height="298" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1600328697665" />
+    <state width="1513" height="298" key="GridCell.Tab.0.right" timestamp="1600328697665">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="857" y="127" key="#xdebugger.evaluate/0.0.1536.864@0.0.1536.864" timestamp="1589719363767" />
-    <state width="972" height="466" key="DebuggerActiveHint" timestamp="1590464064413">
+    <state width="1513" height="298" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1600328697665" />
+    <state width="1513" height="298" key="GridCell.Tab.1.bottom" timestamp="1600328697665">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="972" height="466" key="DebuggerActiveHint/0.0.1536.864@0.0.1536.864" timestamp="1590464064413" />
-    <state x="549" y="174" key="FileChooserDialogImpl" timestamp="1589248156095">
+    <state width="1513" height="298" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1600328697665" />
+    <state width="1513" height="298" key="GridCell.Tab.1.center" timestamp="1600328697665">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="549" y="174" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1589248156095" />
-    <state width="1492" height="248" key="GridCell.Tab.0.bottom" timestamp="1593264680882">
+    <state width="1513" height="298" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1600328697665" />
+    <state width="1513" height="298" key="GridCell.Tab.1.left" timestamp="1600328697665">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1492" height="248" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1593264680882" />
-    <state width="1492" height="248" key="GridCell.Tab.0.center" timestamp="1593264680882">
+    <state width="1513" height="298" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1600328697665" />
+    <state width="1513" height="298" key="GridCell.Tab.1.right" timestamp="1600328697665">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1492" height="248" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1593264680882" />
-    <state width="1492" height="248" key="GridCell.Tab.0.left" timestamp="1593264680882">
+    <state width="1513" height="298" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1600328697665" />
+    <state x="349" y="166" key="IDE.errors.dialog" timestamp="1600328572938">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1492" height="248" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1593264680882" />
-    <state width="1492" height="248" key="GridCell.Tab.0.right" timestamp="1593264680882">
+    <state x="349" y="166" key="IDE.errors.dialog/0.0.1536.864@0.0.1536.864" timestamp="1600328572938" />
+    <state x="277" y="76" key="SettingsEditor" timestamp="1600328661940">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1492" height="248" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1593264680882" />
-    <state width="1492" height="248" key="GridCell.Tab.1.bottom" timestamp="1592468974351">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state width="1492" height="248" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1592468974351" />
-    <state width="1492" height="248" key="GridCell.Tab.1.center" timestamp="1592468974351">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state width="1492" height="248" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1592468974351" />
-    <state width="1492" height="248" key="GridCell.Tab.1.left" timestamp="1592468974351">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state width="1492" height="248" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1592468974351" />
-    <state width="1492" height="248" key="GridCell.Tab.1.right" timestamp="1592468974351">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state width="1492" height="248" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1592468974351" />
-    <state x="698" y="174" key="IDE.errors.dialog" timestamp="1586174455455">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="698" y="174" key="IDE.errors.dialog/0.0.1536.864@0.0.1536.864" timestamp="1586174455455" />
-    <state x="466" y="68" key="SettingsEditor" timestamp="1590378500343">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="466" y="68" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1590378500343" />
-    <state width="1358" height="440" key="XDebugger.FullValuePopup" timestamp="1588774596087">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state width="1358" height="440" key="XDebugger.FullValuePopup/0.0.1536.864@0.0.1536.864" timestamp="1588774596087" />
-    <state x="467" y="257" key="com.intellij.ide.util.TipDialog" timestamp="1592465816439">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="467" y="257" key="com.intellij.ide.util.TipDialog/0.0.1536.864@0.0.1536.864" timestamp="1592465816439" />
-    <state x="321" y="168" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1590407794668">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="321" y="168" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1536.864@0.0.1536.864" timestamp="1590407794668" />
-    <state x="855" y="69" key="refactoring.ChangeSignatureDialog" timestamp="1589713577434">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="855" y="69" key="refactoring.ChangeSignatureDialog/0.0.1536.864@0.0.1536.864" timestamp="1589713577434" />
-    <state x="298" y="182" width="940" height="678" key="search.everywhere.popup" timestamp="1590371578227">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="298" y="182" width="940" height="678" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1590371578227" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/algorithm/engineerMesure/circularCurve.py</url>
-          <line>46</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
-      <default-breakpoints>
-        <breakpoint type="python-exception">
-          <properties notifyOnTerminate="true" exception="BaseException">
-            <option name="notifyOnTerminate" value="true" />
-          </properties>
-        </breakpoint>
-      </default-breakpoints>
-    </breakpoint-manager>
-  </component>
-  <component name="com.intellij.coverage.CoverageDataManagerImpl">
-<<<<<<< HEAD
-    <SUITE FILE_PATH="coverage/EMACS$EMACS.coverage" NAME="EMACS Coverage Results" MODIFIED="1592467709852" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/EMACS$CornerAccuracyMatch.coverage" NAME="CornerAccuracyMatch Coverage Results" MODIFIED="1589614309973" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algorithm/engineerMesure" />
-=======
-    <SUITE FILE_PATH="coverage/EMACS$BasicMeasurementAlgorithm.coverage" NAME="BasicMeasurementAlgorithm Coverage Results" MODIFIED="1586418983854" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algorithm/common" />
-    <SUITE FILE_PATH="coverage/EMACS$stablePointGroup.coverage" NAME="stablePointGroup Coverage Results" MODIFIED="1590455325655" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algorithm/controlNetwork" />
-    <SUITE FILE_PATH="coverage/EMACS$EMACS.coverage" NAME="EMACS Coverage Results" MODIFIED="1593264680574" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/EMACS$measureAngleAccurcy.coverage" NAME="measureAngleAccurcy Coverage Results" MODIFIED="1589769983616" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algorithm/engineerMesure" />
-    <SUITE FILE_PATH="coverage/EMACS$database.coverage" NAME="database Coverage Results" MODIFIED="1592467084656" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/database" />
-    <SUITE FILE_PATH="coverage/EMACS$BasicMeasurementAlgorithm__1_.coverage" NAME="BasicMeasurementAlgorithm (1) Coverage Results" MODIFIED="1586488935524" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algorithm/common" />
-    <SUITE FILE_PATH="coverage/EMACS$kesaDataFormat.coverage" NAME="kesaDataFormat Coverage Results" MODIFIED="1586251022580" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algorithm/engineerMesure" />
->>>>>>> bce837bad6fa2a6afee195bbf6b4dc089ca74373
-    <SUITE FILE_PATH="coverage/EMACS$cornerAccuracyMatch__1_.coverage" NAME="cornerAccuracyMatch (1) Coverage Results" MODIFIED="1589759839685" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algorithm/engineerMesure" />
-    <SUITE FILE_PATH="coverage/EMACS$circularCurve.coverage" NAME="circularCurve Coverage Results" MODIFIED="1589770801247" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algorithm/engineerMesure" />
-    <SUITE FILE_PATH="coverage/EMACS$coorAngle.coverage" NAME="coorAngle Coverage Results" MODIFIED="1583159957002" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algorithm/common" />
-    <SUITE FILE_PATH="coverage/EMACS$kesaDataFormat.coverage" NAME="kesaDataFormat Coverage Results" MODIFIED="1586251022580" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algorithm/engineerMesure" />
-    <SUITE FILE_PATH="coverage/EMACS$BasicMeasurementAlgorithm__1_.coverage" NAME="BasicMeasurementAlgorithm (1) Coverage Results" MODIFIED="1586488935524" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algorithm/common" />
-    <SUITE FILE_PATH="coverage/EMACS$EMACS__1_.coverage" NAME="EMACS (1) Coverage Results" MODIFIED="1588947053220" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/EMACS$stablePointGroup.coverage" NAME="stablePointGroup Coverage Results" MODIFIED="1590455325655" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algorithm/controlNetwork" />
-    <SUITE FILE_PATH="coverage/EMACS$measureAngleAccurcy.coverage" NAME="measureAngleAccurcy Coverage Results" MODIFIED="1589769983616" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algorithm/engineerMesure" />
-    <SUITE FILE_PATH="coverage/EMACS$actionHTML.coverage" NAME="actionHTML Coverage Results" MODIFIED="1583893323418" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/window/action" />
-    <SUITE FILE_PATH="coverage/EMACS$test.coverage" NAME="test Coverage Results" MODIFIED="1586162529468" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/EMACS$BasicMeasurementAlgorithm.coverage" NAME="BasicMeasurementAlgorithm Coverage Results" MODIFIED="1586418983854" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algorithm/common" />
-    <SUITE FILE_PATH="coverage/EMACS$test__1_.coverage" NAME="test (1) Coverage Results" MODIFIED="1585152525426" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/EMACS$database.coverage" NAME="database Coverage Results" MODIFIED="1592467084656" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/database" />
+    <state x="277" y="76" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1600328661940" />
   </component>
 </project>
