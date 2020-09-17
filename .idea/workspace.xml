@@ -22,41 +22,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b7a252b2-b39c-42d4-9988-a33f92f7e492" name="默认更改列表" comment="&lt;add&gt;新增三维模型重建页面与基本处理逻辑">
+    <list default="true" id="b7a252b2-b39c-42d4-9988-a33f92f7e492" name="默认更改列表" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/window/geodeticSurvey/callExModuleThread.py" beforeDir="false" afterPath="$PROJECT_DIR$/window/geodeticSurvey/callExModuleThread.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/window/geodeticSurvey/threeDimensionalReconstructionWight.py" beforeDir="false" afterPath="$PROJECT_DIR$/window/geodeticSurvey/threeDimensionalReconstructionWight.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G01.png" beforeDir="false" afterPath="$PROJECT_DIR$/workspace/SatelliteOrbet/G01.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G02.png" beforeDir="false" afterPath="$PROJECT_DIR$/workspace/SatelliteOrbet/G02.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G03.png" beforeDir="false" afterPath="$PROJECT_DIR$/workspace/SatelliteOrbet/G03.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G04.png" beforeDir="false" afterPath="$PROJECT_DIR$/workspace/SatelliteOrbet/G04.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G05.png" beforeDir="false" afterPath="$PROJECT_DIR$/workspace/SatelliteOrbet/G05.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G06.png" beforeDir="false" afterPath="$PROJECT_DIR$/workspace/SatelliteOrbet/G06.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G07.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G08.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G09.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G11.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G12.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G13.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G14.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G15.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G16.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G17.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G18.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G19.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G20.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G21.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G22.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G23.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G24.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G25.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G26.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G27.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G28.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G29.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G30.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G31.png" beforeDir="false" />
     </list>
     <list id="8059e693-0200-4b0e-8c16-cb9f06871c37" name="Revert &quot;&lt;add&gt;新增三维模型重建页面与基本处理逻辑&quot;" comment="Revert &quot;&lt;add&gt;新增三维模型重建页面与基本处理逻辑&quot;&#10;&#10;This reverts commit 0fb6709b">
       <change afterPath="$PROJECT_DIR$/workspace/SatelliteOrbet/G32.png" afterDir="false" />
@@ -186,9 +155,14 @@
     <MESSAGE value="&lt;add&gt;新增三维模型重建页面与基本处理逻辑-2" />
     <MESSAGE value="&lt;add&gt;新增三维模型重建页面与基本处理逻辑-3" />
     <MESSAGE value="&lt;add&gt;新增三维模型重建页面与基本处理逻辑" />
-    <option name="LAST_COMMIT_MESSAGE" value="&lt;add&gt;新增三维模型重建页面与基本处理逻辑" />
+    <MESSAGE value="&lt;update&gt;更新三维重建页面并美化" />
+    <option name="LAST_COMMIT_MESSAGE" value="&lt;update&gt;更新三维重建页面并美化" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="515" y="252" key="#Notifications" timestamp="1600349127639">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="515" y="252" key="#Notifications/0.0.1536.864@0.0.1536.864" timestamp="1600349127639" />
     <state x="223" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1600328920208">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -201,10 +175,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="587" y="71" key="#菜单和工具栏/0.0.1536.864@0.0.1536.864" timestamp="1600330489951" />
-    <state x="424" y="0" width="723" height="800" key="CommitChangelistDialog2" timestamp="1600347142262">
+    <state x="424" y="0" width="723" height="800" key="CommitChangelistDialog2" timestamp="1600349054985">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="424" y="0" width="723" height="800" key="CommitChangelistDialog2/0.0.1536.864@0.0.1536.864" timestamp="1600347142262" />
+    <state x="424" y="0" width="723" height="800" key="CommitChangelistDialog2/0.0.1536.864@0.0.1536.864" timestamp="1600349054985" />
     <state width="573" height="618" key="DebuggerActiveHint" timestamp="1600348672699">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -217,38 +191,38 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="547" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1600332325833" />
-    <state width="1513" height="225" key="GridCell.Tab.0.bottom" timestamp="1600349002198">
+    <state width="1513" height="235" key="GridCell.Tab.0.bottom" timestamp="1600350936510">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1513" height="225" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1600349002198" />
-    <state width="1513" height="225" key="GridCell.Tab.0.center" timestamp="1600349002198">
+    <state width="1513" height="235" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1600350936510" />
+    <state width="1513" height="235" key="GridCell.Tab.0.center" timestamp="1600350936510">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1513" height="225" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1600349002198" />
-    <state width="1513" height="225" key="GridCell.Tab.0.left" timestamp="1600349002198">
+    <state width="1513" height="235" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1600350936510" />
+    <state width="1513" height="235" key="GridCell.Tab.0.left" timestamp="1600350936510">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1513" height="225" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1600349002198" />
-    <state width="1513" height="225" key="GridCell.Tab.0.right" timestamp="1600349002198">
+    <state width="1513" height="235" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1600350936510" />
+    <state width="1513" height="235" key="GridCell.Tab.0.right" timestamp="1600350936510">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1513" height="225" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1600349002198" />
-    <state width="1513" height="225" key="GridCell.Tab.1.bottom" timestamp="1600349002198">
+    <state width="1513" height="235" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1600350936510" />
+    <state width="1513" height="235" key="GridCell.Tab.1.bottom" timestamp="1600350936381">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1513" height="225" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1600349002198" />
-    <state width="1513" height="225" key="GridCell.Tab.1.center" timestamp="1600349002198">
+    <state width="1513" height="235" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1600350936381" />
+    <state width="1513" height="235" key="GridCell.Tab.1.center" timestamp="1600350936381">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1513" height="225" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1600349002198" />
-    <state width="1513" height="225" key="GridCell.Tab.1.left" timestamp="1600349002198">
+    <state width="1513" height="235" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1600350936381" />
+    <state width="1513" height="235" key="GridCell.Tab.1.left" timestamp="1600350936381">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1513" height="225" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1600349002198" />
-    <state width="1513" height="225" key="GridCell.Tab.1.right" timestamp="1600349002198">
+    <state width="1513" height="235" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1600350936381" />
+    <state width="1513" height="235" key="GridCell.Tab.1.right" timestamp="1600350936381">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1513" height="225" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1600349002198" />
+    <state width="1513" height="235" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1600350936381" />
     <state x="349" y="166" key="IDE.errors.dialog" timestamp="1600337976213">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -257,10 +231,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="277" y="76" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1600333673188" />
-    <state x="361" y="165" key="Vcs.Push.Dialog.v2" timestamp="1600347114378">
+    <state x="361" y="165" key="Vcs.Push.Dialog.v2" timestamp="1600349069063">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="361" y="165" key="Vcs.Push.Dialog.v2/0.0.1536.864@0.0.1536.864" timestamp="1600347114378" />
+    <state x="361" y="165" key="Vcs.Push.Dialog.v2/0.0.1536.864@0.0.1536.864" timestamp="1600349069063" />
     <state x="430" y="181" width="672" height="678" key="search.everywhere.popup" timestamp="1600343586751">
       <screen x="0" y="0" width="1536" height="864" />
     </state>

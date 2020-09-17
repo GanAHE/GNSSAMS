@@ -79,15 +79,16 @@ class CallExModule(QThread):
         objp[:, :2] = np.mgrid[0:chessboard_size[0], 0:chessboard_size[1]].T.reshape(-1, 2)
 
         # 读取图片，使用glob文件名管理工具
-        standardPicDir = self.paraDict["dir"]
-        calibration_paths = glob.glob(standardPicDir + "/*.JPG")
-
-
-
+        calibration_paths = self.paraDict["paths"]
 
         # 对每张图片，识别出角点，记录世界物体坐标和图像坐标
-        for img_path in tqdm(calibration_paths):
-            # tqdm是进度条，以了解距离处理上一个图像多长时间，还剩多少图像没有处理
+        index = 1
+        for img_path in calibration_paths:
+            # 进度条监控模拟效果
+            self.sendInfo("3D",
+                          " -[相机参数] 进行中：{} {} {}/{}".format("#" * index, " " * (len(calibration_paths) - index), index,
+                                                            len(calibration_paths)))
+            index += 1
             # 加载图片
             img = cv2.imread(img_path)
             # 照片太大 缩小一半 (不能缩小!!!!内参会变！！像素变小了 并不是对原图像处理)
@@ -114,10 +115,11 @@ class CallExModule(QThread):
             # cv2.imshow('s',img)
             # cv2.waitKey(100)
 
+        self.sendInfo("3D", " 完成.")
         # 相机标定
         # 每张图片都有自己的旋转和平移矩阵 但是相机内参是畸变系数只有一组（因为相机没变，焦距和主心坐标是一样的）
         ret, K, dist, rvecs, tvecs = cv2.calibrateCamera(obj_points, img_points, gray.shape[::-1], None, None)
-        saveDir = "./t/"
+        saveDir, name = os.path.split(calibration_paths[0])
         # 保存参数
         np.save(saveDir + "ret", ret)
         np.save(saveDir + "K", K)
@@ -125,7 +127,7 @@ class CallExModule(QThread):
         np.save(saveDir + "rvecs", rvecs)
         np.save(saveDir + "tvecs", tvecs)
 
-        print(K)
+        self.sendInfo("3D", " 相机参数：{}".format(K))
 
     def killThread(self):
         self.terminate()

@@ -138,7 +138,8 @@ class Ui_Form(QtCore.QObject):
         self.showInfo("3D", " -[SFM] 已启动 MeshLab 点云重建模型-纹理贴图处理模块")
 
     def getPara_CHESE(self):
-        dir = QtWidgets.QFileDialog.getExistingDirectory(self.parent(),"指定标定影像路径",Database.workspace)
-        if dir != "":
-            self.callModule.setPara({"code": 102,"dir":dir})
+        imagePaths, type = QtWidgets.QFileDialog.getOpenFileNames(self.parent(), "指定标定影像路径", Database.workspace,
+                                                                  "JPEG(*.JPG);;All Files(*)")
+        if len(imagePaths) > 0:
+            self.callModule.setPara({"code": 102, "paths": imagePaths})
             self.callModule.start()
