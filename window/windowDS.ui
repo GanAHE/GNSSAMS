@@ -198,7 +198,7 @@
      <x>0</x>
      <y>0</y>
      <width>1241</width>
-     <height>26</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_F">
@@ -219,19 +219,6 @@
     <property name="title">
      <string>更多功能(&amp;C)</string>
     </property>
-    <widget class="QMenu" name="menu_C_2">
-     <property name="title">
-      <string>形变监测(&amp;C)</string>
-     </property>
-     <addaction name="munuItem_stablePointGround"/>
-    </widget>
-    <widget class="QMenu" name="menu_G">
-     <property name="title">
-      <string>工程测量(&amp;G)</string>
-     </property>
-     <addaction name="munuItem_railwayCurve"/>
-     <addaction name="munuItem_CPIII"/>
-    </widget>
     <widget class="QMenu" name="menu_T">
      <property name="sizePolicy">
       <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
@@ -251,10 +238,6 @@
     <addaction name="munuItem_markbook"/>
     <addaction name="separator"/>
     <addaction name="munuItem_controlNet"/>
-    <addaction name="separator"/>
-    <addaction name="menu_G"/>
-    <addaction name="separator"/>
-    <addaction name="menu_C_2"/>
     <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="menu_S">
@@ -287,7 +270,7 @@
    </widget>
    <widget class="QMenu" name="menuGNSS_2">
     <property name="title">
-     <string>GNSS(&amp;G)</string>
+     <string>GNSS导航定位(&amp;G)</string>
     </property>
     <addaction name="menuItem_SPP"/>
     <addaction name="separator"/>
@@ -303,9 +286,31 @@
     <addaction name="separator"/>
     <addaction name="actionw"/>
     <addaction name="separator"/>
+    <addaction name="actionsd"/>
+   </widget>
+   <widget class="QMenu" name="menu">
+    <property name="tearOffEnabled">
+     <bool>false</bool>
+    </property>
+    <property name="title">
+     <string>大地测量与形变监测(&amp;D)</string>
+    </property>
+    <addaction name="munuItem_stablePointGround"/>
+    <addaction name="separator"/>
+    <addaction name="actions"/>
+   </widget>
+   <widget class="QMenu" name="menu_E">
+    <property name="title">
+     <string>工程测量(&amp;E)</string>
+    </property>
+    <addaction name="munuItem_railwayCurve"/>
+    <addaction name="separator"/>
+    <addaction name="munuItem_CPIII"/>
    </widget>
    <addaction name="menu_F"/>
    <addaction name="menuGNSS_2"/>
+   <addaction name="menu"/>
+   <addaction name="menu_E"/>
    <addaction name="menu_C"/>
    <addaction name="menu_S"/>
    <addaction name="menu_H"/>
@@ -685,6 +690,11 @@
   <action name="actionsd_2">
    <property name="text">
     <string>GNSS地图测量</string>
+   </property>
+  </action>
+  <action name="actions">
+   <property name="text">
+    <string>三维重建与时序形变监测(&amp;W)</string>
    </property>
   </action>
  </widget>
