@@ -26,12 +26,13 @@ def toVmcs():
     process = subprocess.Popen(commend3, shell=True)
     process.wait()
 
+
 def eSFM():
     rootDir = "../../source/exModule/VMCS/"
     rootDir = os.path.abspath(rootDir)
     main = rootDir+"/VisualSFM.exe"
     r_v = os.system(main)
-    print (r_v )
+    print (r_v)
 
 # eSFM()
 toVmcs()

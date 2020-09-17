@@ -22,11 +22,12 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b7a252b2-b39c-42d4-9988-a33f92f7e492" name="默认更改列表" comment="&lt;add&gt;更新开发环境，从单一python到anaconda集成，新增三维建模扩展模块">
+    <list default="true" id="b7a252b2-b39c-42d4-9988-a33f92f7e492" name="默认更改列表" comment="&lt;update&gt;更新主界面菜单局域栏组成">
+      <change afterPath="$PROJECT_DIR$/window/geodeticSurvey/callExModuleThread.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/geodeticSurvey/mvs/callCMVS.py" beforeDir="false" afterPath="$PROJECT_DIR$/geodeticSurvey/mvs/callCMVS.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/window/windowDS.py" beforeDir="false" afterPath="$PROJECT_DIR$/window/windowDS.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/window/windowDS.ui" beforeDir="false" afterPath="$PROJECT_DIR$/window/windowDS.ui" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G01.png" beforeDir="false" afterPath="$PROJECT_DIR$/workspace/SatelliteOrbet/G01.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G02.png" beforeDir="false" afterPath="$PROJECT_DIR$/workspace/SatelliteOrbet/G02.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/workspace/SatelliteOrbet/G03.png" beforeDir="false" afterPath="$PROJECT_DIR$/workspace/SatelliteOrbet/G03.png" afterDir="false" />
@@ -65,6 +66,13 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
@@ -72,6 +80,9 @@
       </list>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/window/windowDS.py" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1hd6fCgI5PUmipe3DlWwCtRfbKx" />
   <component name="ProjectViewState">
@@ -83,7 +94,7 @@
     <property name="last_opened_file_path" value="D:/softwareInstall/ananconda/Scripts/pyuic5.exe" />
     <property name="settings.editor.selected.configurable" value="preferences.externalTools" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.GNSSAMS">
     <configuration name="GNSSAMS" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="EMACS" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -126,9 +137,31 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="callExModuleThread" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="EMACS" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="D:\softwareInstall\ananconda\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/.." />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/window/geodeticSurvey/callExModuleThread.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Python.GNSSAMS" />
+        <item itemvalue="Python.callExModuleThread" />
       </list>
     </recent_temporary>
   </component>
@@ -148,7 +181,8 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="&lt;add&gt;更新开发环境，从单一python到anaconda集成，新增三维建模扩展模块" />
-    <option name="LAST_COMMIT_MESSAGE" value="&lt;add&gt;更新开发环境，从单一python到anaconda集成，新增三维建模扩展模块" />
+    <MESSAGE value="&lt;update&gt;更新主界面菜单局域栏组成" />
+    <option name="LAST_COMMIT_MESSAGE" value="&lt;update&gt;更新主界面菜单局域栏组成" />
   </component>
   <component name="WindowStateProjectService">
     <state x="223" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1600328920208">
@@ -171,49 +205,53 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="547" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1600332325833" />
-    <state width="1513" height="226" key="GridCell.Tab.0.bottom" timestamp="1600334027645">
+    <state width="1513" height="225" key="GridCell.Tab.0.bottom" timestamp="1600344677218">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1513" height="226" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1600334027645" />
-    <state width="1513" height="226" key="GridCell.Tab.0.center" timestamp="1600334027645">
+    <state width="1513" height="225" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1600344677218" />
+    <state width="1513" height="225" key="GridCell.Tab.0.center" timestamp="1600344677218">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1513" height="226" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1600334027645" />
-    <state width="1513" height="226" key="GridCell.Tab.0.left" timestamp="1600334027644">
+    <state width="1513" height="225" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1600344677218" />
+    <state width="1513" height="225" key="GridCell.Tab.0.left" timestamp="1600344677218">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1513" height="226" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1600334027644" />
-    <state width="1513" height="226" key="GridCell.Tab.0.right" timestamp="1600334027645">
+    <state width="1513" height="225" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1600344677218" />
+    <state width="1513" height="225" key="GridCell.Tab.0.right" timestamp="1600344677218">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1513" height="226" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1600334027645" />
-    <state width="1513" height="226" key="GridCell.Tab.1.bottom" timestamp="1600334027499">
+    <state width="1513" height="225" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1600344677218" />
+    <state width="1513" height="225" key="GridCell.Tab.1.bottom" timestamp="1600344677219">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1513" height="226" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1600334027499" />
-    <state width="1513" height="226" key="GridCell.Tab.1.center" timestamp="1600334027499">
+    <state width="1513" height="225" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1600344677219" />
+    <state width="1513" height="225" key="GridCell.Tab.1.center" timestamp="1600344677218">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1513" height="226" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1600334027499" />
-    <state width="1513" height="226" key="GridCell.Tab.1.left" timestamp="1600334027499">
+    <state width="1513" height="225" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1600344677218" />
+    <state width="1513" height="225" key="GridCell.Tab.1.left" timestamp="1600344677218">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1513" height="226" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1600334027499" />
-    <state width="1513" height="226" key="GridCell.Tab.1.right" timestamp="1600334027499">
+    <state width="1513" height="225" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1600344677218" />
+    <state width="1513" height="225" key="GridCell.Tab.1.right" timestamp="1600344677219">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1513" height="226" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1600334027499" />
-    <state x="349" y="166" key="IDE.errors.dialog" timestamp="1600328572938">
+    <state width="1513" height="225" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1600344677219" />
+    <state x="349" y="166" key="IDE.errors.dialog" timestamp="1600337976213">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="349" y="166" key="IDE.errors.dialog/0.0.1536.864@0.0.1536.864" timestamp="1600328572938" />
+    <state x="349" y="166" key="IDE.errors.dialog/0.0.1536.864@0.0.1536.864" timestamp="1600337976213" />
     <state x="277" y="76" key="SettingsEditor" timestamp="1600333673188">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="277" y="76" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1600333673188" />
-    <state x="361" y="165" key="Vcs.Push.Dialog.v2" timestamp="1600329521934">
+    <state x="361" y="165" key="Vcs.Push.Dialog.v2" timestamp="1600334243028">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="361" y="165" key="Vcs.Push.Dialog.v2/0.0.1536.864@0.0.1536.864" timestamp="1600329521934" />
+    <state x="361" y="165" key="Vcs.Push.Dialog.v2/0.0.1536.864@0.0.1536.864" timestamp="1600334243028" />
+    <state x="430" y="181" width="672" height="678" key="search.everywhere.popup" timestamp="1600343586751">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="430" y="181" width="672" height="678" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1600343586751" />
   </component>
 </project>

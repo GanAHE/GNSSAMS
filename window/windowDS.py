@@ -16,7 +16,7 @@ from engineerMesure.leicaGsiFormat import LeicaGSIFormat
 from database.database import Database
 from geodeticSurvey.draw_qualLine import drawGravityAnomaly
 from window import welcomeWight, aboutDialog, configSettingDialog
-from window.geodeticSurvey import inversionGravityFieldWight, gravityFieldApplicationWight
+from window.geodeticSurvey import inversionGravityFieldWight, gravityFieldApplicationWight,threeDimensionalReconstructionWight
 from window.measureTool import coorTranWight, coorTranOpenFileDiaog, stablePointGroupWight, coorSystemTranWight
 from window.controlNetwork import stablePointGroupFileDialog, controlNetAdjustmentWight
 from window.engineeringSurvey import leicaDataFormatWight, circularCurveWight
@@ -430,7 +430,8 @@ class Ui_mainWindow(object):
         self.dialogUi = coorTranOpenFileDiaog.Ui_Dialog()
         self.dialogUi.fileReadEmit.connect(self.setOpenFileInfo)
         self.dialogUi.infoEmit.connect(self.displayInfo)
-        # 稳定点组
+        # 大地测量
+        self.actions.triggered.connect(self.threeDimessReconsrtuctionWight)
         self.stablePointGroupDialog = QtWidgets.QDialog()
         self.stablePointGroupFileDialog_ui = stablePointGroupFileDialog.Ui_Dialog()
         self.stablePointGroupFileDialog_ui.fileReadEmit.connect(self.setOpenFileInfo_stable)
@@ -698,6 +699,23 @@ class Ui_mainWindow(object):
         self.stablePointGroupWight_ui.setupUi(self.widget)
         self.verticalLayout_4.addWidget(self.widget)
         self.stablePointGroupWight_ui.infoEmit.connect(self.displayInfo)
+
+    def threeDimessReconsrtuctionWight(self):
+        """
+        三维重建页面
+        :return:
+        """
+        self.tabWidget.setCurrentIndex(0)
+        _translate = QtCore.QCoreApplication.translate
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_operate), _translate("mainWindow", "三维重建"))
+        # 界面重构存储区域
+        self.widget.deleteLater()
+        self.widget = QtWidgets.QWidget(self.tab_operate)
+        self.widget.setObjectName("widget")
+        self.threeDimessReconsrtuctionWight_ui = threeDimensionalReconstructionWight.Ui_Form()
+        self.threeDimessReconsrtuctionWight_ui.setupUi(self.widget)
+        self.verticalLayout_4.addWidget(self.widget)
+        self.threeDimessReconsrtuctionWight_ui.infoEmit.connect(self.displayInfo)
 
     def sppWight(self):
         """GNSS单点定位界面"""
