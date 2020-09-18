@@ -15,7 +15,7 @@ import cv2
 from tqdm import tqdm
 import numpy as np
 from numpy import *  # 使用numpy的属性且不需要在前面加上numpy
-import tensorflow as tf
+# import tensorflow as tf
 
 
 class CameraInternalReferenceEstimation():
@@ -138,6 +138,6 @@ class CameraInternalReferenceEstimation():
 
 if __name__ == "__main__":
     cp = CameraInternalReferenceEstimation()
-    # cp.getPara_PICTURE_EXIF("./IMGT.jpg")
+    cp.getPara_PICTURE_EXIF(r"‪E:\CodePrograme\Python\EMACS\workspace\3Dimess\3A_black\IMG_20200918_103413.jpg")
     # cp.getPara_CHESE("./t/")
 

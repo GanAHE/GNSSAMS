@@ -102,6 +102,9 @@ class Ui_Form(QtCore.QObject):
         self.horizontalLayout_2.addWidget(self.groupBox)
 
         self.retranslateUi(Form)
+
+        self.button_3D.setEnabled(False)
+
         self.button_clear.clicked.connect(self.textEdit.clear)
 
         self.callModule = callExModuleThread.CallExModule()
@@ -109,6 +112,7 @@ class Ui_Form(QtCore.QObject):
         self.button_pointCode.clicked.connect(self.actionCallVisualSFM)
         self.button_openModel.clicked.connect(self.actionCallMeshLab)
         self.button_camaraPara.clicked.connect(self.getPara_CHESE)
+        self.button_3D.clicked.connect(self.actionCallMeshLab)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
@@ -121,9 +125,15 @@ class Ui_Form(QtCore.QObject):
         self.button_openModel.setText(_translate("Form", "查看模型"))
         self.button_changeModel.setText(_translate("Form", "时序模型形变监测"))
 
+    def defaultStatus(self):
+        self.button_3D.isEnabled()
+
     def showInfo(self, type, strInfo):
         if type == "3D":
             self.textEdit.append(strInfo)
+        elif type == "kill":
+            self.callModule.killThread()
+            self.showInfo("I", "关闭子线程.")
         else:
             self.infoEmit.emit(type, strInfo)
 
@@ -131,6 +141,8 @@ class Ui_Form(QtCore.QObject):
         self.callModule.setPara({"code": 100})
         self.callModule.start()
         self.showInfo("3D", " -[SFM] 已启动 VisualSFM 三维重建模块")
+        self.showInfo("I", "- 三维模型构建模块 已激活")
+        self.button_3D.setEnabled(True)
 
     def actionCallMeshLab(self):
         self.callModule.setPara({"code": 101})
