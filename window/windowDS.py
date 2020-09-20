@@ -16,7 +16,8 @@ from engineerMesure.leicaGsiFormat import LeicaGSIFormat
 from database.database import Database
 from geodeticSurvey.draw_qualLine import drawGravityAnomaly
 from window import welcomeWight, aboutDialog, configSettingDialog
-from window.geodeticSurvey import inversionGravityFieldWight, gravityFieldApplicationWight,threeDimensionalReconstructionWight
+from window.geodeticSurvey import inversionGravityFieldWight, gravityFieldApplicationWight, \
+    threeDimensionalReconstructionWight
 from window.measureTool import coorTranWight, coorTranOpenFileDiaog, stablePointGroupWight, coorSystemTranWight
 from window.controlNetwork import stablePointGroupFileDialog, controlNetAdjustmentWight
 from window.engineeringSurvey import leicaDataFormatWight, circularCurveWight
@@ -552,6 +553,8 @@ class Ui_mainWindow(object):
             elif type == "draw":
                 fig = drawGravityAnomaly()
                 self.setVisualFigure(fig)
+            elif type == "dirFile":
+                self.showPan(strInfo)
             else:
                 ActionWarnException(self.centralwidget).actionWarnException(type, strInfo)
         except Exception as e:
