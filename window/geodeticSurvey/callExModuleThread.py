@@ -9,11 +9,13 @@ comment: 扩展模块唤醒线程
 @contact: dinggan@whu.edu.cn
 """
 import os
-
+import multiprocessing
 import cv2
 from database.database import Database
 import numpy as np
+import matplotlib.pyplot as plt
 from PyQt5.QtCore import pyqtSignal, QThread
+from geodeticSurvey.mvs import videoKeyFrameToImage
 
 
 class CallExModule(QThread):
@@ -32,8 +34,10 @@ class CallExModule(QThread):
                 self.callVisualSFM()
             elif code == 101:
                 self.callMeshLab()
-            else:
+            elif code == 102:
                 self.calib()
+            else:
+                self.videoFrame()
         except Exception as e:
             self.sendInfo("E", "异常警告！具体信息：" + e.__str__())
 
@@ -131,6 +135,51 @@ class CallExModule(QThread):
             self.sendInfo("3D", " -[Camera] 参数估计-平均误差:{} ".format(total_error / len(obj_points)))
         else:
             self.sendInfo("3D", " -[Camera] 角点无法检出，棋盘规格设置错误，或是图像效果较差无法识别,请检查！")
+
+    def ca(self):
+        videoKeyFrameToImage.call(self.paraDict["videoPath"])
+    def videoFrame(self):
+        """
+
+        :return:
+        """
+
+        self.sendInfo("3D","执行视频关键帧抽帧...")
+        pool = multiprocessing.Pool(processes=10)
+        videoPath = self.paraDict["videoPath"]
+        totalFrames = videoKeyFrameToImage.video2frame(videoPath)
+        self.sendInfo("3D","dfdfg")
+        # self.sendInfo("3D", "there are {} frames in video".format(len(totalFrames)))
+        h, w, _ = totalFrames[0].shape
+        hist = pool.map(videoKeyFrameToImage.calc_hist, totalFrames)
+        self.sendInfo("3D", 'hist.shape: {}'.format(hist[0].shape))
+        # print('hist[0]: {}'.format(hist[0]))
+
+        si = videoKeyFrameToImage.similarity(hist[50], hist[60])
+        self.sendInfo("3D", 'similarity between two frames: {}'.format(si))
+        # print((hist[1]+hist[2]+hist[3])/3)
+        cents, results = videoKeyFrameToImage.ekf(hist)
+        self.sendInfo("3D", " {} {}".format(len(cents), results))
+        # to_show = cv2.cvtColor(total_frames[cents[0][-1]], cv2.COLOR_BGR2RGB)
+        # plt.imshow(to_show)
+        # plt.show()
+        self.sendInfo("3D", str(type(totalFrames[0])))
+        # 创建文件夹
+        frameDir, name = os.path.split(videoPath)
+        frameDir = frameDir + "/" + name + "_keyFrame"
+        if os.path.exists(frameDir) is False:  # 路径不存在，创建
+            os.mkdir(frameDir)
+        self.sendInfo("3D", "成功创建文件夹，抽取的关键帧将保存在：{}".format(frameDir))
+        k = 0
+        for inm in totalFrames:
+            self.sendInfo("3D", "关键帧提取中:" + str(k + 1))
+            to_show = cv2.cvtColor(totalFrames[k], cv2.COLOR_BGR2RGB)
+            plt.imsave(frameDir + "/" + name + "_frame_" + str(k) + ".jpg", to_show)
+            # plt.imshow(to_show)
+            # plt.show()
+            # inm.save("./te/" + str(k) + ".jpg")
+            # cv2.imwrite("./te/" + str(k) + ".jpg", inm)
+            k += 1
 
     def killThread(self):
         self.terminate()

@@ -8,6 +8,8 @@ comment:
 @version 1.0.
 @contact: dinggan@whu.edu.cn
 """
+import os
+
 import cv2
 import multiprocessing
 import numpy as np
@@ -115,9 +117,11 @@ def ekf(total_frames):
     return centers_d, sorted(result)
 
 
-if __name__ == '__main__':
+def call(path):
     pool = multiprocessing.Pool(processes=10)
-    video_name = r'E:\CodePrograme\Python\EMACS\workspace\3Dimess\stack\VID_20200918_181432.mp4'
+    print(path)
+    print("laie")
+    video_name = path
     total_frames = video2frame(video_name)
     print("there are {} frames in video".format(len(total_frames)))
     h, w, _ = total_frames[0].shape
@@ -134,13 +138,23 @@ if __name__ == '__main__':
     # plt.imshow(to_show)
     # plt.show()
     print(type(total_frames[0]))
+    # 创建文件夹
+    frameDir, name = os.path.split(video_name)
+    frameDir = frameDir + "/" + name + "_keyFrame"
+    if os.path.exists(frameDir) is False:  # 路径不存在，创建
+        os.mkdir(frameDir)
+    # self.sendInfo("3D", "成功创建文件夹，抽取的关键帧将保存在：{}".format(frameDir))
     k = 0
     for inm in total_frames:
         print("关键帧提取中:" + str(k + 1))
         to_show = cv2.cvtColor(total_frames[k], cv2.COLOR_BGR2RGB)
-        plt.imsave("E:\\CodePrograme\\Python\\EMACS\\geodeticSurvey\\mvs\\te\\Gr_"+ str(k)+".jpg",to_show)
+        plt.imsave(frameDir + "/" + "_frame_" + str(k) + ".jpg", to_show)
         # plt.imshow(to_show)
         # plt.show()
         # inm.save("./te/" + str(k) + ".jpg")
         # cv2.imwrite("./te/" + str(k) + ".jpg", inm)
         k += 1
+
+
+if __name__ == "__main__":
+    call(r"E:\CodePrograme\Python\EMACS\workspace\3Dimess\VID_20200918_181432 - t.mp4")

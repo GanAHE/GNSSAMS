@@ -25,12 +25,9 @@
     <list default="true" id="b7a252b2-b39c-42d4-9988-a33f92f7e492" name="默认更改列表" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/geodeticSurvey/mvs/camParaEst.py" beforeDir="false" afterPath="$PROJECT_DIR$/geodeticSurvey/mvs/camParaEst.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/geodeticSurvey/mvs/videoKeyFrameToImage.py" beforeDir="false" afterPath="$PROJECT_DIR$/geodeticSurvey/mvs/videoKeyFrameToImage.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/window/geodeticSurvey/callExModuleThread.py" beforeDir="false" afterPath="$PROJECT_DIR$/window/geodeticSurvey/callExModuleThread.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/window/geodeticSurvey/threeDimensionalReconstructionWight.py" beforeDir="false" afterPath="$PROJECT_DIR$/window/geodeticSurvey/threeDimensionalReconstructionWight.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/window/geodeticSurvey/threeDimensionalReconstructionWight.ui" beforeDir="false" afterPath="$PROJECT_DIR$/window/geodeticSurvey/threeDimensionalReconstructionWight.ui" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/window/windowDS.py" beforeDir="false" afterPath="$PROJECT_DIR$/window/windowDS.py" afterDir="false" />
     </list>
     <list id="8059e693-0200-4b0e-8c16-cb9f06871c37" name="Revert &quot;&lt;add&gt;新增三维模型重建页面与基本处理逻辑&quot;" comment="Revert &quot;&lt;add&gt;新增三维模型重建页面与基本处理逻辑&quot;&#10;&#10;This reverts commit 0fb6709b">
       <change afterPath="$PROJECT_DIR$/workspace/SatelliteOrbet/G32.png" afterDir="false" />
@@ -70,7 +67,7 @@
     <property name="last_opened_file_path" value="D:/softwareInstall/ananconda/Scripts/pyuic5.exe" />
     <property name="settings.editor.selected.configurable" value="preferences.externalTools" />
   </component>
-  <component name="RunManager" selected="Python.camParaEst">
+  <component name="RunManager" selected="Python.GNSSAMS">
     <configuration name="GNSSAMS" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="EMACS" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -179,8 +176,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.GNSSAMS" />
-        <item itemvalue="Python.camParaEst" />
         <item itemvalue="Python.videoKeyFrameToImage" />
+        <item itemvalue="Python.camParaEst" />
         <item itemvalue="Python.callExModuleThread" />
       </list>
     </recent_temporary>
@@ -208,7 +205,8 @@
     <MESSAGE value="&lt;update&gt;更新三维重建页面并美化" />
     <MESSAGE value="&lt;add&gt;新增整套三维重建处理流程" />
     <MESSAGE value="&lt;add&gt;新增相机校正模块并修复若干bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="&lt;add&gt;新增相机校正模块并修复若干bug" />
+    <MESSAGE value="&lt;fix&gt;修复相机参数估计不带入方格寸尺的问题，将误差从0.8-0.5降到0.1-0.4" />
+    <option name="LAST_COMMIT_MESSAGE" value="&lt;fix&gt;修复相机参数估计不带入方格寸尺的问题，将误差从0.8-0.5降到0.1-0.4" />
   </component>
   <component name="WindowStateProjectService">
     <state x="515" y="252" key="#Notifications" timestamp="1600349127639">
@@ -227,10 +225,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="587" y="71" key="#菜单和工具栏/0.0.1536.864@0.0.1536.864" timestamp="1600330489951" />
-    <state x="424" y="0" width="723" height="800" key="CommitChangelistDialog2" timestamp="1600435024280">
+    <state x="424" y="0" width="800" height="800" key="CommitChangelistDialog2" timestamp="1600620756328">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="424" y="0" width="723" height="800" key="CommitChangelistDialog2/0.0.1536.864@0.0.1536.864" timestamp="1600435024280" />
+    <state x="424" y="0" width="800" height="800" key="CommitChangelistDialog2/0.0.1536.864@0.0.1536.864" timestamp="1600620756328" />
     <state width="764" height="618" key="DebuggerActiveHint" timestamp="1600437184781">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -243,38 +241,38 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="547" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1600332325833" />
-    <state width="1513" height="201" key="GridCell.Tab.0.bottom" timestamp="1600614139195">
+    <state width="1513" height="268" key="GridCell.Tab.0.bottom" timestamp="1600663627588">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1513" height="201" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1600614139195" />
-    <state width="1513" height="201" key="GridCell.Tab.0.center" timestamp="1600614139195">
+    <state width="1513" height="268" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1600663627588" />
+    <state width="1513" height="268" key="GridCell.Tab.0.center" timestamp="1600663627587">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1513" height="201" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1600614139195" />
-    <state width="1513" height="201" key="GridCell.Tab.0.left" timestamp="1600614139194">
+    <state width="1513" height="268" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1600663627587" />
+    <state width="1513" height="268" key="GridCell.Tab.0.left" timestamp="1600663627587">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1513" height="201" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1600614139194" />
-    <state width="1513" height="201" key="GridCell.Tab.0.right" timestamp="1600614139195">
+    <state width="1513" height="268" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1600663627587" />
+    <state width="1513" height="268" key="GridCell.Tab.0.right" timestamp="1600663627588">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1513" height="201" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1600614139195" />
-    <state width="1513" height="201" key="GridCell.Tab.1.bottom" timestamp="1600614139069">
+    <state width="1513" height="268" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1600663627588" />
+    <state width="1513" height="268" key="GridCell.Tab.1.bottom" timestamp="1600663627399">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1513" height="201" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1600614139069" />
-    <state width="1513" height="201" key="GridCell.Tab.1.center" timestamp="1600614139069">
+    <state width="1513" height="268" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1600663627399" />
+    <state width="1513" height="268" key="GridCell.Tab.1.center" timestamp="1600663627399">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1513" height="201" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1600614139069" />
-    <state width="1513" height="201" key="GridCell.Tab.1.left" timestamp="1600614139069">
+    <state width="1513" height="268" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1600663627399" />
+    <state width="1513" height="268" key="GridCell.Tab.1.left" timestamp="1600663627399">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1513" height="201" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1600614139069" />
-    <state width="1513" height="201" key="GridCell.Tab.1.right" timestamp="1600614139069">
+    <state width="1513" height="268" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1600663627399" />
+    <state width="1513" height="268" key="GridCell.Tab.1.right" timestamp="1600663627399">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1513" height="201" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1600614139069" />
+    <state width="1513" height="268" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1600663627399" />
     <state x="349" y="166" key="IDE.errors.dialog" timestamp="1600436347043">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -283,14 +281,14 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="277" y="76" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1600333673188" />
-    <state x="361" y="165" key="Vcs.Push.Dialog.v2" timestamp="1600435033303">
+    <state x="361" y="165" key="Vcs.Push.Dialog.v2" timestamp="1600620773476">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="361" y="165" key="Vcs.Push.Dialog.v2/0.0.1536.864@0.0.1536.864" timestamp="1600435033303" />
-    <state x="618" y="52" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog" timestamp="1600434976005">
+    <state x="361" y="165" key="Vcs.Push.Dialog.v2/0.0.1536.864@0.0.1536.864" timestamp="1600620773476" />
+    <state x="618" y="52" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog" timestamp="1600620734233">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="618" y="52" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog/0.0.1536.864@0.0.1536.864" timestamp="1600434976005" />
+    <state x="618" y="52" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog/0.0.1536.864@0.0.1536.864" timestamp="1600620734233" />
     <state x="430" y="181" width="672" height="678" key="search.everywhere.popup" timestamp="1600343586751">
       <screen x="0" y="0" width="1536" height="864" />
     </state>

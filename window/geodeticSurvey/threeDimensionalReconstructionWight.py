@@ -167,6 +167,7 @@ class Ui_Form(QtCore.QObject):
         self.button_openModel.clicked.connect(self.actionCallMeshLab)
         self.button_camaraPara.clicked.connect(self.getPara_CHESE)
         self.button_3D.clicked.connect(self.actionCallMeshLab)
+        self.button_videoFrame.clicked.connect(self.videoKeyFrame)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
@@ -220,3 +221,13 @@ class Ui_Form(QtCore.QObject):
                  "cellSize": float(self.spinBox_cellSize.text()),
                  "autoSaveCorner": self.checkBox_autoSaveCorner.isChecked()})
             self.callModule.start()
+
+    def videoKeyFrame(self):
+        self.showInfo("T", "由于设计缺陷，该功能的交互式执行暂时关闭！")
+        # videoPath, type = QtWidgets.QFileDialog.getOpenFileNames(self.parent(), "选择视频", Database.workspace,
+        #                                                          "MP4(*.mp4);;All Files(*)")
+        # if len(videoPath) > 0:
+        #     dir, name = os.path.split(videoPath[0])
+        #     self.showInfo("dirFile", dir)
+        #     self.callModule.setPara({"code": 103, "videoPath": videoPath})
+        #     self.callModule.start()
