@@ -324,23 +324,21 @@ class Database(object):
     _Po = 1013.25  # mbar
     _RHo = 0.5
 
-    @property
-    def standardMeteorologicalElement(self):
+    def getStandardMeteorologicalElement(self):
         """
         获取内部存储的标准气象元素
         :return: list [To,Po,RHo]
         """
-        return [self._To, self._Po, self._RHo]
+        return [Database._To, Database._Po, Database._RHo]
 
-    @standardMeteorologicalElement.setter
-    def standardMeteorologicalElement(self, listElement):
+    def setStandardMeteorologicalElement(self, listElement):
         """
         设定标准气象元素
         :param listElement: len = 3,[To,Po,RHo]
         """
-        self._To = listElement[0]
-        self._Po = listElement[1]
-        self._RHo = listElement[2]
+        Database._To = listElement[0]
+        Database._Po = listElement[1]
+        Database._RHo = listElement[2]
 
     """
     # 地球磁北极坐标,单位：度 在初始化时进行检查更新！

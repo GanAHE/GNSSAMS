@@ -15,28 +15,45 @@ import numpy as np
 from measureTool import coordinationTran
 
 
-def standardMeteorologicalMethod(H):
+def standardMeteorologicalMethod(approx_position, ellipsoid, elevation):
     """
-    标准气象改正法
+    标准气象元素 Saastamoinen模型
     <p>对流层延迟
-    :param H: 测站高程
-    :return: 改正后的对流层时延 ，Vtrop = -f(n-1)ds
+    :param x: 坐标
+    :param y:
+    :param z:
+    :param elevation: 卫星仰角
+    :return: 改正后的对流层时延
     """
     # 从内部数据储存中获取标准气象元素值
-    listElement = Database.standardMeteorologicalElement
+    listElement = Database().getStandardMeteorologicalElement()
     To = listElement[0]
     Po = listElement[1]
     RHo = listElement[2]
 
-    T = To - 0.0065 * H
-    P = Po * ((1 - 0.0000266 * H) ** 5.225)
-    e = RHo * math.exp(-0.0006396 * H - 37.2465 + 0.213166 * T - 0.00026908 * T * T)
+    lat, lon, Height = coordinationTran.CoordinationTran(ellipsoid).XYZ_to_BLH(approx_position)
+    z = 90 - elevation   # 天顶角
+
+    P = Po * ((1 - 0.0000266 * Height) ** 5.225)
+    T = To - 0.0065 * Height + 273.15
+    e = 6.108 * math.exp((17.15 * T - 4684.0) / (T - 38.45)) * RHo
+
+    Th = (0.0022768 * P) / (1.0 - 0.00266 * math.cos(2 * lat) - 0.00000028 * Height)\
+         / math.cos(np.deg2rad(z))
+    Tw = 0.0022768 * (1255 / T + 0.05) * e / math.cos(np.deg2rad(z))
+    Tr = Th + Tw
+
+    return Tr
+
+    # T = To - 0.0065 * ellHeight
+    # P = Po * ((1 - 0.0000266 * ellHeight) ** 5.225)
+    # e = RHo * math.exp(-0.0006396 * ellHeight - 37.2465 + 0.213166 * T - 0.00026908 * T * T)
 
     # 大气折射指数
-    N = 77.6 * P / T + 3.73E5 * e / (T * T)
-
-    Vtrop = N * 1E-6
-    return Vtrop
+    # N = 77.6 * P / T + 3.73E5 * e / (T * T)
+    #
+    # Vtrop = N * 1E-6
+    # return Vtrop
 
 
 def tropospheric_delay(approx_position, elevation, epoch, ellipsoid):
@@ -51,20 +68,7 @@ def tropospheric_delay(approx_position, elevation, epoch, ellipsoid):
     :param epoch: 历元
     :return: 对流层延迟 单位：m
     """
-    """
-    Calculates tropospheric delay using Colins(1999) method
-    Input:
-        Cartesian coordinates of receiver in ECEF frame (x,y,z)
-        Elevation Angle [unit: degree] of satellite vehicle
-    Output:
-        Tropospheric delay [unit: m]
 
-    Reference:
-    Collins, J. P. (1999). Assessment and Development of a Tropospheric Delay Model for
-    Aircraft Users of the Global Positioning System. M.Sc.E. thesis, Department of
-    Geodesy and Geomatics Engineering Technical Report No. 203, University of
-    New Brunswick, Fredericton, New Brunswick, Canada, 174 pp
-    """
     lat, lon, ellHeight = coordinationTran.CoordinationTran(ellipsoid).XYZ_to_BLH(approx_position)
     lat = np.rad2deg(lat)
     lon = np.rad2deg(lon)
@@ -139,25 +143,25 @@ def tropospheric_delay(approx_position, elevation, epoch, ellipsoid):
     return Vtrop
 
 
-def XYZ2BLH(x, y, z, ellipsoid='GRS80'):
-    """
-    This function converts 3D cartesian coordinates to geodetic coordinates
-    """
-    ellipsoid = _ellipsoid(ellipsoid)  # create an ellipsoid instance
-    L = np.arctan2(y, x)  # $\lambda = \atan\frac{y}{x}$
-    p = np.sqrt(x ** 2 + y ** 2)  # $p = \sqrt{x^2+y^2}$
-    N_init = ellipsoid.a  # initial value of prime vertical radius N
-    H_init = np.sqrt(x ** 2 + y ** 2 + z ** 2) - np.sqrt(ellipsoid.a * ellipsoid.b)
-    B_init = np.arctan2(z, (1 - N_init * ellipsoid.e1 ** 2 / (N_init + H_init)) * p)
-    while True:
-        N = ellipsoid.a / np.sqrt(1 - (ellipsoid.e1 ** 2 * np.sin(B_init) ** 2))
-        H = (p / np.cos(B_init)) - N
-        B = np.arctan2(z, (1 - N * ellipsoid.e1 ** 2 / (N + H)) * p)
-        if np.abs(B_init - B) < 1e-8 and np.abs(H_init - H) < 1e-8:
-            break
-        B_init = B
-        H_init = H
-    return np.rad2deg(B), np.rad2deg(L), H
+# def XYZ2BLH(x, y, z, ellipsoid='GRS80'):
+#     """
+#     This function converts 3D cartesian coordinates to geodetic coordinates
+#     """
+#     ellipsoid = _ellipsoid(ellipsoid)  # create an ellipsoid instance
+#     L = np.arctan2(y, x)  # $\lambda = \atan\frac{y}{x}$
+#     p = np.sqrt(x ** 2 + y ** 2)  # $p = \sqrt{x^2+y^2}$
+#     N_init = ellipsoid.a  # initial value of prime vertical radius N
+#     H_init = np.sqrt(x ** 2 + y ** 2 + z ** 2) - np.sqrt(ellipsoid.a * ellipsoid.b)
+#     B_init = np.arctan2(z, (1 - N_init * ellipsoid.e1 ** 2 / (N_init + H_init)) * p)
+#     while True:
+#         N = ellipsoid.a / np.sqrt(1 - (ellipsoid.e1 ** 2 * np.sin(B_init) ** 2))
+#         H = (p / np.cos(B_init)) - N
+#         B = np.arctan2(z, (1 - N * ellipsoid.e1 ** 2 / (N + H)) * p)
+#         if np.abs(B_init - B) < 1e-8 and np.abs(H_init - H) < 1e-8:
+#             break
+#         B_init = B
+#         H_init = H
+#     return np.rad2deg(B), np.rad2deg(L), H
 
 
 def datetime2doy(now_date, string=False):
@@ -179,18 +183,18 @@ def datetime2doy(now_date, string=False):
     return doy
 
 
-def _ellipsoid(ellipsoidName):
-    axes = {'GRS80': [6378137.000, 6356752.314140],
-            'WGS84': [6378137.000, 6356752.314245],
-            'Hayford': [6378388.000, 6356911.946000]}[ellipsoidName]
-    a, b = axes[0], axes[1]
-    return _Ellipsoid(a, b)
+# def _ellipsoid(ellipsoidName):
+#     axes = {'GRS80': [6378137.000, 6356752.314140],
+#             'WGS84': [6378137.000, 6356752.314245],
+#             'Hayford': [6378388.000, 6356911.946000]}[ellipsoidName]
+#     a, b = axes[0], axes[1]
+#     return _Ellipsoid(a, b)
 
 
-class _Ellipsoid:
-    def __init__(self, a, b):
-        self.a = a
-        self.b = b
-        self.f = (a - b) / a  # flattening: $f = \frac{a-b}{a}$
-        self.e1 = np.sqrt((a ** 2 - b ** 2) / a ** 2)  # first eccentricity  : $e   = \sqrt{\frac{a^2-b^2}{a^2}}$
-        self.e2 = np.sqrt((a ** 2 - b ** 2) / b ** 2)  # second eccentricity : $e^' = \sqrt{\frac{a^2-b^2}{b^2}}$
+# class _Ellipsoid:
+#     def __init__(self, a, b):
+#         self.a = a
+#         self.b = b
+#         self.f = (a - b) / a  # flattening: $f = \frac{a-b}{a}$
+#         self.e1 = np.sqrt((a ** 2 - b ** 2) / a ** 2)  # first eccentricity  : $e   = \sqrt{\frac{a^2-b^2}{a^2}}$
+#         self.e2 = np.sqrt((a ** 2 - b ** 2) / b ** 2)  # second eccentricity : $e^' = \sqrt{\frac{a^2-b^2}{b^2}}$

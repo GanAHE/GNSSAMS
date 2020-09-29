@@ -7,7 +7,7 @@ comment: 坐标转换类
 @version 1.0.
 @contact: dinggan@whu.edu.cn
 """
-from numpy import sin, cos, tan, arctan2, sqrt, arctan, mat
+from numpy import sin, cos, tan, arctan2, sqrt, arctan, mat, fabs
 
 from database.database import Database
 
@@ -62,13 +62,11 @@ class CoordinationTran():
         ti_1 = 0
 
         P = self.ellipsis.c * self.ellipsis.e * self.ellipsis.e / sqrt_XY
-        # k = 1 - self.ellipsis.dot_e * self.ellipsis.dot_e + 1
         k = 1 + self.ellipsis.dot_e * self.ellipsis.dot_e
         while abs(ti_1 - ti) > 1e-6:
             ti_1 = ti
             ti = to + P * ti / sqrt(k + ti * ti)
         B = arctan(ti)
-        # N = self.ellipsis.a / sqrt(1 - self.ellipsis.e * self.ellipsis.e * sin(B) * sin(B))
         N = self.ellipsis.c / sqrt(1 + self.ellipsis.dot_e * self.ellipsis.dot_e * cos(B) * cos(B))
         H = sqrt_XY / cos(B) - N
 
@@ -91,7 +89,7 @@ class CoordinationTran():
         NEH = mat(trans) * mat(deltaXYZ)
         N = NEH[0][0]
         E = NEH[1][0]
-        H = NEH[2][0]
+        H = fabs(NEH[2][0])
         return N, E, H
 
 

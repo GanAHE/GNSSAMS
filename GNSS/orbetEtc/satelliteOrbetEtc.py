@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from numpy import sin, cos, arctan, sqrt, mat, rad2deg, deg2rad
+from numpy import sin, cos, arctan, sqrt, mat, arctan2,rad2deg, deg2rad
 
 
 def getSatellitePositon(t_epoch, single_epoch_data):
     """
      卫星位置定轨计算函数
-    :param times the times of satellite
     :param t_epoch: 观测历元时间
     :param single_epoch_data: 一个观测历元的数据 List
     :return: matrixXYZ 地固坐标系
@@ -126,8 +125,8 @@ def getSatellitePositon_II(t_epoch, epoch_data):
     # 其他数据
     i_dot = epoch_data[15]
 
-    GM = 3.9860047E14  # 注意这个参数，最开始就这个参数没有处理好！
-    w_e = 7.2921151467E-5  # rad/s,不能少位，如：7.292115
+    GM = 3.9860047E14
+    w_e = 7.2921151467E-5
 
     # 计算卫星平均角速度
     n0 = sqrt(GM) / (sqrt_A ** 3)
@@ -135,17 +134,19 @@ def getSatellitePositon_II(t_epoch, epoch_data):
     n = n0 + An
 
     # 钟差改正
-    teta_t = clockBias+clockDrift*(t_epoch-t_oe) + clockDriftRate*(t_epoch-t_oe)*(t_epoch-t_oe)
+    teta_t = clockBias + clockDrift * (t_epoch - t_oe) + clockDriftRate * (t_epoch - t_oe) * (t_epoch - t_oe)
     t_epoch = t_epoch - teta_t
     # 计算平近点角M
     M = Mo + n * (t_epoch - t_oe)
     # 获取偏近点角E
     E = getSatellite_E(M, e)
+
     # 相对论效应
-    teta_tr = -2290 * e * sin(E) * 1e-9
+    teta_tr = - 2290 * e * sin(E) * 1e-9
+    k = teta_t + teta_tr
     t_epoch = t_epoch - teta_tr
     # 计算真近点角f
-    f = arctan(sqrt(1 - e ** 2) * sin(E) / (cos(E) - e))
+    f = arctan2(sqrt(1.0 - e * e) * sin(E), cos(E) - e)
     # 计算升交角距
     u = w + f
     # 计算摄动改正数

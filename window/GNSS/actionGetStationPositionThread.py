@@ -13,7 +13,7 @@ import pandas
 import numpy as np
 from GNSS.file import readFile
 from GNSS.orbetEtc import satelliteOrbetEtc
-from numpy import sqrt, mat, cos, sin, transpose, linalg, arctan, rad2deg
+from numpy import sqrt, mat, cos, sin, transpose, linalg, arctan, rad2deg, arctan2,fabs,arcsin
 from GNSS.timeSystem.timeChange import TimeSystemChange
 from GNSS.correctionModel import tropCorrection, ionCorrection
 from database.database import Database
@@ -79,7 +79,7 @@ class ActionGetStationPositionThread(QThread):
                 # print(obsEpoch,type(obsClass.observation.epoch))
                 # sv =obsClass.observation.loc[(obsTime,obsEpoch[0][1])]
                 Sat = []
-                count_satellite = 6
+                count_satellite = 8
                 for k in range(len(obsEpoch)):
                     if obsTime == obsEpoch[k][0]:
                         if (obsEpoch[k][1])[0] == "G":
@@ -93,7 +93,7 @@ class ActionGetStationPositionThread(QThread):
                 navClass = readFile.read_navFile(path_NFile[i])
                 # 设定处理的点序号
                 self.id = str(i)
-                self.getStationPosition_SPP(obsTime, "C1C", Sat, count_satellite, obsClass, navClass)
+                self.getStationPosition_SPP(obsTime, "C1C", "C2P", Sat, count_satellite, obsClass, navClass)
                 # 存储到数据库
                 index.append(obsClass.stationName)
             columns = [str(key) for key in self.resDict.keys()]
@@ -142,7 +142,7 @@ class ActionGetStationPositionThread(QThread):
                 obsEpoch = obsClass.observation.index.values.tolist()
 
                 obsTime = obsEpoch[0][0]
-                count_satellite = 6
+                count_satellite = 8
 
                 self.getStationPosition_PPP(sp3PastClass, sp3NowClass, sp3FutureClass, obsClass, obsTime,
                                             count_satellite)
@@ -167,9 +167,8 @@ class ActionGetStationPositionThread(QThread):
         self.satelliteOrbits()
         self._sendInfo("T", "完成卫星轨道可视化")
 
-    def getStationPosition_SPP(self, observationEpoch, waveBand, Sat, count_satellite, obsClass, navClass):
+    def getStationPosition_SPP(self, observationEpoch, waveBandOne, waveBandSec, Sat, count_satellite, obsClass, navClass):
 
-        # print("这是椭球参数：",Database.ellipsoid.CGCS2000.a)
         # print(coordinationTran.CoordinationTran(self.ellipsoid).XYZ_to_BLH(
         #     [6378020.461599736, 12739.801484877651, 49091.74122939511]))
         # 卫星数量
@@ -179,7 +178,8 @@ class ActionGetStationPositionThread(QThread):
         # 地球自转角速度rad/s -RotationalAngularVelocity
         earth_RAV = 7.29211511467e-5
         # 测站近似坐标,一维list
-        approxPosition = obsClass.approx_position
+        Position = obsClass.approx_position
+        stationPosition = obsClass.approx_position
 
         # 判断与观测时间最近的导航电文时间
         delta = []
@@ -213,89 +213,125 @@ class ActionGetStationPositionThread(QThread):
         L = []
         # 设置测站
         self._sendInfo("测站", obsClass.stationName)
-        for i in range(len(PRN)):
-            satelliteName = PRN[i]
-            # 根据行键获取数据，key = ('2019-10-28 10:00:00', 'G10'),使用iloc可以根据行序获取，键值从观测文件找
-            # navEpochData = navClass.navigation.loc[(navClass.navigation.index.values[i][0], satelliteName)].tolist()
-            navEpochData = navClass.navigation.loc[(navTime, satelliteName)].tolist()
-            # 根据接收时间和伪距，计算信号发射时刻
-            # time_receiveSignal = "2019-10-28 08:33:15"
 
-            waveDistance = obsClass.observation.loc[(observationEpoch, satelliteName)][waveBand]
+        cVtr = 0
+        VX = 1
+        VY = 1
+        VZ = 1
+        while abs(VX) > 1e-4 or abs(VY) > 1e-4 or abs(VZ) > 1e-4:
+            approxPosition = stationPosition
 
-            # intTimeFormat 实现如下转换：2019-10-28 08:33:15 --> [2019, 10, 28, 8, 33, 15]
-            intTimeFormat = lambda strT: list(map(int, ((strT.split())[0]).split("-") + ((strT.split())[1]).split(":")))
-            UTCTimeList = intTimeFormat(str(observationEpoch))
-            time_rec = TimeSystemChange(UTCTimeList[0], UTCTimeList[1], UTCTimeList[2], UTCTimeList[3], UTCTimeList[4],
-                                        UTCTimeList[5])
-            week, tow = time_rec.UTC2GPSTime()
+            B = []
+            L = []
+            for i in range(len(PRN)):
+                satelliteName = PRN[i]
+                # 根据行键获取数据，key = ('2019-10-28 10:00:00', 'G10'),使用iloc可以根据行序获取，键值从观测文件找
+                # navEpochData = navClass.navigation.loc[(navClass.navigation.index.values[i][0], satelliteName)].tolist()
+                navEpochData = navClass.navigation.loc[(navTime, satelliteName)].tolist()
+                # 根据接收时间和伪距，计算信号发射时刻
+                # time_receiveSignal = "2019-10-28 08:33:15"
 
-            approxDistance = waveDistance
-            temp = 0
-            Vts = 0
-            xyz = []
-            while abs(temp - approxDistance) > 1e-6:
-                temp = approxDistance
-                teta_ts = approxDistance / c
-                time_sendSignal = tow + 0.01 - teta_ts
-                Vts, xyz = satelliteOrbetEtc.getSatellitePositon_II(time_sendSignal, navEpochData)
-                # print(PRN[i]+"卫星位置：", xyz)
-                # 对卫星坐标进行地球自转改正
-                # xyz = mat([[cos(earth_RAV * teta_ts), sin(earth_RAV * teta_ts), 0],
-                #            [-sin(earth_RAV * teta_ts), cos(earth_RAV * teta_ts), 0],
-                #            [0, 0, 1]]) * mat(xyz)
-                xyz = mat([[0, sin(earth_RAV * teta_ts), 0],
-                           [-sin(earth_RAV * teta_ts), 0, 0],
-                           [0, 0, 0]]) * mat(xyz) + mat(xyz)
-                # xyz = mat(xyz)
-                # xyz = xyz.tolist()
-                # 计算近似站星距离/伪距
-                sum = 0
-                for k in range(3):
-                    sum += (xyz[k, 0] - approxPosition[k]) * (xyz[k, 0] - approxPosition[k])
-                approxDistance = sqrt(sum)
-                # print("迭代站星距：{}".format(approxDistance))
+                waveDistanceOne = obsClass.observation.loc[(observationEpoch, satelliteName)][waveBandOne]
+                waveDistanceSec = obsClass.observation.loc[(observationEpoch, satelliteName)][waveBandSec]
 
-            # TODO 查找卫星仰角
-            satelliteAngle = self.calSatelliteAngle(approxPosition, xyz[0, 0], xyz[1, 0], xyz[2, 0])
+                # intTimeFormat 实现如下转换：2019-10-28 08:33:15 --> [2019, 10, 28, 8, 33, 15]
+                intTimeFormat = lambda strT: list(map(int, ((strT.split())[0]).split("-") + ((strT.split())[1]).split(":")))
+                UTCTimeList = intTimeFormat(str(observationEpoch))
+                print(UTCTimeList)
+                # time_rec = TimeSystemChange(UTCTimeList[0], UTCTimeList[1], UTCTimeList[2], UTCTimeList[3], UTCTimeList[4],
+                #                             UTCTimeList[5])
+                # week, tow = time_rec.UTC2GPSTime()
+                tow = 5 * 86400 + UTCTimeList[3] * 3600 + UTCTimeList[4] * 60 + UTCTimeList[5]
+                # print(Tow)
 
-            # 对流层延迟/电离层延迟改正
-            if navClass.version[0] == 2:
-                Vion = ionCorrection.klobuchar(satelliteAngle, UTCTimeList, approxPosition, xyz, navClass.alphalist,
-                                               navClass.betalist, self.ellipsoid)
-            else:
-                Vion = 0
+                approxDistance = waveDistanceOne
+                temp = 0
+                Vts = 0
+                xyz = []
+                while abs(temp - approxDistance) > 1e-6:
+                    temp = approxDistance
+                    teta_ts = approxDistance / c
+                    time_sendSignal = tow - teta_ts
 
-            Vtrop = tropCorrection.tropospheric_delay(approxPosition, satelliteAngle, UTCTimeList, self.ellipsoid)
-            print(Vts, Vion, Vtrop)
-            B.append(
-                [-(xyz[0, 0] - approxPosition[0]) / approxDistance,
-                 -(xyz[1, 0] - approxPosition[1]) / approxDistance,
-                 -(xyz[2, 0] - approxPosition[2]) / approxDistance,
-                 -1])
-            print("==+==", PRN[i], waveDistance - approxDistance, approxDistance)
-            L.append([approxDistance + c * Vts + Vion + Vtrop - approxDistance])
+                    Vts, xyz = satelliteOrbetEtc.getSatellitePositon_II(time_sendSignal, navEpochData)
 
-        # 循环解算系数等完成
-        # 平差求解
-        matrix_B = mat(B)
-        matrix_L = mat(L)
-        self._sendInfo("K", "--matrix_B")
-        self.outputFormatList("K", matrix_B.tolist(), 13)
-        # self._sendInfo("K", "--matrix_B:{}\n".format(matrix_B.tolist()))
-        self._sendInfo("K", "--matrix_L:{}\n".format(matrix_L.tolist()))
-        Q = linalg.inv(transpose(matrix_B) * matrix_B)
-        matrix_x = Q * (transpose(matrix_B) * matrix_L)
-        matrix_v = matrix_B * matrix_x - matrix_L
-        self._sendInfo("K", "--matrix_x:{}\n".format(matrix_x.tolist()))
-        self._sendInfo("K", "--matrix_v:{}\n".format(matrix_v.tolist()))
-        sigma_o = sqrt((transpose(matrix_v) * matrix_v)[0, 0] / (count_satellite - 4))
-        self._sendInfo("K", "中误差：{} mm".format(sigma_o * 1000))
-        # D = sigma_o * sigma_o * Q
-        # 改正
-        stationPosition = [approxPosition[0] + matrix_x[0, 0], approxPosition[1] + matrix_x[1, 0],
-                           approxPosition[2] + matrix_x[2, 0]]
-        self._sendInfo("K", "近似坐标：{} \n最后坐标：{}\n-----------------\n".format(approxPosition, stationPosition))
+                    # 对卫星坐标进行地球自转改正
+                    xyz = mat([[0, sin(earth_RAV * teta_ts), 0],
+                               [-sin(earth_RAV * teta_ts), 0, 0],
+                               [0, 0, 0]]) * mat(xyz) + mat(xyz)
+
+                    # print(PRN[i]+"卫星位置：", xyz)
+                    # xyz = xyz.tolist()
+                    # 计算近似站星距离/伪距
+                    sum = 0
+                    for k in range(3):
+                        sum += (xyz[k, 0] - approxPosition[k]) * (xyz[k, 0] - approxPosition[k])
+                    approxDistance = sqrt(sum)
+
+                # 卫星仰角
+                satelliteAngle = self.calSatelliteAngle(approxPosition, xyz[0, 0], xyz[1, 0], xyz[2, 0])
+                if satelliteAngle < 7.0:
+                    continue
+
+                else:
+                    # 对流层延迟/电离层延迟改正
+
+                    # 无电离层的双频距离改正
+                    waveDistance = 2.54573 * waveDistanceOne - 1.54573 * waveDistanceSec
+
+                    Vtrop = tropCorrection.standardMeteorologicalMethod(approxPosition, self.ellipsoid, satelliteAngle)
+                    # print(Vts, Vion, Vtrop)
+
+                    B.append(
+                        [-(xyz[0, 0] - approxPosition[0]) / approxDistance,
+                         -(xyz[1, 0] - approxPosition[1]) / approxDistance,
+                         -(xyz[2, 0] - approxPosition[2]) / approxDistance,
+                         1])
+                    # print("==+==", PRN[i], waveDistanceOne - approxDistance, approxDistance)
+                    L.append([waveDistance + c * Vts - cVtr - Vtrop - approxDistance])
+                    # L.append([waveDistance + c * Vts + Vtrop - approxDistance])
+
+                    print("==+==", PRN[i], waveDistance - approxDistance)
+
+            # 循环解算系数等完成
+            # 平差求解
+            matrix_B = mat(B)
+            matrix_L = mat(L)
+            Q = linalg.inv(transpose(matrix_B) * matrix_B)
+            matrix_x = Q * (transpose(matrix_B) * matrix_L)
+            matrix_v = matrix_B * matrix_x - matrix_L
+            sigma_o = sqrt((transpose(matrix_v) * matrix_v)[0, 0] / (count_satellite - 4))
+            # 三维点位精度衰减因子
+            mo = sigma_o * sigma_o
+            PDOP = sqrt(Q[0, 0] + Q[1, 1] + Q[2, 2])
+            mP = mo * PDOP
+            # 时间精度衰减因子
+            TDOP = sqrt(Q[3, 3])
+            mT = mo * TDOP
+            # 几何精度衰减因子
+            GDOP = sqrt(Q[0, 0] + Q[1, 1] + Q[2, 2] + Q[3, 3])
+            mG = mo * GDOP
+
+            self._sendInfo("K", "--matrix_B")
+            self.outputFormatList("K", matrix_B.tolist(), 13)
+            # self._sendInfo("K", "--matrix_B:{}\n".format(matrix_B.tolist()))
+            self._sendInfo("K", "--matrix_L:{}\n".format(matrix_L.tolist()))
+            self._sendInfo("K", "--matrix_x:{}\n".format(matrix_x.tolist()))
+            self._sendInfo("K", "--matrix_v:{}\n".format(matrix_v.tolist()))
+            self._sendInfo("K", "中误差：{} mm".format(sigma_o * 1000))
+
+            # 改正
+            stationPosition = [approxPosition[0] + matrix_x[0, 0], approxPosition[1] + matrix_x[1, 0],
+                               approxPosition[2] + matrix_x[2, 0]]
+            VX = matrix_x[0, 0]
+            VY = matrix_x[1, 0]
+            VZ = matrix_x[2, 0]
+            cVtr = cVtr + matrix_x[3, 0]
+
+
+
+            self._sendInfo("K", "近似坐标：{} \n最后坐标：{}\n-----------------\n".format(Position, stationPosition))
+
         self._sendInfo("坐标X/m", str(stationPosition[0]))
         self._sendInfo("坐标Y/m", str(stationPosition[1]))
         self._sendInfo("坐标Z/m", str(stationPosition[2]))
@@ -308,16 +344,7 @@ class ActionGetStationPositionThread(QThread):
         # print("Poi0",pointInfomation)
         self._sendInfo("地理信息", pointInfomation)
         # 精度评价： GDOP / PDOP / TDOP / HDOP / VDOP
-        # 三维点位精度衰减因子
-        mo = sigma_o * sigma_o
-        PDOP = sqrt(Q[0, 0] + Q[1, 1] + Q[2, 2])
-        mP = mo * PDOP
-        # 时间精度衰减因子
-        TDOP = sqrt(Q[3, 3])
-        mT = mo * TDOP
-        # 几何精度衰减因子
-        GDOP = sqrt(Q[0, 0] + Q[1, 1] + Q[2, 2] + Q[3, 3])
-        mG = mo * GDOP
+
         # 坐标系统转换为BLH的系数矩阵
         matrix_BLH_B = mat([[-sin(coor_B) * cos(coor_L), -sin(coor_B) * sin(coor_L), cos(coor_B)],
                             [-sin(coor_L), cos(coor_L), 0],
@@ -513,7 +540,7 @@ class ActionGetStationPositionThread(QThread):
             # 对流层延迟/电离层延迟改正
             Vion = 0
 
-            Vtrop = tropCorrection.tropospheric_delay(approx_position, satelliteAngle, obsTimeList, self.ellipsoid)
+            Vtrop = tropCorrection.standardMeteorologicalMethod(approx_position, self.ellipsoid, satelliteAngle)
 
             B.append(
                 [-(satellite_x[j] - approx_position[0]) / approxDistance,
@@ -769,15 +796,34 @@ class ActionGetStationPositionThread(QThread):
                 l *= 1
         return l
 
-    def calSatelliteAngle(self, approx_position, x, y, z):
-        print(x, y, z)
-        pos_B, pos_L, pos_H = coordinationTran.CoordinationTran(self.ellipsoid).XYZ_to_BLH(approx_position)
-        print(rad2deg(pos_B), rad2deg(pos_L))
-        satellite_position = []
-        satellite_position.append(x)
-        satellite_position.append(y)
-        satellite_position.append(z)
-        sat_B, sat_L, sat_H = coordinationTran.CoordinationTran(self.ellipsoid).XYZ_to_BLH(satellite_position)
-        E = rad2deg(arctan((cos(sat_L - pos_L) * cos(pos_B) - 0.15) / sqrt(
-            1 - (cos(sat_L - pos_L) * cos(pos_B)) ** 2)))
+    def calSatelliteAngle(self, center_xyz, x, y, z):
+
+        sat_xyz = [x, y, z]
+        print(sat_xyz)
+        sat_N, sat_E, sat_H = coordinationTran.CoordinationTran(self.ellipsoid).XYZ_to_NEH(sat_xyz,center_xyz)
+        E = arcsin(sat_H/sqrt(sat_N * sat_N + sat_E * sat_E + sat_H * sat_H))
+        E = rad2deg(E)
+
+        # pos_B, pos_L, pos_H = coordinationTran.CoordinationTran(self.ellipsoid).XYZ_to_BLH(center_xyz)
+        # a = 6378137.0
+        # b = 6356752.314
+        # e = sqrt((a * a - b * b)/(b * b))
+        # e_ = sqrt((a * a - b * b)/(a * a))
+        # o = sqrt(center_xyz[0] * center_xyz[0] + center_xyz[1] * center_xyz[1])
+        # o1 = arctan2(center_xyz[2] * a, b * o)
+        # B = arctan((center_xyz[2] + e * e * b * sin(o1) * sin(o1) * sin(o1)) / (o - e_ * e_ * a * cos(o1) * cos(o1) * cos(o1)))
+        # X_ = -sin(B) * cos(pos_L) * (x - center_xyz[0]) - sin(B) * sin(pos_L) * (y - center_xyz[1]) + cos(B) * (z - center_xyz[2])
+        # Y_ = -sin(pos_L) * (x - center_xyz[0]) + cos(pos_L) * (y - center_xyz[1])
+        # Z_ = fabs(cos(B) * cos(pos_L) * (x - center_xyz[0]) + cos(B) * sin(pos_L) * (y - center_xyz[1]) + sin(B) * (z - center_xyz[2]))
+        # E = arcsin(Z_/sqrt(X_*X_+Y_*Y_+Z_*Z_))
+
+
+        # print(rad2deg(pos_B), rad2deg(pos_L))
+        # satellite_position = []
+        # satellite_position.append(x)
+        # satellite_position.append(y)
+        # satellite_position.append(z)
+        # sat_B, sat_L, sat_H = coordinationTran.CoordinationTran(self.ellipsoid).XYZ_to_BLH(satellite_position)
+        # E = rad2deg(arctan((cos(sat_L - pos_L) * cos(pos_B) - 0.15) / sqrt(
+        #     1 - (cos(sat_L - pos_L) * cos(pos_B)) ** 2)))
         return E
