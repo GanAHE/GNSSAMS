@@ -225,6 +225,8 @@ class ActionGetStationPositionThread(QThread):
             L = []
             for i in range(len(PRN)):
                 satelliteName = PRN[i]
+                print(satelliteName)
+                print(navTime)
                 # 根据行键获取数据，key = ('2019-10-28 10:00:00', 'G10'),使用iloc可以根据行序获取，键值从观测文件找
                 # navEpochData = navClass.navigation.loc[(navClass.navigation.index.values[i][0], satelliteName)].tolist()
                 navEpochData = navClass.navigation.loc[(navTime, satelliteName)].tolist()
@@ -238,8 +240,8 @@ class ActionGetStationPositionThread(QThread):
                 intTimeFormat = lambda strT: list(map(int, ((strT.split())[0]).split("-") + ((strT.split())[1]).split(":")))
                 UTCTimeList = intTimeFormat(str(observationEpoch))
                 print(UTCTimeList)
-                # time_rec = TimeSystemChange(UTCTimeList[0], UTCTimeList[1], UTCTimeList[2], UTCTimeList[3], UTCTimeList[4],
-                #                             UTCTimeList[5])
+                time_rec = TimeSystemChange(UTCTimeList[0], UTCTimeList[1], UTCTimeList[2], UTCTimeList[3], UTCTimeList[4],
+                                            UTCTimeList[5])
                 # week, tow = time_rec.UTC2GPSTime()
                 tow = 5 * 86400 + UTCTimeList[3] * 3600 + UTCTimeList[4] * 60 + UTCTimeList[5]
                 # print(Tow)
@@ -279,17 +281,15 @@ class ActionGetStationPositionThread(QThread):
                     # 无电离层的双频距离改正
                     waveDistance = 2.54573 * waveDistanceOne - 1.54573 * waveDistanceSec
 
+                    # 对流层改正
                     Vtrop = tropCorrection.standardMeteorologicalMethod(approxPosition, self.ellipsoid, satelliteAngle)
-                    # print(Vts, Vion, Vtrop)
 
                     B.append(
                         [-(xyz[0, 0] - approxPosition[0]) / approxDistance,
                          -(xyz[1, 0] - approxPosition[1]) / approxDistance,
                          -(xyz[2, 0] - approxPosition[2]) / approxDistance,
                          1])
-                    # print("==+==", PRN[i], waveDistanceOne - approxDistance, approxDistance)
                     L.append([waveDistance + c * Vts - cVtr - Vtrop - approxDistance])
-                    # L.append([waveDistance + c * Vts + Vtrop - approxDistance])
 
                     print("==+==", PRN[i], waveDistance - approxDistance)
 
