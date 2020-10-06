@@ -198,6 +198,8 @@ class ActionGetStationPositionThread(QThread):
                 delta.pop(num)
             else:
                 break
+
+
         # print(delta.pop(num))
         # print(navTime)
 
