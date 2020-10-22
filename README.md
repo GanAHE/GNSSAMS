@@ -1,4 +1,7 @@
 # 基于PyQt5开发的前后端GUI桌面、导航定位与测量综合系统软件
+
+[原文详情](https://dgzc.ganahe.top/ganahe/2020/kyppkfdgkskfkj.html)
+
 # 一、背景与说明
 ## （一）应用场景
 当前框架已经实现了多场景的复用测试，有如下：
