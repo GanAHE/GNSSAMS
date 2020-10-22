@@ -1,0 +1,16 @@
+[task_id:MTD_ACTION_THREAD]-[INFO] - 2020-08-25 21:26:18,831-[actionPicturesDetectionThread.py-->>line:170]: 模型加载完成
+[task_id:MTD_ACTION_THREAD]-[INFO] - 2020-08-25 21:26:18,941-[actionPicturesDetectionThread.py-->>line:170]: 模型加载完成，多张图像检测中.....
+[task_id:MTD_ACTION_THREAD]-[INFO] - 2020-08-25 21:26:18,943-[actionPicturesDetectionThread.py-->>line:170]: 
+  - 第1张图像: a.png 检测中...
+[task_id:PIL.PngImagePlugin]-[DEBUG] - 2020-08-25 21:26:18,944-[PngImagePlugin.py-->>line:146]: STREAM b'IHDR' 16 13
+[task_id:PIL.PngImagePlugin]-[DEBUG] - 2020-08-25 21:26:18,944-[PngImagePlugin.py-->>line:146]: STREAM b'sRGB' 41 1
+[task_id:PIL.PngImagePlugin]-[DEBUG] - 2020-08-25 21:26:18,945-[PngImagePlugin.py-->>line:146]: STREAM b'gAMA' 54 4
+[task_id:PIL.PngImagePlugin]-[DEBUG] - 2020-08-25 21:26:18,945-[PngImagePlugin.py-->>line:146]: STREAM b'pHYs' 70 9
+[task_id:PIL.PngImagePlugin]-[DEBUG] - 2020-08-25 21:26:18,946-[PngImagePlugin.py-->>line:146]: STREAM b'IDAT' 91 65445
+[task_id:MTD_ACTION_THREAD]-[INFO] - 2020-08-25 21:26:20,379-[actionPicturesDetectionThread.py-->>line:170]: Totally has 17 objects.
+[task_id:MTD_ACTION_THREAD]-[INFO] - 2020-08-25 21:26:20,379-[actionPicturesDetectionThread.py-->>line:170]: has 1 person
+[task_id:MTD_ACTION_THREAD]-[INFO] - 2020-08-25 21:26:20,380-[actionPicturesDetectionThread.py-->>line:170]: has 16 car
+[task_id:matplotlib.axes._base]-[DEBUG] - 2020-08-25 21:26:20,466-[_base.py-->>line:2515]: update_title_pos
+[task_id:matplotlib.axes._base]-[DEBUG] - 2020-08-25 21:26:20,514-[_base.py-->>line:2515]: update_title_pos
+[task_id:matplotlib.axes._base]-[DEBUG] - 2020-08-25 21:26:20,721-[_base.py-->>line:2515]: update_title_pos
+[task_id:matplotlib.axes._base]-[DEBUG] - 2020-08-25 21:26:20,772-[_base.py-->>line:2515]: update_title_pos

@@ -1,0 +1,581 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>mainWindow</class>
+ <widget class="QMainWindow" name="mainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1527</width>
+    <height>867</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>交通场景智能监控综合系统 2.1.0</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../source/icon/logo.png</normaloff>../source/icon/logo.png</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="tabShape">
+       <enum>QTabWidget::Rounded</enum>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <property name="usesScrollButtons">
+       <bool>true</bool>
+      </property>
+      <property name="documentMode">
+       <bool>false</bool>
+      </property>
+      <property name="tabsClosable">
+       <bool>false</bool>
+      </property>
+      <property name="movable">
+       <bool>true</bool>
+      </property>
+      <property name="tabBarAutoHide">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="tab_operate">
+       <attribute name="icon">
+        <iconset>
+         <normaloff>../source/icon/animation.png</normaloff>../source/icon/animation.png</iconset>
+       </attribute>
+       <attribute name="title">
+        <string>识别与监测</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <widget class="QWidget" name="widget" native="true"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_position">
+       <attribute name="icon">
+        <iconset>
+         <normaloff>../source/icon/calender.png</normaloff>../source/icon/calender.png</iconset>
+       </attribute>
+       <attribute name="title">
+        <string>监控</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QWidget" name="widget_2" native="true">
+          <layout class="QHBoxLayout" name="horizontalLayout">
+           <item>
+            <widget class="QTableWidget" name="tableWidget">
+             <row>
+              <property name="text">
+               <string>1</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>2</string>
+              </property>
+             </row>
+             <column>
+              <property name="text">
+               <string>P1</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>P2</string>
+              </property>
+             </column>
+            </widget>
+           </item>
+           <item>
+            <widget class="QTextEdit" name="textEdit_review"/>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_more">
+       <attribute name="icon">
+        <iconset>
+         <normaloff>../source/icon/more.png</normaloff>../source/icon/more.png</iconset>
+       </attribute>
+       <attribute name="title">
+        <string>更多操作</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QMdiArea" name="mdiArea">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="background">
+           <brush brushstyle="Dense4Pattern">
+            <color alpha="255">
+             <red>194</red>
+             <green>247</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="viewMode">
+           <enum>QMdiArea::TabbedView</enum>
+          </property>
+          <property name="tabsClosable">
+           <bool>true</bool>
+          </property>
+          <property name="tabsMovable">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1527</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_F">
+    <property name="title">
+     <string>文件(&amp;F)</string>
+    </property>
+    <addaction name="menuItem_new"/>
+    <addaction name="separator"/>
+    <addaction name="menuItem_openFile"/>
+    <addaction name="separator"/>
+    <addaction name="menuItem_saveFile"/>
+    <addaction name="separator"/>
+    <addaction name="menuItem_quitSystem"/>
+   </widget>
+   <widget class="QMenu" name="menu_C">
+    <property name="title">
+     <string>功能(&amp;C)</string>
+    </property>
+    <addaction name="menuItem_imagesDect"/>
+    <addaction name="separator"/>
+    <addaction name="menuItem_videoDect"/>
+    <addaction name="separator"/>
+    <addaction name="menuItem_trainModel"/>
+    <addaction name="separator"/>
+    <addaction name="munuItem_GussianTran"/>
+    <addaction name="separator"/>
+    <addaction name="actions_2"/>
+    <addaction name="separator"/>
+    <addaction name="munuItem_coorSystemTran"/>
+    <addaction name="separator"/>
+   </widget>
+   <widget class="QMenu" name="menu_S">
+    <property name="title">
+     <string>设置(&amp;S)</string>
+    </property>
+    <addaction name="munuItem_windowSet"/>
+    <addaction name="separator"/>
+    <addaction name="menuItem_backWelcome"/>
+    <addaction name="separator"/>
+    <addaction name="munuItem_systemPara"/>
+    <addaction name="separator"/>
+    <addaction name="munuItem_statusBar"/>
+    <addaction name="munuItem_fileStatusBar"/>
+   </widget>
+   <widget class="QMenu" name="menu_V">
+    <property name="title">
+     <string>版本(&amp;V)</string>
+    </property>
+    <addaction name="munuItem_version"/>
+    <addaction name="munuItem_license"/>
+    <addaction name="munuItem_contact"/>
+   </widget>
+   <widget class="QMenu" name="menu_H">
+    <property name="title">
+     <string>帮助(&amp;H)</string>
+    </property>
+    <addaction name="munuItem_onlineHelp"/>
+    <addaction name="munuItem_localHelp"/>
+   </widget>
+   <addaction name="menu_F"/>
+   <addaction name="menu_C"/>
+   <addaction name="menu_S"/>
+   <addaction name="menu_H"/>
+   <addaction name="menu_V"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QDockWidget" name="dockWidget_File">
+   <property name="font">
+    <font>
+     <weight>50</weight>
+     <bold>false</bold>
+     <underline>false</underline>
+     <strikeout>false</strikeout>
+    </font>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="floating">
+    <bool>false</bool>
+   </property>
+   <property name="allowedAreas">
+    <set>Qt::AllDockWidgetAreas</set>
+   </property>
+   <property name="windowTitle">
+    <string>文件列表</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_2">
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QGroupBox" name="groupBox">
+       <property name="title">
+        <string/>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <widget class="QTreeView" name="treeView"/>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="menuItem_new"/>
+   <addaction name="separator"/>
+   <addaction name="menuItem_openFile"/>
+   <addaction name="separator"/>
+   <addaction name="menuItem_saveFile"/>
+   <addaction name="separator"/>
+   <addaction name="menuItem_backWelcome"/>
+   <addaction name="separator"/>
+   <addaction name="munuItem_license"/>
+  </widget>
+  <widget class="QDockWidget" name="dockWidget_status">
+   <property name="mouseTracking">
+    <bool>false</bool>
+   </property>
+   <property name="tabletTracking">
+    <bool>false</bool>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="floating">
+    <bool>false</bool>
+   </property>
+   <property name="features">
+    <set>QDockWidget::AllDockWidgetFeatures</set>
+   </property>
+   <property name="allowedAreas">
+    <set>Qt::AllDockWidgetAreas</set>
+   </property>
+   <property name="windowTitle">
+    <string>状态信息</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_4">
+    <layout class="QVBoxLayout" name="verticalLayout_6">
+     <item>
+      <widget class="QGroupBox" name="groupBox_2">
+       <property name="title">
+        <string/>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_7">
+        <item>
+         <widget class="QTextEdit" name="textEdit_status"/>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QToolBar" name="toolBar_2">
+   <property name="windowTitle">
+    <string>toolBar_2</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="munuItem_systemPara"/>
+   <addaction name="munuItem_statusBar"/>
+   <addaction name="munuItem_fileStatusBar"/>
+   <addaction name="munuItem_localHelp"/>
+   <addaction name="munuItem_onlineHelp"/>
+   <addaction name="separator"/>
+  </widget>
+  <action name="menuItem_new">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>../source/icon/baogao.png</normaloff>../source/icon/baogao.png</iconset>
+   </property>
+   <property name="text">
+    <string>新建(&amp;N)</string>
+   </property>
+  </action>
+  <action name="menuItem_openFile">
+   <property name="icon">
+    <iconset>
+     <normaloff>../source/icon/icon.png</normaloff>../source/icon/icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>打开文件(&amp;O)</string>
+   </property>
+  </action>
+  <action name="menuItem_saveFile">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>../source/icon/save.png</normaloff>../source/icon/save.png</iconset>
+   </property>
+   <property name="text">
+    <string>保存文件(&amp;S)</string>
+   </property>
+  </action>
+  <action name="menuItem_quitSystem">
+   <property name="icon">
+    <iconset>
+     <normaloff>../source/icon/decentralized-02.png</normaloff>../source/icon/decentralized-02.png</iconset>
+   </property>
+   <property name="text">
+    <string>退出系统(&amp;Q)</string>
+   </property>
+  </action>
+  <action name="munuItem_markbook">
+   <property name="text">
+    <string>训练模型(&amp;M)</string>
+   </property>
+   <property name="iconText">
+    <string>训练模型(&amp;M)</string>
+   </property>
+  </action>
+  <action name="munuItem_controlNet">
+   <property name="text">
+    <string>码率调整(&amp;D)</string>
+   </property>
+  </action>
+  <action name="munuItem_cacuPara">
+   <property name="icon">
+    <iconset>
+     <normaloff>../source/icon/designer-tools.png</normaloff>../source/icon/designer-tools.png</iconset>
+   </property>
+   <property name="text">
+    <string>计算参数(&amp;P)</string>
+   </property>
+  </action>
+  <action name="munuItem_systemPara">
+   <property name="icon">
+    <iconset>
+     <normaloff>../source/icon/set.png</normaloff>../source/icon/set.png</iconset>
+   </property>
+   <property name="text">
+    <string>系统参数(&amp;S)</string>
+   </property>
+  </action>
+  <action name="munuItem_windowSet">
+   <property name="icon">
+    <iconset>
+     <normaloff>../source/icon/calender.png</normaloff>../source/icon/calender.png</iconset>
+   </property>
+   <property name="text">
+    <string>界面设置(&amp;W)</string>
+   </property>
+  </action>
+  <action name="munuItem_onlineHelp">
+   <property name="icon">
+    <iconset>
+     <normaloff>../source/icon/lineOneline.png</normaloff>../source/icon/lineOneline.png</iconset>
+   </property>
+   <property name="text">
+    <string>在线帮助(&amp;I)</string>
+   </property>
+  </action>
+  <action name="munuItem_localHelp">
+   <property name="icon">
+    <iconset>
+     <normaloff>../source/icon/line.png</normaloff>../source/icon/line.png</iconset>
+   </property>
+   <property name="text">
+    <string>本地文档(&amp;I)</string>
+   </property>
+  </action>
+  <action name="munuItem_version">
+   <property name="icon">
+    <iconset>
+     <normaloff>../source/icon/file.png</normaloff>../source/icon/file.png</iconset>
+   </property>
+   <property name="text">
+    <string>版本信息(&amp;V)</string>
+   </property>
+  </action>
+  <action name="menuItem_backWelcome">
+   <property name="icon">
+    <iconset>
+     <normaloff>../source/icon/home.png</normaloff>../source/icon/home.png</iconset>
+   </property>
+   <property name="text">
+    <string>返回欢迎界面(&amp;B)</string>
+   </property>
+  </action>
+  <action name="munuItem_statusBar">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>../source/icon/mes.png</normaloff>../source/icon/mes.png</iconset>
+   </property>
+   <property name="text">
+    <string>状态信息栏(&amp;I) </string>
+   </property>
+  </action>
+  <action name="munuItem_fileStatusBar">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>../source/icon/tree.png</normaloff>../source/icon/tree.png</iconset>
+   </property>
+   <property name="text">
+    <string>文件列表栏(&amp;F)</string>
+   </property>
+  </action>
+  <action name="munuItem_license">
+   <property name="icon">
+    <iconset>
+     <normaloff>../source/icon/zaogao.png</normaloff>../source/icon/zaogao.png</iconset>
+   </property>
+   <property name="text">
+    <string>开源证书(&amp;L)</string>
+   </property>
+  </action>
+  <action name="munuItem_coorSystemTran">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>更多功能(待开发)...(&amp;H)</string>
+   </property>
+  </action>
+  <action name="menuItem_imagesDect">
+   <property name="icon">
+    <iconset>
+     <normaloff>../source/icon/document.png</normaloff>../source/icon/document.png</iconset>
+   </property>
+   <property name="text">
+    <string>影像目标检测(&amp;T)</string>
+   </property>
+  </action>
+  <action name="munuItem_GussianTran">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>违章侦测(&amp;S)</string>
+   </property>
+  </action>
+  <action name="munuItem_contact">
+   <property name="icon">
+    <iconset>
+     <normaloff>../source/icon/conme.png</normaloff>../source/icon/conme.png</iconset>
+   </property>
+   <property name="text">
+    <string>联系方式(&amp;L)</string>
+   </property>
+  </action>
+  <action name="menuItem_trainModel">
+   <property name="icon">
+    <iconset>
+     <normaloff>../source/icon/CPU_GPU.png</normaloff>../source/icon/CPU_GPU.png</iconset>
+   </property>
+   <property name="text">
+    <string>模型训练(&amp;L)</string>
+   </property>
+  </action>
+  <action name="actiond">
+   <property name="text">
+    <string>图像识别(&amp;P)</string>
+   </property>
+  </action>
+  <action name="menuItem_videoDect">
+   <property name="icon">
+    <iconset>
+     <normaloff>../source/icon/animation.png</normaloff>../source/icon/animation.png</iconset>
+   </property>
+   <property name="text">
+    <string>视频目标检测(&amp;V)</string>
+   </property>
+  </action>
+  <action name="actions_2">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>在线/监控流视频实时监测(&amp;T)</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>dockWidget_File</sender>
+   <signal>visibilityChanged(bool)</signal>
+   <receiver>dockWidget_File</receiver>
+   <slot>update()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1227</x>
+     <y>76</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1093</x>
+     <y>86</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

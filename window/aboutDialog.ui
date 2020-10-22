@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>672</width>
+    <height>636</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>版本信息与联系方式</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../source/icon/chat.png</normaloff>../source/icon/chat.png</iconset>
+  </property>
+  <property name="inputMethodHints">
+   <set>Qt::ImhNone</set>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;h1 style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:xx-large; font-weight:600; color:#ffaa00;&quot;&gt;VLPRVTL目标检测软件&lt;/span&gt;&lt;/h1&gt;&lt;h2 style=&quot; margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:x-large; font-weight:600;&quot;&gt;开发者: &lt;/span&gt;&lt;span style=&quot; font-size:x-large; font-weight:600; color:#55aaff;&quot;&gt;JoeyforJoy WHU222huan GanAHE&lt;/span&gt;&lt;/h2&gt;&lt;h3 style=&quot; margin-top:14px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:large; font-weight:600;&quot;&gt;1.当前版本 version 2.0.0. &lt;/span&gt;&lt;/h3&gt;&lt;h3 style=&quot; margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:large; font-weight:600;&quot;&gt;2.本软件遵循GPL v3.0 开源协议,如需使用请遵循开源协议,&lt;br/&gt;不可将此软件用于商业用途,不可将此软件申请为个人著作产品,&lt;br/&gt;不可将该软件用于违法犯罪行为,否则将依法追究法律责任. &lt;/span&gt;&lt;/h3&gt;&lt;h3 style=&quot; margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:large; font-weight:600;&quot;&gt;3.主页:&lt;/span&gt;&lt;a href=&quot;https://www.ganahe.top/&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; text-decoration: underline; color:#0000ff;&quot;&gt;https://www.ganahe.top/&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:large; font-weight:600;&quot;&gt;.从主页获取更多详细信息.&lt;/span&gt;&lt;/h3&gt;&lt;h3 style=&quot; margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:large; font-weight:600;&quot;&gt;4.Github地址：[1]&lt;/span&gt;&lt;a href=&quot;https://www.github.com/JoeyforJoy&quot;&gt;&lt;span style=&quot; font-size:large; font-weight:600; text-decoration: underline; color:#0000ff;&quot;&gt;JoeyforJoy&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:large; font-weight:600;&quot;&gt; [2]&lt;/span&gt;&lt;a href=&quot;https://www.github.com/WHU222huan&quot;&gt;&lt;span style=&quot; font-size:large; font-weight:600; text-decoration: underline; color:#0000ff;&quot;&gt;WHU222huan&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:large; font-weight:600;&quot;&gt; [3]&lt;/span&gt;&lt;a href=&quot;https://www.github.com/ganah&quot;&gt;&lt;span style=&quot; font-size:large; font-weight:600; text-decoration: underline; color:#0000ff;&quot;&gt;GanAHE&lt;/span&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;./source/icon/splash.jpg&quot; width=&quot;650&quot; height=&quot;350&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
