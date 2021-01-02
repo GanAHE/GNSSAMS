@@ -9,8 +9,13 @@
    <rect>
     <x>0</x>
     <y>0</y>
+<<<<<<< HEAD
     <width>686</width>
     <height>460</height>
+=======
+    <width>690</width>
+    <height>443</height>
+>>>>>>> 0367410d2d6020c98991c05162feaad2ccc434fb
    </rect>
   </property>
   <property name="windowTitle">
@@ -34,16 +39,33 @@
     <widget class="QLabel" name="label">
      <property name="font">
       <font>
+<<<<<<< HEAD
        <family>华文彩云</family>
+=======
+       <family>华文宋体</family>
+>>>>>>> 0367410d2d6020c98991c05162feaad2ccc434fb
        <pointsize>13</pointsize>
       </font>
      </property>
      <property name="text">
+<<<<<<< HEAD
       <string>VLPRVTL系统参数设置</string>
+=======
+      <string>GNSS导航定位与综合系统</string>
+     </property>
+     <property name="textFormat">
+      <enum>Qt::AutoText</enum>
+>>>>>>> 0367410d2d6020c98991c05162feaad2ccc434fb
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
      </property>
+<<<<<<< HEAD
+=======
+     <property name="textInteractionFlags">
+      <set>Qt::LinksAccessibleByMouse</set>
+     </property>
+>>>>>>> 0367410d2d6020c98991c05162feaad2ccc434fb
     </widget>
    </item>
    <item>
@@ -64,7 +86,11 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
+<<<<<<< HEAD
       <number>0</number>
+=======
+      <number>1</number>
+>>>>>>> 0367410d2d6020c98991c05162feaad2ccc434fb
      </property>
      <property name="elideMode">
       <enum>Qt::ElideNone</enum>
@@ -104,9 +130,16 @@
             <string> 说明
 
  1. 无特别指定，工作空间将作为所有处理结果的保存区域,
+<<<<<<< HEAD
  会自动建立workspace文件，图像识别可以自定义另存；
  2. 模型文件为识别所需权重文件。
   </string>
+=======
+   会自动建立workspace文件，图像识别可以自定义另存；
+ 2. 默认项目保存文件为数据库文件。
+ 3. 如百度地图无法加载，请检查网络；AK无效或请求次数超限，
+  请自己申请并填入百度地图API：AK/NK </string>
+>>>>>>> 0367410d2d6020c98991c05162feaad2ccc434fb
            </property>
           </widget>
          </item>
@@ -136,7 +169,11 @@
             <item>
              <widget class="QLabel" name="label_4">
               <property name="text">
+<<<<<<< HEAD
                <string>工作空间：</string>
+=======
+               <string>工作空间(重要)：</string>
+>>>>>>> 0367410d2d6020c98991c05162feaad2ccc434fb
               </property>
              </widget>
             </item>
@@ -168,7 +205,11 @@
             <item>
              <widget class="QLabel" name="label_6">
               <property name="text">
+<<<<<<< HEAD
                <string>模型（权重文件）：</string>
+=======
+               <string>数据库路径：</string>
+>>>>>>> 0367410d2d6020c98991c05162feaad2ccc434fb
               </property>
              </widget>
             </item>
@@ -211,6 +252,7 @@
            </layout>
           </item>
           <item>
+<<<<<<< HEAD
            <layout class="QHBoxLayout" name="horizontalLayout_9">
             <item>
              <widget class="QLabel" name="label_10">
@@ -254,6 +296,36 @@
                <string>默认</string>
               </property>
              </widget>
+=======
+           <layout class="QHBoxLayout" name="horizontalLayout_11">
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_10">
+              <item>
+               <widget class="QLabel" name="label_11">
+                <property name="text">
+                 <string>百度地图API-NK：</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="lineEdit_2"/>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_9">
+              <item>
+               <widget class="QLabel" name="label_10">
+                <property name="text">
+                 <string>百度地图API-AK：</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="lineEdit"/>
+              </item>
+             </layout>
+>>>>>>> 0367410d2d6020c98991c05162feaad2ccc434fb
             </item>
            </layout>
           </item>
@@ -375,12 +447,83 @@
                <property name="text">
                 <string>开启</string>
                </property>
+<<<<<<< HEAD
               </widget>
              </item>
             </layout>
            </item>
            <item>
             <spacer name="horizontalSpacer">
+=======
+               <property name="checked">
+                <bool>false</bool>
+               </property>
+               <property name="autoRepeat">
+                <bool>false</bool>
+               </property>
+               <property name="tristate">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_12">
+           <item>
+            <widget class="QLabel" name="label_13">
+             <property name="text">
+              <string>参考椭球：</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="comboBox_elliPara">
+             <item>
+              <property name="text">
+               <string>WGS84</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>CGCS2000</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>克拉索夫斯基椭球</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>1975国际参考椭球</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>自定义椭球</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_2">
+>>>>>>> 0367410d2d6020c98991c05162feaad2ccc434fb
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
@@ -400,7 +543,11 @@
             <string/>
            </property>
            <property name="pixmap">
+<<<<<<< HEAD
             <pixmap>../source/icon/chat.png</pixmap>
+=======
+            <pixmap>../source/icon/designer-tools.png</pixmap>
+>>>>>>> 0367410d2d6020c98991c05162feaad2ccc434fb
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>

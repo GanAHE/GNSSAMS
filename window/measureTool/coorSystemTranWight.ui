@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1166</width>
+    <height>736</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../../source/icon/note.png</normaloff>../../source/icon/note.png</iconset>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout_3">
+   <item>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>原始数据</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QTableWidget" name="tableWidget_sourceCoor">
+        <column>
+         <property name="text">
+          <string>ID</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>X</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Y</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Z</string>
+         </property>
+        </column>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QToolBox" name="toolBox">
+     <property name="maximumSize">
+      <size>
+       <width>245</width>
+       <height>260</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(0, 0, 127);
+border-color: rgb(255, 255, 0);</string>
+     </property>
+     <property name="currentIndex">
+      <number>1</number>
+     </property>
+     <widget class="QWidget" name="page">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>252</width>
+        <height>169</height>
+       </rect>
+      </property>
+      <attribute name="icon">
+       <iconset>
+        <normaloff>../../source/icon/Bulldozer.png</normaloff>../../source/icon/Bulldozer.png</iconset>
+      </attribute>
+      <attribute name="label">
+       <string>笛卡尔坐标系转换(展开)</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_5">
+       <item>
+        <widget class="QGroupBox" name="groupBox_3">
+         <property name="maximumSize">
+          <size>
+           <width>230</width>
+           <height>230</height>
+          </size>
+         </property>
+         <property name="title">
+          <string/>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout">
+            <item>
+             <widget class="QLabel" name="label">
+              <property name="text">
+               <string>坐标系转换：</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="comboBox_coorSystemTran">
+              <item>
+               <property name="text">
+                <string>XYZ to BLH</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>XYZ to NEH</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>BLH to XYZ</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>BLH to NEH</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>NEH to BLH</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>NEH to XYZ</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QPushButton" name="button_coorSystemTran">
+            <property name="text">
+             <string>执行转换</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="page_2">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>256</width>
+        <height>198</height>
+       </rect>
+      </property>
+      <attribute name="icon">
+       <iconset>
+        <normaloff>../../source/icon/Crawlercrane.png</normaloff>../../source/icon/Crawlercrane.png</iconset>
+      </attribute>
+      <attribute name="label">
+       <string>坐标投影(展开)</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_6">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>坐标系转换：</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="comboBox_coorProjection">
+           <item>
+            <property name="text">
+             <string>高斯坐标正算</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>高斯坐标反算</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>横轴墨卡托投影</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>大地主题正算</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>大地主题反算</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QPushButton" name="button_coorProjection">
+         <property name="text">
+          <string>执行转换</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox_4">
+         <property name="maximumSize">
+          <size>
+           <width>230</width>
+           <height>230</height>
+          </size>
+         </property>
+         <property name="title">
+          <string/>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_4">
+          <item>
+           <widget class="QTextEdit" name="textEdit"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="title">
+      <string>转换结果</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QTableWidget" name="tableWidget_result">
+        <column>
+         <property name="text">
+          <string>ID</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>X</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Y</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Z</string>
+         </property>
+        </column>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

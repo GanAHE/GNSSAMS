@@ -6,13 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
+<<<<<<< HEAD
     <width>1143</width>
     <height>682</height>
+=======
+    <width>958</width>
+    <height>532</height>
+>>>>>>> 0367410d2d6020c98991c05162feaad2ccc434fb
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
+<<<<<<< HEAD
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
     <spacer name="horizontalSpacer">
@@ -279,6 +285,95 @@
      </property>
     </spacer>
    </item>
+=======
+  <layout class="QHBoxLayout" name="horizontalLayout_2">
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QCommandLinkButton" name="commandLinkButton_2">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>150</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>欢迎使用EMACS测量软件</string>
+         </property>
+         <property name="default">
+          <bool>false</bool>
+         </property>
+         <property name="description">
+          <string>1.请在菜单栏选择相应的功能完成指定操作；
+2.该软件为工程测量相关计算的集成；
+3.详细使用帮助，请查看文档。</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>650</width>
+           <height>250</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap>../source/icon/EMACS.png</pixmap>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+>>>>>>> 0367410d2d6020c98991c05162feaad2ccc434fb
   </layout>
  </widget>
  <resources/>

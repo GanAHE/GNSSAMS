@@ -7,7 +7,15 @@ comment:
 @version 1.0.
 @contact: dinggan@whu.edu.cn
 """
+<<<<<<< HEAD
 from PyQt5 import QtWidgets, QtCore
+=======
+import os
+
+from PyQt5 import QtWidgets, QtCore
+
+from database.database import Database
+>>>>>>> 0367410d2d6020c98991c05162feaad2ccc434fb
 from window.file.operationFile import OperationFile
 
 
@@ -25,7 +33,11 @@ class FileMsg(QtCore.QObject):
         打开文件对话框
         :return:dataList
         """
+<<<<<<< HEAD
         filePath, ok = QtWidgets.QFileDialog.getOpenFileName(self.centerPanel, "打开", "./source/",
+=======
+        filePath, ok = QtWidgets.QFileDialog.getOpenFileName(self.centerPanel, "打开", Database.workspace,
+>>>>>>> 0367410d2d6020c98991c05162feaad2ccc434fb
                                                              "All Files (*);;Text Files (*.txt);;Leica GSI (*.gsi);;Kesa IN2 (*.in2)")
 
         if filePath != "":
@@ -50,7 +62,11 @@ class FileMsg(QtCore.QObject):
         else:
             fileFilter = "All Files (*);;Text Files (*.txt);;Docx Files(*.docx);;CSV Files (*.csv)"
 
+<<<<<<< HEAD
         filePath, ok = QtWidgets.QFileDialog.getSaveFileName(self.centerPanel, "打开", "./source/",fileFilter)
+=======
+        filePath, ok = QtWidgets.QFileDialog.getSaveFileName(self.centerPanel, "打开", Database.workspace,fileFilter)
+>>>>>>> 0367410d2d6020c98991c05162feaad2ccc434fb
 
         if type == "txt":
             OperationFile().writeTXTFile(data, filePath)

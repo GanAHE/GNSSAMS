@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1175</width>
+    <height>689</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../../source/icon/futuro_icons_277.png</normaloff>../../source/icon/futuro_icons_277.png</iconset>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <item>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="maximumSize">
+      <size>
+       <width>340</width>
+       <height>400</height>
+      </size>
+     </property>
+     <property name="title">
+      <string>操作</string>
+     </property>
+     <property name="flat">
+      <bool>false</bool>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_4">
+      <item>
+       <widget class="QTabWidget" name="tabWidget">
+        <property name="maximumSize">
+         <size>
+          <width>310</width>
+          <height>200</height>
+         </size>
+        </property>
+        <property name="currentIndex">
+         <number>0</number>
+        </property>
+        <property name="documentMode">
+         <bool>false</bool>
+        </property>
+        <property name="movable">
+         <bool>false</bool>
+        </property>
+        <widget class="QWidget" name="tab">
+         <attribute name="icon">
+          <iconset>
+           <normaloff>../../source/icon/hore.png</normaloff>../../source/icon/hore.png</iconset>
+         </attribute>
+         <attribute name="title">
+          <string>计算重力异常</string>
+         </attribute>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QCommandLinkButton" name="button_measure">
+            <property name="text">
+             <string>采用测量数据解算
+重力异常
+数据组成形式:
+ [ID,Lon,Lat,H,g]
+</string>
+            </property>
+            <property name="default">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCommandLinkButton" name="button_model">
+            <property name="text">
+             <string>采用重力场模型解算
+重力异常</string>
+            </property>
+            <property name="autoDefault">
+             <bool>false</bool>
+            </property>
+            <property name="default">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="tab_2">
+         <attribute name="icon">
+          <iconset>
+           <normaloff>../../source/icon/sang.png</normaloff>../../source/icon/sang.png</iconset>
+         </attribute>
+         <attribute name="title">
+          <string>海洋表面质量异常</string>
+         </attribute>
+         <layout class="QVBoxLayout" name="verticalLayout_3"/>
+        </widget>
+        <widget class="QWidget" name="tab_3">
+         <attribute name="icon">
+          <iconset>
+           <normaloff>../../source/icon/bance.png</normaloff>../../source/icon/bance.png</iconset>
+         </attribute>
+         <attribute name="title">
+          <string>其他应用</string>
+         </attribute>
+        </widget>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap>../../source/icon/eli.png</pixmap>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="title">
+      <string>输出</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QTextEdit" name="textEdit"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

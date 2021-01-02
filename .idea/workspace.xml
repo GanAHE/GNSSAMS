@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b7a252b2-b39c-42d4-9988-a33f92f7e492" name="默认更改列表" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/EMACS.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/EMACS.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
+    </list>
+    <list id="8059e693-0200-4b0e-8c16-cb9f06871c37" name="Revert &quot;&lt;add&gt;新增三维模型重建页面与基本处理逻辑&quot;" comment="Revert &quot;&lt;add&gt;新增三维模型重建页面与基本处理逻辑&quot;&#10;&#10;This reverts commit 0fb6709b">
+      <change afterPath="$PROJECT_DIR$/workspace/SatelliteOrbet/G32.png" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/GNSS/SPP/SPP_adjustment.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GNSS/SPP/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GNSS/correctionModel/ionCorrection.py" beforeDir="false" afterPath="$PROJECT_DIR$/GNSS/correctionModel/ionCorrection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GNSS/correctionModel/tropCorrection.py" beforeDir="false" afterPath="$PROJECT_DIR$/GNSS/correctionModel/tropCorrection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GNSS/orbetEtc/satelliteOrbetEtc.py" beforeDir="false" afterPath="$PROJECT_DIR$/GNSS/orbetEtc/satelliteOrbetEtc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/database.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/measureTool/coordinationTran.py" beforeDir="false" afterPath="$PROJECT_DIR$/measureTool/coordinationTran.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/template/pointsVar.js" beforeDir="false" afterPath="$PROJECT_DIR$/source/template/pointsVar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/window/GNSS/actionGetStationPositionThread.py" beforeDir="false" afterPath="$PROJECT_DIR$/window/GNSS/actionGetStationPositionThread.py" afterDir="false" />
+>>>>>>> d06e0fda85ae52ab310c31d23abe93b475492699
+    </list>
+    <list id="8059e693-0200-4b0e-8c16-cb9f06871c37" name="Revert &quot;&lt;add&gt;新增三维模型重建页面与基本处理逻辑&quot;" comment="Revert &quot;&lt;add&gt;新增三维模型重建页面与基本处理逻辑&quot;&#10;&#10;This reverts commit 0fb6709b" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="GanAHE &lt;dingganwang@foxmail.com&gt;" />
+        <option value="GanAH &lt;48412553+ganah@users.noreply.github.com&gt;" />
+      </list>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/window/windowDS.py" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="ProjectId" id="1hd6fCgI5PUmipe3DlWwCtRfbKx" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+<<<<<<< HEAD
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+=======
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../InstallSoftware/Anaconda/python.exe" />
+>>>>>>> d06e0fda85ae52ab310c31d23abe93b475492699
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RunManager" selected="Python.GNSSAMS">
+    <configuration name="GNSSAMS" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="EMACS" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GNSSAMS.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <module name="EMACS" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="D:\softwareInstall\ananconda\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/.." />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="callExModuleThread" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="EMACS" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="D:\softwareInstall\ananconda\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/.." />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/window/geodeticSurvey/callExModuleThread.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="camParaEst" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="EMACS" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="D:\softwareInstall\ananconda\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/.." />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/geodeticSurvey/mvs/camParaEst.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="config" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="EMACS" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="D:\softwareInstall\ananconda\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/.." />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../../../InstallSoftware/Anaconda/Lib/logging/config.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="videoKeyFrameToImage" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="EMACS" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="D:\softwareInstall\ananconda\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/.." />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/geodeticSurvey/mvs/videoKeyFrameToImage.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.GNSSAMS" />
+        <item itemvalue="Python.config" />
+        <item itemvalue="Python.videoKeyFrameToImage" />
+        <item itemvalue="Python.camParaEst" />
+        <item itemvalue="Python.callExModuleThread" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_NEW_TODO" value="false" />
+    <MESSAGE value="&lt;add&gt;更新开发环境，从单一python到anaconda集成，新增三维建模扩展模块" />
+    <MESSAGE value="&lt;update&gt;更新主界面菜单局域栏组成" />
+    <MESSAGE value="&lt;add&gt;新增三维模型重建页面与基本处理逻辑-2" />
+    <MESSAGE value="&lt;add&gt;新增三维模型重建页面与基本处理逻辑-3" />
+    <MESSAGE value="&lt;add&gt;新增三维模型重建页面与基本处理逻辑" />
+    <MESSAGE value="&lt;update&gt;更新三维重建页面并美化" />
+    <MESSAGE value="&lt;add&gt;新增整套三维重建处理流程" />
+    <MESSAGE value="&lt;add&gt;新增相机校正模块并修复若干bug" />
+    <MESSAGE value="&lt;fix&gt;修复相机参数估计不带入方格寸尺的问题，将误差从0.8-0.5降到0.1-0.4" />
+    <MESSAGE value="&lt;update&gt;更新三维重建相关模块：界面、后端" />
+    <option name="LAST_COMMIT_MESSAGE" value="&lt;update&gt;更新三维重建相关模块：界面、后端" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="515" y="252" key="#Notifications" timestamp="1600349127639">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="515" y="252" key="#Notifications/0.0.1536.864@0.0.1536.864" timestamp="1600349127639" />
+    <state x="223" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1600328920208">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="223" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.864@0.0.1536.864" timestamp="1600328920208" />
+    <state x="539" y="253" width="473" height="503" key="#com.intellij.tools.ToolEditorDialog" timestamp="1600957491788">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="539" y="253" width="473" height="503" key="#com.intellij.tools.ToolEditorDialog/0.0.1536.824@0.0.1536.824" timestamp="1600957491788" />
+    <state x="539" y="265" key="#com.intellij.tools.ToolEditorDialog/0.0.1536.864@0.0.1536.864" timestamp="1600333670599" />
+    <state x="587" y="71" key="#菜单和工具栏" timestamp="1600330489951">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="587" y="71" key="#菜单和工具栏/0.0.1536.864@0.0.1536.864" timestamp="1600330489951" />
+    <state x="424" y="0" width="800" height="800" key="CommitChangelistDialog2" timestamp="1600668614824">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+<<<<<<< HEAD
+    <state x="424" y="0" width="800" height="800" key="CommitChangelistDialog2/0.0.1536.864@0.0.1536.864" timestamp="1600668614824" />
+    <state width="764" height="618" key="DebuggerActiveHint" timestamp="1600437184781">
+      <screen x="0" y="0" width="1536" height="864" />
+=======
+    <state x="424" y="0" width="800" height="800" key="CommitChangelistDialog2/0.0.1536.864@0.0.1536.864" timestamp="1600620756328" />
+    <state width="764" height="590" key="DebuggerActiveHint" timestamp="1601043530787">
+      <screen x="0" y="0" width="1536" height="824" />
+>>>>>>> d06e0fda85ae52ab310c31d23abe93b475492699
+    </state>
+    <state width="764" height="590" key="DebuggerActiveHint/0.0.1536.824@0.0.1536.824" timestamp="1601043530787" />
+    <state width="764" height="618" key="DebuggerActiveHint/0.0.1536.864@0.0.1536.864" timestamp="1600437184781" />
+    <state x="93" y="93" width="1350" height="678" key="DiffContextDialog" timestamp="1600334031725">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="93" y="93" width="1350" height="678" key="DiffContextDialog/0.0.1536.864@0.0.1536.864" timestamp="1600334031725" />
+    <state x="547" y="178" key="FileChooserDialogImpl" timestamp="1600957116339">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="547" y="178" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1600957116339" />
+    <state x="547" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1600332325833" />
+<<<<<<< HEAD
+    <state width="1364" height="269" key="GridCell.Tab.0.bottom" timestamp="1601179606877">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1364" height="269" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1601179606877" />
+    <state width="1364" height="269" key="GridCell.Tab.0.center" timestamp="1601179606877">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1364" height="269" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1601179606877" />
+    <state width="1364" height="269" key="GridCell.Tab.0.left" timestamp="1601179606877">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1364" height="269" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1601179606877" />
+    <state width="1364" height="269" key="GridCell.Tab.0.right" timestamp="1601179606877">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1364" height="269" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1601179606877" />
+    <state width="1364" height="269" key="GridCell.Tab.1.bottom" timestamp="1601179606878">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1364" height="269" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1601179606878" />
+    <state width="1364" height="269" key="GridCell.Tab.1.center" timestamp="1601179606878">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1364" height="269" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1601179606878" />
+    <state width="1364" height="269" key="GridCell.Tab.1.left" timestamp="1601179606877">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1364" height="269" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1601179606877" />
+    <state width="1364" height="269" key="GridCell.Tab.1.right" timestamp="1601179606878">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1364" height="269" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1601179606878" />
+=======
+    <state width="1515" height="210" key="GridCell.Tab.0.bottom" timestamp="1601362963387">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1515" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1601362963387" />
+    <state width="1513" height="268" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1600663627588" />
+    <state width="1515" height="210" key="GridCell.Tab.0.center" timestamp="1601362963386">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1515" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1601362963386" />
+    <state width="1513" height="268" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1600663627587" />
+    <state width="1515" height="210" key="GridCell.Tab.0.left" timestamp="1601362963386">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1515" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1601362963386" />
+    <state width="1513" height="268" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1600663627587" />
+    <state width="1515" height="210" key="GridCell.Tab.0.right" timestamp="1601362963387">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1515" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1601362963387" />
+    <state width="1513" height="268" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1600663627588" />
+    <state width="1515" height="210" key="GridCell.Tab.1.bottom" timestamp="1601362963253">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1515" height="210" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1601362963253" />
+    <state width="1513" height="268" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1600663627399" />
+    <state width="1515" height="210" key="GridCell.Tab.1.center" timestamp="1601362963253">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1515" height="210" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1601362963253" />
+    <state width="1513" height="268" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1600663627399" />
+    <state width="1515" height="210" key="GridCell.Tab.1.left" timestamp="1601362963253">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1515" height="210" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1601362963253" />
+    <state width="1513" height="268" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1600663627399" />
+    <state width="1515" height="210" key="GridCell.Tab.1.right" timestamp="1601362963253">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1515" height="210" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1601362963253" />
+    <state width="1513" height="268" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1600663627399" />
+>>>>>>> d06e0fda85ae52ab310c31d23abe93b475492699
+    <state x="349" y="166" key="IDE.errors.dialog" timestamp="1600436347043">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="349" y="166" key="IDE.errors.dialog/0.0.1536.864@0.0.1536.864" timestamp="1600436347043" />
+<<<<<<< HEAD
+    <state x="277" y="76" key="SettingsEditor" timestamp="1600873091524">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="277" y="76" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1600873091524" />
+    <state x="361" y="165" key="Vcs.Push.Dialog.v2" timestamp="1600668645821">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="361" y="165" key="Vcs.Push.Dialog.v2/0.0.1536.864@0.0.1536.864" timestamp="1600668645821" />
+=======
+    <state x="299" y="28" key="SettingsEditor" timestamp="1601035052303">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="299" y="28" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1601035052303" />
+    <state x="277" y="76" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1600333673188" />
+    <state x="361" y="165" key="Vcs.Push.Dialog.v2" timestamp="1600620773476">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="361" y="165" key="Vcs.Push.Dialog.v2/0.0.1536.864@0.0.1536.864" timestamp="1600620773476" />
+    <state width="775" height="410" key="XDebugger.FullValuePopup" timestamp="1601112375245">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="775" height="410" key="XDebugger.FullValuePopup/0.0.1536.824@0.0.1536.824" timestamp="1601112375245" />
+>>>>>>> d06e0fda85ae52ab310c31d23abe93b475492699
+    <state x="618" y="52" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog" timestamp="1600620734233">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="618" y="52" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog/0.0.1536.864@0.0.1536.864" timestamp="1600620734233" />
+    <state x="430" y="173" width="672" height="647" key="search.everywhere.popup" timestamp="1601041712988">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="430" y="173" width="672" height="647" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1601041712988" />
+    <state x="430" y="181" width="672" height="678" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1600343586751" />
+  </component>
+</project>

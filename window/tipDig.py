@@ -17,6 +17,10 @@ class ActionWarnException(QtCore.QObject):
         super(ActionWarnException, self).__init__()
         self.Qwight = parentWight
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0367410d2d6020c98991c05162feaad2ccc434fb
     def actionWarnException(self, type, text):
         # 从数据库获取异常消息
         if type == "E":

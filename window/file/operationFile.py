@@ -10,6 +10,10 @@ comment:文件处理类
 import os
 import csv
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0367410d2d6020c98991c05162feaad2ccc434fb
 class OperationFile():
 
     def __init__(self):
@@ -74,4 +78,9 @@ class OperationFile():
                 csvWriter.writerow(listData)
 
             os.fsync(csvFile)
+<<<<<<< HEAD
             csvFile.close()
+=======
+            csvFile.close()
+
+>>>>>>> 0367410d2d6020c98991c05162feaad2ccc434fb

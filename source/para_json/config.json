@@ -1,1 +1,52 @@
+<<<<<<< HEAD
 {"License": "./source/LICENSE", "envir": "CPU", "speaker": 0, "workspace": "./workspace", "model": {"modelPath": "./source/model/yolo_ori.h5", "font": "./source/font/platech.ttf", "camParamPath": "E:/CodePrograme/Python/VLPRVTL/workspace/StraightRoadParam.txt", "classes_name": "./source/model/classes_name.txt", "classes_path": "./source/model/coco_classes.txt", "anchors_path": "./source/model/yolo_anchors.txt", "model_filename": "./source/model/mars-small128.pb"}, "default_speaker": 0, "default_envir": "CPU", "default_workspace": "./workspace", "default_modelPath": "./source/model/yolo_ori.h5", "default_camParamPath": "./source/model/camParam_QiJiang.txt"}
+=======
+{
+  "docxTemplate": "./source/template/leica2.docx",
+  "License": "./source/LICENSE",
+  "theme": "blank",
+  "workspace": "./workspace/",
+  "databaseFilePath": "./source/database/project.db",
+  "envir": "CPU",
+  "userBaiduAK": "",
+  "userBaiduNK": "",
+  "userCheckEllipsoid": "WGS84",
+  "elliPara": {
+    "krasovskiEllipsoid": [
+      6378245,
+      6356863.018773047,
+      0.003352329869259,
+      0.0818133340169,
+      0.0820885192947
+    ],
+    "internationalEllipsoid_1975": [
+      6378140,
+      6356755.288157528,
+      0.0033528131779,
+      0.08181922143286,
+      0.0820944688697
+    ],
+    "WGS84_Ellipsoid": [
+      6378137,
+      6356752.3142,
+      0.00335281066474748,
+      0.08181919084255,
+      0.08209443794965648
+    ],
+    "CGCS2000_Ellipsoid": [
+      6378140,
+      6356755.288157528,
+      0.00335281068,
+      0.0818191910428,
+      0.0820944381519235
+    ],
+    "userPrivateEllipsoid": [
+      6378140.256,
+      6356755.368157528,
+      0.00325281068,
+      0.0818191910428,
+      0.0820944381519235
+    ]
+  }
+}
+>>>>>>> 0367410d2d6020c98991c05162feaad2ccc434fb

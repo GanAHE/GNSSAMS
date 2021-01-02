@@ -1,0 +1,925 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""
+comment: 主函数
+
+@author: GanAH  2020/2/20.
+@version 1.0.
+@contact: dinggan@whu.edu.cn
+"""
+import sys, os
+import time
+
+from database.database import Database
+
+if hasattr(sys, 'frozen'):
+    os.environ['PATH'] = sys._MEIPASS + ";" + os.environ['PATH']
+from window import windowDS
+from PyQt5.QtWidgets import QApplication, QMainWindow, QSplashScreen,QProgressBar
+from PyQt5 import QtCore, QtGui
+
+class SplashPanel(QSplashScreen):
+
+    def __init__(self):
+        super(SplashPanel, self).__init__()
+        message_font = QtGui.QFont()
+        message_font.setBold(True)
+        message_font.setPointSize(14)
+        self.setFont(message_font)
+        # 创建启动界面，支持png透明图片
+        self.setPixmap(QtGui.QPixmap("./source/Flash.png"))
+        # 淡入效果
+        self.setWindowOpacity(0)
+        t = 0
+        while t <= 50:
+            newOpacity = self.windowOpacity() + 0.06
+            if newOpacity > 1:
+                break
+            self.setWindowOpacity(newOpacity)
+            self.show()
+            t -= 1
+            time.sleep(0.04)
+        progressBar = QProgressBar(self)
+        progressBar.setGeometry(0,self.pixmap().height()-100,self.pixmap().width(),15)
+        progressBar.show()
+
+        # 启动信息
+        self.showMessage('加载配置文件...', alignment=QtCore.Qt.AlignBottom | QtCore.Qt.AlignCenter, color=QtCore.Qt.white)
+
+        # 加载配置文件
+        # Database().loadConfigJson()
+        for i in range(101):
+            progressBar.setValue(i)
+            if i == 81:
+                self.showMessage('加载系统配置...', alignment=QtCore.Qt.AlignBottom | QtCore.Qt.AlignCenter,
+                                 color=QtCore.Qt.white)
+
+                Database().loadConfigJson()
+                time.sleep(0.03)
+            time.sleep(0.01)
+
+        self.showMessage("完成所有配置文件载入，请稍等...", alignment=QtCore.Qt.AlignBottom | QtCore.Qt.AlignCenter,
+                         color=QtCore.Qt.white)
+
+        time.sleep(1)
+        # 淡出效果
+        t = 0
+        while t <= 50:
+            newOpacity = self.windowOpacity() - 0.01
+            if newOpacity < 0:
+                break
+            self.setWindowOpacity(newOpacity)
+            t += 1
+            time.sleep(0.03)
+        # 关闭启动画面
+        # splash.close()
+
+    def mousePressEvent(self, evt):
+        pass
+        # 重写鼠标点击事件，阻止点击后消失
+
+    def mouseDoubleClickEvent(self, *args, **kwargs):
+        pass
+        # 重写鼠标双击事件，阻止出现卡顿现象
+
+    def enterEvent(self, *args, **kwargs):
+        pass
+        # 重写鼠标移动事件，阻止出现卡顿现象
+
+    def mouseMoveEvent(self, *args, **kwargs):
+        pass
+        # 重写鼠标移动事件，阻止出现卡顿现象
+
+
+if __name__ == '__main__':
+    # 窗体构建
+    app = QApplication(sys.argv)
+    # 自适应分辨率
+    QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
+    # 启动页面
+    splash = SplashPanel()
+    # 设置进程，启动加载页面时可以进行其他操作而不会卡死
+    app.processEvents()
+
+    MainWindow = QMainWindow()
+    # 界面重构存储区域
+    ui = windowDS.Ui_mainWindow()
+    ui.setupUi(MainWindow)
+    # MainWindow.show()
+    MainWindow.showMaximized()
+    splash.finish(MainWindow)
+    splash.deleteLater()
+    sys.exit(app.exec_())
+#!usr/bin/env python
+# -*- coding: utf-8 -*-
+import os         
+def all_path(dirname,fileFilter = None):
+    result = []
+    for maindir, subdir, file_name_list in os.walk(dirname):
+        for filename in file_name_list:
+            apath = os.path.join(maindir, filename)
+            if fileFilter is None:
+                result.append(apath)
+            else:
+                if apath[-len(fileFilter):] == fileFilter:
+                    result.append(apath)
+    return result
+    
+fileDir = r"E:\CodePrograme\Python\EMACS"
+fileFilterList = all_path(fileDir,"py")
+
+print(fileFilterList)
+
+# 开始逐个打开并写入一个txt文件
+resultF = open("Code.txt","w",encoding='UTF-8')
+for i in range(len(fileFilterList)):
+    with open(fileFilterList[i],"r",encoding='UTF-8') as f:
+        print("now write:",fileFilterList[i])
+        for line in f:
+            resultF.write(line)
+    f.close()
+print("finish write Files")
+resultF.close()
+
+"""
+Demonstrates using custom hillshading in a 3D surface plot.
+"""
+from mpl_toolkits.mplot3d import Axes3D
+from matplotlib import cbook
+from matplotlib import cm
+from matplotlib.colors import LightSource
+import matplotlib.pyplot as plt
+import numpy as np
+
+filename = cbook.get_sample_data('jacksboro_fault_dem.npz', asfileobj=False)
+with np.load(filename) as dem:
+    z = dem['elevation']
+    nrows, ncols = z.shape
+    x = np.linspace(dem['xmin'], dem['xmax'], ncols)
+    y = np.linspace(dem['ymin'], dem['ymax'], nrows)
+    x, y = np.meshgrid(x, y)
+
+region = np.s_[1:500, 1:500]
+x, y, z = x[region], y[region], z[region]
+
+fig, ax = plt.subplots(subplot_kw=dict(projection='3d'))
+
+ls = LightSource(270, 45)
+# To use a custom hillshading mode, override the built-in shading and pass
+# in the rgb colors of the shaded surface calculated from "shade".
+rgb = ls.shade(z, cmap=cm.gist_earth, vert_exag=0.1, blend_mode='soft')
+surf = ax.plot_surface(x, y, z, rstride=1, cstride=1, facecolors=rgb,
+                       linewidth=0, antialiased=False, shade=False)
+
+plt.show()#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""
+comment: 临时中转数据库
+
+@author: GanAH  2020/3/1.
+@version 1.0.
+@contact: dinggan@whu.edu.cn
+"""
+import json
+import os
+from database import ellipsoid
+
+
+class Database(object):
+    # 基本配置文件信息
+    configJsonPath = "./source/para_json/config.json"
+    LicensePath = None
+    envir = "CPU"
+    default_envir = "CPU"
+    speaker = 0
+    default_speaker = 0
+    workspace = None
+    default_workspace = "./workspace/"
+    # 数据库文件路径
+    databaseFilePath = None
+    databaseDefaultFilePath = "./source/database/project.db"
+
+    # 椭球参数:a,b,偏心率e,第二偏心率e'
+    ellipsoid = None
+    userCheckEllipsoid = "WGS84"
+    # 地球自转角速度rad/s -RotationalAngularVelocity
+    earth_RAV = 7.29211511467e-5
+    # 光速 m/s
+    light_speed = 299792458
+
+    localHelpDocument = "./source/template/404.html"
+    onlineHelpLink = "https://www.ganahe.top/archives/measureSoftwareHelp.html"
+    baiduMapLinkPath = "./source/template/baiduMap.html"
+    mapJSVarPath = "./source/template/pointsVar.js"
+
+    userBaiduAK = None
+    userBaiduNK = None
+
+    # 铁路曲线计算RC文件路径
+    circulaiCurveCRFilePath = None
+
+    oFilePathList = []
+    nFilePathList = []
+    sppFilePathList = []
+    sp3FilePathList = []
+    # 解算后单点数据，类型为DataFrame
+    stationPositionDataFrame = None
+
+    # 重力场反演必要文件路径
+    inversionGroupFilePath = None
+    # 重力测量数据解算重力异常
+    gravityMeasureFilePath = None
+    grivatyModelPath = None
+    gravityAnomalyData = None
+
+    def loadConfigJson(self):
+        """
+        加载Json配置文件
+        :return: None
+        """
+        # 读取json文件内容,返回字典格式
+        with open(self.configJsonPath, 'r', encoding='utf8')as fp:
+            # with open('../source/para_json/config.json', 'r', encoding='utf8')as fp:
+            dict_data = json.load(fp)
+        fp.close()
+        Database.envir = dict_data["envir"]
+        Database.workspace = dict_data["workspace"]
+        Database.databaseFilePath = dict_data["databaseFilePath"]
+        Database.userCheckEllipsoid = dict_data["userCheckEllipsoid"]
+        # 保存椭球参数
+        Database.ellipsoid = ellipsoid.Ellipsoid(WGS84=ellipsoid.WGS84(dict_data["elliPara"]["WGS84_Ellipsoid"]),
+                                                 CGCS2000=ellipsoid.CGCS2000(
+                                                     dict_data["elliPara"]["CGCS2000_Ellipsoid"]),
+                                                 krasovskiEllipsoid=ellipsoid.krasovskiEllipsoid(
+                                                     dict_data["elliPara"]["krasovskiEllipsoid"]),
+                                                 internationalEllipsoid_1975=ellipsoid.internationalEllipsoid_1975(
+                                                     dict_data["elliPara"]["internationalEllipsoid_1975"]),
+                                                 userPrivateEllipsoid=ellipsoid.userPrivateEllipsoid(
+                                                     dict_data["elliPara"]["userPrivateEllipsoid"]), )
+        Database.LicensePath = dict_data["License"]
+
+    def writeJsonKeyValue(self, key1, value, key2=None):
+        """
+        修改键值
+        :param key1: 键
+        :param value: 值
+        :param key2: 内键 主键为model时
+        :return:
+        """
+        try:
+            with open(self.configJsonPath, "r") as f:
+                jsonData = json.load(f)
+            f.close()
+            if key1 == "model" and key2 != None:  # json内字典
+                jsonData[key1][key2] = value
+                with open(self.configJsonPath, "w") as r:
+                    json.dump(jsonData, r)
+                return True
+            elif key1 != "model" and key2 is None:
+                jsonData[key1] = value
+                with open(self.configJsonPath, "w") as r2:
+                    json.dump(jsonData, r2)
+                return True
+            else:
+                return False
+        except Exception as e:
+            return e.__str__()
+
+    def connectDatabase(self):
+        # 创建一个cursor 游标（用于执行SQL语句）
+        # cursor = conn.cursor()
+        # # 执行SQL语句
+        # # 创建user表
+        # cursor.execute('create table user (id varchar(20) primary key, name varchar(20))')
+        # # 向表中插入数据
+        # cursor.execute('insert into user (id, name) values (\'1\', \'seven bai\')')
+        # # 执行查询语句
+        # cursor.execute('select * from user where id=?', ('1',))
+        # # rowcount返回影响的行数（可以在执行update，delete，inset后执行查看）
+        # cursor.rowcount
+        # # 查询结果
+        # values = cursor.fetchall()
+        # print(values)
+        # # 关闭cursor
+        # cursor.close()
+        # # 提交事务
+        # conn.commit()
+        # # 关闭数据库连接
+        # conn.close()
+        pass
+
+    # 坐标转换读入的原始数据
+    @property
+    def coorTranSourceData(self):
+        return self._coorTranSourceData
+
+    @coorTranSourceData.setter
+    def coorTranSourceData(self, fileReadData):
+        self._coorTranSourceData = fileReadData
+
+    @property
+    def coorTranTargetData(self):
+        return self._coorTranTargetData
+
+    @coorTranTargetData.setter
+    def coorTranTargetData(self, fileReadData):
+        self._coorTranTargetData = fileReadData
+
+    # 坐标系统转换原始坐标文件
+    coorSystemTranSourcePath = None
+
+    _publicPointNumber = 3
+
+    @property
+    def publicPointNumber(self):
+        return self._publicPointNumber
+
+    @publicPointNumber.setter
+    def publicPointNumber(self, count):
+        self._publicPointNumber = count
+
+    # 坐标转换结果
+    @property
+    def coorTranResultDict(self):
+        return self._coorTranResultDict
+
+    @coorTranResultDict.setter
+    def coorTranResultDict(self, resultDict):
+        self._coorTranResultDict = resultDict
+
+    @property
+    def coorTranResultFormatListData(self):
+        return self._coorTranResultFormatListData
+
+    @coorTranResultFormatListData.setter
+    def coorTranResultFormatListData(self, list):
+        self._coorTranResultFormatListData = list
+
+    @property
+    def targetPointName(self):
+        return self._coorTranResult
+
+    @targetPointName.setter
+    def targetPointName(self, resultList):
+        self._coorTranResult = resultList
+
+    # 徕卡数据
+    @property
+    def leicaSourceGsiData(self):
+        return self._leicaSourceGsiData
+
+    @leicaSourceGsiData.setter
+    def leicaSourceGsiData(self, gsiSourceStr):
+        self._leicaSourceGsiData = gsiSourceStr
+
+    @property
+    def leicaAnalysisDict(self):
+        return self._leicaAnalysisDict
+
+    @leicaAnalysisDict.setter
+    def leicaAnalysisDict(self, analysisDict):
+        self._leicaAnalysisDict = analysisDict
+
+    @property
+    def COSAControlNetMersureData(self):
+        return self._COSAControlNetMersureData
+
+    @COSAControlNetMersureData.setter
+    def COSAControlNetMersureData(self, kesaSourceData):
+        self._COSAControlNetMersureData = kesaSourceData
+
+    @property
+    def stableDotGroupMeasure_I(self):
+        return self.stableDotGroupMeasure_I
+
+    @stableDotGroupMeasure_I.setter
+    def stableDotGroupMeasure_I(self, measure_I):
+        self.stableDotGroupMeasure_I = measure_I
+
+    @property
+    def stableDotGroupMeasure_II(self):
+        return self.stableDotGroupMeasure_II
+
+    @stableDotGroupMeasure_II.setter
+    def stableDotGroupMeasure_II(self, measure_II):
+        self.stableDotGroupMeasure_II = measure_II
+
+    @property
+    def stablePointCoorGroup(self):
+        return self.stablePointCoorGroup
+
+    @stablePointCoorGroup.setter
+    def stablePointCoorGroup(self, coorGroup):
+        self.stablePointCoorGroup = coorGroup
+
+    @property
+    def filePath(self):
+        """
+        #获取文件路径
+        #解释器，设定与获取类的静态属性，MVC模式
+        #
+        #注意这下杠杠！
+        #.....我服了，不然会调用错误，Java，c就没有你这么傲娇的语言
+                                                         ------10-15
+        垃圾明明是你变量名和函数名一致了！ -----2019-12-29
+        :return:_filePath
+        """
+        return self.path
+
+    @filePath.setter
+    def filePath(self, path):
+        """
+        设定打开的文件路径
+        :param path:
+        :return:
+        """
+        self.path = path
+
+    @property
+    def collect_vetc_time(self):
+        return self._collect_vetc_time
+
+    @collect_vetc_time.setter
+    def collect_vetc_time(self, etc_time):
+        self._collect_vetc_time = etc_time
+
+    @property
+    def lat_lon(self):
+        return self._lat_lon
+
+    @lat_lon.setter
+    def lat_lon(self, lat_lon):
+        self._lat_lon = lat_lon
+
+    @property
+    def earth_vetc(self):
+        return self._earth_vetc
+
+    @earth_vetc.setter
+    def earth_vetc(self, earthETC):
+        self._earth_vetc = earthETC
+
+    """
+    # SPP导航电文及观测文件
+    """
+    _navigationMessage = None
+    _satelliteObservations = None
+
+    @property
+    def navigationMess(self):
+        return self._navigationMessage
+
+    @navigationMess.setter
+    def navigationMess(self, navigationMssData):
+        self._navigationMessage = navigationMssData
+
+    @property
+    def satelliteObs(self):
+        return self._satelliteObservations
+
+    @satelliteObs.setter
+    def satelliteObs(self, setelliteObsver):
+        self._satelliteObservations = setelliteObsver
+
+    # 异常消息处理
+    _warnExceptionText = None
+
+    @property
+    def warnExceptionText(self):
+        return self._warnExceptionText
+
+    @warnExceptionText.setter
+    def warnExceptionText(self, exceptionText):
+        self._warnExceptionText = exceptionText
+
+    # 标准气象元素
+    _To = 20  # 摄氏度
+    _Po = 1013.25  # mbar
+    _RHo = 0.5
+
+    @property
+    def standardMeteorologicalElement(self):
+        """
+        获取内部存储的标准气象元素
+        :return: list [To,Po,RHo]
+        """
+        return [self._To, self._Po, self._RHo]
+
+    @standardMeteorologicalElement.setter
+    def standardMeteorologicalElement(self, listElement):
+        """
+        设定标准气象元素
+        :param listElement: len = 3,[To,Po,RHo]
+        """
+        self._To = listElement[0]
+        self._Po = listElement[1]
+        self._RHo = listElement[2]
+
+    """
+    # 地球磁北极坐标,单位：度 在初始化时进行检查更新！
+    """
+    _fia_earth = 79.93
+    _lambda_earth = 288.04
+
+    @property
+    def earth_N_pole_coor(self):
+        return self._fia_earth, self._lambda_earth
+
+    @earth_N_pole_coor.setter
+    def earth_N_pole_coor(self, fia_earth_N_pole, lamda_earth_N_pole):
+        self._fia_earth = fia_earth_N_pole
+        self._lambda_earth = lamda_earth_N_pole
+
+    """
+    # RINEX 文件状态
+    # 存在： 1 /否： 0
+    # 文件状态 - 正常： 1 /否： 0
+    """
+    Nfile_exist = 0
+    Nfile_status = 1
+    Ofile_exist = 0
+    Ofile_status = 1
+
+    @property
+    def RINEX_status(self, file_type):
+        """
+        获取卫星文件状态信息
+        :param file_type: O-obverseFile ; N-navagate;
+        :return:exist_code:0;1
+        """
+        if file_type == "N":
+            return self.Nfile_exist, self.Nfile_status
+        elif file_type == "O":
+            return self.Ofile_exist, self.Ofile_status
+        else:
+            return -1
+
+    @RINEX_status.setter
+    def RINEX_status(self, file_type, exist_code, status_code):
+        """
+        设定文件状态信息
+        :param file_type: O-obverseFile ; N-navagate;
+        :param exist_code: 1-exist;0-not exist
+        :param status_code:1-ok;0-false
+        :return: boolean
+        """
+        # print("执行了？")
+        if file_type == "N":
+            print("测试数据库", exist_code, status_code)
+            self.Nfile_exist = exist_code
+
+            self.Nfile_status = status_code
+            print("测试数据库", self.Nfile_exist, self.Nfile_status)
+            return True
+        elif file_type == "O":
+            self.Ofile_exist = exist_code
+            self.Ofile_status = status_code
+            return True
+        else:
+            return False
+
+    def getSppFilePath(self, type=None):
+        if type.lower() == "o":
+            return self.oFilePathList
+        elif type.lower() == "n":
+            return self.nFilePathList
+        else:
+            return self.sppFilePathList
+
+    def setSppFilePath(self, fileList):
+        # 清空数据
+        Database.oFilePathList = []
+        Database.nFilePathList = []
+        Database.sppFilePathList = []
+        # 从文件列表查找相同名组
+        while len(fileList) > 1:
+            i = 1
+            if len(fileList) > 1:
+                dirIndex, fileNameSaveIndex = os.path.split(fileList[0])
+                dirSerch, fileNameSaveSerch = os.path.split(fileList[i])
+                # 找到同名文件数据组
+                if fileNameSaveIndex[:-1] == fileNameSaveSerch[:-1]:
+                    if fileNameSaveIndex[-1].lower() == "o" and fileNameSaveSerch[-1].lower() == "n":
+                        Database.oFilePathList.append(fileList[0])
+                        Database.nFilePathList.append(fileList[i])
+                    elif fileNameSaveIndex[-1].lower() == "n" and fileNameSaveSerch[-1].lower() == "o":
+                        Database.oFilePathList.append(fileList[i])
+                        Database.nFilePathList.append(fileList[0])
+                    # 删除该位置数据
+                    fileList.pop(i)
+                    fileList.pop(0)
+                else:
+                    fileList.pop(0)
+                    i += 1
+
+    def setPppFilePath(self, fileList):
+        # 清空数据
+        Database.oFilePathList = []
+        Database.sp3FilePathList = []
+        # 从文件列表查找相同名组
+        while len(fileList) > 0:
+            dirIndex, fileName = os.path.split(fileList[0])
+            if fileName[-1].lower() == "o":
+                Database.oFilePathList.append(fileList[0])
+            if fileName[-1].lower() == "3":
+                Database.sp3FilePathList.append(fileList[0])
+            # 删除该位置数据
+            fileList.pop(0)
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import re
+
+"""
+comment:数据处理集合
+
+@author: GanAH  2019/9/27.
+@version 1.0.
+@contact: dinggan@whu.edu.cn
+"""
+import sys
+from PyQt5 import QtWidgets
+
+class DataFilter(object):
+    app = QtWidgets.QApplication(sys.argv)
+    textArea = QtWidgets.QTextEdit()
+
+    headEndSign = "END OF HEADER"
+    def __init__(self,textArea):
+        
+        self.textArea = textArea
+
+
+    def staLocation(sourceArrayStrCoor):
+        """
+        单星历数据处理
+        
+        第一行为星历信息
+        后七条为广播轨道
+        :param sourceArrayStrCoor: 传入的未处理原始字符数据
+        :return: para:已处理的结果数据
+        """
+        # 广播轨道数据存储
+        filterResult = [[0] * 4 for da in range(7)]
+
+        for i in range(8):
+            PRN_time = [0, 0, 0, 0]
+            rowData = [0, 0, 0, 0]
+            # 如果为第一行星历数据
+            if i == 0:
+                print(re.split('[\s]', sourceArrayStrCoor[i].strip()))
+                strPrn = re.split('[\s]', sourceArrayStrCoor[i].strip())
+                PRN_time[0] = strPrn[0]
+                PRN_time[1] = strPrn[9]
+                PRN_time[2] = strPrn[10]
+                PRN_time[3] = strPrn[11]
+            # 广播轨道数据
+            else:
+                for j in range(4):
+                    if j == 0:
+                        rowData[j] = sourceArrayStrCoor[i][3:22]
+                    else:
+                        rowData[j] = sourceArrayStrCoor[i][(j - 1) * 19 + 22:j * 19 + 22]
+
+            filterResult[i - 1] = rowData
+
+            # 数据处理结果存入，循环i次，但第一次开始才是广播轨道数据
+        return PRN_time, filterResult
+
+    def twoMISstringToFloat(self, twoMISstrArray):
+        """
+        字符串数据转float型
+        :return: float
+        """
+        # 获取长度
+        arrayLen = len(twoMISstrArray)
+        arraychildLen = len(twoMISstrArray[0])
+        floatArray = [[0] * 4 for da in range(7)]
+        # 开始转换
+        for i in range(arrayLen):
+            for j in range(arraychildLen):
+                floatArray[i][j] = float(twoMISstrArray[i][j])
+
+        return floatArray
+
+    def igsDataFilter(self, listDatas):
+        """
+        IGS电离层数据清洗
+        :param listData:list--data
+        :return: dic-->headStr,list-->dayETC,
+        """
+        textArea = self.textArea
+        """
+        # 头文件处理体
+        # 获取头文件结束位置（行号），传递给第二循环体：数据清洗体
+        """
+        # 限定参数
+        listData = listDatas
+        headLineEndIndex = 0
+        for i in range(len(listData)):  # 划分文件
+            presentLine = listData[i].strip()  # 逐行处理,除去字符串首前尾后的空格，字符串内部不计入
+            if presentLine == self.headEndSign:
+                headLineEndIndex = i
+                break
+
+        """
+        # 采集数据清洗体
+        
+        #字典存储ETC
+        :key:时间（hours）及组号
+        :keyword:不同经度的TEC（-180~180°每隔5°采集）
+        """
+        start_etc_map = "STARTOFTECMAP"
+
+        time_list_index = []
+        TIME_LON_LAT_ETC = []
+        for i in range(headLineEndIndex + 1, len(listData)):
+            etc_map_line = listData[i].replace(" ", "")  # 去除所有的空格
+            # print("测试："+etc_map_line)
+            if (start_etc_map in etc_map_line) is True:
+                """
+                #不同时间分组处理头数据：组别listData【i】/时间listData【i+1】/及排序listData【i+2】
+                #说明：years + months + days + hours + etc_list_number
+                # i 为匹配的行号，从当前匹配的位置起算三行为预处理数据
+                """
+                # 分隔
+                etc_list_number = listData[i].split()[0]
+                textArea.append("\n匹配位置："+str(i)+ "对应序号：" + str(etc_list_number))
+                timeList = listData[i + 1].split()
+                textArea.append("时间戳："+str( timeList))
+                child_head = timeList[0] + "-" + timeList[1] + "-" + timeList[2] + "-" + timeList[
+                    3] + "-" + etc_list_number
+                textArea.append(child_head)
+                #去除时间列表无关信息
+                timeList = list(timeList)
+                for i in range(4):
+                    '''
+                    #循环pop的话，默认pop尾数(栈顶)
+                    # 如按序号pop，需要注意每次pop后总长度已经减小
+                    '''
+                    timeList.pop()
+                time_list_index.append(timeList)
+
+                """
+                # 确定组别范围后，内循环获取该组内数据
+                # 开始位置：i+1 为 START OF TECMAP的下一个：采集数据处的经纬度-高程
+                """
+                end_etc_map = "ENDOFTECMAP"
+                lat_lon_H = "LAT/LON1/LON2/DLON/H"
+                list_ETC_lat_index = []
+                list_ETC_lat_data = []
+
+                for no in range(i + 2, len(listData)):  # 遇到start etc map,从i+2即每单元开始记录
+                    list_end_control = listData[no].replace(" ", "")
+                    if (lat_lon_H in list_end_control) is True: #遇头分划另类处理输出
+                        textArea.append("---文件划分---")
+                        textArea.append(str(etc_list_number)+ "组"+str( no)+ "行：："+ str(self.__lat_lon_etc(listData[no])))
+
+                        # 删除说明注释LAT/LON1/LON2/DLON/H的纬度头文件并存入，重复13次，可优化
+                        listPop = self.__lat_lon_etc(listData[no])
+                        listPop.pop(5)
+                        list_ETC_lat_index.append(listPop)
+
+                        #内部小循环取相同纬度下不同经度数据
+                        #
+                        list_lat = []
+                        for latRound in range(no+1,no+6):
+                            datalist = listData[latRound].split()
+                            for indexData in range(len(datalist)):
+                                list_lat.append(datalist[indexData])
+                        #加入总数组
+                        TIME_LON_LAT_ETC.append(list_lat)
+
+                        #完成,加入总数组
+                        list_ETC_lat_data.append(list_lat)
+
+                    elif(end_etc_map in list_end_control) is True: #遇尾不输出，跳出当前小循环
+                        textArea.append("时间切换，下一个采集时间：------------------")
+                        break
+                    else:
+                        textArea.append(str(etc_list_number)+ "组"+str( no)+"行：："+str(listData[no].split()))
+
+
+
+
+
+
+
+            """
+            # 文件循环结束，外循环退出
+            # 标志：ENDOFFILE
+            """
+            end_of_file = "ENDOFFILE"
+            if (end_of_file in etc_map_line) is True:
+                textArea.append("\n文件清洗结束！！！！！！！！！！！\n")
+                break
+
+        textArea.append("\n===========最终结果：==========")
+        # print("  时间：",time_list_index)
+        # print("经纬度：", list_ETC_lat_index)
+        # print("三维数据：",TIME_LON_LAT_ETC)
+        # print("长度：",len(TIME_LON_LAT_ETC),len(TIME_LON_LAT_ETC[0]))
+
+
+        #返回清洗的数据结果
+        return time_list_index,list_ETC_lat_index,TIME_LON_LAT_ETC
+
+    def __lat_lon_etc(self, list_lat_lon):
+        """
+        将不同经度的ETC分隔返回
+
+        :param list_lat_lon:单纬度数据 str
+         <p>-87.5-180.0 180.0   5.0 450.0        LAT/LON1/LON2/DLON/H
+
+        :return:单行分隔数据结果
+        """
+        splitLAT_LON = [0, 0, 0, 0, 0,0]  # 13*5
+        for i in range(5):
+            if i == 0:
+                splitLAT_LON[i] = list_lat_lon[0:8]
+            else:
+                splitLAT_LON[i] = list_lat_lon[(i - 1) * 6 + 8:i * 6 + 8]
+        splitLAT_LON[5] = "LAT/LON1/LON2/DLON/H"
+        return splitLAT_LON
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""
+comment: 椭球参数类
+
+@author: GanAH  2020/7/25.
+@version 1.0.
+@contact: dinggan@whu.edu.cn
+"""
+
+
+class Ellipsoid(object):
+    def __init__(self, WGS84=None, CGCS2000=None, internationalEllipsoid_1975=None, krasovskiEllipsoid=None,
+                 userPrivateEllipsoid=None):
+        self.WGS84 = WGS84
+        self.CGCS2000 = CGCS2000
+        self.internationalEllipsoid_1975 = internationalEllipsoid_1975
+        self.krasovskiEllipsoid = krasovskiEllipsoid
+        self.userPrivateEllipsoid = userPrivateEllipsoid
+
+
+class WGS84(object):
+    def __init__(self,paraList):
+        self.a = paraList[0]
+        self.b = paraList[1]
+        # 扁率α
+        self.alpha = paraList[2]
+        self.e = paraList[3]
+        self.dot_e = paraList[4]
+        self.c = self.a * self.a / self.b
+
+
+class CGCS2000(object):
+    def __init__(self,paraList):
+        self.a = paraList[0]
+        self.b = paraList[1]
+        # 扁率α
+        self.alpha = paraList[2]
+        self.e = paraList[3]
+        self.dot_e = paraList[4]
+        self.c = self.a * self.a / self.b
+
+
+class internationalEllipsoid_1975(object):
+    def __init__(self,paraList):
+        self.a = paraList[0]
+        self.b = paraList[1]
+        # 扁率α
+        self.alpha = paraList[2]
+        self.e = paraList[3]
+        self.dot_e = paraList[4]
+        self.c = self.a * self.a / self.b
+
+
+class krasovskiEllipsoid(object):
+    def __init__(self,paraList):
+        self.a = paraList[0]
+        self.b = paraList[1]
+        # 扁率α
+        self.alpha = paraList[2]
+        self.e = paraList[3]
+        self.dot_e = paraList[4]
+        self.c = self.a * self.a / self.b
+
+
+class userPrivateEllipsoid(object):
+    def __init__(self, paraList):
+        self.a = paraList[0]
+        self.b = paraList[1]
+        # 扁率α
+        self.alpha = paraList[2]
+        self.e = paraList[3]
+        self.dot_e = paraList[4]
+        self.c = self.a * self.a / self.b#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""
+comment:
+
+@author: GanAH  2020/3/1.
+@version 1.0.
+@contact: dinggan@whu.edu.cn
+"""
