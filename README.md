@@ -9,7 +9,7 @@ tags:
   - 软件
 comments: true
 top: false
-abbrlink: measureSoftwareHelp
+abbrlink: https://dgzc.ganahe.top/
 date: 2020-08-03 21:10:49
 updated:
 ---
