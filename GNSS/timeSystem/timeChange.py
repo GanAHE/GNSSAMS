@@ -13,7 +13,7 @@ import datetime
 
 class TimeSystemChange:
     """
-    #GLTime
+    # GLTime
     """
     _year = None
     _month = None
@@ -33,7 +33,7 @@ class TimeSystemChange:
     _GPSTimeSec = None
 
     """
-    #BDTime
+    # BDTime
     """
     _BDTimeWN = None
     _BDTimeSec = None
@@ -43,7 +43,7 @@ class TimeSystemChange:
     """
     _UTC_year = None
     _UTC_month = None
-    # _UTC_day = None
+    _UTC_day = None
     _UTC_hour = None
     _UTC_minute = None
     _UTC_second = None
